@@ -1,0 +1,9 @@
+---
+title: Contact
+---
+
+- E-mail :: [[mailto:dimitri+web@lozeve.com][dimitri+web@lozeve.com]]
+- GitHub :: [[https://github.com/dlozeve/][dlozeve]]
+- LinkedIn :: [[https://www.linkedin.com/in/dimitrilozeve][Dimitri Lozeve]]
+- StackOverflow :: [[https://stackoverflow.com/story/dimitrilozeve][dimitrilozeve]]
+- Twitter :: [[https://twitter.com/DimitriLozeve][DimitriLozeve]]
