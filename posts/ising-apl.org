@@ -1,0 +1,272 @@
+---
+title: Ising model simulation in APL
+date: 2018-03-05
+tags: ising simulation montecarlo apl
+---
+
+* The APL family of languages
+
+** Why APL?
+
+I recently got interested in [[https://en.wikipedia.org/wiki/APL_(programming_language)][APL]], an /array-based/ programming
+language. In APL (and derivatives), we try to reason about programs as
+series of transformations of multi-dimensional arrays. This is exactly
+the kind of style I like in Haskell and other functional languages,
+where I also try to use higher-order functions (map, fold, etc) on
+lists or arrays. A developer only needs to understand these
+abstractions once, instead of deconstructing each loop or each
+recursive function encountered in a program.
+
+APL also tries to be a really simple and /terse/ language. This
+combined with strange Unicode characters for primitive functions and
+operators, gives it a reputation of unreadability. However, there is
+only a small number of functions to learn, and you get used really
+quickly to read them and understand what they do. Some combinations
+also occur so frequently that you can recognize them instantly (APL
+programmers call them /idioms/).
+
+** Implementations
+
+APL is actually a family of languages. The classic APL, as created by
+Ken Iverson, with strange symbols, has many implementations. I
+initially tried [[https://www.gnu.org/software/apl/][GNU APL]], but due to the lack of documentation and
+proper tooling, I went to [[https://www.dyalog.com/][Dyalog APL]] (which is proprietary, but free
+for personal use). There are also APL derivatives, that often use
+ASCII symbols: [[http://www.jsoftware.com/][J]] (free) and [[https://code.kx.com/q/][Q/kdb+]] (proprietary, but free for personal
+use).
+
+The advantage of Dyalog is that it comes with good tooling (which is
+necessary for inserting all the symbols!), a large ecosystem, and
+pretty good [[http://docs.dyalog.com/][documentation]]. If you want to start, look at [[http://www.dyalog.com/mastering-dyalog-apl.htm][/Mastering
+Dyalog APL/]] by Bernard Legrand, freely available online.
+
+* The Ising model in APL
+
+I needed a small project to try APL while I was learning. Something
+array-based, obviously. Since I already implemented a
+Metropolis-Hastings simulation of the [[./ising-model.html][Ising
+model]], which is based on a regular lattice, I decided to reimplement
+it in Dyalog APL.
+
+It is only a few lines long, but I will try to explain what it does
+step by step.
+
+The first function simply generates a random lattice filled by
+elements of $\{-1,+1\}$.
+
+#+BEGIN_SRC apl
+L←{(2×?⍵ ⍵⍴2)-3}
+#+END_SRC
+
+Let's deconstruct what is done here:
+- ⍵ is the argument of our function.
+- We generate a ⍵×⍵ matrix filled with 2, using the ~⍴~ function: ~⍵ ⍵⍴2~
+- ~?~ draws a random number between 1 and its argument. We give it our matrix to generate a random matrix of 1 and 2.
+- We multiply everything by 2 and subtract 3, so that the result is in $\{-1,+1\}$.
+- Finally, we assign the result to the name ~L~.
+
+Sample output:
+#+BEGIN_SRC apl
+      ising.L 5
+ 1 ¯1  1 ¯1  1
+ 1  1  1 ¯1 ¯1
+ 1 ¯1 ¯1 ¯1 ¯1
+ 1  1  1 ¯1 ¯1
+¯1 ¯1  1  1  1
+#+END_SRC
+
+Next, we compute the energy variation (for details on the Ising model,
+see [[./ising-model.html][my previous post]]).
+
+#+BEGIN_SRC apl
+∆E←{
+    ⎕IO←0
+    (x y)←⍺
+    N←⊃⍴⍵
+    xn←N|((x-1)y)((x+1)y)
+    yn←N|(x(y-1))(x(y+1))
+    ⍵[x;y]×+/⍵[xn,yn]
+}
+#+END_SRC
+
+- ⍺ is the left argument (coordinates of the site), ⍵ is the right argument (lattice).
+- We extract the x and y coordinates of the site.
+- ~N~ is the size of the lattice.
+- ~xn~ and ~yn~ are respectively the vertical and lateral neighbours of the site. ~N|~ takes the coordinates modulo ~N~ (so the lattice is actually a torus). (Note: we used ~⎕IO←0~ to use 0-based array indexing.)
+- ~+/~ sums over all neighbours of the site, and then we multiply by the value of the site itself to get $\Delta E$.
+
+Sample output, for site $(3, 3)$ in a random $5\times 5$ lattice:
+
+#+BEGIN_SRC apl
+      3 3ising.∆E ising.L 5
+¯4
+#+END_SRC
+
+Then comes the actual Metropolis-Hastings part:
+
+#+BEGIN_SRC apl
+U←{
+    ⎕IO←0
+    N←⊃⍴⍵
+    (x y)←?N N
+    new←⍵
+    new[x;y]×←(2×(?0)>*-⍺×x y ∆E ⍵)-1
+    new
+}
+#+END_SRC
+
+- ⍺ is the $\beta$ parameter of the Ising model, ⍵ is the lattice.
+- We draw a random site $(x,y)$ with the ~?~ function.
+- ~new~ is the lattice but with the $(x,y)$ site flipped.
+- We compute the probability $\alpha = \exp(-\beta\Delta E)$ using the ~*~ function (exponential) and our previous ~∆E~ function.
+- ~?0~ returns a uniform random number in $[0,1)$. Based on this value, we decide whether to update the lattice, and we return it.
+
+We can now bring everything together for display:
+
+#+BEGIN_SRC apl
+Ising←{' ⌹'[1+1=({10 U ⍵}⍣⍵)L ⍺]}
+#+END_SRC
+
+- We draw a random lattice of size ⍺ with ~L ⍺~.
+- We apply to it our update function, with $\beta$=10, ⍵ times (using the ~⍣~ function, which applies a function $n$ times.
+- Finally, we display -1 as a space and 1 as a domino ⌹.
+
+Final output, with a $80\times 80$ random lattice, after 50000 update
+steps:
+
+#+BEGIN_SRC apl
+      80ising.Ising 50000
+   ⌹⌹⌹⌹ ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹      ⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹          
+   ⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹ ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹           
+⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹       ⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹
+⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹       ⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹            ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹             ⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹            ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹     ⌹⌹⌹⌹⌹⌹             ⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹ ⌹⌹⌹            ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹       ⌹⌹⌹⌹⌹      ⌹       
+  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹          ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹        ⌹⌹⌹⌹      ⌹⌹⌹      
+ ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹       ⌹⌹⌹      
+ ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹    ⌹⌹⌹⌹⌹⌹      
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹              ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹          ⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹            ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹           ⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹
+⌹⌹⌹⌹ ⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹            ⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹           ⌹⌹⌹⌹                ⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹
+  ⌹ ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹ ⌹⌹⌹⌹           ⌹⌹⌹⌹                ⌹⌹⌹      ⌹⌹⌹⌹⌹         
+  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹                ⌹⌹        ⌹           
+  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹                                     
+  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹⌹                                    
+  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹           ⌹                         
+ ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹          ⌹                          
+⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹          ⌹⌹⌹⌹⌹⌹                          ⌹⌹     ⌹⌹⌹
+⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹                  ⌹⌹⌹⌹⌹⌹         ⌹               ⌹⌹⌹     ⌹⌹⌹
+⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹                   ⌹⌹⌹⌹⌹⌹                     ⌹⌹⌹⌹⌹⌹     ⌹⌹⌹
+⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹             ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹                ⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹                 ⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹              ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹ ⌹⌹⌹⌹⌹⌹⌹⌹⌹              ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹                            ⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹⌹          ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹                               ⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹                                ⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹                   ⌹⌹⌹⌹             ⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹                   ⌹⌹⌹⌹                           ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹                  ⌹⌹⌹⌹⌹⌹⌹                ⌹⌹            ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹ 
+  ⌹⌹⌹⌹                  ⌹⌹⌹⌹⌹⌹⌹              ⌹⌹⌹⌹              ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  
+  ⌹⌹⌹⌹                 ⌹⌹⌹⌹⌹⌹⌹⌹⌹             ⌹⌹⌹⌹              ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  
+  ⌹⌹⌹⌹   ⌹         ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹⌹⌹⌹              ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  
+ ⌹⌹⌹⌹⌹   ⌹ ⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  
+ ⌹⌹⌹⌹⌹   ⌹         ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  
+ ⌹⌹⌹⌹⌹             ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  
+⌹⌹⌹⌹⌹              ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹          ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹
+⌹⌹⌹⌹              ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹
+⌹⌹⌹⌹              ⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹⌹ ⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹⌹          ⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹         ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹⌹⌹⌹             ⌹          ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹                       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹            ⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹              ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹         ⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+                    ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+                       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹⌹  
+            ⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹          ⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹  
+           ⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹          ⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹  
+   ⌹⌹⌹ ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹          ⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹           ⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹             ⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹   ⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹        ⌹⌹⌹                       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹         ⌹⌹⌹                          ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹         ⌹⌹⌹    ⌹⌹                      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹         ⌹⌹⌹⌹⌹⌹⌹⌹⌹                      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       
+  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹          ⌹⌹⌹⌹⌹⌹⌹⌹                      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       
+  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹                         ⌹⌹⌹⌹⌹⌹⌹⌹       
+  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹                          ⌹⌹⌹⌹⌹⌹⌹       
+  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹         ⌹⌹⌹⌹⌹⌹                          ⌹⌹⌹          
+ ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹                        ⌹⌹⌹          
+ ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹                        ⌹⌹⌹          
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹                      ⌹⌹⌹⌹          
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹       ⌹             ⌹⌹⌹⌹⌹       ⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹ ⌹             ⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹            ⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹             ⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹
+   ⌹⌹⌹⌹⌹⌹⌹⌹             ⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹ 
+   ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹⌹⌹⌹⌹⌹           
+   ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         
+   ⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         
+#+END_SRC
+
+Complete code, with the namespace:
+
+#+BEGIN_SRC apl
+:Namespace ising
+
+        L←{(2×?⍵ ⍵⍴2)-3}
+
+        ∆E←{
+                ⎕IO←0
+                (x y)←⍺
+                N←⊃⍴⍵
+                xn←N|((x-1)y)((x+1)y)
+                yn←N|(x(y-1))(x(y+1))
+                ⍵[x;y]×+/⍵[xn,yn]
+        }
+
+        U←{
+                ⎕IO←0
+                N←⊃⍴⍵
+                (x y)←?N N
+                new←⍵
+                new[x;y]×←(2×(?0)>*-⍺×x y ∆E ⍵)-1
+                new
+        }
+
+        Ising←{' ⌹'[1+1=({10 U ⍵}⍣⍵)L ⍺]}
+
+:EndNamespace
+#+END_SRC
+
+* Conclusion
+
+The algorithm is very fast (I think it can be optimized by the
+interpreter because there is no branching), and is easy to reason
+about. The whole program fits in a few lines, and you clearly see what
+each function and each line does. It could probably be optimized
+further (I don't know every APL function yet...), and also could
+probably be golfed to a few lines (at the cost of readability?).
+
+It took me some time to write this, but Dyalog's tools make it really
+easy to insert symbols and to look up what they do. Next time, I will
+look into some ASCII-based APL descendants. J seems to have a [[http://code.jsoftware.com/wiki/NuVoc][good
+documentation]] and a tradition of /tacit definitions/, similar to the
+point-free style in Haskell. Overall, J seems well-suited to modern
+functional programming, while APL is still under the influence of its
+early days when it was more procedural. Another interesting area is K,
+Q, and their database engine kdb+, which seems to be extremely
+performant and actually used in production.
+
+Still, Unicode symbols make the code much more readable, mainly
+because there is a one-to-one link between symbols and functions,
+which cannot be maintained with only a few ASCII characters.

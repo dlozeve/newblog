@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dimitri Lozeve - Ising model simulation</title>
+    <link rel="stylesheet" href="../css/default.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <a href="../">Dimitri Lozeve</a>
+      </div>
+      <nav>
+        <a href="../">Home</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../archive.html">Archive</a>
+      </nav>
+    </header>
+
+    <main role="main">
+      <h1>Ising model simulation</h1>
+      <article>
+    <section class="header">
+        Posted on February  5, 2018
+        
+            by Dimitri Lozeve
+        
+    </section>
+    <section>
+        <p>The <a href="https://en.wikipedia.org/wiki/Ising_model">Ising model</a> is a model used to represent magnetic dipole moments in statistical physics. Physical details are on the Wikipedia page, but what is interesting is that it follows a complex probability distribution on a lattice, where each site can take the value +1 or -1.</p>
+<p><img src="../images/ising.gif" /></p>
+<h1 id="mathematical-definition">Mathematical definition</h1>
+<p>We have a lattice <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Λ</mi><annotation encoding="application/x-tex">\Lambda</annotation></semantics></math> consisting of sites <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>. For each site, there is a moment <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>k</mi></msub><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mo>−</mo><mn>1</mn><mo>,</mo><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\sigma_k \in \{ -1, +1 \}</annotation></semantics></math>. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>σ</mi><mi>k</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mrow><mi>k</mi><mo>∈</mo><mi>Λ</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\sigma =
+(\sigma_k)_{k\in\Lambda}</annotation></semantics></math> is called the <em>configuration</em> of the lattice.</p>
+<p>The total energy of the configuration is given by the <em>Hamiltonian</em> <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo stretchy="false" form="prefix">(</mo><mi>σ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo>−</mo><munder><mo>∑</mo><mrow><mi>i</mi><mo>∼</mo><mi>j</mi></mrow></munder><msub><mi>J</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mspace width="0.167em"></mspace><msub><mi>σ</mi><mi>i</mi></msub><mspace width="0.167em"></mspace><msub><mi>σ</mi><mi>j</mi></msub><mo>,</mo></mrow><annotation encoding="application/x-tex">
+H(\sigma) = -\sum_{i\sim j} J_{ij}\, \sigma_i\, \sigma_j,
+</annotation></semantics></math> where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>∼</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">i\sim j</annotation></semantics></math> denotes <em>neighbours</em>, and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math> is the <em>interaction matrix</em>.</p>
+<p>The <em>configuration probability</em> is given by: <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>π</mi><mi>β</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>σ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><msup><mi>e</mi><mrow><mo>−</mo><mi>β</mi><mi>H</mi><mo stretchy="false" form="prefix">(</mo><mi>σ</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><msub><mi>Z</mi><mi>β</mi></msub></mfrac></mrow><annotation encoding="application/x-tex">
+\pi_\beta(\sigma) = \frac{e^{-\beta H(\sigma)}}{Z_\beta}
+</annotation></semantics></math> where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>k</mi><mi>B</mi></msub><mi>T</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\beta = (k_B T)^{-1}</annotation></semantics></math> is the inverse temperature, and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Z</mi><mi>β</mi></msub><annotation encoding="application/x-tex">Z_\beta</annotation></semantics></math> the normalisation constant.</p>
+<p>For our simulation, we will use a constant interaction term <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">J &gt; 0</annotation></semantics></math>. If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>i</mi></msub><mo>=</mo><msub><mi>σ</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">\sigma_i = \sigma_j</annotation></semantics></math>, the probability will be proportional to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>exp</mo><mo stretchy="false" form="prefix">(</mo><mi>β</mi><mi>J</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\exp(\beta J)</annotation></semantics></math>, otherwise it would be <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>exp</mo><mo stretchy="false" form="prefix">(</mo><mi>β</mi><mi>J</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\exp(\beta J)</annotation></semantics></math>. Thus, adjacent spins will try to align themselves.</p>
+<h1 id="simulation">Simulation</h1>
+<p>The Ising model is generally simulated using Markov Chain Monte Carlo (MCMC), with the <a href="https://en.wikipedia.org/wiki/Metropolis%E2%80%93Hastings_algorithm">Metropolis-Hastings</a> algorithm.</p>
+<p>The algorithm starts from a random configuration and runs as follows:</p>
+<ol>
+<li>Select a site <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math> at random and reverse its spin: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><msub><mi>′</mi><mi>i</mi></msub><mo>=</mo><mo>−</mo><msub><mi>σ</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\sigma'_i = -\sigma_i</annotation></semantics></math></li>
+<li>Compute the variation in energy (hamiltonian) <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mi>E</mi><mo>=</mo><mi>H</mi><mo stretchy="false" form="prefix">(</mo><mi>σ</mi><mi>′</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>H</mi><mo stretchy="false" form="prefix">(</mo><mi>σ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Delta E = H(\sigma') - H(\sigma)</annotation></semantics></math></li>
+<li>If the energy is lower, accept the new configuration</li>
+<li>Otherwise, draw a uniform random number <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>∈</mo><mo stretchy="false" form="postfix">]</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="prefix">[</mo></mrow><annotation encoding="application/x-tex">u \in ]0,1[</annotation></semantics></math> and accept the new configuration if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>&lt;</mo><mo>min</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><msup><mi>e</mi><mrow><mo>−</mo><mi>β</mi><mi>Δ</mi><mi>E</mi></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">u &lt; \min(1, e^{-\beta \Delta E})</annotation></semantics></math>.</li>
+</ol>
+<h1 id="implementation">Implementation</h1>
+<p>The simulation is in Clojure, using the <a href="http://quil.info/">Quil library</a> (a <a href="https://processing.org/">Processing</a> library for Clojure) to display the state of the system.</p>
+<p>This post is “literate Clojure”, and contains <a href="https://github.com/dlozeve/ising-model/blob/master/src/ising_model/core.clj"><code>core.clj</code></a>. The complete project can be found on <a href="https://github.com/dlozeve/ising-model">GitHub</a>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb1-1" title="1">(<span class="kw">ns</span> ising-model.core</a>
+<a class="sourceLine" id="cb1-2" title="2">  (<span class="at">:require</span> [quil.core <span class="at">:as</span> q]</a>
+<a class="sourceLine" id="cb1-3" title="3">        [quil.middleware <span class="at">:as</span> m]))</a></code></pre></div>
+<p>The application works with Quil’s <a href="https://github.com/quil/quil/wiki/Functional-mode-(fun-mode)">functional mode</a>, with each function taking a state and returning an updated state at each time step.</p>
+<p>The <code>setup</code> function generates the initial state, with random initial spins. It also sets the frame rate. The matrix is a single vector in row-major mode. The state also holds relevant parameters for the simulation: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math>, and the iteration step.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb2-1" title="1">(<span class="bu">defn</span><span class="fu"> setup </span>[size]</a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="st">&quot;Setup the display parameters and the initial state&quot;</span></a>
+<a class="sourceLine" id="cb2-3" title="3">  (q/frame-rate <span class="dv">300</span>)</a>
+<a class="sourceLine" id="cb2-4" title="4">  (q/color-mode <span class="at">:hsb</span>)</a>
+<a class="sourceLine" id="cb2-5" title="5">  (<span class="kw">let</span> [matrix (<span class="kw">vec</span> (<span class="kw">repeatedly</span> (<span class="kw">*</span> size size) #(<span class="kw">-</span> (<span class="kw">*</span> <span class="dv">2</span> (<span class="kw">rand-int</span> <span class="dv">2</span>)) <span class="dv">1</span>)))]</a>
+<a class="sourceLine" id="cb2-6" title="6">    {<span class="at">:grid-size</span> size</a>
+<a class="sourceLine" id="cb2-7" title="7">     <span class="at">:matrix</span> matrix</a>
+<a class="sourceLine" id="cb2-8" title="8">     <span class="at">:beta</span> <span class="dv">10</span></a>
+<a class="sourceLine" id="cb2-9" title="9">     <span class="at">:intensity</span> <span class="dv">10</span></a>
+<a class="sourceLine" id="cb2-10" title="10">     <span class="at">:iteration</span> <span class="dv">0</span>}))</a></code></pre></div>
+<p>Given a site <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>, we reverse its spin to generate a new configuration state.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb3-1" title="1">(<span class="bu">defn</span><span class="fu"> toggle-state </span>[state i]</a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="st">&quot;Compute the new state when we toggle a cell's value&quot;</span></a>
+<a class="sourceLine" id="cb3-3" title="3">  (<span class="kw">let</span> [matrix (<span class="at">:matrix</span> state)]</a>
+<a class="sourceLine" id="cb3-4" title="4">    (<span class="kw">assoc</span> state <span class="at">:matrix</span> (<span class="kw">assoc</span> matrix i (<span class="kw">*</span> <span class="dv">-1</span> (matrix i))))))</a></code></pre></div>
+<p>In order to decide whether to accept this new state, we compute the difference in energy introduced by reversing site <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>: <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mi>E</mi><mo>=</mo><mi>J</mi><msub><mi>σ</mi><mi>i</mi></msub><munder><mo>∑</mo><mrow><mi>j</mi><mo>∼</mo><mi>i</mi></mrow></munder><msub><mi>σ</mi><mi>j</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex"> \Delta E =
+J\sigma_i \sum_{j\sim i} \sigma_j.  </annotation></semantics></math></p>
+<p>The <code>filter some?</code> is required to eliminate sites outside of the boundaries of the lattice.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb4-1" title="1">(<span class="bu">defn</span><span class="fu"> get-neighbours </span>[state idx]</a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="st">&quot;Return the values of a cell's neighbours&quot;</span></a>
+<a class="sourceLine" id="cb4-3" title="3">  [(<span class="kw">get</span> (<span class="at">:matrix</span> state) (<span class="kw">-</span> idx (<span class="at">:grid-size</span> state)))</a>
+<a class="sourceLine" id="cb4-4" title="4">   (<span class="kw">get</span> (<span class="at">:matrix</span> state) (<span class="kw">dec</span> idx))</a>
+<a class="sourceLine" id="cb4-5" title="5">   (<span class="kw">get</span> (<span class="at">:matrix</span> state) (<span class="kw">inc</span> idx))</a>
+<a class="sourceLine" id="cb4-6" title="6">   (<span class="kw">get</span> (<span class="at">:matrix</span> state) (<span class="kw">+</span> (<span class="at">:grid-size</span> state) idx))])</a>
+<a class="sourceLine" id="cb4-7" title="7"></a>
+<a class="sourceLine" id="cb4-8" title="8">(<span class="bu">defn</span><span class="fu"> delta-e </span>[state i]</a>
+<a class="sourceLine" id="cb4-9" title="9">  <span class="st">&quot;Compute the energy difference introduced by a particular cell&quot;</span></a>
+<a class="sourceLine" id="cb4-10" title="10">  (<span class="kw">*</span> (<span class="at">:intensity</span> state) ((<span class="at">:matrix</span> state) i)</a>
+<a class="sourceLine" id="cb4-11" title="11">     (<span class="kw">reduce</span> <span class="kw">+</span> (<span class="kw">filter</span> some? (get-neighbours state i)))))</a></code></pre></div>
+<p>We also add a function to compute directly the hamiltonian for the entire configuration state. We can use it later to log its values across iterations.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb5-1" title="1">(<span class="bu">defn</span><span class="fu"> hamiltonian </span>[state]</a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="st">&quot;Compute the Hamiltonian of a configuration state&quot;</span></a>
+<a class="sourceLine" id="cb5-3" title="3">  (<span class="kw">-</span> (<span class="kw">reduce</span> <span class="kw">+</span> (<span class="kw">for</span> [i (<span class="kw">range</span> (<span class="kw">count</span> (<span class="at">:matrix</span> state)))</a>
+<a class="sourceLine" id="cb5-4" title="4">             j (<span class="kw">filter</span> some? (get-neighbours state i))]</a>
+<a class="sourceLine" id="cb5-5" title="5">         (<span class="kw">*</span> (<span class="at">:intensity</span> state) ((<span class="at">:matrix</span> state) i) j)))))</a></code></pre></div>
+<p>Finally, we put everything together in the <code>update-state</code> function, which will decide whether to accept or reject the new configuration.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb6-1" title="1">(<span class="bu">defn</span><span class="fu"> update-state </span>[state]</a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="st">&quot;Accept or reject a new state based on energy</span></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="st">  difference (Metropolis-Hastings)&quot;</span></a>
+<a class="sourceLine" id="cb6-4" title="4">  (<span class="kw">let</span> [i (<span class="kw">rand-int</span> (<span class="kw">count</span> (<span class="at">:matrix</span> state)))</a>
+<a class="sourceLine" id="cb6-5" title="5">    new-state (toggle-state state i)</a>
+<a class="sourceLine" id="cb6-6" title="6">    alpha (q/exp (<span class="kw">-</span> (<span class="kw">*</span> (<span class="at">:beta</span> state) (delta-e state i))))]</a>
+<a class="sourceLine" id="cb6-7" title="7">    <span class="co">;;(println (hamiltonian new-state))</span></a>
+<a class="sourceLine" id="cb6-8" title="8">    (<span class="kw">update</span> (<span class="kw">if</span> (<span class="kw">&lt;</span> (<span class="kw">rand</span>) alpha) new-state state)</a>
+<a class="sourceLine" id="cb6-9" title="9">        <span class="at">:iteration</span> <span class="kw">inc</span>)))</a></code></pre></div>
+<p>The last thing to do is to draw the new configuration:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb7-1" title="1">(<span class="bu">defn</span><span class="fu"> draw-state </span>[state]</a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="st">&quot;Draw a configuration state as a grid&quot;</span></a>
+<a class="sourceLine" id="cb7-3" title="3">  (q/background <span class="dv">255</span>)</a>
+<a class="sourceLine" id="cb7-4" title="4">  (<span class="kw">let</span> [cell-size (<span class="kw">quot</span> (q/width) (<span class="at">:grid-size</span> state))]</a>
+<a class="sourceLine" id="cb7-5" title="5">    (<span class="kw">doseq</span> [[i v] (map-indexed <span class="kw">vector</span> (<span class="at">:matrix</span> state))]</a>
+<a class="sourceLine" id="cb7-6" title="6">  (<span class="kw">let</span> [x (<span class="kw">*</span> cell-size (<span class="kw">rem</span> i (<span class="at">:grid-size</span> state)))</a>
+<a class="sourceLine" id="cb7-7" title="7">        y (<span class="kw">*</span> cell-size  (<span class="kw">quot</span> i (<span class="at">:grid-size</span> state)))]</a>
+<a class="sourceLine" id="cb7-8" title="8">    (q/no-stroke)</a>
+<a class="sourceLine" id="cb7-9" title="9">    (q/fill</a>
+<a class="sourceLine" id="cb7-10" title="10">     (<span class="kw">if</span> (<span class="kw">=</span> <span class="dv">1</span> v) <span class="dv">0</span> <span class="dv">255</span>))</a>
+<a class="sourceLine" id="cb7-11" title="11">    (q/rect x y cell-size cell-size))))</a>
+<a class="sourceLine" id="cb7-12" title="12">  <span class="co">;;(when (zero? (mod (:iteration state) 50)) (q/save-frame &quot;img/ising-######.jpg&quot;))</span></a>
+<a class="sourceLine" id="cb7-13" title="13">  )</a></code></pre></div>
+<p>And to reset the simulation when the user clicks anywhere on the screen:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb8-1" title="1">(<span class="bu">defn</span><span class="fu"> mouse-clicked </span>[state event]</a>
+<a class="sourceLine" id="cb8-2" title="2">  <span class="st">&quot;When the mouse is clicked, reset the configuration to a random one&quot;</span></a>
+<a class="sourceLine" id="cb8-3" title="3">  (setup <span class="dv">100</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb9-1" title="1">(q/defsketch ising-model</a>
+<a class="sourceLine" id="cb9-2" title="2">  <span class="at">:title</span> <span class="st">&quot;Ising model&quot;</span></a>
+<a class="sourceLine" id="cb9-3" title="3">  <span class="at">:size</span> [<span class="dv">300</span> <span class="dv">300</span>]</a>
+<a class="sourceLine" id="cb9-4" title="4">  <span class="at">:setup</span> #(setup <span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb9-5" title="5">  <span class="at">:update</span> update-state</a>
+<a class="sourceLine" id="cb9-6" title="6">  <span class="at">:draw</span> draw-state</a>
+<a class="sourceLine" id="cb9-7" title="7">  <span class="at">:mouse-clicked</span> mouse-clicked</a>
+<a class="sourceLine" id="cb9-8" title="8">  <span class="at">:features</span> [<span class="at">:keep-on-top</span> <span class="at">:no-bind-output</span>]</a>
+<a class="sourceLine" id="cb9-9" title="9">  <span class="at">:middleware</span> [m/fun-mode])</a></code></pre></div>
+<h1 id="conclusion">Conclusion</h1>
+<p>The Ising model is a really easy (and common) example use of MCMC and Metropolis-Hastings. It allows to easily and intuitively understand how the algorithm works, and to make nice visualizations!</p>
+    </section>
+</article>
+
+    </main>
+
+    <footer>
+      Site proudly generated by
+      <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+    </footer>
+  </body>
+</html>
