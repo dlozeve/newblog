@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dimitri Lozeve - Generating and representing L-systems</title>
     <link rel="stylesheet" href="../css/default.css" />
+    <link rel="stylesheet" href="../css/syntax.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
   </head>
   <body>
     <header>
@@ -40,29 +42,29 @@
 <h2 id="definition">Definition</h2>
 <p>An <a href="https://en.wikipedia.org/wiki/L-system">L-system</a> is a set of rewriting rules generating sequences of symbols. Formally, an L-system is a triplet of:</p>
 <ul>
-<li>an <em>alphabet</em> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math> (an arbitrary set of symbols)</li>
-<li>an <em>axiom</em> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ω</mi><annotation encoding="application/x-tex">\omega</annotation></semantics></math>, which is a non-empty word of the alphabet (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ω</mi><mo>∈</mo><msup><mi>V</mi><mo>+</mo></msup></mrow><annotation encoding="application/x-tex">\omega \in V^+</annotation></semantics></math>)</li>
-<li>a set of <em>rewriting rules</em> (or <em>productions</em>) <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>, each mapping a symbol to a word: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>⊂</mo><mi>V</mi><mo>×</mo><msup><mi>V</mi><mo>*</mo></msup></mrow><annotation encoding="application/x-tex">P \subset V \times V^*</annotation></semantics></math>. Symbols not present in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math> are assumed to be mapped to themselves.</li>
+<li>an <em>alphabet</em> <span class="math inline">\(V\)</span> (an arbitrary set of symbols)</li>
+<li>an <em>axiom</em> <span class="math inline">\(\omega\)</span>, which is a non-empty word of the alphabet (<span class="math inline">\(\omega \in V^+\)</span>)</li>
+<li>a set of <em>rewriting rules</em> (or <em>productions</em>) <span class="math inline">\(P\)</span>, each mapping a symbol to a word: <span class="math inline">\(P \subset V \times V^*\)</span>. Symbols not present in <span class="math inline">\(P\)</span> are assumed to be mapped to themselves.</li>
 </ul>
-<p>During an iteration, the algorithm takes each symbol in the current word and replaces it by the value in its rewriting rule. Not that the output of the rewriting rule can be absolutely <em>anything</em> in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>V</mi><mo>*</mo></msup><annotation encoding="application/x-tex">V^*</annotation></semantics></math>, including the empty word! (So yes, you can generate symbols just to delete them afterwards.)</p>
+<p>During an iteration, the algorithm takes each symbol in the current word and replaces it by the value in its rewriting rule. Not that the output of the rewriting rule can be absolutely <em>anything</em> in <span class="math inline">\(V^*\)</span>, including the empty word! (So yes, you can generate symbols just to delete them afterwards.)</p>
 <p>At this point, an L-system is nothing more than a way to generate very long strings of characters. In order to get something useful out of this, we have to give them <em>meaning</em>.</p>
 <h2 id="drawing-instructions-and-representation">Drawing instructions and representation</h2>
-<p>Our objective is to draw the output of the L-system in order to visually inspect the output. The most common way is to interpret the output as a sequence of instruction for a LOGO-like drawing turtle. For instance, a simple alphabet consisting only in the symbols <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>, and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>−</mo><annotation encoding="application/x-tex">-</annotation></semantics></math> could represent the instructions “move forward”, “turn right by 90°”, and “turn left by 90°” respectively.</p>
+<p>Our objective is to draw the output of the L-system in order to visually inspect the output. The most common way is to interpret the output as a sequence of instruction for a LOGO-like drawing turtle. For instance, a simple alphabet consisting only in the symbols <span class="math inline">\(F\)</span>, <span class="math inline">\(+\)</span>, and <span class="math inline">\(-\)</span> could represent the instructions “move forward”, “turn right by 90°”, and “turn left by 90°” respectively.</p>
 <p>Thus, we add new components to our definition of L-systems:</p>
 <ul>
-<li>a set of <em>instructions</em>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math>. These are limited by the capabilities of our imagined turtle, so we can assume that they are the same for every L-system we will consider:
+<li>a set of <em>instructions</em>, <span class="math inline">\(I\)</span>. These are limited by the capabilities of our imagined turtle, so we can assume that they are the same for every L-system we will consider:
 <ul>
 <li><code>Forward</code> makes the turtle draw a straight segment.</li>
 <li><code>TurnLeft</code> and <code>TurnRight</code> makes the turtle turn on itself by a given angle.</li>
 <li><code>Push</code> and <code>Pop</code> allow the turtle to store and retrieve its position on a stack. This will allow for branching in the turtle’s path.</li>
 <li><code>Stay</code>, which orders the turtle to do nothing.</li>
 </ul></li>
-<li>a <em>distance</em> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>∈</mo><mstyle mathvariant="double-struck"><msub><mi>ℝ</mi><mo>+</mo></msub></mstyle></mrow><annotation encoding="application/x-tex">d \in \mathbb{R_+}</annotation></semantics></math>, i.e. how long should each forward segment should be.</li>
-<li>an <em>angle</em> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math> used for rotation.</li>
-<li>a set of <em>representation rules</em> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>⊂</mo><mi>V</mi><mo>×</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">R \subset V \times I</annotation></semantics></math>. As before, they will match a symbol to an instruction. Symbols not matched by any rule will be associated to <code>Stay</code>.</li>
+<li>a <em>distance</em> <span class="math inline">\(d \in \mathbb{R_+}\)</span>, i.e. how long should each forward segment should be.</li>
+<li>an <em>angle</em> <span class="math inline">\(\theta\)</span> used for rotation.</li>
+<li>a set of <em>representation rules</em> <span class="math inline">\(R \subset V \times I\)</span>. As before, they will match a symbol to an instruction. Symbols not matched by any rule will be associated to <code>Stay</code>.</li>
 </ul>
-<p>Finally, our complete L-system, representable by a turtle with capabilities <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math>, can be defined as <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>V</mi><mo>,</mo><mi>ω</mi><mo>,</mo><mi>P</mi><mo>,</mo><mi>d</mi><mo>,</mo><mi>θ</mi><mo>,</mo><mi>R</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex"> L = (V, \omega, P, d, \theta,
-R). </annotation></semantics></math></p>
+<p>Finally, our complete L-system, representable by a turtle with capabilities <span class="math inline">\(I\)</span>, can be defined as <span class="math display">\[ L = (V, \omega, P, d, \theta,
+R). \]</span></p>
 <p>One could argue that the representation is not part of the L-system, and that the same L-system could be represented differently by changing the representation rules. However, in our setting, we won’t observe the L-system other than by displaying it, so we might as well consider that two systems differing only by their representation rules are different systems altogether.</p>
 <h1 id="implementation-details">Implementation details</h1>
 <h2 id="the-lsystem-data-type">The <code>LSystem</code> data type</h2>

@@ -78,6 +78,6 @@ customPandocCompiler =
       newExtensions = defaultExtensions `mappend` customExtensions
       writerOptions = defaultHakyllWriterOptions
         { writerExtensions = newExtensions
-        , writerHTMLMathMethod = MathML
+        , writerHTMLMathMethod = MathJax ""
         }
   in pandocCompilerWith defaultHakyllReaderOptions writerOptions
