@@ -49,6 +49,25 @@ main = hakyll $ do
         >>= loadAndApplyTemplate "templates/default.html" archiveCtx
         >>= relativizeUrls
 
+  match "projects/*" $ do
+    route $ setExtension "html"
+    compile $ customPandocCompiler
+      >>= loadAndApplyTemplate "templates/project.html" postCtx
+      >>= loadAndApplyTemplate "templates/default.html" postCtx
+      >>= relativizeUrls
+
+  create ["projects.html"] $ do
+    route idRoute
+    compile $ do
+      posts <- recentFirst =<< loadAll "projects/*"
+      let archiveCtx =
+            listField "projects" postCtx (return posts) `mappend`
+            constField "title" "Projects"               `mappend`
+            defaultContext
+      makeItem ""
+        >>= loadAndApplyTemplate "templates/projects.html" archiveCtx
+        >>= loadAndApplyTemplate "templates/default.html" archiveCtx
+        >>= relativizeUrls
 
   match "index.html" $ do
     route idRoute
