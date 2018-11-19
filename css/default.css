@@ -9,6 +9,8 @@ html {
 body {
     font-size: 1.6rem;
     color: #000;
+    counter-reset: theorem;
+    counter-reset: definition;
 }
 
 header {
@@ -59,6 +61,53 @@ a.icon {
     Text-decoration: none;
     outline: none;
     border: 0px none transparent;
+}
+
+.definition, .proposition, .theorem {
+    display: block;
+    border: 1px solid #000;
+    padding: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.proposition, .theorem {
+    font-style: italic;
+}
+
+.definition p, .proposition p, .theorem p, .proof p {
+    display: inline;
+}
+
+.theorem:before {
+    counter-increment: theorem;
+    content: "Theorem " counter(theorem) ". ";
+    font-weight: bold;
+    font-style: normal;
+}
+
+.proposition:before {
+    counter-increment: theorem;
+    content: "Proposition " counter(theorem) ". ";
+    font-weight: bold;
+    font-style: normal;
+}
+
+.definition:before {
+    counter-increment: definition;
+    content: "Definition " counter(definition) ". ";
+    font-weight: bold;
+    font-style: normal;
+}
+
+.proof:before {
+    content: "Proof:";
+    font-style: italic;
+}
+
+.proof:after {
+    content: "\220E";
+    float: right;
 }
 
 @media (max-width: 319px) {
