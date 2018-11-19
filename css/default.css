@@ -55,6 +55,12 @@ article .header {
     text-decoration: none;
 }
 
+a.icon {
+    Text-decoration: none;
+    outline: none;
+    border: 0px none transparent;
+}
+
 @media (max-width: 319px) {
     body {
 	width: 90%;
