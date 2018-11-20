@@ -65,8 +65,8 @@ a.icon {
 
 .definition, .proposition, .theorem {
     display: block;
-    border: 1px solid #000;
-    padding: 1rem;
+    border-left: 2px solid #808080;
+    padding-left: 1rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
@@ -75,8 +75,14 @@ a.icon {
     font-style: italic;
 }
 
-.definition p, .proposition p, .theorem p, .proof p {
+.definition p:first-child, .proposition p:first-child, .theorem p:first-child, .proof p:first-child {
     display: inline;
+}
+
+.definition p, .proposition p, .theorem p, .proof p {
+    margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
+    padding-left: 1rem;
 }
 
 .theorem:before {
