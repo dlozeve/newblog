@@ -72,6 +72,7 @@ a.icon {
 }
 
 .proposition, .theorem {
+    counter-increment: theorem;
     font-style: italic;
 }
 
@@ -86,28 +87,26 @@ a.icon {
 }
 
 .theorem:before {
-    counter-increment: theorem;
-    content: "Theorem " counter(theorem) ". ";
+    content: "Theorem " counter(theorem) ".";
     font-weight: bold;
     font-style: normal;
 }
 
 .proposition:before {
-    counter-increment: theorem;
-    content: "Proposition " counter(theorem) ". ";
+    content: "Proposition " counter(theorem) ".";
     font-weight: bold;
     font-style: normal;
 }
 
 .definition:before {
     counter-increment: definition;
-    content: "Definition " counter(definition) ". ";
+    content: "Definition " counter(definition) ".";
     font-weight: bold;
     font-style: normal;
 }
 
 .proof:before {
-    content: "Proof:";
+    content: "Proof.";
     font-style: italic;
 }
 
