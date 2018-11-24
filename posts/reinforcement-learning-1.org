@@ -87,11 +87,43 @@ where $T$ can be infinite or $\gamma$ can be 1, but not both.
 
 * Deciding what to do: policies
 
-# TODO
-
-Coming soon...
-
 ** Defining our policy and its value
+
+A /policy/ is a way for the agent to choose the next action to
+perform.
+
+#+begin_definition
+A /policy/ is a function $\pi$ defined as
+\begin{align}
+\pi &: \mathcal{A} \times \mathcal{S} \mapsto [0,1] \\
+\pi(a \;|\; s) &:= \mathbb{P}(A_t=a \;|\; S_t=s).
+\end{align}
+#+end_definition
+
+In order to compare policies, we need to associate values to them.
+
+#+begin_definition
+The /state-value function/ of a policy $\pi$ is
+\begin{align}
+v_{\pi} &: \mathcal{S} \mapsto \mathbb{R} \\
+v_{\pi}(s) &:= \text{expected return when starting in $s$ and following $\pi$} \\
+v_{\pi}(s) &:= \mathbb{E}_{\pi}\left[ G_t \;|\; S_t=s\right] \\
+v_{\pi}(s) &= \mathbb{E}_{\pi}\left[ \sum_{k=0}^{\infty} \gamma^k R_{t+k+1} \;|\; S_t=s\right]
+\end{align}
+#+end_definition
+
+We can also compute the value starting from a state $s$ by also taking
+into account the action taken $a$.
+
+#+begin_definition
+The /action-value function/ of a policy $\pi$ is
+\begin{align}
+q_{\pi} &: \mathcal{S} \times \mathcal{A} \mapsto \mathbb{R} \\
+q_{\pi}(s,a) &:= \text{expected return when starting from $s$, taking action $a$, and following $\pi$} \\
+q_{\pi}(s,a) &:= \mathbb{E}_{\pi}\left[ G_t \;|\; S_t=s, A_t=a \right] \\
+q_{\pi}(s,a) &= \mathbb{E}_{\pi}\left[ \sum_{k=0}^{\infty} \gamma^k R_{t+k+1} \;|\; S_t=s, A_t=a\right]
+\end{align}
+#+end_definition
 
 ** The quest for the optimal policy
 

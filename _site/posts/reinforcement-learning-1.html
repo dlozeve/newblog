@@ -81,8 +81,38 @@ r(s,a) &amp;:= \mathbb{E}[R_t \;|\; S_{t-1}=s, A_{t-1}=a] \\
 <p>The <em>discounted return</em> is the sum of all future rewards, with a multiplicative factor to give more weights to more immediate rewards: <span class="math display">\[ G_t := \sum_{k=t+1}^T \gamma^{k-t-1} R_k, \]</span> where <span class="math inline">\(T\)</span> can be infinite or <span class="math inline">\(\gamma\)</span> can be 1, but not both.</p>
 </div>
 <h1 id="deciding-what-to-do-policies">Deciding what to do: policies</h1>
-<p>Coming soon…</p>
 <h2 id="defining-our-policy-and-its-value">Defining our policy and its value</h2>
+<p>A <em>policy</em> is a way for the agent to choose the next action to perform.</p>
+<div class="definition">
+<p>A <em>policy</em> is a function <span class="math inline">\(\pi\)</span> defined as</p>
+<span class="math display">\[\begin{align}
+\pi &amp;: \mathcal{A} \times \mathcal{S} \mapsto [0,1] \\
+\pi(a \;|\; s) &amp;:= \mathbb{P}(A_t=a \;|\; S_t=s).
+\end{align}
+\]</span>
+</div>
+<p>In order to compare policies, we need to associate values to them.</p>
+<div class="definition">
+<p>The <em>state-value function</em> of a policy <span class="math inline">\(\pi\)</span> is</p>
+<span class="math display">\[\begin{align}
+v_{\pi} &amp;: \mathcal{S} \mapsto \mathbb{R} \\
+v_{\pi}(s) &amp;:= \text{expected return when starting in $s$ and following $\pi$} \\
+v_{\pi}(s) &amp;:= \mathbb{E}_{\pi}\left[ G_t \;|\; S_t=s\right] \\
+v_{\pi}(s) &amp;= \mathbb{E}_{\pi}\left[ \sum_{k=0}^{\infty} \gamma^k R_{t+k+1} \;|\; S_t=s\right]
+\end{align}
+\]</span>
+</div>
+<p>We can also compute the value starting from a state <span class="math inline">\(s\)</span> by also taking into account the action taken <span class="math inline">\(a\)</span>.</p>
+<div class="definition">
+<p>The <em>action-value function</em> of a policy <span class="math inline">\(\pi\)</span> is</p>
+<span class="math display">\[\begin{align}
+q_{\pi} &amp;: \mathcal{S} \times \mathcal{A} \mapsto \mathbb{R} \\
+q_{\pi}(s,a) &amp;:= \text{expected return when starting from $s$, taking action $a$, and following $\pi$} \\
+q_{\pi}(s,a) &amp;:= \mathbb{E}_{\pi}\left[ G_t \;|\; S_t=s, A_t=a \right] \\
+q_{\pi}(s,a) &amp;= \mathbb{E}_{\pi}\left[ \sum_{k=0}^{\infty} \gamma^k R_{t+k+1} \;|\; S_t=s, A_t=a\right]
+\end{align}
+\]</span>
+</div>
 <h2 id="the-quest-for-the-optimal-policy">The quest for the optimal policy</h2>
 <h1 id="references">References</h1>
 <ol>
