@@ -1,5 +1,5 @@
 ---
-title: "Quick Notes on Reinforcement Learning (Part 1)"
+title: "Quick Notes on Reinforcement Learning"
 date: 2018-11-21
 ---
 
