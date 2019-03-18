@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dimitri Lozeve - Peano Axioms</title>
+    <link rel="stylesheet" href="../css/default.css" />
+    <link rel="stylesheet" href="../css/syntax.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <a href="../">Dimitri Lozeve</a>
+      </div>
+      <nav>
+        <a href="../">Home</a>
+	<a href="../projects.html">Projects</a>
+        <a href="../archive.html">Archive</a>
+	<a href="../contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <main role="main">
+      <h1>Peano Axioms</h1>
+      <article>
+    <section class="header">
+        Posted on March 18, 2019
+        
+    </section>
+    <section>
+        <h1 id="introduction">Introduction</h1>
+<p>I have recently bought the book <em>Category Theory</em> from Steve Awodey <a href="#ref-1">(1)</a> (which is awesome, but probably the topic for another post), and a particular passage excited my curiosity:</p>
+<blockquote>
+<p>Let us begin by distinguishing between the following things: i. categorical foundations for mathematics, ii. mathematical foundations for category theory.</p>
+<p>As for the first point, one sometimes hears it said that category theory can be used to provide “foundations for mathematics,” as an alternative to set theory. That is in fact the case, but it is not what we are doing here. In set theory, one often begins with existential axioms such as “there is an infinite set” and derives further sets by axioms like “every set has a powerset,” thus building up a universe of mathematical objects (namely sets), which in principle suffice for “all of mathematics.”</p>
+</blockquote>
+<p>This statement is interesting because one often considers category theory as pretty “fundamental”, in the sense that it has no issue with considering what I call “dangerous” notions, such as the category <span class="math inline">\(\mathbf{Set}\)</span> of all sets, and even the category <span class="math inline">\(\mathbf{Cat}\)</span> of all categories. Surely a theory this general, that can afford to study such objects, should provide suitable foundations for mathematics? Awodey addresses these issues very explicitly in the section following the quote above, and finds a good way of avoiding circular definitions.</p>
+<p>Now, I remember some basics from my undergrad studies about foundations of mathematics. I was told that if you could define arithmetic, you basically had everything else “for free” (as Kronecker famously said, “natural numbers were created by God, everything else is the work of men”). I was also told that two sets of axioms existed, the <a href="https://en.wikipedia.org/wiki/Peano_axioms">Peano axioms</a> and the <a href="https://en.wikipedia.org/wiki/Zermelo%E2%80%93Fraenkel_set_theory">Zermelo-Fraenkel</a> axioms. Also, I should steer clear of the axiom of choice if I could, because one can do <a href="https://en.wikipedia.org/wiki/Banach%E2%80%93Tarski_paradox">strange things</a> with it, and it is equivalent to many <a href="https://en.wikipedia.org/wiki/Zorn%27s_lemma">different statements</a>. Finally (and this I knew mainly from <em>Logicomix</em>, I must admit), it is <a href="https://en.wikipedia.org/wiki/G%C3%B6del%27s_incompleteness_theorems">impossible</a> for a set of axioms to be both complete and consistent.</p>
+<p>Given all this, I realised that my knowledge of foundational mathematics was pretty deficient. I do not believe that it is a very important topic that everyone should know about, even though Gödel’s incompleteness theorem is very interesting from a logical and philosophical standpoint. However, I wanted to go deeper on this subject.</p>
+<p>In this post, I will try to share my path through Peano’s axioms <a href="#ref-2">(2)</a>, because they are very simple, and it is easy to uncover basic algebraic structure from them.</p>
+<h1 id="the-axioms">The Axioms</h1>
+<p>The purpose of the axioms is to define a collection of objects that we will call the <em>natural numbers</em>. Here, we place ourselves in the context of <a href="https://en.wikipedia.org/wiki/First-order_logic">first-order logic</a>. Logic is not the main topic here, so I will just assume that I have access to some quantifiers, to some predicates, to some variables, and, most importantly, to a relation <span class="math inline">\(=\)</span> which is reflexive, symmetric, transitive, and closed over the natural numbers.</p>
+<p>Without further digressions, let us define two symbols <span class="math inline">\(0\)</span> and <span class="math inline">\(s\)</span> (called <em>successor</em>) such that:</p>
+<ol>
+<li><span class="math inline">\(0\)</span> is a natural number.</li>
+<li>For every natural number <span class="math inline">\(n\)</span>, <span class="math inline">\(s(n)\)</span> is a natural number. (“The successor of a natural number is a natural number.”)</li>
+<li>For all natural number <span class="math inline">\(m\)</span> and <span class="math inline">\(n\)</span>, if <span class="math inline">\(s(m) = s(n)\)</span>, then <span class="math inline">\(m=n\)</span>. (“If two numbers have the same successor, they are equal.”)</li>
+<li>For every natural number <span class="math inline">\(n\)</span>, <span class="math inline">\(s(n) = 0\)</span> is false. (“<span class="math inline">\(0\)</span> is nobody’s successor.”)</li>
+<li>If <span class="math inline">\(A\)</span> is a set such that:
+<ul>
+<li><span class="math inline">\(0\)</span> is in <span class="math inline">\(A\)</span></li>
+<li>for every natural number <span class="math inline">\(n\)</span>, if <span class="math inline">\(n\)</span> is in <span class="math inline">\(A\)</span> then <span class="math inline">\(s(n)\)</span> is in <span class="math inline">\(A\)</span></li>
+</ul>
+then <span class="math inline">\(A\)</span> contains every natural number.</li>
+</ol>
+<p>Let’s break this down. Axioms 1–4 define a collection of objects, written <span class="math inline">\(0\)</span>, <span class="math inline">\(s(0)\)</span>, <span class="math inline">\(s(s(0))\)</span>, and so on, and ensure their basic properties. All of these are natural numbers by the first four axioms, but how can we be sure that <em>all</em> natural numbers are of the form <span class="math inline">\(s( \cdots s(0))\)</span>? This is where the <em>induction axiom</em> (Axiom 5) intervenes. It ensures that every natural number is “well-formed” according to the previous axioms.</p>
+<p>But Axiom 5 is slightly disturbing, because it mentions a “set” and a relation “is in”. This seems pretty straightforward at first sight, but these notions were never defined anywhere before that! Isn’t our goal to <em>define</em> all these notions in order to derive a foundation of mathematics? (I still don’t know the answer to that question.) I prefer the following alternative version of the induction axiom:</p>
+<ul>
+<li>If <span class="math inline">\(\varphi\)</span> is a <a href="https://en.wikipedia.org/wiki/Predicate_(mathematical_logic)">unary predicate</a> such that:
+<ul>
+<li><span class="math inline">\(\varphi(0)\)</span> is true</li>
+<li>for every natural number <span class="math inline">\(n\)</span>, if <span class="math inline">\(\varphi(n)\)</span> is true, then <span class="math inline">\(\varphi(s(n))\)</span> is also true</li>
+</ul>
+then <span class="math inline">\(\varphi(n)\)</span> is true for every natural number <span class="math inline">\(n\)</span>.</li>
+</ul>
+<p>The alternative formulation is much better in my opinion, as it obviously implies the first one (juste choose <span class="math inline">\(\varphi(n)\)</span> as “<span class="math inline">\(n\)</span> is a natural number”), and it only references predicates. It will also be much more useful afterwards, as we will see.</p>
+<h1 id="addition">Addition</h1>
+<p>What is needed afterwards? The most basic notion after the natural numbers themselves is the addition operator. We define an operator <span class="math inline">\(+\)</span> by the following (recursive) rules:</p>
+<ol>
+<li><span class="math inline">\(\forall a,\quad a+0 = a\)</span>.</li>
+<li><span class="math inline">\(\forall a, \forall b,\quad a + s(b) = s(a+b)\)</span>.</li>
+</ol>
+<p>Let us use these rules to prove the basic properties of <span class="math inline">\(+\)</span>.</p>
+<h2 id="commutativity">Commutativity</h2>
+<div class="proposition">
+<p><span class="math inline">\(\forall a, \forall b,\quad a+b = b+a\)</span>.</p>
+</div>
+<div class="proof">
+<p>First, we prove that every natural number commutes with <span class="math inline">\(0\)</span>.</p>
+<ul>
+<li><span class="math inline">\(0+0 = 0+0\)</span>.</li>
+<li><p>For every natural number <span class="math inline">\(a\)</span> such that <span class="math inline">\(0+a = a+0\)</span>, we have:</p>
+<span class="math display">\[\begin{align}
+ 0 + s(a) &amp;= s(0+a)\\
+ &amp;= s(a+0)\\
+ &amp;= s(a)\\
+ &amp;= s(a) + 0.
+\end{align}
+\]</span></li>
+</ul>
+<p>By Axiom 5, every natural number commutes with <span class="math inline">\(0\)</span>.</p>
+<p>We can now prove the main proposition:</p>
+<ul>
+<li><span class="math inline">\(\forall a,\quad a+0=0+a\)</span>.</li>
+<li><p>For all <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> such that <span class="math inline">\(a+b=b+a\)</span>,</p>
+<span class="math display">\[\begin{align}
+ a + s(b) &amp;= s(a+b)\\
+ &amp;= s(b+a)\\
+ &amp;= s(b) + a.     
+\end{align}
+\]</span></li>
+</ul>
+<p>We used the opposite of the second rule for <span class="math inline">\(+\)</span>, namely <span class="math inline">\(\forall a,
+\forall b,\quad s(a) + b = s(a+b)\)</span>. This can easily be proved by another induction.</p>
+</div>
+<h2 id="associativity">Associativity</h2>
+<div class="proposition">
+<p><span class="math inline">\(\forall a, \forall b, \forall c,\quad a+(b+c) = (a+b)+c\)</span>.</p>
+</div>
+<div class="proof">
+<p>Todo, left as an exercise to the reader 😉</p>
+</div>
+<h2 id="identity-element">Identity element</h2>
+<div class="proposition">
+<p><span class="math inline">\(\forall a,\quad a+0 = 0+a = a\)</span>.</p>
+</div>
+<div class="proof">
+<p>This follows directly from the definition of <span class="math inline">\(+\)</span> and commutativity.</p>
+</div>
+<p>From all these properties, it follows that the set of natural numbers with <span class="math inline">\(+\)</span> is a commutative <a href="https://en.wikipedia.org/wiki/Monoid">monoid</a>.</p>
+<h1 id="going-further">Going further</h1>
+<p>We have imbued our newly created set of natural numbers with a significant algebraic structure. From there, similar arguments will create more structure, notably by introducing another operation <span class="math inline">\(\times\)</span>, and an order <span class="math inline">\(\leq\)</span>.</p>
+<p>It is now a matter of conventional mathematics to construct the integers <span class="math inline">\(\mathbb{Z}\)</span> and the rationals <span class="math inline">\(\mathbb{Q}\)</span> (using equivalence classes), and eventually the real numbers <span class="math inline">\(\mathbb{R}\)</span>.</p>
+<p>It is remarkable how very few (and very simple, as far as you would consider the induction axiom “simple”) axioms are enough to build an entire theory of mathematics. This sort of things makes me agree with Eugene Wigner <a href="#ref-3">(3)</a> when he says that “mathematics is the science of skillful operations with concepts and rules invented just for this purpose”. We drew some arbitrary rules out of thin air, and derived countless properties and theorems from them, basically for our own enjoyment. (As Wigner would say, it is <em>incredible</em> that any of these fanciful inventions coming out of nowhere turned out to be even remotely useful.) Mathematics is done mainly for the mathematician’s own pleasure!</p>
+<blockquote>
+<p>Mathematics cannot be defined without acknowledging its most obvious feature: namely, that it is interesting — M. Polanyi <a href="#ref-3">(3)</a></p>
+</blockquote>
+<h1 id="references">References</h1>
+<ol>
+<li><span id="ref-1"></span>Awodey, Steve. Category Theory. 2nd ed. Oxford Logic Guides 52. Oxford ; New York: Oxford University Press, 2010.</li>
+<li><span id="ref-2"></span>Gowers, Timothy, June Barrow-Green, and Imre Leader. The Princeton Companion to Mathematics. Princeton University Press, 2010.</li>
+<li><span id="ref-3"></span>Wigner, Eugene P. ‘The Unreasonable Effectiveness of Mathematics in the Natural Sciences’. In Mathematics and Science, by Ronald E Mickens, 291–306. World Scientific, 1990. <a href="https://doi.org/10.1142/9789814503488_0018" class="uri">https://doi.org/10.1142/9789814503488_0018</a>.</li>
+</ol>
+    </section>
+</article>
+
+    </main>
+
+    <footer>
+      Site proudly generated by
+      <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+    </footer>
+  </body>
+</html>

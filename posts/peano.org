@@ -1,0 +1,216 @@
+---
+title: "Peano Axioms"
+date: 2019-03-18
+---
+
+* Introduction
+
+  I have recently bought the book /Category Theory/ from Steve
+  Awodey [[ref-1][(1)]] (which is awesome, but probably the topic for another
+  post), and a particular passage excited my curiosity:
+
+  #+begin_quote
+  Let us begin by distinguishing between the following things:
+  i. categorical foundations for mathematics,
+  ii. mathematical foundations for category theory.
+
+  As for the first point, one sometimes hears it said that category
+  theory can be used to provide “foundations for mathematics,” as an
+  alternative to set theory.  That is in fact the case, but it is not
+  what we are doing here. In set theory, one often begins with
+  existential axioms such as “there is an infinite set” and derives
+  further sets by axioms like “every set has a powerset,” thus
+  building up a universe of mathematical objects (namely sets), which
+  in principle suffice for “all of mathematics.”
+  #+end_quote
+
+  This statement is interesting because one often considers category
+  theory as pretty "fundamental", in the sense that it has no issue
+  with considering what I call "dangerous" notions, such as the
+  category $\mathbf{Set}$ of all sets, and even the category
+  $\mathbf{Cat}$ of all categories. Surely a theory this general,
+  that can afford to study such objects, should provide suitable
+  foundations for mathematics? Awodey addresses these issues very
+  explicitly in the section following the quote above, and finds a
+  good way of avoiding circular definitions.
+
+  Now, I remember some basics from my undergrad studies about
+  foundations of mathematics. I was told that if you could define
+  arithmetic, you basically had everything else "for free" (as
+  Kronecker famously said, "natural numbers were created by God,
+  everything else is the work of men"). I was also told that two sets
+  of axioms existed, the [[https://en.wikipedia.org/wiki/Peano_axioms][Peano axioms]] and the [[https://en.wikipedia.org/wiki/Zermelo%E2%80%93Fraenkel_set_theory][Zermelo-Fraenkel]]
+  axioms. Also, I should steer clear of the axiom of choice if I
+  could, because one can do [[https://en.wikipedia.org/wiki/Banach%E2%80%93Tarski_paradox][strange things]] with it, and it is
+  equivalent to many [[https://en.wikipedia.org/wiki/Zorn%27s_lemma][different statements]]. Finally (and this I knew
+  mainly from /Logicomix/, I must admit), it is [[https://en.wikipedia.org/wiki/G%C3%B6del%27s_incompleteness_theorems][impossible]] for a set
+  of axioms to be both complete and consistent.
+
+  Given all this, I realised that my knowledge of foundational
+  mathematics was pretty deficient. I do not believe that it is a
+  very important topic that everyone should know about, even though
+  Gödel's incompleteness theorem is very interesting from a logical
+  and philosophical standpoint. However, I wanted to go deeper on
+  this subject.
+
+  In this post, I will try to share my path through Peano's axioms
+  [[ref-2][(2)]], because they are very simple, and it is easy to uncover basic
+  algebraic structure from them.
+
+* The Axioms
+
+  The purpose of the axioms is to define a collection of objects
+  that we will call the /natural numbers/. Here, we place ourselves
+  in the context of [[https://en.wikipedia.org/wiki/First-order_logic][first-order logic]]. Logic is not the main topic
+  here, so I will just assume that I have access to some
+  quantifiers, to some predicates, to some variables, and, most
+  importantly, to a relation $=$ which is reflexive, symmetric,
+  transitive, and closed over the natural numbers.
+
+  Without further digressions, let us define two symbols $0$ and $s$
+  (called /successor/) such that:
+  1. $0$ is a natural number.
+  2. For every natural number $n$, $s(n)$ is a natural number. ("The
+     successor of a natural number is a natural number.")
+  3. For all natural number $m$ and $n$, if $s(m) = s(n)$, then
+     $m=n$. ("If two numbers have the same successor, they are
+     equal.")
+  4. For every natural number $n$, $s(n) = 0$ is false. ("$0$ is
+     nobody's successor.")
+  5. If $A$ is a set such that:
+     - $0$ is in $A$
+     - for every natural number $n$, if $n$ is in $A$ then $s(n)$
+       is in $A$
+     then $A$ contains every natural number.
+
+  Let's break this down. Axioms 1--4 define a collection of objects,
+  written $0$, $s(0)$, $s(s(0))$, and so on, and ensure their basic
+  properties. All of these are natural numbers by the first four
+  axioms, but how can we be sure that /all/ natural numbers are of
+  the form $s( \cdots s(0))$? This is where the /induction
+  axiom/ (Axiom 5) intervenes. It ensures that every natural number
+  is "well-formed" according to the previous axioms.
+
+  But Axiom 5 is slightly disturbing, because it mentions a "set" and
+  a relation "is in". This seems pretty straightforward at first
+  sight, but these notions were never defined anywhere before that!
+  Isn't our goal to /define/ all these notions in order to derive a
+  foundation of mathematics? (I still don't know the answer to that
+  question.) I prefer the following alternative version of the
+  induction axiom:
+  
+  - If $\varphi$ is a [[https://en.wikipedia.org/wiki/Predicate_(mathematical_logic)][unary predicate]] such that:
+    - $\varphi(0)$ is true
+    - for every natural number $n$, if $\varphi(n)$ is true, then
+      $\varphi(s(n))$ is also true
+    then $\varphi(n)$ is true for every natural number $n$.
+
+  The alternative formulation is much better in my opinion, as it
+  obviously implies the first one (juste choose $\varphi(n)$ as "$n$
+  is a natural number"), and it only references predicates. It will
+  also be much more useful afterwards, as we will see.
+
+* Addition
+
+  What is needed afterwards? The most basic notion after the natural
+  numbers themselves is the addition operator. We define an operator
+  $+$ by the following (recursive) rules:
+  1. $\forall a,\quad a+0 = a$.
+  2. $\forall a, \forall b,\quad a + s(b) = s(a+b)$.
+
+  Let us use these rules to prove the basic properties of $+$.
+
+** Commutativity
+
+   #+begin_proposition
+   $\forall a, \forall b,\quad a+b = b+a$.
+   #+end_proposition
+
+   #+begin_proof
+   First, we prove that every natural number commutes with $0$.
+   - $0+0 = 0+0$.
+   - For every natural number $a$ such that $0+a = a+0$, we have:
+     \begin{align}
+     0 + s(a) &= s(0+a)\\
+     &= s(a+0)\\
+     &= s(a)\\
+     &= s(a) + 0.
+     \end{align}
+   By Axiom 5, every natural number commutes with $0$.
+
+   We can now prove the main proposition:
+   - $\forall a,\quad a+0=0+a$.
+   - For all $a$ and $b$ such that $a+b=b+a$,
+     \begin{align}
+     a + s(b) &= s(a+b)\\
+     &= s(b+a)\\
+     &= s(b) + a.     
+     \end{align}
+   We used the opposite of the second rule for $+$, namely $\forall a,
+   \forall b,\quad s(a) + b = s(a+b)$. This can easily be proved by
+   another induction.
+   #+end_proof
+
+** Associativity
+
+   #+begin_proposition
+   $\forall a, \forall b, \forall c,\quad a+(b+c) = (a+b)+c$.
+   #+end_proposition
+
+   #+begin_proof
+   Todo, left as an exercise to the reader 😉
+   #+end_proof
+
+** Identity element
+
+   #+begin_proposition
+   $\forall a,\quad a+0 = 0+a = a$.
+   #+end_proposition
+
+   #+begin_proof
+   This follows directly from the definition of $+$ and commutativity.
+   #+end_proof
+
+  From all these properties, it follows that the set of natural
+  numbers with $+$ is a commutative [[https://en.wikipedia.org/wiki/Monoid][monoid]].
+
+* Going further
+
+  We have imbued our newly created set of natural numbers with a
+  significant algebraic structure. From there, similar arguments will
+  create more structure, notably by introducing another operation
+  $\times$, and an order $\leq$.
+
+  It is now a matter of conventional mathematics to construct the
+  integers $\mathbb{Z}$ and the rationals $\mathbb{Q}$ (using
+  equivalence classes), and eventually the real numbers $\mathbb{R}$.
+
+  It is remarkable how very few (and very simple, as far as you would
+  consider the induction axiom "simple") axioms are enough to build an
+  entire theory of mathematics. This sort of things makes me agree
+  with Eugene Wigner [[ref-3][(3)]] when he says that "mathematics is the science
+  of skillful operations with concepts and rules invented just for
+  this purpose". We drew some arbitrary rules out of thin air, and
+  derived countless properties and theorems from them, basically for
+  our own enjoyment. (As Wigner would say, it is /incredible/ that any
+  of these fanciful inventions coming out of nowhere turned out to be
+  even remotely useful.) Mathematics is done mainly for the
+  mathematician's own pleasure!
+
+  #+begin_quote
+  Mathematics cannot be defined without acknowledging its most obvious
+  feature: namely, that it is interesting --- M. Polanyi [[ref-3][(3)]]
+  #+end_quote
+
+* References
+
+1. <<ref-1>>Awodey, Steve. Category Theory. 2nd ed. Oxford Logic
+   Guides 52. Oxford ; New York: Oxford University Press, 2010.
+2. <<ref-2>>Gowers, Timothy, June Barrow-Green, and Imre Leader. The
+   Princeton Companion to Mathematics. Princeton University
+   Press, 2010.
+3. <<ref-3>>Wigner, Eugene P. ‘The Unreasonable Effectiveness of
+   Mathematics in the Natural Sciences’. In Mathematics and Science,
+   by Ronald E Mickens, 291–306. World
+   Scientific, 1990. https://doi.org/10.1142/9789814503488_0018.
+
