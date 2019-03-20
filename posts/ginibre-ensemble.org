@@ -1,0 +1,62 @@
+---
+title: "Random matrices from the Ginibre ensemble"
+date: 2019-03-20
+---
+
+** Ginibre ensemble and its properties
+
+   The /Ginibre ensemble/ is a set of random matrices with the entries
+   chosen independently. Each entry of a $n \times n$ matrix is a complex
+   number, with both the real and imaginary part sampled from a normal
+   distribution of mean zero and variance $1/2n$.
+
+   Random matrices distributions are very complex and are a very
+   active subject of research. I stumbled on this example while
+   reading an article in /Notices of the AMS/ by Brian C. Hall [[ref-1][(1)]].
+
+   Now what is interesting about these random matrices is the
+   distribution of their $n$ eigenvalues in the complex plane.
+
+   The [[https://en.wikipedia.org/wiki/Circular_law][circular law]] (first established by Jean Ginibre in 1965 [[ref-2][(2)]])
+   states that when $n$ is large, with high probability, almost all
+   the eigenvalues lie in the unit disk. Moreover, they tend to be
+   nearly uniformly distributed there.
+
+   I find this mildly fascinating that such a straightforward definition
+   of a random matrix can exhibit such non-random properties in their
+   spectrum.
+
+** Simulation
+
+   I ran a quick simulation, thanks to [[https://julialang.org/][Julia]]'s great ecosystem for linear
+   algebra and statistical distributions:
+
+   #+begin_src julia
+     using Distributions
+     using LinearAlgebra
+     using UnicodePlots
+
+     function ginibre(n)
+	 d = Normal(0, sqrt(1/2n))
+	 reshape(rand(d, n^2), (n,n)) + im*reshape(rand(d, n^2), (n,n))
+     end
+
+     v = eigvals(ginibre(2000))
+
+     scatterplot(real(v), imag(v), xlim=[-1.5,1.5], ylim=[-1.5,1.5])
+   #+end_src
+
+   I like using =UnicodePlots= for this kind of quick-and-dirty plots,
+   directly in the terminal. Here is the output:
+
+   [[../images/ginibre.png]]
+
+** References
+
+   1. <<ref-1>>Hall, Brian C. 2019. "Eigenvalues of Random Matrices in
+      the General Linear Group in the Large-$N$ Limit." /Notices of the
+      American Mathematical Society/ 66, no. 4 (Spring):
+      568-569. https://www.ams.org/journals/notices/201904/201904FullIssue.pdf
+   2. <<ref-2>>Ginibre, Jean. "Statistical ensembles of complex,
+      quaternion, and real matrices." Journal of Mathematical Physics 6.3
+      (1965): 440-449. https://doi.org/10.1063/1.1704292
