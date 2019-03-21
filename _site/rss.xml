@@ -1,0 +1,740 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <channel>
+        <title>Dimitri Lozeve's Blog</title>
+        <link>https://www.lozeve.com</link>
+        <description><![CDATA[Recent posts]]></description>
+        <atom:link href="https://www.lozeve.com/rss.xml" rel="self"
+                   type="application/rss+xml" />
+        <lastBuildDate>Wed, 20 Mar 2019 00:00:00 UT</lastBuildDate>
+        <item>
+    <title>Random matrices from the Ginibre ensemble</title>
+    <link>https://www.lozeve.com/posts/ginibre-ensemble.html</link>
+    <description><![CDATA[<article>
+    <section class="header">
+        Posted on March 20, 2019
+        
+    </section>
+    <section>
+        <h2 id="ginibre-ensemble-and-its-properties">Ginibre ensemble and its properties</h2>
+<p>The <em>Ginibre ensemble</em> is a set of random matrices with the entries chosen independently. Each entry of a <span class="math inline">\(n \times n\)</span> matrix is a complex number, with both the real and imaginary part sampled from a normal distribution of mean zero and variance <span class="math inline">\(1/2n\)</span>.</p>
+<p>Random matrices distributions are very complex and are a very active subject of research. I stumbled on this example while reading an article in <em>Notices of the AMS</em> by Brian C. Hall <a href="#ref-1">(1)</a>.</p>
+<p>Now what is interesting about these random matrices is the distribution of their <span class="math inline">\(n\)</span> eigenvalues in the complex plane.</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Circular_law">circular law</a> (first established by Jean Ginibre in 1965 <a href="#ref-2">(2)</a>) states that when <span class="math inline">\(n\)</span> is large, with high probability, almost all the eigenvalues lie in the unit disk. Moreover, they tend to be nearly uniformly distributed there.</p>
+<p>I find this mildly fascinating that such a straightforward definition of a random matrix can exhibit such non-random properties in their spectrum.</p>
+<h2 id="simulation">Simulation</h2>
+<p>I ran a quick simulation, thanks to <a href="https://julialang.org/">Julia</a>’s great ecosystem for linear algebra and statistical distributions:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode julia"><code class="sourceCode julia"><a class="sourceLine" id="cb1-1" title="1">using Distributions</a>
+<a class="sourceLine" id="cb1-2" title="2">using LinearAlgebra</a>
+<a class="sourceLine" id="cb1-3" title="3">using UnicodePlots</a>
+<a class="sourceLine" id="cb1-4" title="4"></a>
+<a class="sourceLine" id="cb1-5" title="5"><span class="kw">function</span> ginibre(n)</a>
+<a class="sourceLine" id="cb1-6" title="6">d = Normal(<span class="fl">0</span>, sqrt(<span class="fl">1</span>/<span class="fl">2</span>n))</a>
+<a class="sourceLine" id="cb1-7" title="7">reshape(rand(d, n^<span class="fl">2</span>), (n,n)) + im*reshape(rand(d, n^<span class="fl">2</span>), (n,n))</a>
+<a class="sourceLine" id="cb1-8" title="8"><span class="kw">end</span></a>
+<a class="sourceLine" id="cb1-9" title="9"></a>
+<a class="sourceLine" id="cb1-10" title="10">v = eigvals(ginibre(<span class="fl">2000</span>))</a>
+<a class="sourceLine" id="cb1-11" title="11"></a>
+<a class="sourceLine" id="cb1-12" title="12">scatterplot(real(v), imag(v), xlim=[-<span class="fl">1.5</span>,<span class="fl">1.5</span>], ylim=[-<span class="fl">1.5</span>,<span class="fl">1.5</span>])</a></code></pre></div>
+<p>I like using <code>UnicodePlots</code> for this kind of quick-and-dirty plots, directly in the terminal. Here is the output:</p>
+<p><img src="../images/ginibre.png" /></p>
+<h2 id="references">References</h2>
+<ol>
+<li><span id="ref-1"></span>Hall, Brian C. 2019. “Eigenvalues of Random Matrices in the General Linear Group in the Large-<span class="math inline">\(N\)</span> Limit.” <em>Notices of the American Mathematical Society</em> 66, no. 4 (Spring): 568-569. <a href="https://www.ams.org/journals/notices/201904/201904FullIssue.pdf" class="uri">https://www.ams.org/journals/notices/201904/201904FullIssue.pdf</a></li>
+<li><span id="ref-2"></span>Ginibre, Jean. “Statistical ensembles of complex, quaternion, and real matrices.” Journal of Mathematical Physics 6.3 (1965): 440-449. <a href="https://doi.org/10.1063/1.1704292" class="uri">https://doi.org/10.1063/1.1704292</a></li>
+</ol>
+    </section>
+</article>
+]]></description>
+    <pubDate>Wed, 20 Mar 2019 00:00:00 UT</pubDate>
+    <guid>https://www.lozeve.com/posts/ginibre-ensemble.html</guid>
+    <dc:creator>Dimitri Lozeve</dc:creator>
+</item>
+<item>
+    <title>Peano Axioms</title>
+    <link>https://www.lozeve.com/posts/peano.html</link>
+    <description><![CDATA[<article>
+    <section class="header">
+        Posted on March 18, 2019
+        
+    </section>
+    <section>
+        <h1 id="introduction">Introduction</h1>
+<p>I have recently bought the book <em>Category Theory</em> from Steve Awodey <a href="#ref-1">(1)</a> (which is awesome, but probably the topic for another post), and a particular passage excited my curiosity:</p>
+<blockquote>
+<p>Let us begin by distinguishing between the following things: i. categorical foundations for mathematics, ii. mathematical foundations for category theory.</p>
+<p>As for the first point, one sometimes hears it said that category theory can be used to provide “foundations for mathematics,” as an alternative to set theory. That is in fact the case, but it is not what we are doing here. In set theory, one often begins with existential axioms such as “there is an infinite set” and derives further sets by axioms like “every set has a powerset,” thus building up a universe of mathematical objects (namely sets), which in principle suffice for “all of mathematics.”</p>
+</blockquote>
+<p>This statement is interesting because one often considers category theory as pretty “fundamental”, in the sense that it has no issue with considering what I call “dangerous” notions, such as the category <span class="math inline">\(\mathbf{Set}\)</span> of all sets, and even the category <span class="math inline">\(\mathbf{Cat}\)</span> of all categories. Surely a theory this general, that can afford to study such objects, should provide suitable foundations for mathematics? Awodey addresses these issues very explicitly in the section following the quote above, and finds a good way of avoiding circular definitions.</p>
+<p>Now, I remember some basics from my undergrad studies about foundations of mathematics. I was told that if you could define arithmetic, you basically had everything else “for free” (as Kronecker famously said, “natural numbers were created by God, everything else is the work of men”). I was also told that two sets of axioms existed, the <a href="https://en.wikipedia.org/wiki/Peano_axioms">Peano axioms</a> and the <a href="https://en.wikipedia.org/wiki/Zermelo%E2%80%93Fraenkel_set_theory">Zermelo-Fraenkel</a> axioms. Also, I should steer clear of the axiom of choice if I could, because one can do <a href="https://en.wikipedia.org/wiki/Banach%E2%80%93Tarski_paradox">strange things</a> with it, and it is equivalent to many <a href="https://en.wikipedia.org/wiki/Zorn%27s_lemma">different statements</a>. Finally (and this I knew mainly from <em>Logicomix</em>, I must admit), it is <a href="https://en.wikipedia.org/wiki/G%C3%B6del%27s_incompleteness_theorems">impossible</a> for a set of axioms to be both complete and consistent.</p>
+<p>Given all this, I realised that my knowledge of foundational mathematics was pretty deficient. I do not believe that it is a very important topic that everyone should know about, even though Gödel’s incompleteness theorem is very interesting from a logical and philosophical standpoint. However, I wanted to go deeper on this subject.</p>
+<p>In this post, I will try to share my path through Peano’s axioms <a href="#ref-2">(2)</a>, because they are very simple, and it is easy to uncover basic algebraic structure from them.</p>
+<h1 id="the-axioms">The Axioms</h1>
+<p>The purpose of the axioms is to define a collection of objects that we will call the <em>natural numbers</em>. Here, we place ourselves in the context of <a href="https://en.wikipedia.org/wiki/First-order_logic">first-order logic</a>. Logic is not the main topic here, so I will just assume that I have access to some quantifiers, to some predicates, to some variables, and, most importantly, to a relation <span class="math inline">\(=\)</span> which is reflexive, symmetric, transitive, and closed over the natural numbers.</p>
+<p>Without further digressions, let us define two symbols <span class="math inline">\(0\)</span> and <span class="math inline">\(s\)</span> (called <em>successor</em>) such that:</p>
+<ol>
+<li><span class="math inline">\(0\)</span> is a natural number.</li>
+<li>For every natural number <span class="math inline">\(n\)</span>, <span class="math inline">\(s(n)\)</span> is a natural number. (“The successor of a natural number is a natural number.”)</li>
+<li>For all natural number <span class="math inline">\(m\)</span> and <span class="math inline">\(n\)</span>, if <span class="math inline">\(s(m) = s(n)\)</span>, then <span class="math inline">\(m=n\)</span>. (“If two numbers have the same successor, they are equal.”)</li>
+<li>For every natural number <span class="math inline">\(n\)</span>, <span class="math inline">\(s(n) = 0\)</span> is false. (“<span class="math inline">\(0\)</span> is nobody’s successor.”)</li>
+<li>If <span class="math inline">\(A\)</span> is a set such that:
+<ul>
+<li><span class="math inline">\(0\)</span> is in <span class="math inline">\(A\)</span></li>
+<li>for every natural number <span class="math inline">\(n\)</span>, if <span class="math inline">\(n\)</span> is in <span class="math inline">\(A\)</span> then <span class="math inline">\(s(n)\)</span> is in <span class="math inline">\(A\)</span></li>
+</ul>
+then <span class="math inline">\(A\)</span> contains every natural number.</li>
+</ol>
+<p>Let’s break this down. Axioms 1–4 define a collection of objects, written <span class="math inline">\(0\)</span>, <span class="math inline">\(s(0)\)</span>, <span class="math inline">\(s(s(0))\)</span>, and so on, and ensure their basic properties. All of these are natural numbers by the first four axioms, but how can we be sure that <em>all</em> natural numbers are of the form <span class="math inline">\(s( \cdots s(0))\)</span>? This is where the <em>induction axiom</em> (Axiom 5) intervenes. It ensures that every natural number is “well-formed” according to the previous axioms.</p>
+<p>But Axiom 5 is slightly disturbing, because it mentions a “set” and a relation “is in”. This seems pretty straightforward at first sight, but these notions were never defined anywhere before that! Isn’t our goal to <em>define</em> all these notions in order to derive a foundation of mathematics? (I still don’t know the answer to that question.) I prefer the following alternative version of the induction axiom:</p>
+<ul>
+<li>If <span class="math inline">\(\varphi\)</span> is a <a href="https://en.wikipedia.org/wiki/Predicate_(mathematical_logic)">unary predicate</a> such that:
+<ul>
+<li><span class="math inline">\(\varphi(0)\)</span> is true</li>
+<li>for every natural number <span class="math inline">\(n\)</span>, if <span class="math inline">\(\varphi(n)\)</span> is true, then <span class="math inline">\(\varphi(s(n))\)</span> is also true</li>
+</ul>
+then <span class="math inline">\(\varphi(n)\)</span> is true for every natural number <span class="math inline">\(n\)</span>.</li>
+</ul>
+<p>The alternative formulation is much better in my opinion, as it obviously implies the first one (juste choose <span class="math inline">\(\varphi(n)\)</span> as “<span class="math inline">\(n\)</span> is a natural number”), and it only references predicates. It will also be much more useful afterwards, as we will see.</p>
+<h1 id="addition">Addition</h1>
+<p>What is needed afterwards? The most basic notion after the natural numbers themselves is the addition operator. We define an operator <span class="math inline">\(+\)</span> by the following (recursive) rules:</p>
+<ol>
+<li><span class="math inline">\(\forall a,\quad a+0 = a\)</span>.</li>
+<li><span class="math inline">\(\forall a, \forall b,\quad a + s(b) = s(a+b)\)</span>.</li>
+</ol>
+<p>Let us use these rules to prove the basic properties of <span class="math inline">\(+\)</span>.</p>
+<h2 id="commutativity">Commutativity</h2>
+<div class="proposition">
+<p><span class="math inline">\(\forall a, \forall b,\quad a+b = b+a\)</span>.</p>
+</div>
+<div class="proof">
+<p>First, we prove that every natural number commutes with <span class="math inline">\(0\)</span>.</p>
+<ul>
+<li><span class="math inline">\(0+0 = 0+0\)</span>.</li>
+<li><p>For every natural number <span class="math inline">\(a\)</span> such that <span class="math inline">\(0+a = a+0\)</span>, we have:</p>
+<span class="math display">\[\begin{align}
+ 0 + s(a) &amp;= s(0+a)\\
+ &amp;= s(a+0)\\
+ &amp;= s(a)\\
+ &amp;= s(a) + 0.
+\end{align}
+\]</span></li>
+</ul>
+<p>By Axiom 5, every natural number commutes with <span class="math inline">\(0\)</span>.</p>
+<p>We can now prove the main proposition:</p>
+<ul>
+<li><span class="math inline">\(\forall a,\quad a+0=0+a\)</span>.</li>
+<li><p>For all <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> such that <span class="math inline">\(a+b=b+a\)</span>,</p>
+<span class="math display">\[\begin{align}
+ a + s(b) &amp;= s(a+b)\\
+ &amp;= s(b+a)\\
+ &amp;= s(b) + a.     
+\end{align}
+\]</span></li>
+</ul>
+<p>We used the opposite of the second rule for <span class="math inline">\(+\)</span>, namely <span class="math inline">\(\forall a,
+\forall b,\quad s(a) + b = s(a+b)\)</span>. This can easily be proved by another induction.</p>
+</div>
+<h2 id="associativity">Associativity</h2>
+<div class="proposition">
+<p><span class="math inline">\(\forall a, \forall b, \forall c,\quad a+(b+c) = (a+b)+c\)</span>.</p>
+</div>
+<div class="proof">
+<p>Todo, left as an exercise to the reader 😉</p>
+</div>
+<h2 id="identity-element">Identity element</h2>
+<div class="proposition">
+<p><span class="math inline">\(\forall a,\quad a+0 = 0+a = a\)</span>.</p>
+</div>
+<div class="proof">
+<p>This follows directly from the definition of <span class="math inline">\(+\)</span> and commutativity.</p>
+</div>
+<p>From all these properties, it follows that the set of natural numbers with <span class="math inline">\(+\)</span> is a commutative <a href="https://en.wikipedia.org/wiki/Monoid">monoid</a>.</p>
+<h1 id="going-further">Going further</h1>
+<p>We have imbued our newly created set of natural numbers with a significant algebraic structure. From there, similar arguments will create more structure, notably by introducing another operation <span class="math inline">\(\times\)</span>, and an order <span class="math inline">\(\leq\)</span>.</p>
+<p>It is now a matter of conventional mathematics to construct the integers <span class="math inline">\(\mathbb{Z}\)</span> and the rationals <span class="math inline">\(\mathbb{Q}\)</span> (using equivalence classes), and eventually the real numbers <span class="math inline">\(\mathbb{R}\)</span>.</p>
+<p>It is remarkable how very few (and very simple, as far as you would consider the induction axiom “simple”) axioms are enough to build an entire theory of mathematics. This sort of things makes me agree with Eugene Wigner <a href="#ref-3">(3)</a> when he says that “mathematics is the science of skillful operations with concepts and rules invented just for this purpose”. We drew some arbitrary rules out of thin air, and derived countless properties and theorems from them, basically for our own enjoyment. (As Wigner would say, it is <em>incredible</em> that any of these fanciful inventions coming out of nowhere turned out to be even remotely useful.) Mathematics is done mainly for the mathematician’s own pleasure!</p>
+<blockquote>
+<p>Mathematics cannot be defined without acknowledging its most obvious feature: namely, that it is interesting — M. Polanyi <a href="#ref-3">(3)</a></p>
+</blockquote>
+<h1 id="references">References</h1>
+<ol>
+<li><span id="ref-1"></span>Awodey, Steve. Category Theory. 2nd ed. Oxford Logic Guides 52. Oxford ; New York: Oxford University Press, 2010.</li>
+<li><span id="ref-2"></span>Gowers, Timothy, June Barrow-Green, and Imre Leader. The Princeton Companion to Mathematics. Princeton University Press, 2010.</li>
+<li><span id="ref-3"></span>Wigner, Eugene P. ‘The Unreasonable Effectiveness of Mathematics in the Natural Sciences’. In Mathematics and Science, by Ronald E Mickens, 291–306. World Scientific, 1990. <a href="https://doi.org/10.1142/9789814503488_0018" class="uri">https://doi.org/10.1142/9789814503488_0018</a>.</li>
+</ol>
+    </section>
+</article>
+]]></description>
+    <pubDate>Mon, 18 Mar 2019 00:00:00 UT</pubDate>
+    <guid>https://www.lozeve.com/posts/peano.html</guid>
+    <dc:creator>Dimitri Lozeve</dc:creator>
+</item>
+<item>
+    <title>Quick Notes on Reinforcement Learning</title>
+    <link>https://www.lozeve.com/posts/reinforcement-learning-1.html</link>
+    <description><![CDATA[<article>
+    <section class="header">
+        Posted on November 21, 2018
+        
+    </section>
+    <section>
+        <h1 id="introduction">Introduction</h1>
+<p>In this series of blog posts, I intend to write my notes as I go through Richard S. Sutton’s excellent <em>Reinforcement Learning: An Introduction</em> <a href="#ref-1">(1)</a>.</p>
+<p>I will try to formalise the maths behind it a little bit, mainly because I would like to use it as a useful personal reference to the main concepts in RL. I will probably add a few remarks about a possible implementation as I go on.</p>
+<h1 id="relationship-between-agent-and-environment">Relationship between agent and environment</h1>
+<h2 id="context-and-assumptions">Context and assumptions</h2>
+<p>The goal of reinforcement learning is to select the best actions availables to an agent as it goes through a series of states in an environment. In this post, we will only consider <em>discrete</em> time steps.</p>
+<p>The most important hypothesis we make is the <em>Markov property:</em></p>
+<blockquote>
+<p>At each time step, the next state of the agent depends only on the current state and the current action taken. It cannot depend on the history of the states visited by the agent.</p>
+</blockquote>
+<p>This property is essential to make our problems tractable, and often holds true in practice (to a reasonable approximation).</p>
+<p>With this assumption, we can define the relationship between agent and environment as a <em>Markov Decision Process</em> (MDP).</p>
+<div class="definition">
+<p>A <em>Markov Decision Process</em> is a tuple <span class="math inline">\((\mathcal{S}, \mathcal{A},
+\mathcal{R}, p)\)</span> where:</p>
+<ul>
+<li><span class="math inline">\(\mathcal{S}\)</span> is a set of <em>states</em>,</li>
+<li><span class="math inline">\(\mathcal{A}\)</span> is an application mapping each state <span class="math inline">\(s \in
+ \mathcal{S}\)</span> to a set <span class="math inline">\(\mathcal{A}(s)\)</span> of possible <em>actions</em> for this state. In this post, we will often simplify by using <span class="math inline">\(\mathcal{A}\)</span> as a set, assuming that all actions are possible for each state,</li>
+<li><span class="math inline">\(\mathcal{R} \subset \mathbb{R}\)</span> is a set of <em>rewards</em>,</li>
+<li><p>and <span class="math inline">\(p\)</span> is a function representing the <em>dynamics</em> of the MDP:</p>
+<span class="math display">\[\begin{align}
+ p &amp;: \mathcal{S} \times \mathcal{R} \times \mathcal{S} \times \mathcal{A} \mapsto [0,1] \\
+ p(s&#39;, r \;|\; s, a) &amp;:= \mathbb{P}(S_t=s&#39;, R_t=r \;|\; S_{t-1}=s, A_{t-1}=a),
+\end{align}
+\]</span>
+<p>such that <span class="math display">\[ \forall s \in \mathcal{S}, \forall a \in \mathcal{A},\quad \sum_{s&#39;, r} p(s&#39;, r \;|\; s, a) = 1. \]</span></p></li>
+</ul>
+</div>
+<p>The function <span class="math inline">\(p\)</span> represents the probability of transitioning to the state <span class="math inline">\(s&#39;\)</span> and getting a reward <span class="math inline">\(r\)</span> when the agent is at state <span class="math inline">\(s\)</span> and chooses action <span class="math inline">\(a\)</span>.</p>
+<p>We will also use occasionally the <em>state-transition probabilities</em>:</p>
+<span class="math display">\[\begin{align}
+ p &amp;: \mathcal{S} \times \mathcal{S} \times \mathcal{A} \mapsto [0,1] \\
+p(s&#39; \;|\; s, a) &amp;:= \mathbb{P}(S_t=s&#39; \;|\; S_{t-1}=s, A_{t-1}=a) \\
+&amp;= \sum_r p(s&#39;, r \;|\; s, a).
+\end{align}
+\]</span>
+<h2 id="rewarding-the-agent">Rewarding the agent</h2>
+<div class="definition">
+<p>The <em>expected reward</em> of a state-action pair is the function</p>
+<span class="math display">\[\begin{align}
+r &amp;: \mathcal{S} \times \mathcal{A} \mapsto \mathbb{R} \\
+r(s,a) &amp;:= \mathbb{E}[R_t \;|\; S_{t-1}=s, A_{t-1}=a] \\
+&amp;= \sum_r r \sum_{s&#39;} p(s&#39;, r \;|\; s, a).
+\end{align}
+\]</span>
+</div>
+<div class="definition">
+<p>The <em>discounted return</em> is the sum of all future rewards, with a multiplicative factor to give more weights to more immediate rewards: <span class="math display">\[ G_t := \sum_{k=t+1}^T \gamma^{k-t-1} R_k, \]</span> where <span class="math inline">\(T\)</span> can be infinite or <span class="math inline">\(\gamma\)</span> can be 1, but not both.</p>
+</div>
+<h1 id="deciding-what-to-do-policies">Deciding what to do: policies</h1>
+<h2 id="defining-our-policy-and-its-value">Defining our policy and its value</h2>
+<p>A <em>policy</em> is a way for the agent to choose the next action to perform.</p>
+<div class="definition">
+<p>A <em>policy</em> is a function <span class="math inline">\(\pi\)</span> defined as</p>
+<span class="math display">\[\begin{align}
+\pi &amp;: \mathcal{A} \times \mathcal{S} \mapsto [0,1] \\
+\pi(a \;|\; s) &amp;:= \mathbb{P}(A_t=a \;|\; S_t=s).
+\end{align}
+\]</span>
+</div>
+<p>In order to compare policies, we need to associate values to them.</p>
+<div class="definition">
+<p>The <em>state-value function</em> of a policy <span class="math inline">\(\pi\)</span> is</p>
+<span class="math display">\[\begin{align}
+v_{\pi} &amp;: \mathcal{S} \mapsto \mathbb{R} \\
+v_{\pi}(s) &amp;:= \text{expected return when starting in $s$ and following $\pi$} \\
+v_{\pi}(s) &amp;:= \mathbb{E}_{\pi}\left[ G_t \;|\; S_t=s\right] \\
+v_{\pi}(s) &amp;= \mathbb{E}_{\pi}\left[ \sum_{k=0}^{\infty} \gamma^k R_{t+k+1} \;|\; S_t=s\right]
+\end{align}
+\]</span>
+</div>
+<p>We can also compute the value starting from a state <span class="math inline">\(s\)</span> by also taking into account the action taken <span class="math inline">\(a\)</span>.</p>
+<div class="definition">
+<p>The <em>action-value function</em> of a policy <span class="math inline">\(\pi\)</span> is</p>
+<span class="math display">\[\begin{align}
+q_{\pi} &amp;: \mathcal{S} \times \mathcal{A} \mapsto \mathbb{R} \\
+q_{\pi}(s,a) &amp;:= \text{expected return when starting from $s$, taking action $a$, and following $\pi$} \\
+q_{\pi}(s,a) &amp;:= \mathbb{E}_{\pi}\left[ G_t \;|\; S_t=s, A_t=a \right] \\
+q_{\pi}(s,a) &amp;= \mathbb{E}_{\pi}\left[ \sum_{k=0}^{\infty} \gamma^k R_{t+k+1} \;|\; S_t=s, A_t=a\right]
+\end{align}
+\]</span>
+</div>
+<h2 id="the-quest-for-the-optimal-policy">The quest for the optimal policy</h2>
+<h1 id="references">References</h1>
+<ol>
+<li><span id="ref-1"></span>R. S. Sutton and A. G. Barto, Reinforcement learning: an introduction, Second edition. Cambridge, MA: The MIT Press, 2018.</li>
+</ol>
+    </section>
+</article>
+]]></description>
+    <pubDate>Wed, 21 Nov 2018 00:00:00 UT</pubDate>
+    <guid>https://www.lozeve.com/posts/reinforcement-learning-1.html</guid>
+    <dc:creator>Dimitri Lozeve</dc:creator>
+</item>
+<item>
+    <title>Ising model simulation in APL</title>
+    <link>https://www.lozeve.com/posts/ising-apl.html</link>
+    <description><![CDATA[<article>
+    <section class="header">
+        Posted on March  5, 2018
+        
+    </section>
+    <section>
+        <h1 id="the-apl-family-of-languages">The APL family of languages</h1>
+<h2 id="why-apl">Why APL?</h2>
+<p>I recently got interested in <a href="https://en.wikipedia.org/wiki/APL_(programming_language)">APL</a>, an <em>array-based</em> programming language. In APL (and derivatives), we try to reason about programs as series of transformations of multi-dimensional arrays. This is exactly the kind of style I like in Haskell and other functional languages, where I also try to use higher-order functions (map, fold, etc) on lists or arrays. A developer only needs to understand these abstractions once, instead of deconstructing each loop or each recursive function encountered in a program.</p>
+<p>APL also tries to be a really simple and <em>terse</em> language. This combined with strange Unicode characters for primitive functions and operators, gives it a reputation of unreadability. However, there is only a small number of functions to learn, and you get used really quickly to read them and understand what they do. Some combinations also occur so frequently that you can recognize them instantly (APL programmers call them <em>idioms</em>).</p>
+<h2 id="implementations">Implementations</h2>
+<p>APL is actually a family of languages. The classic APL, as created by Ken Iverson, with strange symbols, has many implementations. I initially tried <a href="https://www.gnu.org/software/apl/">GNU APL</a>, but due to the lack of documentation and proper tooling, I went to <a href="https://www.dyalog.com/">Dyalog APL</a> (which is proprietary, but free for personal use). There are also APL derivatives, that often use ASCII symbols: <a href="http://www.jsoftware.com/">J</a> (free) and <a href="https://code.kx.com/q/">Q/kdb+</a> (proprietary, but free for personal use).</p>
+<p>The advantage of Dyalog is that it comes with good tooling (which is necessary for inserting all the symbols!), a large ecosystem, and pretty good <a href="http://docs.dyalog.com/">documentation</a>. If you want to start, look at <a href="http://www.dyalog.com/mastering-dyalog-apl.htm"><em>Mastering Dyalog APL</em></a> by Bernard Legrand, freely available online.</p>
+<h1 id="the-ising-model-in-apl">The Ising model in APL</h1>
+<p>I needed a small project to try APL while I was learning. Something array-based, obviously. Since I already implemented a Metropolis-Hastings simulation of the <a href="./ising-model.html">Ising model</a>, which is based on a regular lattice, I decided to reimplement it in Dyalog APL.</p>
+<p>It is only a few lines long, but I will try to explain what it does step by step.</p>
+<p>The first function simply generates a random lattice filled by elements of <span class="math inline">\(\{-1,+1\}\)</span>.</p>
+<pre class="apl"><code>L←{(2×?⍵ ⍵⍴2)-3}
+</code></pre>
+<p>Let’s deconstruct what is done here:</p>
+<ul>
+<li>⍵ is the argument of our function.</li>
+<li>We generate a ⍵×⍵ matrix filled with 2, using the <code>⍴</code> function: <code>⍵ ⍵⍴2</code></li>
+<li><code>?</code> draws a random number between 1 and its argument. We give it our matrix to generate a random matrix of 1 and 2.</li>
+<li>We multiply everything by 2 and subtract 3, so that the result is in <span class="math inline">\(\{-1,+1\}\)</span>.</li>
+<li>Finally, we assign the result to the name <code>L</code>.</li>
+</ul>
+<p>Sample output:</p>
+<pre class="apl"><code>      ising.L 5
+ 1 ¯1  1 ¯1  1
+ 1  1  1 ¯1 ¯1
+ 1 ¯1 ¯1 ¯1 ¯1
+ 1  1  1 ¯1 ¯1
+¯1 ¯1  1  1  1
+</code></pre>
+<p>Next, we compute the energy variation (for details on the Ising model, see <a href="./ising-model.html">my previous post</a>).</p>
+<pre class="apl"><code>∆E←{
+    ⎕IO←0
+    (x y)←⍺
+    N←⊃⍴⍵
+    xn←N|((x-1)y)((x+1)y)
+    yn←N|(x(y-1))(x(y+1))
+    ⍵[x;y]×+/⍵[xn,yn]
+}
+</code></pre>
+<ul>
+<li>⍺ is the left argument (coordinates of the site), ⍵ is the right argument (lattice).</li>
+<li>We extract the x and y coordinates of the site.</li>
+<li><code>N</code> is the size of the lattice.</li>
+<li><code>xn</code> and <code>yn</code> are respectively the vertical and lateral neighbours of the site. <code>N|</code> takes the coordinates modulo <code>N</code> (so the lattice is actually a torus). (Note: we used <code>⎕IO←0</code> to use 0-based array indexing.)</li>
+<li><code>+/</code> sums over all neighbours of the site, and then we multiply by the value of the site itself to get <span class="math inline">\(\Delta E\)</span>.</li>
+</ul>
+<p>Sample output, for site <span class="math inline">\((3, 3)\)</span> in a random <span class="math inline">\(5\times 5\)</span> lattice:</p>
+<pre class="apl"><code>      3 3ising.∆E ising.L 5
+¯4
+</code></pre>
+<p>Then comes the actual Metropolis-Hastings part:</p>
+<pre class="apl"><code>U←{
+    ⎕IO←0
+    N←⊃⍴⍵
+    (x y)←?N N
+    new←⍵
+    new[x;y]×←(2×(?0)&gt;*-⍺×x y ∆E ⍵)-1
+    new
+}
+</code></pre>
+<ul>
+<li>⍺ is the <span class="math inline">\(\beta\)</span> parameter of the Ising model, ⍵ is the lattice.</li>
+<li>We draw a random site <span class="math inline">\((x,y)\)</span> with the <code>?</code> function.</li>
+<li><code>new</code> is the lattice but with the <span class="math inline">\((x,y)\)</span> site flipped.</li>
+<li>We compute the probability <span class="math inline">\(\alpha = \exp(-\beta\Delta E)\)</span> using the <code>*</code> function (exponential) and our previous <code>∆E</code> function.</li>
+<li><code>?0</code> returns a uniform random number in <span class="math inline">\([0,1)\)</span>. Based on this value, we decide whether to update the lattice, and we return it.</li>
+</ul>
+<p>We can now bring everything together for display:</p>
+<pre class="apl"><code>Ising←{&#39; ⌹&#39;[1+1=({10 U ⍵}⍣⍵)L ⍺]}
+</code></pre>
+<ul>
+<li>We draw a random lattice of size ⍺ with <code>L ⍺</code>.</li>
+<li>We apply to it our update function, with $<em>β</em>$=10, ⍵ times (using the <code>⍣</code> function, which applies a function <span class="math inline">\(n\)</span> times.</li>
+<li>Finally, we display -1 as a space and 1 as a domino ⌹.</li>
+</ul>
+<p>Final output, with a <span class="math inline">\(80\times 80\)</span> random lattice, after 50000 update steps:</p>
+<pre class="apl"><code>      80ising.Ising 50000
+   ⌹⌹⌹⌹ ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹      ⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹          
+   ⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹ ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹           
+⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹       ⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹
+⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹       ⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹            ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹             ⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹            ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹     ⌹⌹⌹⌹⌹⌹             ⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹ ⌹⌹⌹            ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹       ⌹⌹⌹⌹⌹      ⌹       
+  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹          ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹        ⌹⌹⌹⌹      ⌹⌹⌹      
+ ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹       ⌹⌹⌹      
+ ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹    ⌹⌹⌹⌹⌹⌹      
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹              ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹          ⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹            ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹           ⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹
+⌹⌹⌹⌹ ⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹            ⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹           ⌹⌹⌹⌹                ⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹
+  ⌹ ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹ ⌹⌹⌹⌹           ⌹⌹⌹⌹                ⌹⌹⌹      ⌹⌹⌹⌹⌹         
+  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹                ⌹⌹        ⌹           
+  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹                                     
+  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹⌹                                    
+  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹           ⌹                         
+ ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹          ⌹                          
+⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹          ⌹⌹⌹⌹⌹⌹                          ⌹⌹     ⌹⌹⌹
+⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹                  ⌹⌹⌹⌹⌹⌹         ⌹               ⌹⌹⌹     ⌹⌹⌹
+⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹                   ⌹⌹⌹⌹⌹⌹                     ⌹⌹⌹⌹⌹⌹     ⌹⌹⌹
+⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹             ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹                ⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹                 ⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹              ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹ ⌹⌹⌹⌹⌹⌹⌹⌹⌹              ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹                            ⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹⌹          ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹                               ⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹                                ⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹                   ⌹⌹⌹⌹             ⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹                   ⌹⌹⌹⌹                           ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹                  ⌹⌹⌹⌹⌹⌹⌹                ⌹⌹            ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹ 
+  ⌹⌹⌹⌹                  ⌹⌹⌹⌹⌹⌹⌹              ⌹⌹⌹⌹              ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  
+  ⌹⌹⌹⌹                 ⌹⌹⌹⌹⌹⌹⌹⌹⌹             ⌹⌹⌹⌹              ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  
+  ⌹⌹⌹⌹   ⌹         ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹⌹⌹⌹              ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  
+ ⌹⌹⌹⌹⌹   ⌹ ⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  
+ ⌹⌹⌹⌹⌹   ⌹         ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  
+ ⌹⌹⌹⌹⌹             ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  
+⌹⌹⌹⌹⌹              ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹          ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹
+⌹⌹⌹⌹              ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹
+⌹⌹⌹⌹              ⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹⌹ ⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹⌹          ⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹         ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹⌹⌹⌹             ⌹          ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹                       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹            ⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹              ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹         ⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+                    ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
+                       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹⌹  
+            ⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹          ⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹  
+           ⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹          ⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹  
+   ⌹⌹⌹ ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹          ⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹           ⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹             ⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹   ⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹        ⌹⌹⌹                       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹         ⌹⌹⌹                          ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹         ⌹⌹⌹    ⌹⌹                      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹         ⌹⌹⌹⌹⌹⌹⌹⌹⌹                      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       
+  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹          ⌹⌹⌹⌹⌹⌹⌹⌹                      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       
+  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹                         ⌹⌹⌹⌹⌹⌹⌹⌹       
+  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹                          ⌹⌹⌹⌹⌹⌹⌹       
+  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹         ⌹⌹⌹⌹⌹⌹                          ⌹⌹⌹          
+ ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹                        ⌹⌹⌹          
+ ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹                        ⌹⌹⌹          
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹                      ⌹⌹⌹⌹          
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹       ⌹             ⌹⌹⌹⌹⌹       ⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹ ⌹             ⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹            ⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹
+⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹             ⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹
+   ⌹⌹⌹⌹⌹⌹⌹⌹             ⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹ 
+   ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹⌹⌹⌹⌹⌹           
+   ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         
+   ⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         
+</code></pre>
+<p>Complete code, with the namespace:</p>
+<pre class="apl"><code>:Namespace ising
+
+        L←{(2×?⍵ ⍵⍴2)-3}
+
+        ∆E←{
+                ⎕IO←0
+                (x y)←⍺
+                N←⊃⍴⍵
+                xn←N|((x-1)y)((x+1)y)
+                yn←N|(x(y-1))(x(y+1))
+                ⍵[x;y]×+/⍵[xn,yn]
+        }
+
+        U←{
+                ⎕IO←0
+                N←⊃⍴⍵
+                (x y)←?N N
+                new←⍵
+                new[x;y]×←(2×(?0)&gt;*-⍺×x y ∆E ⍵)-1
+                new
+        }
+
+        Ising←{&#39; ⌹&#39;[1+1=({10 U ⍵}⍣⍵)L ⍺]}
+
+:EndNamespace
+</code></pre>
+<h1 id="conclusion">Conclusion</h1>
+<p>The algorithm is very fast (I think it can be optimized by the interpreter because there is no branching), and is easy to reason about. The whole program fits in a few lines, and you clearly see what each function and each line does. It could probably be optimized further (I don’t know every APL function yet…), and also could probably be golfed to a few lines (at the cost of readability?).</p>
+<p>It took me some time to write this, but Dyalog’s tools make it really easy to insert symbols and to look up what they do. Next time, I will look into some ASCII-based APL descendants. J seems to have a <a href="http://code.jsoftware.com/wiki/NuVoc">good documentation</a> and a tradition of <em>tacit definitions</em>, similar to the point-free style in Haskell. Overall, J seems well-suited to modern functional programming, while APL is still under the influence of its early days when it was more procedural. Another interesting area is K, Q, and their database engine kdb+, which seems to be extremely performant and actually used in production.</p>
+<p>Still, Unicode symbols make the code much more readable, mainly because there is a one-to-one link between symbols and functions, which cannot be maintained with only a few ASCII characters.</p>
+    </section>
+</article>
+]]></description>
+    <pubDate>Mon, 05 Mar 2018 00:00:00 UT</pubDate>
+    <guid>https://www.lozeve.com/posts/ising-apl.html</guid>
+    <dc:creator>Dimitri Lozeve</dc:creator>
+</item>
+<item>
+    <title>Ising model simulation</title>
+    <link>https://www.lozeve.com/posts/ising-model.html</link>
+    <description><![CDATA[<article>
+    <section class="header">
+        Posted on February  5, 2018
+        
+            by Dimitri Lozeve
+        
+    </section>
+    <section>
+        <p>The <a href="https://en.wikipedia.org/wiki/Ising_model">Ising model</a> is a model used to represent magnetic dipole moments in statistical physics. Physical details are on the Wikipedia page, but what is interesting is that it follows a complex probability distribution on a lattice, where each site can take the value +1 or -1.</p>
+<p><img src="../images/ising.gif" /></p>
+<h1 id="mathematical-definition">Mathematical definition</h1>
+<p>We have a lattice <span class="math inline">\(\Lambda\)</span> consisting of sites <span class="math inline">\(k\)</span>. For each site, there is a moment <span class="math inline">\(\sigma_k \in \{ -1, +1 \}\)</span>. <span class="math inline">\(\sigma =
+(\sigma_k)_{k\in\Lambda}\)</span> is called the <em>configuration</em> of the lattice.</p>
+<p>The total energy of the configuration is given by the <em>Hamiltonian</em> <span class="math display">\[
+H(\sigma) = -\sum_{i\sim j} J_{ij}\, \sigma_i\, \sigma_j,
+\]</span> where <span class="math inline">\(i\sim j\)</span> denotes <em>neighbours</em>, and <span class="math inline">\(J\)</span> is the <em>interaction matrix</em>.</p>
+<p>The <em>configuration probability</em> is given by: <span class="math display">\[
+\pi_\beta(\sigma) = \frac{e^{-\beta H(\sigma)}}{Z_\beta}
+\]</span> where <span class="math inline">\(\beta = (k_B T)^{-1}\)</span> is the inverse temperature, and <span class="math inline">\(Z_\beta\)</span> the normalisation constant.</p>
+<p>For our simulation, we will use a constant interaction term <span class="math inline">\(J &gt; 0\)</span>. If <span class="math inline">\(\sigma_i = \sigma_j\)</span>, the probability will be proportional to <span class="math inline">\(\exp(\beta J)\)</span>, otherwise it would be <span class="math inline">\(\exp(\beta J)\)</span>. Thus, adjacent spins will try to align themselves.</p>
+<h1 id="simulation">Simulation</h1>
+<p>The Ising model is generally simulated using Markov Chain Monte Carlo (MCMC), with the <a href="https://en.wikipedia.org/wiki/Metropolis%E2%80%93Hastings_algorithm">Metropolis-Hastings</a> algorithm.</p>
+<p>The algorithm starts from a random configuration and runs as follows:</p>
+<ol>
+<li>Select a site <span class="math inline">\(i\)</span> at random and reverse its spin: <span class="math inline">\(\sigma&#39;_i = -\sigma_i\)</span></li>
+<li>Compute the variation in energy (hamiltonian) <span class="math inline">\(\Delta E = H(\sigma&#39;) - H(\sigma)\)</span></li>
+<li>If the energy is lower, accept the new configuration</li>
+<li>Otherwise, draw a uniform random number <span class="math inline">\(u \in ]0,1[\)</span> and accept the new configuration if <span class="math inline">\(u &lt; \min(1, e^{-\beta \Delta E})\)</span>.</li>
+</ol>
+<h1 id="implementation">Implementation</h1>
+<p>The simulation is in Clojure, using the <a href="http://quil.info/">Quil library</a> (a <a href="https://processing.org/">Processing</a> library for Clojure) to display the state of the system.</p>
+<p>This post is “literate Clojure”, and contains <a href="https://github.com/dlozeve/ising-model/blob/master/src/ising_model/core.clj"><code>core.clj</code></a>. The complete project can be found on <a href="https://github.com/dlozeve/ising-model">GitHub</a>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb1-1" title="1">(<span class="kw">ns</span> ising-model.core</a>
+<a class="sourceLine" id="cb1-2" title="2">  (<span class="at">:require</span> [quil.core <span class="at">:as</span> q]</a>
+<a class="sourceLine" id="cb1-3" title="3">        [quil.middleware <span class="at">:as</span> m]))</a></code></pre></div>
+<p>The application works with Quil’s <a href="https://github.com/quil/quil/wiki/Functional-mode-(fun-mode)">functional mode</a>, with each function taking a state and returning an updated state at each time step.</p>
+<p>The <code>setup</code> function generates the initial state, with random initial spins. It also sets the frame rate. The matrix is a single vector in row-major mode. The state also holds relevant parameters for the simulation: <span class="math inline">\(\beta\)</span>, <span class="math inline">\(J\)</span>, and the iteration step.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb2-1" title="1">(<span class="bu">defn</span><span class="fu"> setup </span>[size]</a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="st">&quot;Setup the display parameters and the initial state&quot;</span></a>
+<a class="sourceLine" id="cb2-3" title="3">  (q/frame-rate <span class="dv">300</span>)</a>
+<a class="sourceLine" id="cb2-4" title="4">  (q/color-mode <span class="at">:hsb</span>)</a>
+<a class="sourceLine" id="cb2-5" title="5">  (<span class="kw">let</span> [matrix (<span class="kw">vec</span> (<span class="kw">repeatedly</span> (<span class="kw">*</span> size size) #(<span class="kw">-</span> (<span class="kw">*</span> <span class="dv">2</span> (<span class="kw">rand-int</span> <span class="dv">2</span>)) <span class="dv">1</span>)))]</a>
+<a class="sourceLine" id="cb2-6" title="6">    {<span class="at">:grid-size</span> size</a>
+<a class="sourceLine" id="cb2-7" title="7">     <span class="at">:matrix</span> matrix</a>
+<a class="sourceLine" id="cb2-8" title="8">     <span class="at">:beta</span> <span class="dv">10</span></a>
+<a class="sourceLine" id="cb2-9" title="9">     <span class="at">:intensity</span> <span class="dv">10</span></a>
+<a class="sourceLine" id="cb2-10" title="10">     <span class="at">:iteration</span> <span class="dv">0</span>}))</a></code></pre></div>
+<p>Given a site <span class="math inline">\(i\)</span>, we reverse its spin to generate a new configuration state.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb3-1" title="1">(<span class="bu">defn</span><span class="fu"> toggle-state </span>[state i]</a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="st">&quot;Compute the new state when we toggle a cell&#39;s value&quot;</span></a>
+<a class="sourceLine" id="cb3-3" title="3">  (<span class="kw">let</span> [matrix (<span class="at">:matrix</span> state)]</a>
+<a class="sourceLine" id="cb3-4" title="4">    (<span class="kw">assoc</span> state <span class="at">:matrix</span> (<span class="kw">assoc</span> matrix i (<span class="kw">*</span> <span class="dv">-1</span> (matrix i))))))</a></code></pre></div>
+<p>In order to decide whether to accept this new state, we compute the difference in energy introduced by reversing site <span class="math inline">\(i\)</span>: <span class="math display">\[ \Delta E =
+J\sigma_i \sum_{j\sim i} \sigma_j.  \]</span></p>
+<p>The <code>filter some?</code> is required to eliminate sites outside of the boundaries of the lattice.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb4-1" title="1">(<span class="bu">defn</span><span class="fu"> get-neighbours </span>[state idx]</a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="st">&quot;Return the values of a cell&#39;s neighbours&quot;</span></a>
+<a class="sourceLine" id="cb4-3" title="3">  [(<span class="kw">get</span> (<span class="at">:matrix</span> state) (<span class="kw">-</span> idx (<span class="at">:grid-size</span> state)))</a>
+<a class="sourceLine" id="cb4-4" title="4">   (<span class="kw">get</span> (<span class="at">:matrix</span> state) (<span class="kw">dec</span> idx))</a>
+<a class="sourceLine" id="cb4-5" title="5">   (<span class="kw">get</span> (<span class="at">:matrix</span> state) (<span class="kw">inc</span> idx))</a>
+<a class="sourceLine" id="cb4-6" title="6">   (<span class="kw">get</span> (<span class="at">:matrix</span> state) (<span class="kw">+</span> (<span class="at">:grid-size</span> state) idx))])</a>
+<a class="sourceLine" id="cb4-7" title="7"></a>
+<a class="sourceLine" id="cb4-8" title="8">(<span class="bu">defn</span><span class="fu"> delta-e </span>[state i]</a>
+<a class="sourceLine" id="cb4-9" title="9">  <span class="st">&quot;Compute the energy difference introduced by a particular cell&quot;</span></a>
+<a class="sourceLine" id="cb4-10" title="10">  (<span class="kw">*</span> (<span class="at">:intensity</span> state) ((<span class="at">:matrix</span> state) i)</a>
+<a class="sourceLine" id="cb4-11" title="11">     (<span class="kw">reduce</span> <span class="kw">+</span> (<span class="kw">filter</span> some? (get-neighbours state i)))))</a></code></pre></div>
+<p>We also add a function to compute directly the hamiltonian for the entire configuration state. We can use it later to log its values across iterations.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb5-1" title="1">(<span class="bu">defn</span><span class="fu"> hamiltonian </span>[state]</a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="st">&quot;Compute the Hamiltonian of a configuration state&quot;</span></a>
+<a class="sourceLine" id="cb5-3" title="3">  (<span class="kw">-</span> (<span class="kw">reduce</span> <span class="kw">+</span> (<span class="kw">for</span> [i (<span class="kw">range</span> (<span class="kw">count</span> (<span class="at">:matrix</span> state)))</a>
+<a class="sourceLine" id="cb5-4" title="4">             j (<span class="kw">filter</span> some? (get-neighbours state i))]</a>
+<a class="sourceLine" id="cb5-5" title="5">         (<span class="kw">*</span> (<span class="at">:intensity</span> state) ((<span class="at">:matrix</span> state) i) j)))))</a></code></pre></div>
+<p>Finally, we put everything together in the <code>update-state</code> function, which will decide whether to accept or reject the new configuration.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb6-1" title="1">(<span class="bu">defn</span><span class="fu"> update-state </span>[state]</a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="st">&quot;Accept or reject a new state based on energy</span></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="st">  difference (Metropolis-Hastings)&quot;</span></a>
+<a class="sourceLine" id="cb6-4" title="4">  (<span class="kw">let</span> [i (<span class="kw">rand-int</span> (<span class="kw">count</span> (<span class="at">:matrix</span> state)))</a>
+<a class="sourceLine" id="cb6-5" title="5">    new-state (toggle-state state i)</a>
+<a class="sourceLine" id="cb6-6" title="6">    alpha (q/exp (<span class="kw">-</span> (<span class="kw">*</span> (<span class="at">:beta</span> state) (delta-e state i))))]</a>
+<a class="sourceLine" id="cb6-7" title="7">    <span class="co">;;(println (hamiltonian new-state))</span></a>
+<a class="sourceLine" id="cb6-8" title="8">    (<span class="kw">update</span> (<span class="kw">if</span> (<span class="kw">&lt;</span> (<span class="kw">rand</span>) alpha) new-state state)</a>
+<a class="sourceLine" id="cb6-9" title="9">        <span class="at">:iteration</span> <span class="kw">inc</span>)))</a></code></pre></div>
+<p>The last thing to do is to draw the new configuration:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb7-1" title="1">(<span class="bu">defn</span><span class="fu"> draw-state </span>[state]</a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="st">&quot;Draw a configuration state as a grid&quot;</span></a>
+<a class="sourceLine" id="cb7-3" title="3">  (q/background <span class="dv">255</span>)</a>
+<a class="sourceLine" id="cb7-4" title="4">  (<span class="kw">let</span> [cell-size (<span class="kw">quot</span> (q/width) (<span class="at">:grid-size</span> state))]</a>
+<a class="sourceLine" id="cb7-5" title="5">    (<span class="kw">doseq</span> [[i v] (map-indexed <span class="kw">vector</span> (<span class="at">:matrix</span> state))]</a>
+<a class="sourceLine" id="cb7-6" title="6">  (<span class="kw">let</span> [x (<span class="kw">*</span> cell-size (<span class="kw">rem</span> i (<span class="at">:grid-size</span> state)))</a>
+<a class="sourceLine" id="cb7-7" title="7">        y (<span class="kw">*</span> cell-size  (<span class="kw">quot</span> i (<span class="at">:grid-size</span> state)))]</a>
+<a class="sourceLine" id="cb7-8" title="8">    (q/no-stroke)</a>
+<a class="sourceLine" id="cb7-9" title="9">    (q/fill</a>
+<a class="sourceLine" id="cb7-10" title="10">     (<span class="kw">if</span> (<span class="kw">=</span> <span class="dv">1</span> v) <span class="dv">0</span> <span class="dv">255</span>))</a>
+<a class="sourceLine" id="cb7-11" title="11">    (q/rect x y cell-size cell-size))))</a>
+<a class="sourceLine" id="cb7-12" title="12">  <span class="co">;;(when (zero? (mod (:iteration state) 50)) (q/save-frame &quot;img/ising-######.jpg&quot;))</span></a>
+<a class="sourceLine" id="cb7-13" title="13">  )</a></code></pre></div>
+<p>And to reset the simulation when the user clicks anywhere on the screen:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb8-1" title="1">(<span class="bu">defn</span><span class="fu"> mouse-clicked </span>[state event]</a>
+<a class="sourceLine" id="cb8-2" title="2">  <span class="st">&quot;When the mouse is clicked, reset the configuration to a random one&quot;</span></a>
+<a class="sourceLine" id="cb8-3" title="3">  (setup <span class="dv">100</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb9-1" title="1">(q/defsketch ising-model</a>
+<a class="sourceLine" id="cb9-2" title="2">  <span class="at">:title</span> <span class="st">&quot;Ising model&quot;</span></a>
+<a class="sourceLine" id="cb9-3" title="3">  <span class="at">:size</span> [<span class="dv">300</span> <span class="dv">300</span>]</a>
+<a class="sourceLine" id="cb9-4" title="4">  <span class="at">:setup</span> #(setup <span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb9-5" title="5">  <span class="at">:update</span> update-state</a>
+<a class="sourceLine" id="cb9-6" title="6">  <span class="at">:draw</span> draw-state</a>
+<a class="sourceLine" id="cb9-7" title="7">  <span class="at">:mouse-clicked</span> mouse-clicked</a>
+<a class="sourceLine" id="cb9-8" title="8">  <span class="at">:features</span> [<span class="at">:keep-on-top</span> <span class="at">:no-bind-output</span>]</a>
+<a class="sourceLine" id="cb9-9" title="9">  <span class="at">:middleware</span> [m/fun-mode])</a></code></pre></div>
+<h1 id="conclusion">Conclusion</h1>
+<p>The Ising model is a really easy (and common) example use of MCMC and Metropolis-Hastings. It allows to easily and intuitively understand how the algorithm works, and to make nice visualizations!</p>
+    </section>
+</article>
+]]></description>
+    <pubDate>Mon, 05 Feb 2018 00:00:00 UT</pubDate>
+    <guid>https://www.lozeve.com/posts/ising-model.html</guid>
+    <dc:creator>Dimitri Lozeve</dc:creator>
+</item>
+<item>
+    <title>Generating and representing L-systems</title>
+    <link>https://www.lozeve.com/posts/lsystems.html</link>
+    <description><![CDATA[<article>
+    <section class="header">
+        Posted on January 18, 2018
+        
+            by Dimitri Lozeve
+        
+    </section>
+    <section>
+        <p>L-systems are a formal way to make interesting visualisations. You can use them to model a wide variety of objects: space-filling curves, fractals, biological systems, tilings, etc.</p>
+<p>See the Github repo: <a href="https://github.com/dlozeve/lsystems" class="uri">https://github.com/dlozeve/lsystems</a></p>
+<h1 id="what-is-an-l-system">What is an L-system?</h1>
+<h2 id="a-few-examples-to-get-started">A few examples to get started</h2>
+<p><img src="../images/lsystems/dragon.png" /></p>
+<p><img src="../images/lsystems/gosper.png" /></p>
+<p><img src="../images/lsystems/plant.png" /></p>
+<p><img src="../images/lsystems/penroseP3.png" /></p>
+<h2 id="definition">Definition</h2>
+<p>An <a href="https://en.wikipedia.org/wiki/L-system">L-system</a> is a set of rewriting rules generating sequences of symbols. Formally, an L-system is a triplet of:</p>
+<ul>
+<li>an <em>alphabet</em> <span class="math inline">\(V\)</span> (an arbitrary set of symbols)</li>
+<li>an <em>axiom</em> <span class="math inline">\(\omega\)</span>, which is a non-empty word of the alphabet (<span class="math inline">\(\omega \in V^+\)</span>)</li>
+<li>a set of <em>rewriting rules</em> (or <em>productions</em>) <span class="math inline">\(P\)</span>, each mapping a symbol to a word: <span class="math inline">\(P \subset V \times V^*\)</span>. Symbols not present in <span class="math inline">\(P\)</span> are assumed to be mapped to themselves.</li>
+</ul>
+<p>During an iteration, the algorithm takes each symbol in the current word and replaces it by the value in its rewriting rule. Not that the output of the rewriting rule can be absolutely <em>anything</em> in <span class="math inline">\(V^*\)</span>, including the empty word! (So yes, you can generate symbols just to delete them afterwards.)</p>
+<p>At this point, an L-system is nothing more than a way to generate very long strings of characters. In order to get something useful out of this, we have to give them <em>meaning</em>.</p>
+<h2 id="drawing-instructions-and-representation">Drawing instructions and representation</h2>
+<p>Our objective is to draw the output of the L-system in order to visually inspect the output. The most common way is to interpret the output as a sequence of instruction for a LOGO-like drawing turtle. For instance, a simple alphabet consisting only in the symbols <span class="math inline">\(F\)</span>, <span class="math inline">\(+\)</span>, and <span class="math inline">\(-\)</span> could represent the instructions “move forward”, “turn right by 90°”, and “turn left by 90°” respectively.</p>
+<p>Thus, we add new components to our definition of L-systems:</p>
+<ul>
+<li>a set of <em>instructions</em>, <span class="math inline">\(I\)</span>. These are limited by the capabilities of our imagined turtle, so we can assume that they are the same for every L-system we will consider:
+<ul>
+<li><code>Forward</code> makes the turtle draw a straight segment.</li>
+<li><code>TurnLeft</code> and <code>TurnRight</code> makes the turtle turn on itself by a given angle.</li>
+<li><code>Push</code> and <code>Pop</code> allow the turtle to store and retrieve its position on a stack. This will allow for branching in the turtle’s path.</li>
+<li><code>Stay</code>, which orders the turtle to do nothing.</li>
+</ul></li>
+<li>a <em>distance</em> <span class="math inline">\(d \in \mathbb{R_+}\)</span>, i.e. how long should each forward segment should be.</li>
+<li>an <em>angle</em> <span class="math inline">\(\theta\)</span> used for rotation.</li>
+<li>a set of <em>representation rules</em> <span class="math inline">\(R \subset V \times I\)</span>. As before, they will match a symbol to an instruction. Symbols not matched by any rule will be associated to <code>Stay</code>.</li>
+</ul>
+<p>Finally, our complete L-system, representable by a turtle with capabilities <span class="math inline">\(I\)</span>, can be defined as <span class="math display">\[ L = (V, \omega, P, d, \theta,
+R). \]</span></p>
+<p>One could argue that the representation is not part of the L-system, and that the same L-system could be represented differently by changing the representation rules. However, in our setting, we won’t observe the L-system other than by displaying it, so we might as well consider that two systems differing only by their representation rules are different systems altogether.</p>
+<h1 id="implementation-details">Implementation details</h1>
+<h2 id="the-lsystem-data-type">The <code>LSystem</code> data type</h2>
+<p>The mathematical definition above translate almost immediately in a Haskell data type:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb1-1" title="1"><span class="co">-- | L-system data type</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">data</span> <span class="dt">LSystem</span> a <span class="fu">=</span> <span class="dt">LSystem</span></a>
+<a class="sourceLine" id="cb1-3" title="3">  {<span class="ot"> name ::</span> <span class="dt">String</span></a>
+<a class="sourceLine" id="cb1-4" title="4">  ,<span class="ot"> alphabet ::</span> [a] <span class="co">-- ^ variables and constants used by the system</span></a>
+<a class="sourceLine" id="cb1-5" title="5">  ,<span class="ot"> axiom ::</span> [a] <span class="co">-- ^ initial state of the system</span></a>
+<a class="sourceLine" id="cb1-6" title="6">  ,<span class="ot"> rules ::</span> [(a, [a])] <span class="co">-- ^ production rules defining how each</span></a>
+<a class="sourceLine" id="cb1-7" title="7">            <span class="co">-- variable can be replaced by a sequence of</span></a>
+<a class="sourceLine" id="cb1-8" title="8">            <span class="co">-- variables and constants</span></a>
+<a class="sourceLine" id="cb1-9" title="9">  ,<span class="ot"> angle ::</span> <span class="dt">Float</span> <span class="co">-- ^ angle used for the representation</span></a>
+<a class="sourceLine" id="cb1-10" title="10">  ,<span class="ot"> distance ::</span> <span class="dt">Float</span> <span class="co">-- ^ distance of each segment in the representation</span></a>
+<a class="sourceLine" id="cb1-11" title="11">  ,<span class="ot"> representation ::</span> [(a, <span class="dt">Instruction</span>)] <span class="co">-- ^ representation rules</span></a>
+<a class="sourceLine" id="cb1-12" title="12">                     <span class="co">-- defining how each variable</span></a>
+<a class="sourceLine" id="cb1-13" title="13">                     <span class="co">-- and constant should be</span></a>
+<a class="sourceLine" id="cb1-14" title="14">                     <span class="co">-- represented</span></a>
+<a class="sourceLine" id="cb1-15" title="15">  } <span class="kw">deriving</span> (<span class="dt">Eq</span>, <span class="dt">Show</span>, <span class="dt">Generic</span>)</a></code></pre></div>
+<p>Here, <code>a</code> is the type of the literal in the alphabet. For all practical purposes, it will almost always be <code>Char</code>.</p>
+<p><code>Instruction</code> is just a sum type over all possible instructions listed above.</p>
+<h2 id="iterating-and-representing">Iterating and representing</h2>
+<p>From here, generating L-systems and iterating is straightforward. We iterate recursively by looking up each symbol in <code>rules</code> and replacing it by its expansion. We then transform the result to a list of <code>Instruction</code>.</p>
+<h2 id="drawing">Drawing</h2>
+<p>The only remaining thing is to implement the virtual turtle which will actually execute the instructions. It goes through the list of instructions, building a sequence of points and maintaining an internal state (position, angle, stack). The stack is used when <code>Push</code> and <code>Pop</code> operations are met. In this case, the turtle builds a separate line starting from its current position.</p>
+<p>The final output is a set of lines, each being a simple sequence of points. All relevant data types are provided by the <a href="https://hackage.haskell.org/package/gloss">Gloss</a> library, along with the function that can display the resulting <code>Picture</code>.</p>
+<h1 id="common-file-format-for-l-systems">Common file format for L-systems</h1>
+<p>In order to define new L-systems quickly and easily, it is necessary to encode them in some form. We chose to represent them as JSON values.</p>
+<p>Here is an example for the <a href="https://en.wikipedia.org/wiki/Gosper_curve">Gosper curve</a>:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb2-1" title="1"><span class="fu">{</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;gosper&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb2-3" title="3">  <span class="dt">&quot;alphabet&quot;</span><span class="fu">:</span> <span class="st">&quot;AB+-&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb2-4" title="4">  <span class="dt">&quot;axiom&quot;</span><span class="fu">:</span> <span class="st">&quot;A&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb2-5" title="5">  <span class="dt">&quot;rules&quot;</span><span class="fu">:</span> <span class="ot">[</span></a>
+<a class="sourceLine" id="cb2-6" title="6">    <span class="ot">[</span><span class="st">&quot;A&quot;</span><span class="ot">,</span> <span class="st">&quot;A-B--B+A++AA+B-&quot;</span><span class="ot">],</span></a>
+<a class="sourceLine" id="cb2-7" title="7">    <span class="ot">[</span><span class="st">&quot;B&quot;</span><span class="ot">,</span> <span class="st">&quot;+A-BB--B-A++A+B&quot;</span><span class="ot">]</span></a>
+<a class="sourceLine" id="cb2-8" title="8">  <span class="ot">]</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb2-9" title="9">  <span class="dt">&quot;angle&quot;</span><span class="fu">:</span> <span class="fl">60.0</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb2-10" title="10">  <span class="dt">&quot;distance&quot;</span><span class="fu">:</span> <span class="fl">10.0</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb2-11" title="11">  <span class="dt">&quot;representation&quot;</span><span class="fu">:</span> <span class="ot">[</span></a>
+<a class="sourceLine" id="cb2-12" title="12">    <span class="ot">[</span><span class="st">&quot;A&quot;</span><span class="ot">,</span> <span class="st">&quot;Forward&quot;</span><span class="ot">],</span></a>
+<a class="sourceLine" id="cb2-13" title="13">    <span class="ot">[</span><span class="st">&quot;B&quot;</span><span class="ot">,</span> <span class="st">&quot;Forward&quot;</span><span class="ot">],</span></a>
+<a class="sourceLine" id="cb2-14" title="14">    <span class="ot">[</span><span class="st">&quot;+&quot;</span><span class="ot">,</span> <span class="st">&quot;TurnRight&quot;</span><span class="ot">],</span></a>
+<a class="sourceLine" id="cb2-15" title="15">    <span class="ot">[</span><span class="st">&quot;-&quot;</span><span class="ot">,</span> <span class="st">&quot;TurnLeft&quot;</span><span class="ot">]</span></a>
+<a class="sourceLine" id="cb2-16" title="16">  <span class="ot">]</span></a>
+<a class="sourceLine" id="cb2-17" title="17"><span class="fu">}</span></a></code></pre></div>
+<p>Using this format, it is easy to define new L-systems (along with how they should be represented). This is translated nearly automatically to the <code>LSystem</code> data type using <a href="https://hackage.haskell.org/package/aeson">Aeson</a>.</p>
+<h1 id="variations-on-l-systems">Variations on L-systems</h1>
+<p>We can widen the possibilities of L-systems in various ways. L-systems are in effect deterministic context-free grammars.</p>
+<p>By allowing multiple rewriting rules for each symbol with probabilities, we can extend the model to <a href="https://en.wikipedia.org/wiki/Probabilistic_context-free_grammar">probabilistic context-free grammars</a>.</p>
+<p>We can also have replacement rules not for a single symbol, but for a subsequence of them, thus effectively taking into account their neighbours (context-sensitive grammars). This seems very close to 1D cellular automata.</p>
+<p>Finally, L-systems could also have a 3D representation (for instance space-filling curves in 3 dimensions).</p>
+<h1 id="usage-notes">Usage notes</h1>
+<ol>
+<li>Clone the repository: <code>git clone [[https://github.com/dlozeve/lsystems]]</code></li>
+<li>Build: <code>stack build</code></li>
+<li>Execute <code>stack exec lsystems-exe -- examples/penroseP3.json</code> to see the list of options</li>
+<li>(Optional) Run tests and build documentation: <code>stack test --haddock</code></li>
+</ol>
+<p>Usage: <code>stack exec lsystems-exe -- --help</code></p>
+<pre><code>lsystems -- Generate L-systems
+
+Usage: lsystems-exe FILENAME [-n|--iterations N] [-c|--color R,G,B]
+                    [-w|--white-background]
+  Generate and draw an L-system
+
+Available options:
+  FILENAME                 JSON file specifying an L-system
+  -n,--iterations N        Number of iterations (default: 5)
+  -c,--color R,G,B         Foreground color RGBA
+                           (0-255) (default: RGBA 1.0 1.0 1.0 1.0)
+  -w,--white-background    Use a white background
+  -h,--help                Show this help text
+</code></pre>
+<p>Apart from the selection of the input JSON file, you can adjust the number of iterations and the colors.</p>
+<p><code>stack exec lsystems-exe -- examples/levyC.json -n 12 -c 0,255,255</code></p>
+<p><img src="../images/lsystems/levyC.png" /></p>
+<h1 id="references">References</h1>
+<ol>
+<li>Prusinkiewicz, Przemyslaw; Lindenmayer, Aristid (1990). <em>The Algorithmic Beauty of Plants.</em> Springer-Verlag. ISBN 978-0-387-97297-8. <a href="http://algorithmicbotany.org/papers/#abop" class="uri">http://algorithmicbotany.org/papers/#abop</a></li>
+<li>Weisstein, Eric W. “Lindenmayer System.” From MathWorld–A Wolfram Web Resource. <a href="http://mathworld.wolfram.com/LindenmayerSystem.html" class="uri">http://mathworld.wolfram.com/LindenmayerSystem.html</a></li>
+<li>Corte, Leo. “L-systems and Penrose P3 in Inkscape.” <em>The Brick in the Sky.</em> <a href="https://thebrickinthesky.wordpress.com/2013/03/17/l-systems-and-penrose-p3-in-inkscape/" class="uri">https://thebrickinthesky.wordpress.com/2013/03/17/l-systems-and-penrose-p3-in-inkscape/</a></li>
+</ol>
+    </section>
+</article>
+]]></description>
+    <pubDate>Thu, 18 Jan 2018 00:00:00 UT</pubDate>
+    <guid>https://www.lozeve.com/posts/lsystems.html</guid>
+    <dc:creator>Dimitri Lozeve</dc:creator>
+</item>
+
+    </channel>
+</rss>

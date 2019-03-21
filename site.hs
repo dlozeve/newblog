@@ -33,6 +33,7 @@ main = hakyll $ do
     route $ setExtension "html"
     compile $ customPandocCompiler
       >>= loadAndApplyTemplate "templates/post.html"    postCtx
+      >>= saveSnapshot "content"
       >>= loadAndApplyTemplate "templates/default.html" postCtx
       >>= relativizeUrls
 
@@ -69,6 +70,14 @@ main = hakyll $ do
         >>= loadAndApplyTemplate "templates/default.html" archiveCtx
         >>= relativizeUrls
 
+  create ["atom.xml"] $ do
+    route idRoute
+    compile (feedCompiler renderAtom)
+
+  create ["rss.xml"] $ do
+    route idRoute
+    compile (feedCompiler renderRss)
+
   match "index.html" $ do
     route idRoute
     compile $ do
@@ -85,10 +94,23 @@ main = hakyll $ do
 
 
 --------------------------------------------------------------------------------
+feedConfiguration :: FeedConfiguration
+feedConfiguration =
+  FeedConfiguration
+  { feedTitle       = "Dimitri Lozeve's Blog"
+  , feedDescription = "Recent posts"
+  , feedAuthorName  = "Dimitri Lozeve"
+  , feedAuthorEmail = "dimitri+web@lozeve.com"
+  , feedRoot        = "https://www.lozeve.com"
+  }
+
 postCtx :: Context String
 postCtx =
   dateField "date" "%B %e, %Y" `mappend`
   defaultContext
+
+feedCtx :: Context String
+feedCtx = postCtx <> bodyField "description"
 
 customPandocCompiler :: Compiler (Item String)
 customPandocCompiler =
@@ -100,3 +122,14 @@ customPandocCompiler =
         , writerHTMLMathMethod = MathJax ""
         }
   in pandocCompilerWith defaultHakyllReaderOptions writerOptions
+
+type FeedRenderer = FeedConfiguration
+    -> Context String
+    -> [Item String]
+    -> Compiler (Item String)
+
+feedCompiler :: FeedRenderer -> Compiler (Item String)
+feedCompiler renderer =
+  renderer feedConfiguration feedCtx
+  =<< fmap (take 10) . recentFirst
+  =<< loadAllSnapshots "posts/*" "content"
