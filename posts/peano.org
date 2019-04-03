@@ -5,9 +5,9 @@ date: 2019-03-18
 
 * Introduction
 
-  I have recently bought the book /Category Theory/ from Steve
-  Awodey [[ref-1][(1)]] (which is awesome, but probably the topic for another
-  post), and a particular passage excited my curiosity:
+  I have recently bought the book /Category Theory/ from Steve Awodey
+  citep:awodeyCategoryTheory2010 is awesome, but probably the topic
+  for another post), and a particular passage excited my curiosity:
 
   #+begin_quote
   Let us begin by distinguishing between the following things:
@@ -54,8 +54,9 @@ date: 2019-03-18
   this subject.
 
   In this post, I will try to share my path through Peano's axioms
-  [[ref-2][(2)]], because they are very simple, and it is easy to uncover basic
-  algebraic structure from them.
+  citep:gowersPrincetonCompanionMathematics2010, because they are very
+  simple, and it is easy to uncover basic algebraic structure from
+  them.
 
 * The Axioms
 
@@ -188,29 +189,21 @@ date: 2019-03-18
   It is remarkable how very few (and very simple, as far as you would
   consider the induction axiom "simple") axioms are enough to build an
   entire theory of mathematics. This sort of things makes me agree
-  with Eugene Wigner [[ref-3][(3)]] when he says that "mathematics is the science
-  of skillful operations with concepts and rules invented just for
-  this purpose". We drew some arbitrary rules out of thin air, and
-  derived countless properties and theorems from them, basically for
-  our own enjoyment. (As Wigner would say, it is /incredible/ that any
-  of these fanciful inventions coming out of nowhere turned out to be
-  even remotely useful.) Mathematics is done mainly for the
-  mathematician's own pleasure!
+  with Eugene Wigner
+  citep:wignerUnreasonableEffectivenessMathematics1990 when he says
+  that "mathematics is the science of skillful operations with
+  concepts and rules invented just for this purpose". We drew some
+  arbitrary rules out of thin air, and derived countless properties
+  and theorems from them, basically for our own enjoyment. (As Wigner
+  would say, it is /incredible/ that any of these fanciful inventions
+  coming out of nowhere turned out to be even remotely useful.)
+  Mathematics is done mainly for the mathematician's own pleasure!
 
   #+begin_quote
   Mathematics cannot be defined without acknowledging its most obvious
-  feature: namely, that it is interesting --- M. Polanyi [[ref-3][(3)]]
+  feature: namely, that it is interesting --- M. Polanyi
+  citep:wignerUnreasonableEffectivenessMathematics1990
   #+end_quote
 
 * References
-
-1. <<ref-1>>Awodey, Steve. Category Theory. 2nd ed. Oxford Logic
-   Guides 52. Oxford ; New York: Oxford University Press, 2010.
-2. <<ref-2>>Gowers, Timothy, June Barrow-Green, and Imre Leader. The
-   Princeton Companion to Mathematics. Princeton University
-   Press, 2010.
-3. <<ref-3>>Wigner, Eugene P. ‘The Unreasonable Effectiveness of
-   Mathematics in the Natural Sciences’. In Mathematics and Science,
-   by Ronald E Mickens, 291–306. World
-   Scientific, 1990. https://doi.org/10.1142/9789814503488_0018.
 
