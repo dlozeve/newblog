@@ -23,11 +23,9 @@ main = hakyll $ do
     route   idRoute
     compile compressCssCompiler
 
-  match (fromList ["contact.org", "cv.org", "skills.org", "projects.org"]) $ do
-    route $ setExtension "html"
-    compile $ customPandocCompiler
-      >>= loadAndApplyTemplate "templates/default.html" defaultContext
-      >>= relativizeUrls
+  match "bib/*" $ compile biblioCompiler
+
+  match "csl/*" $ compile cslCompiler
 
   match "posts/*" $ do
     route $ setExtension "html"
@@ -35,6 +33,19 @@ main = hakyll $ do
       >>= loadAndApplyTemplate "templates/post.html"    postCtx
       >>= saveSnapshot "content"
       >>= loadAndApplyTemplate "templates/default.html" postCtx
+      >>= relativizeUrls
+
+  match "projects/*" $ do
+    route $ setExtension "html"
+    compile $ customPandocCompiler
+      >>= loadAndApplyTemplate "templates/project.html" postCtx
+      >>= loadAndApplyTemplate "templates/default.html" postCtx
+      >>= relativizeUrls
+
+  match (fromList ["contact.org", "cv.org", "skills.org", "projects.org"]) $ do
+    route $ setExtension "html"
+    compile $ customPandocCompiler
+      >>= loadAndApplyTemplate "templates/default.html" defaultContext
       >>= relativizeUrls
 
   create ["archive.html"] $ do
@@ -49,13 +60,6 @@ main = hakyll $ do
         >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
         >>= loadAndApplyTemplate "templates/default.html" archiveCtx
         >>= relativizeUrls
-
-  match "projects/*" $ do
-    route $ setExtension "html"
-    compile $ customPandocCompiler
-      >>= loadAndApplyTemplate "templates/project.html" postCtx
-      >>= loadAndApplyTemplate "templates/default.html" postCtx
-      >>= relativizeUrls
 
   create ["projects.html"] $ do
     route idRoute
@@ -121,7 +125,12 @@ customPandocCompiler =
         { writerExtensions = newExtensions
         , writerHTMLMathMethod = MathJax ""
         }
-  in pandocCompilerWith defaultHakyllReaderOptions writerOptions
+      readerOptions = defaultHakyllReaderOptions
+  in do
+    csl <- load $ fromFilePath "csl/chicago-author-date.csl"
+    bib <- load $ fromFilePath "bib/all.bib"
+    writePandocWith writerOptions <$>
+     (getResourceBody >>= readPandocBiblio readerOptions csl bib)
 
 type FeedRenderer = FeedConfiguration
     -> Context String
