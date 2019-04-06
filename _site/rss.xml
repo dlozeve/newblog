@@ -7,8 +7,28 @@
         <description><![CDATA[Recent posts]]></description>
         <atom:link href="https://www.lozeve.com/rss.xml" rel="self"
                    type="application/rss+xml" />
-        <lastBuildDate>Wed, 20 Mar 2019 00:00:00 UT</lastBuildDate>
+        <lastBuildDate>Sat, 06 Apr 2019 00:00:00 UT</lastBuildDate>
         <item>
+    <title>Destygo: Towards Self-Learning Chatbots</title>
+    <link>https://www.lozeve.com/posts/self-learning-chatbots-destygo.html</link>
+    <description><![CDATA[<article>
+    <section class="header">
+        Posted on April  6, 2019
+        
+    </section>
+    <section>
+        <p>Last week I made a presentation at the <a href="https://www.meetup.com/Paris-NLP/">Paris NLP Meetup</a>, on how we implemented self-learning chatbots in production at Destygo.</p>
+<p>It was fascinating to other people interested in NLP about the technologies and models we deploy at work! It’s always nice to have some feedback about our work, and preparing this talk forced me to take a step back about what we do and rethink it in new interesting ways.</p>
+<p>Also check out the <a href="https://nlpparis.wordpress.com/2019/03/29/paris-nlp-season-3-meetup-4-at-meilleursagents/">other presentations</a>, one about diachronic (i.e. time-dependent) word embeddings and the other about the different models and the use of Knowledge Bases for Information Retrieval. (This might even give us new ideas to explore…)</p>
+<p>If you’re interested about exciting applications at the confluence of Reinforcement Learning and NLP, the slides are available <a href="https://drive.google.com/file/d/1aS1NpPxRzsQCsAqoQIVZrdf8R1Y2VKrT/view">here</a>. It includes basic RL theory, how we transposed it to the specific case of conversational agents, the technical and mathematical challenges in implementing self-learning chatbots, and of course plenty of references for further reading if we piqued your interest!</p>
+    </section>
+</article>
+]]></description>
+    <pubDate>Sat, 06 Apr 2019 00:00:00 UT</pubDate>
+    <guid>https://www.lozeve.com/posts/self-learning-chatbots-destygo.html</guid>
+    <dc:creator>Dimitri Lozeve</dc:creator>
+</item>
+<item>
     <title>Random matrices from the Ginibre ensemble</title>
     <link>https://www.lozeve.com/posts/ginibre-ensemble.html</link>
     <description><![CDATA[<article>
