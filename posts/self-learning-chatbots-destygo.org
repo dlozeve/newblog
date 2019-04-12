@@ -27,3 +27,7 @@ includes basic RL theory, how we transposed it to the specific case of
 conversational agents, the technical and mathematical challenges in
 implementing self-learning chatbots, and of course plenty of
 references for further reading if we piqued your interest!
+
+**Update:** The videos are now available on the
+  [[https://nlpparis.wordpress.com/2019/03/29/paris-nlp-season-3-meetup-4-at-meilleursagents/][NLP
+  Meetup website]].
