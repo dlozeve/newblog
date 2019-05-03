@@ -2,28 +2,32 @@
 title: "Curriculum Vitæ"
 ---
 
+[[./files/cv.pdf][(PDF version)]]
+
 
 * Work experience
 
-*** Destygo: R&D Data Scientist
-    2018-present
+*** [[https://www.destygo.com/][Destygo]]: R&D Data Scientist
+    October 2018--present
 
-*** Sysnav: Real-time geolocalization algorithm on an embedded device
-    March-August 2017
+    - Natural Language Processing and Reinforcement Learning for Chatbots
 
-    - mathematical modelling of the human walk
-    - step detection using artificial intelligence on inertial sensors data
-    - statistical methods for trajectory reconstruction
-    - /Award:/ Best Research Internship 2017, from École polytechnique
+***  [[http://www.sysnav.fr/][Sysnav]]: Real-time geolocalization algorithm on an embedded device
+    March--August 2017
+
+    - Mathematical modelling of the human walk
+    - Step detection using artificial intelligence on inertial sensors data
+    - Statistical methods for trajectory reconstruction
+    - /Award:/ [[http://www.sysnav.fr/dimitri-lozeve-etudiant-sysnav-obtient-le-prix-du-meilleur-stage-de-recherche-2017-de-lecole-polytechnique/][Best Research Internship 2017, from École polytechnique]]
     - [[./files/sysnav_internship.pdf][Outline of the confidential report (PDF, in French)]] and [[https://dlozeve.github.io/stage3a/][slides]]
 
-*** Natixis London Branch, Global Infrastructure and Projects: Intern Analyst
-    June-August 2016
+*** [[https://www.natixis.com/][Natixis]] London Branch, Global Infrastructure and Projects: Intern Analyst
+    June--August 2016
 
     Origination and execution of project finance transactions: offshore windfarms, hydroelectric dams, and a biomass power plant now under construction in northeastern England.
 
 *** French Engineering Corps: Army officer
-    2014-2015
+    2014--2015
 
     Operation Sangaris: Military intervention in the Central African
     Republic.
@@ -35,18 +39,18 @@ title: "Curriculum Vitæ"
 * Education
 
 *** University of Oxford: [[https://www.ox.ac.uk/admissions/graduate/courses/msc-statistical-science][MSc in Statistical Science]]
-    2017-2018
+    2017--2018
 
     - Applied and computational statistics, statistical machine learning and statistical inference
 
 *** [[https://www.polytechnique.edu/][École polytechnique]]
-    2014-2017
+    2014--2017
 
     - Majors in Applied Mathematics and Data Science, Computer Science, and Physics
     - /Distinctions:/ Outstanding Investment, Outstanding Leadership
 
 *** Lycée Privé Sainte-Geneviève, Versailles: Preparatory classes to French *Grandes Écoles*
-    2012-2014
+    2012--2014
 
     - Majors in Mathematics and Physics
 
@@ -56,24 +60,24 @@ title: "Curriculum Vitæ"
 
     - Master's thesis, joint work with Oxford's Department of Statistics and Mathematical Institute
     - Application of the recent advances in Topological Data Analysis (TDA) and Persistent Homology to periodicity detection in temporal networks
-    - [[./files/tdanetworks.pdf][Dissertation]]
+    - [[./files/tdanetworks.pdf][Dissertation (PDF)]]
 
 *** Research work on Community Detection in Social Networks
-    2016-2017
+    2016--2017
 
     - Comparison of the performance of state-of-the-art algorithms (theory and implementations)
     - Application to large-scale, real-world social networks
     - [[./files/communitydetection.pdf][Dissertation (PDF, in French)]] and [[https://dlozeve.github.io/reveal_CommunityDetection/][slides]]
 
 *** SERB X-CubeSat II program: a nano-satellite dedicated to Sun-Earth relationship
-    2015-2016
+    2015--2016
 
     - Solar Irradiance and Earth Radiation Budget: Payload preliminary design
     - Co-authored [[http://dx.doi.org/10.1117/12.2222660][SPIE Proceedings article]] on the project’s technical specifications
     - [[./files/serb.pdf][Dissertation (PDF, in French)]]
 
 *** Research work on Markov Chains and Queuing Theory
-    2013-2014
+    2013--2014
 
     - Study on the convergence of queues through algebra and numerical simulations
     - [[./files/filesdattente.pdf][Dissertation (PDF, in French)]]
