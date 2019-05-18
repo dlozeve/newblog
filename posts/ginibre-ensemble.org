@@ -32,13 +32,11 @@ date: 2019-03-20
    algebra and statistical distributions:
 
    #+begin_src julia
-     using Distributions
      using LinearAlgebra
      using UnicodePlots
 
      function ginibre(n)
-	 d = Normal(0, sqrt(1/2n))
-	 reshape(rand(d, n^2), (n,n)) + im*reshape(rand(d, n^2), (n,n))
+         return randn((n, n)) * sqrt(1/2n) + im * randn((n, n)) * sqrt(1/2n)
      end
 
      v = eigvals(ginibre(2000))
