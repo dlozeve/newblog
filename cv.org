@@ -7,7 +7,7 @@ title: "Curriculum Vitæ"
 
 * Work experience
 
-*** [[https://www.destygo.com/][Destygo]]: R&D Data Scientist
+*** [[https://www.mindsay.com/][Mindsay]]: R&D Data Scientist
     October 2018--present
 
     - Natural Language Processing and Reinforcement Learning for Chatbots
