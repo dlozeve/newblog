@@ -2,7 +2,7 @@
 title: "Curriculum Vitæ"
 ---
 
-[[./files/cv.pdf][(PDF version)]]
+[[./files/cv.pdf][(PDF version)]] ([[./files/cv.pdf.minisig][sig]])
 
 
 * Work experience
@@ -19,7 +19,7 @@ title: "Curriculum Vitæ"
     - Step detection using artificial intelligence on inertial sensors data
     - Statistical methods for trajectory reconstruction
     - /Award:/ [[http://www.sysnav.fr/dimitri-lozeve-etudiant-sysnav-obtient-le-prix-du-meilleur-stage-de-recherche-2017-de-lecole-polytechnique/][Best Research Internship 2017, from École polytechnique]]
-    - [[./files/sysnav_internship.pdf][Outline of the confidential report (PDF, in French)]] and [[https://dlozeve.github.io/stage3a/][slides]]
+    - [[./files/sysnav_internship.pdf][Outline of the confidential report (PDF, in French)]] ([[./files/sysnav_internship.pdf.minisig][sig]]) and [[https://dlozeve.github.io/stage3a/][slides]]
 
 *** [[https://www.natixis.com/][Natixis]] London Branch, Global Infrastructure and Projects: Intern Analyst
     June--August 2016
@@ -60,27 +60,27 @@ title: "Curriculum Vitæ"
 
     - Master's thesis, joint work with Oxford's Department of Statistics and Mathematical Institute
     - Application of the recent advances in Topological Data Analysis (TDA) and Persistent Homology to periodicity detection in temporal networks
-    - [[./files/tdanetworks.pdf][Dissertation (PDF)]]
+    - [[./files/tdanetworks.pdf][Dissertation (PDF)]] ([[./files/tdanetworks.pdf.minisig][sig]])
 
 *** Research work on Community Detection in Social Networks
     2016--2017
 
     - Comparison of the performance of state-of-the-art algorithms (theory and implementations)
     - Application to large-scale, real-world social networks
-    - [[./files/communitydetection.pdf][Dissertation (PDF, in French)]] and [[https://dlozeve.github.io/reveal_CommunityDetection/][slides]]
+    - [[./files/communitydetection.pdf][Dissertation (PDF, in French)]] ([[./files/communitydetection.pdf.minisig][sig]]) and [[https://dlozeve.github.io/reveal_CommunityDetection/][slides]]
 
 *** SERB X-CubeSat II program: a nano-satellite dedicated to Sun-Earth relationship
     2015--2016
 
     - Solar Irradiance and Earth Radiation Budget: Payload preliminary design
     - Co-authored [[http://dx.doi.org/10.1117/12.2222660][SPIE Proceedings article]] on the project’s technical specifications
-    - [[./files/serb.pdf][Dissertation (PDF, in French)]]
+    - [[./files/serb.pdf][Dissertation (PDF, in French)]] ([[./files/serb.pdf.minisig][sig]])
 
 *** Research work on Markov Chains and Queuing Theory
     2013--2014
 
     - Study on the convergence of queues through algebra and numerical simulations
-    - [[./files/filesdattente.pdf][Dissertation (PDF, in French)]]
+    - [[./files/filesdattente.pdf][Dissertation (PDF, in French)]] ([[./files/filesdattente.pdf.minisig][sig]])
 
 * Languages and skills
 
