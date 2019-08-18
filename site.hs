@@ -123,7 +123,7 @@ customPandocCompiler =
       newExtensions = defaultExtensions `mappend` customExtensions
       writerOptions = defaultHakyllWriterOptions
         { writerExtensions = newExtensions
-        , writerHTMLMathMethod = MathJax ""
+        , writerHTMLMathMethod = KaTeX ""
         }
       readerOptions = defaultHakyllReaderOptions
   in do

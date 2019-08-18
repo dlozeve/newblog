@@ -131,26 +131,13 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
 <p>First, we prove that every natural number commutes with <span class="math inline">\(0\)</span>.</p>
 <ul>
 <li><span class="math inline">\(0+0 = 0+0\)</span>.</li>
-<li><p>For every natural number <span class="math inline">\(a\)</span> such that <span class="math inline">\(0+a = a+0\)</span>, we have:</p>
-<span class="math display">\[\begin{align}
- 0 + s(a) &amp;= s(0+a)\\
- &amp;= s(a+0)\\
- &amp;= s(a)\\
- &amp;= s(a) + 0.
-\end{align}
-\]</span></li>
+<li><p>For every natural number <span class="math inline">\(a\)</span> such that <span class="math inline">\(0+a = a+0\)</span>, we have:</p></li>
 </ul>
 <p>By Axiom 5, every natural number commutes with <span class="math inline">\(0\)</span>.</p>
 <p>We can now prove the main proposition:</p>
 <ul>
 <li><span class="math inline">\(\forall a,\quad a+0=0+a\)</span>.</li>
-<li><p>For all <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> such that <span class="math inline">\(a+b=b+a\)</span>,</p>
-<span class="math display">\[\begin{align}
- a + s(b) &amp;= s(a+b)\\
- &amp;= s(b+a)\\
- &amp;= s(b) + a.     
-\end{align}
-\]</span></li>
+<li><p>For all <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> such that <span class="math inline">\(a+b=b+a\)</span>,</p></li>
 </ul>
 <p>We used the opposite of the second rule for <span class="math inline">\(+\)</span>, namely <span class="math inline">\(\forall a,
 \forall b,\quad s(a) + b = s(a+b)\)</span>. This can easily be proved by another induction.</p>
@@ -226,31 +213,15 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
  \mathcal{S}\)</span> to a set <span class="math inline">\(\mathcal{A}(s)\)</span> of possible <em>actions</em> for this state. In this post, we will often simplify by using <span class="math inline">\(\mathcal{A}\)</span> as a set, assuming that all actions are possible for each state,</li>
 <li><span class="math inline">\(\mathcal{R} \subset \mathbb{R}\)</span> is a set of <em>rewards</em>,</li>
 <li><p>and <span class="math inline">\(p\)</span> is a function representing the <em>dynamics</em> of the MDP:</p>
-<span class="math display">\[\begin{align}
- p &amp;: \mathcal{S} \times \mathcal{R} \times \mathcal{S} \times \mathcal{A} \mapsto [0,1] \\
- p(s&#39;, r \;|\; s, a) &amp;:= \mathbb{P}(S_t=s&#39;, R_t=r \;|\; S_{t-1}=s, A_{t-1}=a),
-\end{align}
-\]</span>
 <p>such that <span class="math display">\[ \forall s \in \mathcal{S}, \forall a \in \mathcal{A},\quad \sum_{s&#39;, r} p(s&#39;, r \;|\; s, a) = 1. \]</span></p></li>
 </ul>
 </div>
 <p>The function <span class="math inline">\(p\)</span> represents the probability of transitioning to the state <span class="math inline">\(s&#39;\)</span> and getting a reward <span class="math inline">\(r\)</span> when the agent is at state <span class="math inline">\(s\)</span> and chooses action <span class="math inline">\(a\)</span>.</p>
 <p>We will also use occasionally the <em>state-transition probabilities</em>:</p>
-<span class="math display">\[\begin{align}
- p &amp;: \mathcal{S} \times \mathcal{S} \times \mathcal{A} \mapsto [0,1] \\
-p(s&#39; \;|\; s, a) &amp;:= \mathbb{P}(S_t=s&#39; \;|\; S_{t-1}=s, A_{t-1}=a) \\
-&amp;= \sum_r p(s&#39;, r \;|\; s, a).
-\end{align}
-\]</span>
+
 <h2 id="rewarding-the-agent">Rewarding the agent</h2>
 <div class="definition">
 <p>The <em>expected reward</em> of a state-action pair is the function</p>
-<span class="math display">\[\begin{align}
-r &amp;: \mathcal{S} \times \mathcal{A} \mapsto \mathbb{R} \\
-r(s,a) &amp;:= \mathbb{E}[R_t \;|\; S_{t-1}=s, A_{t-1}=a] \\
-&amp;= \sum_r r \sum_{s&#39;} p(s&#39;, r \;|\; s, a).
-\end{align}
-\]</span>
 </div>
 <div class="definition">
 <p>The <em>discounted return</em> is the sum of all future rewards, with a multiplicative factor to give more weights to more immediate rewards: <span class="math display">\[ G_t := \sum_{k=t+1}^T \gamma^{k-t-1} R_k, \]</span> where <span class="math inline">\(T\)</span> can be infinite or <span class="math inline">\(\gamma\)</span> can be 1, but not both.</p>
@@ -260,33 +231,14 @@ r(s,a) &amp;:= \mathbb{E}[R_t \;|\; S_{t-1}=s, A_{t-1}=a] \\
 <p>A <em>policy</em> is a way for the agent to choose the next action to perform.</p>
 <div class="definition">
 <p>A <em>policy</em> is a function <span class="math inline">\(\pi\)</span> defined as</p>
-<span class="math display">\[\begin{align}
-\pi &amp;: \mathcal{A} \times \mathcal{S} \mapsto [0,1] \\
-\pi(a \;|\; s) &amp;:= \mathbb{P}(A_t=a \;|\; S_t=s).
-\end{align}
-\]</span>
 </div>
 <p>In order to compare policies, we need to associate values to them.</p>
 <div class="definition">
 <p>The <em>state-value function</em> of a policy <span class="math inline">\(\pi\)</span> is</p>
-<span class="math display">\[\begin{align}
-v_{\pi} &amp;: \mathcal{S} \mapsto \mathbb{R} \\
-v_{\pi}(s) &amp;:= \text{expected return when starting in $s$ and following $\pi$} \\
-v_{\pi}(s) &amp;:= \mathbb{E}_{\pi}\left[ G_t \;|\; S_t=s\right] \\
-v_{\pi}(s) &amp;= \mathbb{E}_{\pi}\left[ \sum_{k=0}^{\infty} \gamma^k R_{t+k+1} \;|\; S_t=s\right]
-\end{align}
-\]</span>
 </div>
 <p>We can also compute the value starting from a state <span class="math inline">\(s\)</span> by also taking into account the action taken <span class="math inline">\(a\)</span>.</p>
 <div class="definition">
 <p>The <em>action-value function</em> of a policy <span class="math inline">\(\pi\)</span> is</p>
-<span class="math display">\[\begin{align}
-q_{\pi} &amp;: \mathcal{S} \times \mathcal{A} \mapsto \mathbb{R} \\
-q_{\pi}(s,a) &amp;:= \text{expected return when starting from $s$, taking action $a$, and following $\pi$} \\
-q_{\pi}(s,a) &amp;:= \mathbb{E}_{\pi}\left[ G_t \;|\; S_t=s, A_t=a \right] \\
-q_{\pi}(s,a) &amp;= \mathbb{E}_{\pi}\left[ \sum_{k=0}^{\infty} \gamma^k R_{t+k+1} \;|\; S_t=s, A_t=a\right]
-\end{align}
-\]</span>
 </div>
 <h2 id="the-quest-for-the-optimal-policy">The quest for the optimal policy</h2>
 <h1 id="references">References</h1>

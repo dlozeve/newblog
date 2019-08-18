@@ -7,7 +7,16 @@
     <title>Dimitri Lozeve - Peano Axioms</title>
     <link rel="stylesheet" href="../css/default.css" />
     <link rel="stylesheet" href="../css/syntax.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+    <!-- KaTeX CSS styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+ 
   </head>
   <body>
     <header>
@@ -81,26 +90,13 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
 <p>First, we prove that every natural number commutes with <span class="math inline">\(0\)</span>.</p>
 <ul>
 <li><span class="math inline">\(0+0 = 0+0\)</span>.</li>
-<li><p>For every natural number <span class="math inline">\(a\)</span> such that <span class="math inline">\(0+a = a+0\)</span>, we have:</p>
-<span class="math display">\[\begin{align}
- 0 + s(a) &amp;= s(0+a)\\
- &amp;= s(a+0)\\
- &amp;= s(a)\\
- &amp;= s(a) + 0.
-\end{align}
-\]</span></li>
+<li><p>For every natural number <span class="math inline">\(a\)</span> such that <span class="math inline">\(0+a = a+0\)</span>, we have:</p></li>
 </ul>
 <p>By Axiom 5, every natural number commutes with <span class="math inline">\(0\)</span>.</p>
 <p>We can now prove the main proposition:</p>
 <ul>
 <li><span class="math inline">\(\forall a,\quad a+0=0+a\)</span>.</li>
-<li><p>For all <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> such that <span class="math inline">\(a+b=b+a\)</span>,</p>
-<span class="math display">\[\begin{align}
- a + s(b) &amp;= s(a+b)\\
- &amp;= s(b+a)\\
- &amp;= s(b) + a.     
-\end{align}
-\]</span></li>
+<li><p>For all <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> such that <span class="math inline">\(a+b=b+a\)</span>,</p></li>
 </ul>
 <p>We used the opposite of the second rule for <span class="math inline">\(+\)</span>, namely <span class="math inline">\(\forall a,
 \forall b,\quad s(a) + b = s(a+b)\)</span>. This can easily be proved by another induction.</p>
