@@ -7,10 +7,11 @@ title: "Curriculum Vitæ"
 
 * Work experience
 
-*** [[https://www.mindsay.com/][Mindsay]]: R&D Data Scientist
+*** [[https://www.mindsay.com/][Mindsay]]: R&D Data Scientist and Head of Research
     October 2018--present
 
     - Natural Language Processing and Reinforcement Learning for Chatbots
+    - Management of all R&D projects
 
 ***  [[http://www.sysnav.fr/][Sysnav]]: Real-time geolocalization algorithm on an embedded device
     March--August 2017
