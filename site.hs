@@ -128,7 +128,7 @@ customPandocCompiler =
       readerOptions = defaultHakyllReaderOptions
   in do
     csl <- load $ fromFilePath "csl/chicago-author-date.csl"
-    bib <- load $ fromFilePath "bib/all.bib"
+    bib <- load $ fromFilePath "bib/bibliography.bib"
     writePandocWith writerOptions <$>
      (getResourceBody >>= readPandocBiblio readerOptions csl bib)
 

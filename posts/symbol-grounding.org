@@ -1,0 +1,51 @@
+---
+title: "Reading Notes: \"The Symbol Grounding Problem\", Stevan Harnad"
+date: 2020-02-02
+---
+
+cite:harnad1990_symbol_groun_probl defined the /symbol grounding
+problem/, which is one of the most influential issues in natural
+language problems since the 1980s. The issue is to determine how a
+formal language system, consisting in simple symbols, can be imbued
+with any /meaning/.
+
+From the abstract:
+#+begin_quote
+How can the semantic interpretation of a formal symbol system can be
+made /intrinsic/ to the system, rather than just parasitic on the
+meanings in our heads? How can the meanings of the meaningless symbol
+tokens, manipulated solely on the basis of their (arbitrary) shapes,
+can be grounded in anything but other meaningless symbols?
+#+end_quote
+
+In this landmark paper, Harnad makes the issue explicit, in its
+context of cognitivism and competing theories of mind and
+intelligence. He then proposes an original solution based on a
+combination of symbolic and connectionist properties. The problem
+itself is still highly relevant to today's NLP advances, where the
+issue of extracting /meaning/ is still not solved.
+
+# cf Gary Marcus, /Rebooting AI/, and post on /The Gradient/
+
+* What is the symbol grounding problem?
+
+** Context: cognitivism, symbolism, connectionism
+
+/Cognitivism/ is the general framework in which all experimental
+psychology takes place. It replaced old-fashioned /behaviorism/,
+replacing it by an empirical science allowing to question the inner
+workings of brains and minds.
+
+Behaviorism restrained scientific inquiries to external behavior,
+explicitly forbidding to make theories about what goes on inside the
+mind. Cognitivism allowed the scientist to make hypotheses about
+unobservable phenomenons, provided they made predictions testable in
+an experimental setting.
+
+"Meaning" is one such unobservable phenomenon.
+
+** Exposing the issue: thought experiments
+
+* What the human mind does, and what AIs could do
+
+* References
