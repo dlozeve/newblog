@@ -8,8 +8,109 @@
         <name>Dimitri Lozeve</name>
         <email>dimitri+web@lozeve.com</email>
     </author>
-    <updated>2019-04-06T00:00:00Z</updated>
+    <updated>2020-02-02T00:00:00Z</updated>
     <entry>
+    <title>Reading Notes: "The Symbol Grounding Problem", Stevan Harnad</title>
+    <link href="https://www.lozeve.com/posts/symbol-grounding.html" />
+    <id>https://www.lozeve.com/posts/symbol-grounding.html</id>
+    <published>2020-02-02T00:00:00Z</published>
+    <updated>2020-02-02T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<article>
+    <section class="header">
+        Posted on February  2, 2020
+        
+    </section>
+    <section>
+        <p><span class="citation" data-cites="harnad1990_symbol_groun_probl">Harnad (1990)</span> <a href="https://eprints.soton.ac.uk/250382/1/symgro.pdf">(PDF version)</a> defined the <em>symbol grounding problem</em>, which is one of the most influential issues in natural language problems since the 1980s. The issue is to determine how a formal language system, consisting in simple symbols, can be imbued with any <em>meaning</em>.</p>
+<p>From the abstract:</p>
+<blockquote>
+<p>How can the semantic interpretation of a formal symbol system be made <em>intrinsic</em> to the system, rather than just parasitic on the meanings in our heads? How can the meanings of the meaningless symbol tokens, manipulated solely on the basis of their (arbitrary) shapes, be grounded in anything but other meaningless symbols?</p>
+</blockquote>
+<p>In this landmark paper, Harnad makes the issue explicit, in its context of cognitivism and competing theories of mind and intelligence. He then proposes an original solution based on a combination of symbolic and connectionist properties. The problem itself is still highly relevant to today’s NLP advances, where the issue of extracting <em>meaning</em> is still not solved.</p>
+<h1 id="what-is-the-symbol-grounding-problem">What is the symbol grounding problem?</h1>
+<h2 id="context-cognitivism-symbolism-connectionism">Context: cognitivism, symbolism, connectionism</h2>
+<p><em>Behaviourism</em> was the dominant framework of experimental psychology in the first half of the 20th century. It grounded psychology firmly in an empirical setting, arguing that mental events are not observable, and that only external behaviour can be studied <span class="citation" data-cites="miller2003_cognit_revol">(Miller 2003)</span>. In the 1950s, new theories, in particular Chomsky’s theories in linguistics, started to question this approach and highlighted its limitations. <em>Cognitivism</em> arose as a way to take into account internal mental states. It allowed scientists to make hypotheses about unobservable phenomenons, provided they made predictions testable in an experimental setting.</p>
+<p>Harnad defines a <em>symbol system</em> as a set of arbitrary token with explicit rules (also in the form of tokens or strings of tokens) to combine them. Note that the set of rules should be explicit and not defined as posteriori, because nearly every phenomenon can be interpreted as following a set of rules. An additional (and most relevant for us) property of symbol systems is that they are <em>semantically interpretable</em>: we can associate a meaning in a systematic fashion to every token or string of tokens. This exposes <em>symbolism</em>, i.e. the view that cognition is a symbolic system. The alternative view, <em>connectionism</em>, has its root in biological models of the brain, and posits that the network of connections in the brain is what defines cognition, without any formal symbol system.</p>
+<blockquote>
+<p>According to connectionism, cognition is not symbol manipulation but dynamic patterns of activity in a multilayered network of nodes or units with weighted positive and negative interconnections. <span class="citation" data-cites="harnad1990_symbol_groun_probl">(Harnad 1990)</span></p>
+</blockquote>
+<p>One common criticism of connectionism is that it does not meet the compositionality criterion. Moreover, we cannot give a semantic interpretation of connectionist patterns in a systematic way as we can in symbolic systems. This issue was recently raised again by Gary Marcus in his recent book <em>Rebooting AI</em> <span class="citation" data-cites="marcus2019_reboot_ai">(Marcus 2019)</span>. Human cognition makes extensive use of internal representations. Chomsky’s theories on the existence of a “universal grammar” is a good example of such internal structure for linguistics. These cognitive representations seem to be highly structured (as demonstrated by the work of Kahneman and Tversky <span class="citation" data-cites="kahneman2011_think_fast_slow">(Kahneman 2011)</span>), and compositional. (See also Marcus’s <a href="https://thegradient.pub/an-epidemic-of-ai-misinformation/">recent article</a> in <em>The Gradient</em>.)</p>
+<table>
+<caption>Connectionism versus symbol systems (Taken from <span class="citation" data-cites="harnad1990_symbol_groun_probl">Harnad (1990)</span>.)</caption>
+<tbody>
+<tr class="odd">
+<td><strong>Strengths of connectionism:</strong></td>
+</tr>
+<tr class="even">
+<td>1) Nonsymbolic Function: As long as it does not aspire to be a symbol system, a connectionist network has the advantage of not being subject to the symbol grounding problem.</td>
+</tr>
+<tr class="odd">
+<td>2) Generality: Connectionism applies the same small family of algorithms to many problems, whereas symbolism, being a methodology rather than an algorithm, relies on endless problem-specific symbolic rules.</td>
+</tr>
+<tr class="even">
+<td>3) “Neurosimilitude”: Connectionist architecture seems more brain-like than a Turing machine or a digital computer.</td>
+</tr>
+<tr class="odd">
+<td>4) Pattern Learning: Connectionist networks are especially suited to the learning of patterns from data.</td>
+</tr>
+<tr class="even">
+<td><strong>Weaknesses if connectionism:</strong></td>
+</tr>
+<tr class="odd">
+<td>1) Nonsymbolic Function: Connectionist networks, because they are not symbol systems, do not have the systematic semantic properties that many cognitive phenomena appear to have.</td>
+</tr>
+<tr class="even">
+<td>2) Generality: Not every problem amounts to pattern learning. Some cognitive tasks may call for problem-specific rules, symbol manipulation, and standard computation.</td>
+</tr>
+<tr class="odd">
+<td>3) “Neurosimilitude”: Connectionism’s brain-likeness may be superficial and may (like toy models) camoflauge deeper performance limitations.</td>
+</tr>
+<tr class="even">
+<td><strong>Strengths of symbol systems:</strong></td>
+</tr>
+<tr class="odd">
+<td>1) Symbolic Function: Symbols have the computing power of Turing Machines and the systematic properties of a formal syntax that is semantically interpretable.</td>
+</tr>
+<tr class="even">
+<td>2) Generality: All computable functions (including all cognitive functions) are equivalent to a computational state in a Turing Machine.</td>
+</tr>
+<tr class="odd">
+<td>3) Practical Successes: Symbol systems’ ability to generate intelligent behavior is demonstrated by the successes of Artificial Intelligence.</td>
+</tr>
+<tr class="even">
+<td><strong>Weaknesses of symbol systems:</strong></td>
+</tr>
+<tr class="odd">
+<td>1) Symbolic Function: Symbol systems are subject to the symbol grounding problem.</td>
+</tr>
+<tr class="even">
+<td>2) Generality: Turing power is too general. The solutions to AI’s many toy problems do not give rise to common principles of cognition but to a vast variety of ad hoc symbolic strategies.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exposing-the-issue-thought-experiments">Exposing the issue: thought experiments</h2>
+<p>The Chinese Room Argument <span class="citation" data-cites="cole19_chines_room_argum,searle1980_minds_brain_progr">(<span class="citeproc-not-found" data-reference-id="cole19_chines_room_argum,searle1980_minds_brain_progr"><strong>???</strong></span>)</span>.</p>
+<h1 id="what-the-human-mind-does-and-what-ais-could-do">What the human mind does, and what AIs could do</h1>
+<h1 id="references" class="unnumbered">References</h1>
+<div id="refs" class="references">
+<div id="ref-harnad1990_symbol_groun_probl">
+<p>Harnad, Stevan. 1990. “The Symbol Grounding Problem.” <em>Physica D: Nonlinear Phenomena</em> 42 (1-3): 335–46. <a href="https://doi.org/10.1016/0167-2789(90)90087-6" class="uri">https://doi.org/10.1016/0167-2789(90)90087-6</a>.</p>
+</div>
+<div id="ref-kahneman2011_think_fast_slow">
+<p>Kahneman, Daniel. 2011. <em>Thinking, Fast and Slow</em>. Farrar, Straus; Giroux. <a href="https://books.google.fr/books?id=SHvzzuCnuv8C" class="uri">https://books.google.fr/books?id=SHvzzuCnuv8C</a>.</p>
+</div>
+<div id="ref-marcus2019_reboot_ai">
+<p>Marcus, Gary. 2019. <em>Rebooting Ai : Building Artificial Intelligence We Can Trust</em>. New York: Pantheon Books.</p>
+</div>
+<div id="ref-miller2003_cognit_revol">
+<p>Miller, George A. 2003. “The Cognitive Revolution: A Historical Perspective.” <em>Trends in Cognitive Sciences</em> 7 (3): 141–44. <a href="https://doi.org/10.1016/s1364-6613(03)00029-9" class="uri">https://doi.org/10.1016/s1364-6613(03)00029-9</a>.</p>
+</div>
+</div>
+    </section>
+</article>
+]]></summary>
+</entry>
+<entry>
     <title>Mindsay: Towards Self-Learning Chatbots</title>
     <link href="https://www.lozeve.com/posts/self-learning-chatbots-destygo.html" />
     <id>https://www.lozeve.com/posts/self-learning-chatbots-destygo.html</id>
