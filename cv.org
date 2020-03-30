@@ -2,16 +2,16 @@
 title: "Curriculum Vitæ"
 ---
 
-[[./files/cv.pdf][(PDF version)]] ([[./files/cv.pdf.minisig][sig]])
+[[./files/cv.pdf][(PDF version)]]
 
 
 * Work experience
 
-*** [[https://www.mindsay.com/][Mindsay]]: R&D Data Scientist and Head of Research
+*** [[https://www.mindsay.com/][Mindsay]]: R&D Data Scientist, Engineering Manager
     October 2018--present
 
     - Natural Language Processing and Reinforcement Learning for Chatbots
-    - Management of all R&D projects
+    - Management of the R&D team (3 data scientists) and of all research projects
 
 ***  [[http://www.sysnav.fr/][Sysnav]]: Real-time geolocalization algorithm on an embedded device
     March--August 2017
@@ -95,6 +95,12 @@ title: "Curriculum Vitæ"
     - Deep Learning: [[https://www.tensorflow.org/][TensorFlow]], [[http://pytorch.org/][PyTorch]]
     - Network analysis: [[https://networkx.github.io/][NetworkX]], [[https://graph-tool.skewed.de/][graph-tool]]
     - Research projects and hackathons: [[https://github.com/dlozeve/community-detection][community detection]] and [[https://github.com/dlozeve/DocAssist][DocAssist]]
+
+    *Julia:*
+
+    - Numerical computing, machine learning
+    - Optimisation and Operations Research: [[https://github.com/JuliaOpt/JuMP.jl][JuMP]]
+    - Projects: [[https://github.com/dlozeve/GardenOptim][Garden optimisation]] using Markov Chain Monte Carlo and integer programming
      
     *R:*
 
