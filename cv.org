@@ -7,11 +7,12 @@ title: "Curriculum Vitæ"
 
 * Work experience
 
-*** [[https://www.mindsay.com/][Mindsay]]: R&D Data Scientist, Engineering Manager
+*** [[https://www.mindsay.com/][Mindsay]]: R&D Data Scientist and Engineering Manager
     October 2018--present
 
     - Natural Language Processing and Reinforcement Learning for Chatbots
     - Management of the R&D team (3 data scientists) and of all research projects
+    - Entirely responsible with the CTO for the patents strategy in Europe and abroad
 
 ***  [[http://www.sysnav.fr/][Sysnav]]: Real-time geolocalization algorithm on an embedded device
     March--August 2017
@@ -25,7 +26,10 @@ title: "Curriculum Vitæ"
 *** [[https://www.natixis.com/][Natixis]] London Branch, Global Infrastructure and Projects: Intern Analyst
     June--August 2016
 
-    Origination and execution of project finance transactions: offshore windfarms, hydroelectric dams, and a biomass power plant now under construction in northeastern England.
+    Origination and execution of project finance transactions:
+    offshore windfarms, hydroelectric dams, and a biomass power plant
+    now under construction in northeastern England. Long-term
+    projections of energy and financial time series data.
 
 *** French Engineering Corps: Army officer
     2014--2015
@@ -47,10 +51,10 @@ title: "Curriculum Vitæ"
 *** [[https://www.polytechnique.edu/][École polytechnique]]
     2014--2017
 
-    - Majors in Applied Mathematics and Data Science, Computer Science, and Physics
+    - Majors in Majors in Applied Mathematics, Operations Research, Data Science, and Computer Science
     - /Distinctions:/ Outstanding Investment, Outstanding Leadership
 
-*** Lycée Privé Sainte-Geneviève, Versailles: Preparatory classes to French *Grandes Écoles*
+*** Lycée Privé Sainte-Geneviève, Versailles: Preparatory classes to French /Grandes Écoles/
     2012--2014
 
     - Majors in Mathematics and Physics
@@ -59,13 +63,14 @@ title: "Curriculum Vitæ"
 *** Topological Data Analysis of time-dependent networks
     2018
 
-    - Master's thesis, joint work with Oxford's Department of Statistics and Mathematical Institute
+    - Master's thesis, joint work with Oxford's Department of Statistics and Mathematical Institute, with Prof. Heather Harrington (Oxford), Prof. Mason Porter (UCLA), and Prof. Renaud Lambiotte (Oxford)
     - Application of the recent advances in Topological Data Analysis (TDA) and Persistent Homology to periodicity detection in temporal networks
     - [[./files/tdanetworks.pdf][Dissertation (PDF)]] ([[./files/tdanetworks.pdf.minisig][sig]])
 
 *** Research work on Community Detection in Social Networks
     2016--2017
 
+    - Research project with the Microsoft-INRIA joint center, with Prof. Laurent Massoulié
     - Comparison of the performance of state-of-the-art algorithms (theory and implementations)
     - Application to large-scale, real-world social networks
     - [[./files/communitydetection.pdf][Dissertation (PDF, in French)]] ([[./files/communitydetection.pdf.minisig][sig]]) and [[https://dlozeve.github.io/reveal_CommunityDetection/][slides]]
@@ -122,7 +127,6 @@ title: "Curriculum Vitæ"
 
     - French
     - English
-    - Basic German
 
 *** Sports
 
