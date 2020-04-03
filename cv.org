@@ -13,6 +13,7 @@ title: "Curriculum Vitæ"
     - Natural Language Processing and Reinforcement Learning for Chatbots
     - Management of the R&D team (3 data scientists) and of all research projects
     - Entirely responsible with the CTO for the patents strategy in Europe and abroad
+    - Attended a 6-day training programme for young managers ([[https://ignition-program.com/formations/spineup-mars-2020][SpineUp]] by Ignition Program)
 
 ***  [[http://www.sysnav.fr/][Sysnav]]: Real-time geolocalization algorithm on an embedded device
     March--August 2017
