@@ -4,10 +4,10 @@ date: 2020-04-05
 ---
 
 Two weeks ago, I did a presentation for my colleagues of the paper
-from cite:yurochkin2019_hierar_optim_trans_docum_repres, from
-NeurIPS 2019. It contains an interesting approach to document
-classification leading to strong performance, and, most importantly,
-excellent interpretability.
+from cite:yurochkin2019_hierar_optim_trans_docum_repres, from [[https://papers.nips.cc/book/advances-in-neural-information-processing-systems-32-2019][NeurIPS
+2019]]. It contains an interesting approach to document classification
+leading to strong performance, and, most importantly, excellent
+interpretability.
 
 This paper seems interesting to me because of it uses two methods with
 strong theoretical guarantees: optimal transport and topic
@@ -41,8 +41,8 @@ fascinating and deep subject, so I won't enter into the details
 here. For an introduction to the theory and its applications, check
 out the excellent book from
 cite:peyreComputationalOptimalTransport2019, ([[https://arxiv.org/abs/1803.00567][available on ArXiv]] as
-well). There are also [[https://images.math.cnrs.fr/Le-transport-optimal-numerique-et-ses-applications-Partie-1.html?lang=fr][very nice posts]] by Gabriel Peyré on the CNRS
-maths blog (in French). Many more resources (including slides for
+well). There are also [[https://images.math.cnrs.fr/Le-transport-optimal-numerique-et-ses-applications-Partie-1.html?lang=fr][very nice posts]] (in French) by Gabriel Peyré on
+the [[https://images.math.cnrs.fr/][CNRS maths blog]]. Many more resources (including slides for
 presentations) are available at
 [[https://optimaltransport.github.io]]. For a more complete theoretical
 treatment of the subject, check out
@@ -70,8 +70,8 @@ examples move cannon balls, or other military equipment, along a front
 line.
 
 
-More formally, if we have to sets of points $x = (x_1, x_2, \ldots,
-      x_n)$, and $y = (y_1, y_2, \ldots, y_n)$, along with probability distributions $p \in \Delta^n$, $q \in \Delta^m$ over $x$ and $y$ ($\Delta^n$ is the probability simplex of dimension $n$, i.e. the set of vectors of size $n$ summing to 1), we can define the Wasserstein distance as
+More formally, we start with two sets of points $x = (x_1, x_2, \ldots,
+      x_n)$, and $y = (y_1, y_2, \ldots, y_n)$, along with probability distributions $p \in \Delta^n$, $q \in \Delta^m$ over $x$ and $y$ ($\Delta^n$ is the probability simplex of dimension $n$, i.e. the set of vectors of size $n$ summing to 1). We can then define the Wasserstein distance as
 \[
 W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
 \]
@@ -162,9 +162,9 @@ optimisation algorithm to compute higher-level distances.
 The paper is very complete regarding experiments, providing a full
 evaluation of the method on one particular application: document
 clustering. They use [[https://scikit-learn.org/stable/modules/decomposition.html#latentdirichletallocation][Latent Dirichlet Allocation]] to compute topics and
-GloVe for pretrained word embeddings
-citep:moschitti2014_proceed_confer_empir_method_natur, and [[https://www.gurobi.com/][Gurobi]] to
-solve the optimisation problems. Their code is available [[https://github.com/IBM/HOTT][on Github]].
+GloVe for pretrained word embeddings citep:pennington2014_glove, and
+[[https://www.gurobi.com/][Gurobi]] to solve the optimisation problems. Their code is available [[https://github.com/IBM/HOTT][on
+GitHub]].
 
 If you want the details, I encourage you to read the full paper, they
 tested the methods on a wide variety of datasets, with datasets
@@ -206,7 +206,7 @@ Finally, I feel like they did not stop at a simple theoretical
 argument, but carefully checked on real-world datasets, measuring
 sensitivity to all the arbitrary choices they had to take. Again, from
 an industry perspective, this allows to implement the new approach
-quickly and easily, confident that it won't break unexpectedly without
-extensive testing.
+quickly and easily, being confident that it won't break unexpectedly
+without extensive testing.
 
 * References
