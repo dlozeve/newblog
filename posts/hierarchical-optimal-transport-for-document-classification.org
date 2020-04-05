@@ -1,0 +1,98 @@
+---
+title: "Reading notes: Hierarchical Optimal Transport for Document Representation"
+date: 2020-04-05
+---
+
+Two weeks ago, I did a presentation for my colleagues of the paper
+from cite:yurochkin2019_hierar_optim_trans_docum_repres, from
+NeurIPS 2019. It contains an interesting approach to document
+classification leading to strong performance, and, most importantly,
+excellent interpretability.
+
+This paper seems interesting to me because of it uses two methods with
+strong theoretical guarantees: optimal transport and topic
+modelling. Optimal transport looks very promising to me in NLP, and
+has seen a lot of interest in recent years due to advances in
+approximation algorithms, such as entropy regularisation. It is also
+quite refreshing to see approaches using solid results in
+optimisation, compared to purely experimental deep learning methods.
+
+* Introduction and motivation
+
+The problem of the paper is to measure similarity (i.e. a distance)
+between pairs of documents, by incorporating /semantic/ similarities
+(and not only syntactic artefacts), without encountering scalability
+issues.
+
+They propose a "meta-distance" between documents, called the
+hierarchical optimal topic transport (HOTT), providing a scalable
+metric incorporating topic information between documents. As such,
+they try to combine two different levels of analysis:
+- word embeddings data, to embed language knowledge (via pre-trained
+  embeddings for instance),
+- topic modelling methods (e.g. [[https://scikit-learn.org/stable/modules/decomposition.html#latentdirichletallocation][Latent Dirichlet Allocation]]), to
+  represent semantically-meaningful groups of words.
+
+* Background: optimal transport
+
+The essential backbone of the method is the Wasserstein distance,
+derived from optimal transport theory. Optimal transport is a
+fascinating and deep subject, so I won't enter into the details
+here. For an introduction to the theory and its applications, check
+out the excellent book from
+cite:peyreComputationalOptimalTransport2019, ([[https://arxiv.org/abs/1803.00567][available on ArXiv]] as
+well). There are also [[https://images.math.cnrs.fr/Le-transport-optimal-numerique-et-ses-applications-Partie-1.html?lang=fr][very nice posts]] by Gabriel Peyré on the CNRS
+maths blog (in French). Many more resources (including slides for
+presentations) are available at
+[[https://optimaltransport.github.io]]. For a more complete theoretical
+treatment of the subject, check out
+cite:santambrogioOptimalTransportApplied2015, or, if you're feeling
+particularly adventurous, cite:villaniOptimalTransportOld2009.
+
+For this paper, only a superficial understanding of how the
+[[https://en.wikipedia.org/wiki/Wasserstein_metric][Wasserstein distance]] works is necessary. Optimal transport is an
+optimisation technique to lift a distance between points in a given
+metric space, to a distance between probability /distributions/ over
+this metric space. The historical example is to move piles of dirt
+around: you know the distance between any two points, and you have
+piles of dirt lying around[fn:historical_ot]. Now, if you want to move these piles to
+another configuration (fewer piles, say, or a different repartition of
+dirt a few metres away), you need to find the most efficient way to
+move them. The total cost you obtain will define a distance between
+the two configurations of dirt, and is usually called the [[https://en.wikipedia.org/wiki/Earth_mover%27s_distance][earth
+mover's distance]], which is just an instance of the general Wasserstein
+metric.
+
+[fn:historical_ot] Optimal transport originated with Monge, and then
+Kantorovich, both of whom had very clear military applications in mind
+(either in Revolutionary France, or during WWII). A lot of historical
+examples move cannon balls, or other military equipment, along a front
+line.
+
+
+More formally, if we have to sets of points $x = (x_1, x_2, \ldots,
+      x_n)$, and $y = (y_1, y_2, \ldots, y_n)$, along with probability distributions $p \in \Delta^n$, $q \in \Delta^m$ over $x$ and $y$ ($\Delta^n$ is the probability simplex of dimension $n$, i.e. the set of vectors of size $n$ summing to 1), we can define the Wasserstein distance as
+\[
+  W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}\\
+	      \text{\small subject to } \sum_j P_{i,j} = p_i \text{ \small and } \sum_i P_{i,j} = q_j,
+\]
+where $C_{i,j} = d(x_i, x_j)$ are the costs computed from the original distance between points, and $P_{i,j}$ represent the amount we are moving from pile $i$ to pile $j$.
+
+Now, how can this be applied to a natural language setting? Once we
+have word embeddings, we can consider that the vocabulary forms a
+metric space (we can compute a distance, for instance the euclidean or
+the [[https://en.wikipedia.org/wiki/Cosine_similarity][cosine distance]], between two word embeddings). The key is to
+define documents as /distributions/ over words.
+
+Given a vocabulary $V \subset \mathbb{R}^n$ and a corpus $D = (d^1, d^2, \ldots, d^{\lvert D \rvert})$, we represent a document as $d^i \in \Delta^{l_i}$ where $l_i$ is the number of unique words in $d^i$, and $d^i_j$ is the proportion of word $v_j$ in the document $d^i$.
+The word mover's distance (WMD) is then defined simply as
+\[ \operatorname{WMD}(d^1, d^2) = W_1(d^1, d^2). \]
+
+If you didn't follow all of this, don't worry! The gist is: if you
+have a distance between points, you can solve an optimisation problem
+to obtain a distance between /distributions/ over these points! This
+is especially useful when you consider that each word embedding is a
+point, and a document is just a set of words, along with the number of
+times they appear.
+
+* References
