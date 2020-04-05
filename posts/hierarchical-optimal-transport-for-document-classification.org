@@ -73,8 +73,10 @@ line.
 More formally, if we have to sets of points $x = (x_1, x_2, \ldots,
       x_n)$, and $y = (y_1, y_2, \ldots, y_n)$, along with probability distributions $p \in \Delta^n$, $q \in \Delta^m$ over $x$ and $y$ ($\Delta^n$ is the probability simplex of dimension $n$, i.e. the set of vectors of size $n$ summing to 1), we can define the Wasserstein distance as
 \[
-  W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}\\
-	      \text{\small subject to } \sum_j P_{i,j} = p_i \text{ \small and } \sum_i P_{i,j} = q_j,
+W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
+\]
+\[
+\text{\small subject to } \sum_j P_{i,j} = p_i \text{ \small and } \sum_i P_{i,j} = q_j,
 \]
 where $C_{i,j} = d(x_i, x_j)$ are the costs computed from the original distance between points, and $P_{i,j}$ represent the amount we are moving from pile $i$ to pile $j$.
 
@@ -94,5 +96,65 @@ to obtain a distance between /distributions/ over these points! This
 is especially useful when you consider that each word embedding is a
 point, and a document is just a set of words, along with the number of
 times they appear.
+
+* Hierarchical optimal transport
+
+Using optimal transport, we can use the word mover's distance to
+define a metric between documents. However, this suffers from two
+drawbacks:
+- Documents represented as distributions over words are not easily
+  interpretable. For long documents, the vocabulary is huge and word
+  frequencies are not easily understandable for humans.
+- Large vocabularies mean that the space on which we have to find an
+  optimal matching is huge. The [[https://en.wikipedia.org/wiki/Hungarian_algorithm][Hungarian algorithm]] used to compute
+  the optimal transport distance runs in $O(l^3 \log l)$, where $l$ is
+  the maximum number of unique words in each documents. This quickly
+  becomes intractable as the size of documents become larger, or if
+  you have to compute all pairwise distances between a large number of
+  documents (e.g. for clustering purposes).
+
+To escape these issues, we will add an intermediary step using [[https://en.wikipedia.org/wiki/Topic_model][topic
+modelling]]. Once we have topics $T = (t_1, t_2, \ldots, t_{\lvert T
+\rvert}) \subset \Delta^{\lvert V \rvert}$, we get two kinds of
+representations:
+- representations of topics as distributions over words,
+- representations of documents as distributions over topics $\bar{d^i} \in \Delta^{\lvert T \rvert}$.
+
+Since they are distributions over words, the word mover's distance
+defines a metric over topics. As such, the topics with the WMD become
+a metric space.
+
+We can now define the hierarchical optimal topic transport (HOTT), as the optimal transport distance between documents, represented as distributions over topics. For two documents $d^1$, $d^2$,
+\[
+\operatorname{HOTT}(d^1, d^2) = W_1\left( \sum_{k=1}^{\lvert T \rvert} \bar{d^1_k} \delta_{t_k}, \sum_{k=1}^{\lvert T \rvert} \bar{d^2_k} \delta_{t_k} \right).
+\]
+where $\delta_{t_k}$ is a distribution supported on topic $t_k$.
+
+Note that in this case, we used optimal transport /twice/:
+- once to find distances between topics (WMD),
+- once to find distances between documents, where the distance between
+  topics became the costs in the new optimal transport
+  problem.
+
+The first one can be precomputed once for all subsequent distances, so
+it is invariable in the number of documents we have to process. The
+second one only operates on $\lvert T \rvert$ topics instead of the
+full vocabulary: the resulting optimisation problem is much smaller!
+This is great for performance, as it should be easy now to compute all
+pairwise distances in a large set of documents.
+
+Another interesting insight is that topics are represented as
+collections of words (we can keep the top 20 as a visual
+representations), and documents as collections of topics with
+weights. Both of these representations are highly interpretable for a
+human being who wants to understand what's going on. I think this is
+one of the strongest aspects of these approaches: both the various
+representations and the algorithms are fully interpretable. Compared
+to a deep learning approach, we can make sense of every intermediate
+step, from the representations of topics to the weights in the
+optimisation algorithm to compute higher-level distances.
+
+#+caption: Representation of two documents in topic space, along with how the distance was computed between them. Everything is interpretable: from the documents as collections of topics, to the matchings between topics determining the overall distance between the books citep:yurochkin2019_hierar_optim_trans_docum_repres.
+[[file:/images/hott_fig1.png]]
 
 * References
