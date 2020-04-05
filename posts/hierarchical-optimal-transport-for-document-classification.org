@@ -155,7 +155,7 @@ step, from the representations of topics to the weights in the
 optimisation algorithm to compute higher-level distances.
 
 #+caption: Representation of two documents in topic space, along with how the distance was computed between them. Everything is interpretable: from the documents as collections of topics, to the matchings between topics determining the overall distance between the books citep:yurochkin2019_hierar_optim_trans_docum_repres.
-[[file:/images/hott_fig1.png]]
+[[file:/images/hott_fig1.jpg]]
 
 * Experiments
 
