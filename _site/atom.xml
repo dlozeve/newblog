@@ -66,6 +66,52 @@
 ]]></summary>
 </entry>
 <entry>
+    <title>Operations Research and Optimisation: where to start?</title>
+    <link href="https://www.lozeve.com/posts/operations-research-references.html" />
+    <id>https://www.lozeve.com/posts/operations-research-references.html</id>
+    <published>2020-04-08T00:00:00Z</published>
+    <updated>2020-04-08T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<article>
+    <section class="header">
+        
+    </section>
+    <section>
+        <p><a href="https://en.wikipedia.org/wiki/Operations_research">Operations research</a> (OR) is a vast area comprising a lot of theory, different branches of mathematics, and too many applications to count. In this post, I will try to explain why I find it so fascinating, but also why it can be a little disconcerting to explore at first. Then I will try to ease the newcomer’s path in this rich area, by suggesting a very rough “map” of the field and a few references to get started.</p>
+<p>Keep in mind that although I studied it during my graduate studies, this is not my primary area of expertise (I’m a data scientist by trade), and I definitely don’t pretend to know everything in OR. This is a field too vast for any single person to understand in its entirety, and I talk mostly from a “amateur mathematician and computer scientist” standpoint.</p>
+<h1 id="why-is-it-hard-to-approach">Why is it hard to approach?</h1>
+<ul>
+<li>why it may be more difficult to approach than other, more recent areas like ML and DL
+<ul>
+<li>slightly longer history</li>
+<li>always very close to applications: somehow more “messy” in its notations, vocabulary, standard references, etc, as other “purer” fields of maths (similar to stats in this regard)</li>
+<li>often approached from a applied point of view means that many very different concepts are often mixed together</li>
+</ul></li>
+<li>why it is interesting and you should pursue it anyway
+<ul>
+<li>history of the field</li>
+<li>examples of applications</li>
+<li>theory perspective, rigorous field</li>
+</ul></li>
+<li>different subfields
+<ul>
+<li>optimisation: constrained and unconstrained</li>
+<li>game theory</li>
+<li>dynamic programming</li>
+<li>stochastic processes</li>
+<li>simulation</li>
+</ul></li>
+<li>how to learn and practice
+<ul>
+<li>references</li>
+<li>courses</li>
+<li>computational assets</li>
+</ul></li>
+</ul>
+    </section>
+</article>
+]]></summary>
+</entry>
+<entry>
     <title>Reading notes: Hierarchical Optimal Transport for Document Representation</title>
     <link href="https://www.lozeve.com/posts/hierarchical-optimal-transport-for-document-classification.html" />
     <id>https://www.lozeve.com/posts/hierarchical-optimal-transport-for-document-classification.html</id>

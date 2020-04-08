@@ -1,0 +1,44 @@
+---
+title: "Operations Research and Optimisation: where to start?"
+date: 2020-04-08
+---
+
+[[https://en.wikipedia.org/wiki/Operations_research][Operations research]] (OR) is a vast area comprising a lot of theory,
+different branches of mathematics, and too many applications to
+count. In this post, I will try to explain why I find it so
+fascinating, but also why it can be a little disconcerting to explore
+at first. Then I will try to ease the newcomer's path in this rich
+area, by suggesting a very rough "map" of the field and a few
+references to get started.
+
+Keep in mind that although I studied it during my graduate studies,
+this is not my primary area of expertise (I'm a data scientist by
+trade), and I definitely don't pretend to know everything in OR. This
+is a field too vast for any single person to understand in its
+entirety, and I talk mostly from a "amateur mathematician and computer
+scientist" standpoint.
+
+* Why is it hard to approach?
+
+- why it may be more difficult to approach than other, more recent
+  areas like ML and DL
+  - slightly longer history
+  - always very close to applications: somehow more "messy" in its
+    notations, vocabulary, standard references, etc, as other "purer"
+    fields of maths (similar to stats in this regard)
+  - often approached from a applied point of view means that many very
+    different concepts are often mixed together
+- why it is interesting and you should pursue it anyway
+  - history of the field
+  - examples of applications
+  - theory perspective, rigorous field
+- different subfields
+  - optimisation: constrained and unconstrained
+  - game theory
+  - dynamic programming
+  - stochastic processes
+  - simulation
+- how to learn and practice
+  - references
+  - courses
+  - computational assets
