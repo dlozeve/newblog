@@ -20,6 +20,22 @@ scientist" standpoint.
 
 * Why is it hard to approach?
 
+Operations research can be difficult to approach, since there are many
+references and subfields. Compared to machine learning for instance,
+OR has a slightly longer history (going back to the 17th century, for
+example with Monge and the optimal transport problem). This means that
+good textbooks and such have existed for a long time, but also that
+there will be plenty of material to choose from.
+
+Moreover, OR is very close to applications. Sometimes methods may vary
+a lot in their presentation depending on whether they're applied to
+train tracks, sudoku, or travelling salesmen. In practice, the
+terminology and notations are not the same everywhere. This is
+disconcerting if you are used to mathematics, where notations evolved
+over a long time and is pretty much standardised for many areas. In
+contrast, if you're used to the statistics literature with its [[https://lingpipe-blog.com/2009/10/13/whats-wrong-with-probability-notation/][strange
+notations]], you will find that OR is actually very well formalised.
+
 - why it may be more difficult to approach than other, more recent
   areas like ML and DL
   - slightly longer history
