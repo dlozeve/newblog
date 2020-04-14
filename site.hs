@@ -8,6 +8,7 @@ import           Text.CSL.Pandoc          (processCites)
 import           Text.Pandoc
 import           Text.Pandoc.Options
 import           Text.Pandoc.Highlighting
+import           Text.Pandoc.SideNote
 
 import           Hakyll
 import           Hakyll.Core.Compiler.Internal (compilerProvider, compilerAsk)
@@ -169,7 +170,7 @@ customPandocCompiler =
     csl <- load $ fromFilePath "csl/chicago-author-date.csl"
     bib <- load $ fromFilePath "bib/bibliography.bib"
     writePandocWith writerOptions <$>
-     (getResourceBody >>= myReadPandocBiblio readerOptions csl bib)
+     (getResourceBody >>= myReadPandocBiblio readerOptions csl bib >>= traverse (return . usingSideNotes))
 
 type FeedRenderer = FeedConfiguration
     -> Context String

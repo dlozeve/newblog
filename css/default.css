@@ -1,55 +1,25 @@
 body {
-    font-family: Helvetica, Arial, sans-serif;
-    line-height: 1.5;
-    color: #111;
-    max-width: 50rem;
-    padding: 2rem;
-    margin: auto;
     background: #fafafa;
     counter-reset: theorem;
     counter-reset: definition;
 }
 
-img {
-    max-width: 100%;
-}
-
-a {
-    color: #0B0080;
-}
-
-h1 {
-    font-size: 1.6rem;
-}
-
-h2 {
-    font-size: 1.2rem;
-}
-
 header {
-    border-bottom: 0.15rem solid #000;
-    margin-bottom: 2rem;
+    margin: 1em 0 2em 0;
 }
-
-nav {
-    text-align: right;
+header nav {
+    width: 87.5%;
 }
-
-nav a {
-    font-size: 1.2rem;
+header nav a {
+    display: inline-block;
+    font-size: 1.4rem;
     font-weight: bold;
-    color: #000;
-    text-decoration: none;
-    padding: .5rem;
+    text-decoration: none !important;
+    margin: 0 0.5rem;
+    padding: 0 0;
 }
-
-.logo a {
-    float: left;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #000;
-    text-decoration: none;
-}
+header nav a:first-child { margin-left: 0; }
+header nav a:last-child { margin-right: 0; }
 
 footer {
     margin-top: 3rem;
@@ -63,13 +33,13 @@ article .header {
     color: #555;
 }
 
-.sourceCode {
-    display:block;
-    padding-left: 1rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    background: #eee;
-}
+/* .sourceCode { */
+/*     display:block; */
+/*     padding-left: 1rem; */
+/*     margin-top: 1rem; */
+/*     margin-bottom: 1rem; */
+/*     background: #eee; */
+/* } */
 
 .definition, .proposition, .theorem {
     display: block;

@@ -13,7 +13,6 @@
     <link>https://www.lozeve.com/posts/hierarchical-optimal-transport-for-document-classification.html</link>
     <description><![CDATA[<article>
     <section class="header">
-        Posted on April  5, 2020
         
     </section>
     <section>
@@ -28,7 +27,9 @@
 </ul>
 <h1 id="background-optimal-transport">Background: optimal transport</h1>
 <p>The essential backbone of the method is the Wasserstein distance, derived from optimal transport theory. Optimal transport is a fascinating and deep subject, so I won’t enter into the details here. For an introduction to the theory and its applications, check out the excellent book from <span class="citation" data-cites="peyreComputationalOptimalTransport2019">Peyré and Cuturi (<a href="#ref-peyreComputationalOptimalTransport2019">2019</a>)</span>, (<a href="https://arxiv.org/abs/1803.00567">available on ArXiv</a> as well). There are also <a href="https://images.math.cnrs.fr/Le-transport-optimal-numerique-et-ses-applications-Partie-1.html?lang=fr">very nice posts</a> (in French) by Gabriel Peyré on the <a href="https://images.math.cnrs.fr/">CNRS maths blog</a>. Many more resources (including slides for presentations) are available at <a href="https://optimaltransport.github.io" class="uri">https://optimaltransport.github.io</a>. For a more complete theoretical treatment of the subject, check out <span class="citation" data-cites="santambrogioOptimalTransportApplied2015">Santambrogio (<a href="#ref-santambrogioOptimalTransportApplied2015">2015</a>)</span>, or, if you’re feeling particularly adventurous, <span class="citation" data-cites="villaniOptimalTransportOld2009">Villani (<a href="#ref-villaniOptimalTransportOld2009">2009</a>)</span>.</p>
-<p>For this paper, only a superficial understanding of how the <a href="https://en.wikipedia.org/wiki/Wasserstein_metric">Wasserstein distance</a> works is necessary. Optimal transport is an optimisation technique to lift a distance between points in a given metric space, to a distance between probability <em>distributions</em> over this metric space. The historical example is to move piles of dirt around: you know the distance between any two points, and you have piles of dirt lying around<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. Now, if you want to move these piles to another configuration (fewer piles, say, or a different repartition of dirt a few metres away), you need to find the most efficient way to move them. The total cost you obtain will define a distance between the two configurations of dirt, and is usually called the <a href="https://en.wikipedia.org/wiki/Earth_mover%27s_distance">earth mover’s distance</a>, which is just an instance of the general Wasserstein metric.</p>
+<p>For this paper, only a superficial understanding of how the <a href="https://en.wikipedia.org/wiki/Wasserstein_metric">Wasserstein distance</a> works is necessary. Optimal transport is an optimisation technique to lift a distance between points in a given metric space, to a distance between probability <em>distributions</em> over this metric space. The historical example is to move piles of dirt around: you know the distance between any two points, and you have piles of dirt lying around<span><label for="sn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-1" class="margin-toggle"/><span class="marginnote"> Optimal transport originated with Monge, and then Kantorovich, both of whom had very clear military applications in mind (either in Revolutionary France, or during WWII). A lot of historical examples move cannon balls, or other military equipment, along a front line.<br />
+<br />
+</span></span>. Now, if you want to move these piles to another configuration (fewer piles, say, or a different repartition of dirt a few metres away), you need to find the most efficient way to move them. The total cost you obtain will define a distance between the two configurations of dirt, and is usually called the <a href="https://en.wikipedia.org/wiki/Earth_mover%27s_distance">earth mover’s distance</a>, which is just an instance of the general Wasserstein metric.</p>
 <p>More formally, we start with two sets of points <span class="math inline">\(x = (x_1, x_2, \ldots,
       x_n)\)</span>, and <span class="math inline">\(y = (y_1, y_2, \ldots, y_n)\)</span>, along with probability distributions <span class="math inline">\(p \in \Delta^n\)</span>, <span class="math inline">\(q \in \Delta^m\)</span> over <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> (<span class="math inline">\(\Delta^n\)</span> is the probability simplex of dimension <span class="math inline">\(n\)</span>, i.e. the set of vectors of size <span class="math inline">\(n\)</span> summing to 1). We can then define the Wasserstein distance as <span class="math display">\[
 W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
@@ -61,9 +62,9 @@ W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
 </ul>
 <p>The first one can be precomputed once for all subsequent distances, so it is invariable in the number of documents we have to process. The second one only operates on <span class="math inline">\(\lvert T \rvert\)</span> topics instead of the full vocabulary: the resulting optimisation problem is much smaller! This is great for performance, as it should be easy now to compute all pairwise distances in a large set of documents.</p>
 <p>Another interesting insight is that topics are represented as collections of words (we can keep the top 20 as a visual representations), and documents as collections of topics with weights. Both of these representations are highly interpretable for a human being who wants to understand what’s going on. I think this is one of the strongest aspects of these approaches: both the various representations and the algorithms are fully interpretable. Compared to a deep learning approach, we can make sense of every intermediate step, from the representations of topics to the weights in the optimisation algorithm to compute higher-level distances.</p>
-<figure>
-<img src="/images/hott_fig1.jpg" alt="Representation of two documents in topic space, along with how the distance was computed between them. Everything is interpretable: from the documents as collections of topics, to the matchings between topics determining the overall distance between the books (Yurochkin et al. 2019)." /><figcaption>Representation of two documents in topic space, along with how the distance was computed between them. Everything is interpretable: from the documents as collections of topics, to the matchings between topics determining the overall distance between the books <span class="citation" data-cites="yurochkin2019_hierar_optim_trans_docum_repres">(Yurochkin et al. <a href="#ref-yurochkin2019_hierar_optim_trans_docum_repres">2019</a>)</span>.</figcaption>
-</figure>
+<p><img src="/images/hott_fig1.jpg" /><span><label for="sn-2" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-2" class="margin-toggle"/><span class="marginnote"> Representation of two documents in topic space, along with how the distance was computed between them. Everything is interpretable: from the documents as collections of topics, to the matchings between topics determining the overall distance between the books <span class="citation" data-cites="yurochkin2019_hierar_optim_trans_docum_repres">(Yurochkin et al. <a href="#ref-yurochkin2019_hierar_optim_trans_docum_repres">2019</a>)</span>.<br />
+<br />
+</span></span></p>
 <h1 id="experiments">Experiments</h1>
 <p>The paper is very complete regarding experiments, providing a full evaluation of the method on one particular application: document clustering. They use <a href="https://scikit-learn.org/stable/modules/decomposition.html#latentdirichletallocation">Latent Dirichlet Allocation</a> to compute topics and GloVe for pretrained word embeddings <span class="citation" data-cites="pennington2014_glove">(Pennington, Socher, and Manning <a href="#ref-pennington2014_glove">2014</a>)</span>, and <a href="https://www.gurobi.com/">Gurobi</a> to solve the optimisation problems. Their code is available <a href="https://github.com/IBM/HOTT">on GitHub</a>.</p>
 <p>If you want the details, I encourage you to read the full paper, they tested the methods on a wide variety of datasets, with datasets containing very short documents (like Twitter), and long documents with a large vocabulary (books). With a simple <span class="math inline">\(k\)</span>-NN classification, they establish that HOTT performs best on average, especially on large vocabularies (books, the “gutenberg” dataset). It also has a much better computational performance than alternative methods based on regularisation of the optimal transport problem directly on words. So the hierarchical nature of the approach allows to gain considerably in performance, along with improvements in interpretability.</p>
@@ -93,12 +94,6 @@ W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
 <p>Yurochkin, Mikhail, Sebastian Claici, Edward Chien, Farzaneh Mirzazadeh, and Justin M Solomon. 2019. “Hierarchical Optimal Transport for Document Representation.” In <em>Advances in Neural Information Processing Systems 32</em>, 1599–1609. <a href="http://papers.nips.cc/paper/8438-hierarchical-optimal-transport-for-document-representation.pdf" class="uri">http://papers.nips.cc/paper/8438-hierarchical-optimal-transport-for-document-representation.pdf</a>.</p>
 </div>
 </div>
-<section class="footnotes">
-<hr />
-<ol>
-<li id="fn1"><p>Optimal transport originated with Monge, and then Kantorovich, both of whom had very clear military applications in mind (either in Revolutionary France, or during WWII). A lot of historical examples move cannon balls, or other military equipment, along a front line.<a href="#fnref1" class="footnote-back">↩</a></p></li>
-</ol>
-</section>
     </section>
 </article>
 ]]></description>
@@ -111,7 +106,6 @@ W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
     <link>https://www.lozeve.com/posts/self-learning-chatbots-destygo.html</link>
     <description><![CDATA[<article>
     <section class="header">
-        Posted on April  6, 2019
         
     </section>
     <section>
@@ -133,7 +127,6 @@ W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
     <link>https://www.lozeve.com/posts/ginibre-ensemble.html</link>
     <description><![CDATA[<article>
     <section class="header">
-        Posted on March 20, 2019
         
     </section>
     <section>
@@ -174,7 +167,6 @@ W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
     <link>https://www.lozeve.com/posts/peano.html</link>
     <description><![CDATA[<article>
     <section class="header">
-        Posted on March 18, 2019
         
     </section>
     <section>
@@ -286,7 +278,6 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
     <link>https://www.lozeve.com/posts/reinforcement-learning-1.html</link>
     <description><![CDATA[<article>
     <section class="header">
-        Posted on November 21, 2018
         
     </section>
     <section>
@@ -355,7 +346,6 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
     <link>https://www.lozeve.com/posts/ising-apl.html</link>
     <description><![CDATA[<article>
     <section class="header">
-        Posted on March  5, 2018
         
     </section>
     <section>
@@ -560,7 +550,6 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
     <link>https://www.lozeve.com/posts/ising-model.html</link>
     <description><![CDATA[<article>
     <section class="header">
-        Posted on February  5, 2018
         
             by Dimitri Lozeve
         
@@ -681,7 +670,6 @@ J\sigma_i \sum_{j\sim i} \sigma_j.  \]</span></p>
     <link>https://www.lozeve.com/posts/lsystems.html</link>
     <description><![CDATA[<article>
     <section class="header">
-        Posted on January 18, 2018
         
             by Dimitri Lozeve
         
