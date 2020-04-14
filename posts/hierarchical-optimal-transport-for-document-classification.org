@@ -63,7 +63,7 @@ the two configurations of dirt, and is usually called the [[https://en.wikipedia
 mover's distance]], which is just an instance of the general Wasserstein
 metric.
 
-[fn:historical_ot] Optimal transport originated with Monge, and then
+[fn:historical_ot] {-} Optimal transport originated with Monge, and then
 Kantorovich, both of whom had very clear military applications in mind
 (either in Revolutionary France, or during WWII). A lot of historical
 examples move cannon balls, or other military equipment, along a front

@@ -9,6 +9,7 @@ executable site
                   , containers
                   , pandoc
                   , pandoc-citeproc
+                  , pandoc-sidenote
                   , hakyll
   ghc-options:      -threaded
   default-language: Haskell2010
