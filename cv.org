@@ -131,5 +131,6 @@ title: "Curriculum Vitæ"
 
 *** Sports
 
-    - Fencing :: vice-president of the 2016 [[http://x-systra.com/][X-SYSTRA International Fencing Challenge]]; 29th in the 2016 sabre French Student Championships
-    - Scuba-diving :: CMAS * * *, 170+ dives
+    *Fencing:* vice-president of the 2016 [[http://x-systra.com/][X-SYSTRA International Fencing Challenge]]; 29th in the 2016 sabre French Student Championships
+
+    *Scuba-diving:* CMAS ★ ★ ★, 170+ dives
