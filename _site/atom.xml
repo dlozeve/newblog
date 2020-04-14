@@ -17,7 +17,6 @@
     <updated>2020-04-05T00:00:00Z</updated>
     <summary type="html"><![CDATA[<article>
     <section class="header">
-        Posted on April  5, 2020
         
     </section>
     <section>
@@ -67,9 +66,9 @@ W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
 </ul>
 <p>The first one can be precomputed once for all subsequent distances, so it is invariable in the number of documents we have to process. The second one only operates on <span class="math inline">\(\lvert T \rvert\)</span> topics instead of the full vocabulary: the resulting optimisation problem is much smaller! This is great for performance, as it should be easy now to compute all pairwise distances in a large set of documents.</p>
 <p>Another interesting insight is that topics are represented as collections of words (we can keep the top 20 as a visual representations), and documents as collections of topics with weights. Both of these representations are highly interpretable for a human being who wants to understand what’s going on. I think this is one of the strongest aspects of these approaches: both the various representations and the algorithms are fully interpretable. Compared to a deep learning approach, we can make sense of every intermediate step, from the representations of topics to the weights in the optimisation algorithm to compute higher-level distances.</p>
-<figure>
-<img src="/images/hott_fig1.jpg" alt="Representation of two documents in topic space, along with how the distance was computed between them. Everything is interpretable: from the documents as collections of topics, to the matchings between topics determining the overall distance between the books (Yurochkin et al. 2019)." /><figcaption>Representation of two documents in topic space, along with how the distance was computed between them. Everything is interpretable: from the documents as collections of topics, to the matchings between topics determining the overall distance between the books <span class="citation" data-cites="yurochkin2019_hierar_optim_trans_docum_repres">(Yurochkin et al. <a href="#ref-yurochkin2019_hierar_optim_trans_docum_repres">2019</a>)</span>.</figcaption>
-</figure>
+<p><img src="/images/hott_fig1.jpg" /><span><label for="sn-2" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-2" class="margin-toggle"/><span class="marginnote"> Representation of two documents in topic space, along with how the distance was computed between them. Everything is interpretable: from the documents as collections of topics, to the matchings between topics determining the overall distance between the books <span class="citation" data-cites="yurochkin2019_hierar_optim_trans_docum_repres">(Yurochkin et al. <a href="#ref-yurochkin2019_hierar_optim_trans_docum_repres">2019</a>)</span>.<br />
+<br />
+</span></span></p>
 <h1 id="experiments">Experiments</h1>
 <p>The paper is very complete regarding experiments, providing a full evaluation of the method on one particular application: document clustering. They use <a href="https://scikit-learn.org/stable/modules/decomposition.html#latentdirichletallocation">Latent Dirichlet Allocation</a> to compute topics and GloVe for pretrained word embeddings <span class="citation" data-cites="pennington2014_glove">(Pennington, Socher, and Manning <a href="#ref-pennington2014_glove">2014</a>)</span>, and <a href="https://www.gurobi.com/">Gurobi</a> to solve the optimisation problems. Their code is available <a href="https://github.com/IBM/HOTT">on GitHub</a>.</p>
 <p>If you want the details, I encourage you to read the full paper, they tested the methods on a wide variety of datasets, with datasets containing very short documents (like Twitter), and long documents with a large vocabulary (books). With a simple <span class="math inline">\(k\)</span>-NN classification, they establish that HOTT performs best on average, especially on large vocabularies (books, the “gutenberg” dataset). It also has a much better computational performance than alternative methods based on regularisation of the optimal transport problem directly on words. So the hierarchical nature of the approach allows to gain considerably in performance, along with improvements in interpretability.</p>
@@ -111,7 +110,6 @@ W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
     <updated>2019-04-06T00:00:00Z</updated>
     <summary type="html"><![CDATA[<article>
     <section class="header">
-        Posted on April  6, 2019
         
     </section>
     <section>
@@ -133,7 +131,6 @@ W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
     <updated>2019-03-20T00:00:00Z</updated>
     <summary type="html"><![CDATA[<article>
     <section class="header">
-        Posted on March 20, 2019
         
     </section>
     <section>
@@ -174,7 +171,6 @@ W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
     <updated>2019-03-18T00:00:00Z</updated>
     <summary type="html"><![CDATA[<article>
     <section class="header">
-        Posted on March 18, 2019
         
     </section>
     <section>
@@ -286,7 +282,6 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
     <updated>2018-11-21T00:00:00Z</updated>
     <summary type="html"><![CDATA[<article>
     <section class="header">
-        Posted on November 21, 2018
         
     </section>
     <section>
@@ -355,7 +350,6 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
     <updated>2018-03-05T00:00:00Z</updated>
     <summary type="html"><![CDATA[<article>
     <section class="header">
-        Posted on March  5, 2018
         
     </section>
     <section>
@@ -560,7 +554,6 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
     <updated>2018-02-05T00:00:00Z</updated>
     <summary type="html"><![CDATA[<article>
     <section class="header">
-        Posted on February  5, 2018
         
             by Dimitri Lozeve
         
@@ -681,7 +674,6 @@ J\sigma_i \sum_{j\sim i} \sigma_j.  \]</span></p>
     <updated>2018-01-18T00:00:00Z</updated>
     <summary type="html"><![CDATA[<article>
     <section class="header">
-        Posted on January 18, 2018
         
             by Dimitri Lozeve
         

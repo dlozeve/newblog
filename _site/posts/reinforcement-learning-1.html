@@ -9,6 +9,7 @@
     <title>Dimitri Lozeve - Quick Notes on Reinforcement Learning</title>
     <link rel="stylesheet" href="../css/tufte.css" />
     <link rel="stylesheet" href="../css/pandoc.css" />
+    <link rel="stylesheet" href="../css/default.css" />
     <link rel="stylesheet" href="../css/syntax.css" />
 
     <!-- KaTeX CSS styles -->
@@ -25,9 +26,6 @@
     <article>
       
       <header>
-	<div class="logo">
-          <a href="../">Dimitri Lozeve</a>
-	</div>
 	<nav>
           <a href="../">Home</a>
 	  <a href="../projects.html">Projects</a>
@@ -43,15 +41,11 @@
       </header>
       
 
-      <!-- <header> -->
-	<!-- </header> -->
-
       
     </article>
 
     <article>
     <section class="header">
-        Posted on November 21, 2018
         
     </section>
     <section>
@@ -111,70 +105,6 @@
     </section>
 </article>
 
-    <!-- <main role="main"> -->
-      <!-- 	<article>
-    <section class="header">
-        Posted on November 21, 2018
-        
-    </section>
-    <section>
-        <h1 id="introduction">Introduction</h1>
-<p>In this series of blog posts, I intend to write my notes as I go through Richard S. Sutton’s excellent <em>Reinforcement Learning: An Introduction</em> <a href="#ref-1">(1)</a>.</p>
-<p>I will try to formalise the maths behind it a little bit, mainly because I would like to use it as a useful personal reference to the main concepts in RL. I will probably add a few remarks about a possible implementation as I go on.</p>
-<h1 id="relationship-between-agent-and-environment">Relationship between agent and environment</h1>
-<h2 id="context-and-assumptions">Context and assumptions</h2>
-<p>The goal of reinforcement learning is to select the best actions availables to an agent as it goes through a series of states in an environment. In this post, we will only consider <em>discrete</em> time steps.</p>
-<p>The most important hypothesis we make is the <em>Markov property:</em></p>
-<blockquote>
-<p>At each time step, the next state of the agent depends only on the current state and the current action taken. It cannot depend on the history of the states visited by the agent.</p>
-</blockquote>
-<p>This property is essential to make our problems tractable, and often holds true in practice (to a reasonable approximation).</p>
-<p>With this assumption, we can define the relationship between agent and environment as a <em>Markov Decision Process</em> (MDP).</p>
-<div class="definition">
-<p>A <em>Markov Decision Process</em> is a tuple <span class="math inline">\((\mathcal{S}, \mathcal{A},
-\mathcal{R}, p)\)</span> where:</p>
-<ul>
-<li><span class="math inline">\(\mathcal{S}\)</span> is a set of <em>states</em>,</li>
-<li><span class="math inline">\(\mathcal{A}\)</span> is an application mapping each state <span class="math inline">\(s \in
- \mathcal{S}\)</span> to a set <span class="math inline">\(\mathcal{A}(s)\)</span> of possible <em>actions</em> for this state. In this post, we will often simplify by using <span class="math inline">\(\mathcal{A}\)</span> as a set, assuming that all actions are possible for each state,</li>
-<li><span class="math inline">\(\mathcal{R} \subset \mathbb{R}\)</span> is a set of <em>rewards</em>,</li>
-<li><p>and <span class="math inline">\(p\)</span> is a function representing the <em>dynamics</em> of the MDP:</p>
-<p>such that <span class="math display">\[ \forall s \in \mathcal{S}, \forall a \in \mathcal{A},\quad \sum_{s&#39;, r} p(s&#39;, r \;|\; s, a) = 1. \]</span></p></li>
-</ul>
-</div>
-<p>The function <span class="math inline">\(p\)</span> represents the probability of transitioning to the state <span class="math inline">\(s&#39;\)</span> and getting a reward <span class="math inline">\(r\)</span> when the agent is at state <span class="math inline">\(s\)</span> and chooses action <span class="math inline">\(a\)</span>.</p>
-<p>We will also use occasionally the <em>state-transition probabilities</em>:</p>
-
-<h2 id="rewarding-the-agent">Rewarding the agent</h2>
-<div class="definition">
-<p>The <em>expected reward</em> of a state-action pair is the function</p>
-</div>
-<div class="definition">
-<p>The <em>discounted return</em> is the sum of all future rewards, with a multiplicative factor to give more weights to more immediate rewards: <span class="math display">\[ G_t := \sum_{k=t+1}^T \gamma^{k-t-1} R_k, \]</span> where <span class="math inline">\(T\)</span> can be infinite or <span class="math inline">\(\gamma\)</span> can be 1, but not both.</p>
-</div>
-<h1 id="deciding-what-to-do-policies">Deciding what to do: policies</h1>
-<h2 id="defining-our-policy-and-its-value">Defining our policy and its value</h2>
-<p>A <em>policy</em> is a way for the agent to choose the next action to perform.</p>
-<div class="definition">
-<p>A <em>policy</em> is a function <span class="math inline">\(\pi\)</span> defined as</p>
-</div>
-<p>In order to compare policies, we need to associate values to them.</p>
-<div class="definition">
-<p>The <em>state-value function</em> of a policy <span class="math inline">\(\pi\)</span> is</p>
-</div>
-<p>We can also compute the value starting from a state <span class="math inline">\(s\)</span> by also taking into account the action taken <span class="math inline">\(a\)</span>.</p>
-<div class="definition">
-<p>The <em>action-value function</em> of a policy <span class="math inline">\(\pi\)</span> is</p>
-</div>
-<h2 id="the-quest-for-the-optimal-policy">The quest for the optimal policy</h2>
-<h1 id="references">References</h1>
-<ol>
-<li><span id="ref-1"></span>R. S. Sutton and A. G. Barto, Reinforcement learning: an introduction, Second edition. Cambridge, MA: The MIT Press, 2018.</li>
-</ol>
-    </section>
-</article>
- -->
-      <!-- </main> -->
 
     <footer>
       Site proudly generated by

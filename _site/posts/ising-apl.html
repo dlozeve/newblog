@@ -9,6 +9,7 @@
     <title>Dimitri Lozeve - Ising model simulation in APL</title>
     <link rel="stylesheet" href="../css/tufte.css" />
     <link rel="stylesheet" href="../css/pandoc.css" />
+    <link rel="stylesheet" href="../css/default.css" />
     <link rel="stylesheet" href="../css/syntax.css" />
 
     <!-- KaTeX CSS styles -->
@@ -25,9 +26,6 @@
     <article>
       
       <header>
-	<div class="logo">
-          <a href="../">Dimitri Lozeve</a>
-	</div>
 	<nav>
           <a href="../">Home</a>
 	  <a href="../projects.html">Projects</a>
@@ -43,15 +41,11 @@
       </header>
       
 
-      <!-- <header> -->
-	<!-- </header> -->
-
       
     </article>
 
     <article>
     <section class="header">
-        Posted on March  5, 2018
         
     </section>
     <section>
@@ -247,206 +241,6 @@
     </section>
 </article>
 
-    <!-- <main role="main"> -->
-      <!-- 	<article>
-    <section class="header">
-        Posted on March  5, 2018
-        
-    </section>
-    <section>
-        <h1 id="the-apl-family-of-languages">The APL family of languages</h1>
-<h2 id="why-apl">Why APL?</h2>
-<p>I recently got interested in <a href="https://en.wikipedia.org/wiki/APL_(programming_language)">APL</a>, an <em>array-based</em> programming language. In APL (and derivatives), we try to reason about programs as series of transformations of multi-dimensional arrays. This is exactly the kind of style I like in Haskell and other functional languages, where I also try to use higher-order functions (map, fold, etc) on lists or arrays. A developer only needs to understand these abstractions once, instead of deconstructing each loop or each recursive function encountered in a program.</p>
-<p>APL also tries to be a really simple and <em>terse</em> language. This combined with strange Unicode characters for primitive functions and operators, gives it a reputation of unreadability. However, there is only a small number of functions to learn, and you get used really quickly to read them and understand what they do. Some combinations also occur so frequently that you can recognize them instantly (APL programmers call them <em>idioms</em>).</p>
-<h2 id="implementations">Implementations</h2>
-<p>APL is actually a family of languages. The classic APL, as created by Ken Iverson, with strange symbols, has many implementations. I initially tried <a href="https://www.gnu.org/software/apl/">GNU APL</a>, but due to the lack of documentation and proper tooling, I went to <a href="https://www.dyalog.com/">Dyalog APL</a> (which is proprietary, but free for personal use). There are also APL derivatives, that often use ASCII symbols: <a href="http://www.jsoftware.com/">J</a> (free) and <a href="https://code.kx.com/q/">Q/kdb+</a> (proprietary, but free for personal use).</p>
-<p>The advantage of Dyalog is that it comes with good tooling (which is necessary for inserting all the symbols!), a large ecosystem, and pretty good <a href="http://docs.dyalog.com/">documentation</a>. If you want to start, look at <a href="http://www.dyalog.com/mastering-dyalog-apl.htm"><em>Mastering Dyalog APL</em></a> by Bernard Legrand, freely available online.</p>
-<h1 id="the-ising-model-in-apl">The Ising model in APL</h1>
-<p>I needed a small project to try APL while I was learning. Something array-based, obviously. Since I already implemented a Metropolis-Hastings simulation of the <a href="./ising-model.html">Ising model</a>, which is based on a regular lattice, I decided to reimplement it in Dyalog APL.</p>
-<p>It is only a few lines long, but I will try to explain what it does step by step.</p>
-<p>The first function simply generates a random lattice filled by elements of <span class="math inline">\(\{-1,+1\}\)</span>.</p>
-<pre class="apl"><code>L←{(2×?⍵ ⍵⍴2)-3}
-</code></pre>
-<p>Let’s deconstruct what is done here:</p>
-<ul>
-<li>⍵ is the argument of our function.</li>
-<li>We generate a ⍵×⍵ matrix filled with 2, using the <code>⍴</code> function: <code>⍵ ⍵⍴2</code></li>
-<li><code>?</code> draws a random number between 1 and its argument. We give it our matrix to generate a random matrix of 1 and 2.</li>
-<li>We multiply everything by 2 and subtract 3, so that the result is in <span class="math inline">\(\{-1,+1\}\)</span>.</li>
-<li>Finally, we assign the result to the name <code>L</code>.</li>
-</ul>
-<p>Sample output:</p>
-<pre class="apl"><code>      ising.L 5
- 1 ¯1  1 ¯1  1
- 1  1  1 ¯1 ¯1
- 1 ¯1 ¯1 ¯1 ¯1
- 1  1  1 ¯1 ¯1
-¯1 ¯1  1  1  1
-</code></pre>
-<p>Next, we compute the energy variation (for details on the Ising model, see <a href="./ising-model.html">my previous post</a>).</p>
-<pre class="apl"><code>∆E←{
-    ⎕IO←0
-    (x y)←⍺
-    N←⊃⍴⍵
-    xn←N|((x-1)y)((x+1)y)
-    yn←N|(x(y-1))(x(y+1))
-    ⍵[x;y]×+/⍵[xn,yn]
-}
-</code></pre>
-<ul>
-<li>⍺ is the left argument (coordinates of the site), ⍵ is the right argument (lattice).</li>
-<li>We extract the x and y coordinates of the site.</li>
-<li><code>N</code> is the size of the lattice.</li>
-<li><code>xn</code> and <code>yn</code> are respectively the vertical and lateral neighbours of the site. <code>N|</code> takes the coordinates modulo <code>N</code> (so the lattice is actually a torus). (Note: we used <code>⎕IO←0</code> to use 0-based array indexing.)</li>
-<li><code>+/</code> sums over all neighbours of the site, and then we multiply by the value of the site itself to get <span class="math inline">\(\Delta E\)</span>.</li>
-</ul>
-<p>Sample output, for site <span class="math inline">\((3, 3)\)</span> in a random <span class="math inline">\(5\times 5\)</span> lattice:</p>
-<pre class="apl"><code>      3 3ising.∆E ising.L 5
-¯4
-</code></pre>
-<p>Then comes the actual Metropolis-Hastings part:</p>
-<pre class="apl"><code>U←{
-    ⎕IO←0
-    N←⊃⍴⍵
-    (x y)←?N N
-    new←⍵
-    new[x;y]×←(2×(?0)&gt;*-⍺×x y ∆E ⍵)-1
-    new
-}
-</code></pre>
-<ul>
-<li>⍺ is the <span class="math inline">\(\beta\)</span> parameter of the Ising model, ⍵ is the lattice.</li>
-<li>We draw a random site <span class="math inline">\((x,y)\)</span> with the <code>?</code> function.</li>
-<li><code>new</code> is the lattice but with the <span class="math inline">\((x,y)\)</span> site flipped.</li>
-<li>We compute the probability <span class="math inline">\(\alpha = \exp(-\beta\Delta E)\)</span> using the <code>*</code> function (exponential) and our previous <code>∆E</code> function.</li>
-<li><code>?0</code> returns a uniform random number in <span class="math inline">\([0,1)\)</span>. Based on this value, we decide whether to update the lattice, and we return it.</li>
-</ul>
-<p>We can now bring everything together for display:</p>
-<pre class="apl"><code>Ising←{&#39; ⌹&#39;[1+1=({10 U ⍵}⍣⍵)L ⍺]}
-</code></pre>
-<ul>
-<li>We draw a random lattice of size ⍺ with <code>L ⍺</code>.</li>
-<li>We apply to it our update function, with $<em>β</em>$=10, ⍵ times (using the <code>⍣</code> function, which applies a function <span class="math inline">\(n\)</span> times.</li>
-<li>Finally, we display -1 as a space and 1 as a domino ⌹.</li>
-</ul>
-<p>Final output, with a <span class="math inline">\(80\times 80\)</span> random lattice, after 50000 update steps:</p>
-<pre class="apl"><code>      80ising.Ising 50000
-   ⌹⌹⌹⌹ ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹      ⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹          
-   ⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹ ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹           
-⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹       ⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹
-⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹       ⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹
-⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹            ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹             ⌹
-⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹            ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹     ⌹⌹⌹⌹⌹⌹             ⌹
-⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹ ⌹⌹⌹            ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹       ⌹⌹⌹⌹⌹      ⌹       
-  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹          ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹        ⌹⌹⌹⌹      ⌹⌹⌹      
- ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹       ⌹⌹⌹      
- ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹    ⌹⌹⌹⌹⌹⌹      
-⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹              ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
-⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
-⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
-⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹          ⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
-⌹⌹⌹            ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹           ⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
-⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹
-⌹⌹⌹⌹ ⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹            ⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹
-⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹           ⌹⌹⌹⌹                ⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹
-  ⌹ ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹ ⌹⌹⌹⌹           ⌹⌹⌹⌹                ⌹⌹⌹      ⌹⌹⌹⌹⌹         
-  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹                ⌹⌹        ⌹           
-  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹                                     
-  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹⌹                                    
-  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹           ⌹                         
- ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹          ⌹                          
-⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹          ⌹⌹⌹⌹⌹⌹                          ⌹⌹     ⌹⌹⌹
-⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹                  ⌹⌹⌹⌹⌹⌹         ⌹               ⌹⌹⌹     ⌹⌹⌹
-⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹                   ⌹⌹⌹⌹⌹⌹                     ⌹⌹⌹⌹⌹⌹     ⌹⌹⌹
-⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹
-⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
-  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹             ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
-⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹                ⌹⌹⌹⌹⌹⌹⌹⌹⌹
-⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹                 ⌹⌹⌹⌹⌹⌹⌹⌹
-⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹              ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹ ⌹⌹⌹⌹⌹⌹⌹⌹⌹              ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
-⌹⌹⌹⌹⌹⌹⌹⌹⌹                            ⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹⌹          ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
-⌹⌹⌹⌹⌹⌹⌹⌹⌹                               ⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
-⌹⌹⌹⌹⌹⌹⌹⌹⌹                                ⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
-⌹⌹⌹⌹⌹⌹                   ⌹⌹⌹⌹             ⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
-⌹⌹⌹⌹⌹⌹                   ⌹⌹⌹⌹                           ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
-⌹⌹⌹⌹⌹⌹                  ⌹⌹⌹⌹⌹⌹⌹                ⌹⌹            ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹ 
-  ⌹⌹⌹⌹                  ⌹⌹⌹⌹⌹⌹⌹              ⌹⌹⌹⌹              ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  
-  ⌹⌹⌹⌹                 ⌹⌹⌹⌹⌹⌹⌹⌹⌹             ⌹⌹⌹⌹              ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  
-  ⌹⌹⌹⌹   ⌹         ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹⌹⌹⌹              ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  
- ⌹⌹⌹⌹⌹   ⌹ ⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  
- ⌹⌹⌹⌹⌹   ⌹         ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  
- ⌹⌹⌹⌹⌹             ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  
-⌹⌹⌹⌹⌹              ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹          ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹
-⌹⌹⌹⌹              ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹
-⌹⌹⌹⌹              ⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹⌹ ⌹⌹⌹⌹⌹⌹⌹⌹
-⌹⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹⌹          ⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
-⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
-⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹         ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
-⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹⌹⌹⌹             ⌹          ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
-⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹                       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
-⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹            ⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
-⌹⌹⌹⌹⌹⌹              ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹         ⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
-                    ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹
-                       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹⌹⌹⌹  
-            ⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹          ⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹  
-           ⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹          ⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹⌹  
-   ⌹⌹⌹ ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹          ⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹⌹⌹⌹⌹
-⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹           ⌹⌹⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹⌹⌹⌹⌹
-⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹             ⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹  ⌹⌹⌹⌹   ⌹⌹⌹
-⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹        ⌹⌹⌹                       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹
-⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹         ⌹⌹⌹                          ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹
-⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       ⌹⌹⌹         ⌹⌹⌹    ⌹⌹                      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹     ⌹⌹
-⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹         ⌹⌹⌹⌹⌹⌹⌹⌹⌹                      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       
-  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹          ⌹⌹⌹⌹⌹⌹⌹⌹                      ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹       
-  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹                         ⌹⌹⌹⌹⌹⌹⌹⌹       
-  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹⌹⌹                          ⌹⌹⌹⌹⌹⌹⌹       
-  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹         ⌹⌹⌹⌹⌹⌹                          ⌹⌹⌹          
- ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹                        ⌹⌹⌹          
- ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹                        ⌹⌹⌹          
-⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹                      ⌹⌹⌹⌹          
-⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹            ⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹       ⌹             ⌹⌹⌹⌹⌹       ⌹⌹⌹
-⌹⌹⌹⌹⌹⌹⌹⌹⌹ ⌹             ⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹            ⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹
-⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹             ⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹           ⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹
-   ⌹⌹⌹⌹⌹⌹⌹⌹             ⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹ 
-   ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         ⌹⌹⌹⌹⌹⌹⌹⌹           
-   ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹   ⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         
-   ⌹⌹⌹  ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹⌹⌹    ⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹         
-</code></pre>
-<p>Complete code, with the namespace:</p>
-<pre class="apl"><code>:Namespace ising
-
-        L←{(2×?⍵ ⍵⍴2)-3}
-
-        ∆E←{
-                ⎕IO←0
-                (x y)←⍺
-                N←⊃⍴⍵
-                xn←N|((x-1)y)((x+1)y)
-                yn←N|(x(y-1))(x(y+1))
-                ⍵[x;y]×+/⍵[xn,yn]
-        }
-
-        U←{
-                ⎕IO←0
-                N←⊃⍴⍵
-                (x y)←?N N
-                new←⍵
-                new[x;y]×←(2×(?0)&gt;*-⍺×x y ∆E ⍵)-1
-                new
-        }
-
-        Ising←{&#39; ⌹&#39;[1+1=({10 U ⍵}⍣⍵)L ⍺]}
-
-:EndNamespace
-</code></pre>
-<h1 id="conclusion">Conclusion</h1>
-<p>The algorithm is very fast (I think it can be optimized by the interpreter because there is no branching), and is easy to reason about. The whole program fits in a few lines, and you clearly see what each function and each line does. It could probably be optimized further (I don’t know every APL function yet…), and also could probably be golfed to a few lines (at the cost of readability?).</p>
-<p>It took me some time to write this, but Dyalog’s tools make it really easy to insert symbols and to look up what they do. Next time, I will look into some ASCII-based APL descendants. J seems to have a <a href="http://code.jsoftware.com/wiki/NuVoc">good documentation</a> and a tradition of <em>tacit definitions</em>, similar to the point-free style in Haskell. Overall, J seems well-suited to modern functional programming, while APL is still under the influence of its early days when it was more procedural. Another interesting area is K, Q, and their database engine kdb+, which seems to be extremely performant and actually used in production.</p>
-<p>Still, Unicode symbols make the code much more readable, mainly because there is a one-to-one link between symbols and functions, which cannot be maintained with only a few ASCII characters.</p>
-    </section>
-</article>
- -->
-      <!-- </main> -->
 
     <footer>
       Site proudly generated by
