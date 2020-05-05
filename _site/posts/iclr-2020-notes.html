@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+    <meta name="description" content="Dimitri Lozeve's blog: ICLR 2020 Notes">
+    
+    <title>Dimitri Lozeve - ICLR 2020 Notes</title>
+    <link rel="stylesheet" href="../css/tufte.css" />
+    <link rel="stylesheet" href="../css/pandoc.css" />
+    <link rel="stylesheet" href="../css/default.css" />
+    <link rel="stylesheet" href="../css/syntax.css" />
+
+    <!-- KaTeX CSS styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+ 
+  </head>
+  <body>
+    <article>
+      
+      <header>
+	<nav>
+          <a href="../">Home</a>
+	  <a href="../projects.html">Projects</a>
+          <a href="../archive.html">Archive</a>
+	  <a href="../contact.html">Contact</a>
+	</nav>
+
+	<h1 class="title">ICLR 2020 Notes</h1>
+	
+	
+	<p class="byline">May  5, 2020</p>
+	
+      </header>
+      
+
+      
+    </article>
+
+    <article>
+    <section class="header">
+        
+    </section>
+    <section>
+        <p>ICLR is one of the most important conferences in machine learning, and as such, I was very excited to have the opportunity to volunteer and attend the first fully-virtual edition of the event. The whole content of the conference has been made <a href="https://iclr.cc/virtual_2020/index.html">publicly available</a>, only a few days after the end of the event!</p>
+<p>I would like to thank the <a href="https://iclr.cc/Conferences/2020/Committees">organizing committee</a> for this incredible event, and the possibility to volunteer to help other participants<span><label for="sn-1" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-1" class="margin-toggle" /><span class="sidenote">To better organize the event, and help people navigate the various online tools, they brought in 500(!) volunteers, waved our registration fees, and asked us to do simple load-testing and tech support. This was a very generous offer, and felt very rewarding for us, as we could attend the conference, and give back to the organization a little bit.<br />
+<br />
+</span></span>.</p>
+<p>The many volunteers, the online-only nature of the event, and the low registration fees also allowed for what felt like a very diverse, inclusive event. Many graduate students and researchers from industry (like me), who do not generally have the time or the resources to travel to conferences like this, were able to attend, and make the exchanges richer.</p>
+<p>In this post, I will try to give my impressions on the event, and share the most interesting events and papers I saw.</p>
+<h1 id="the-format-of-the-virtual-conference">The Format of the Virtual Conference</h1>
+<p>As a result of global travel restrictions, the conference was made fully-virtual. It was supposed to take place in Addis Ababa, Ethiopia, which is great for people who are often the target of restrictive visa policies in Northern American countries.</p>
+<p>The thing I appreciated most about the conference format was its emphasis on <em>asynchronous</em> communication. Given how little time they had to plan the conference, they could have made all poster presentations via video-conference and call it a day. Instead, each poster had to record a 5-minute video summarising their research. Alongside each presentation, there was a dedicated Rocket.Chat channel<span><label for="sn-2" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-2" class="margin-toggle" /><span class="sidenote"><a href="https://rocket.chat/">Rocket.Chat</a> seems to be an <a href="https://github.com/RocketChat/Rocket.Chat">open-source</a> alternative to Slack. Overall, the experience was great, and I appreciate the efforts of the organizers to use open source software instead of proprietary applications. I hope other conferences will do the same, and perhaps even avoid Zoom, because of recent privacy concerns (maybe try <a href="https://jitsi.org/">Jitsi</a>?).<br />
+<br />
+</span></span> where anyone could ask a question to the authors, or just show their appreciation for the work. This was a fantastic idea as it allowed any participant to interact with papers and authors at any time they please, which is especially important in a setting where people were spread all over the globe.</p>
+<p>There were also Zoom session where authors were available for direct, face-to-face discussions, allowing for more traditional conversations. But asking questions on the channel had also the advantage of keeping a track of all questions that were asked by other people. As such, I quickly acquired the habit of watching the video, looking at the chat to see the previous discussions (even if they happened in the middle of the night in my timezone!), and then skimming the paper or asking questions myself.</p>
+<p>All of these excellent ideas were implemented by an <a href="https://iclr.cc/virtual_2020/papers.html?filter=keywords">amazing website</a>, collecting all papers in a searchable, easy-to-use interface, and even a nice <a href="https://iclr.cc/virtual_2020/paper_vis.html">visualisation</a> of papers as a point cloud!</p>
+<h1 id="speakers">Speakers</h1>
+<p>Overall, there were 8 speakers (two for each day of the main conference). They made a 40-minute presentation, and then there was a Q&amp;A both via the chat and via Zoom. I only saw 4 of them, but I expect I will be watching the others in the near future.</p>
+<h2 id="prof.-leslie-kaelbling-doing-for-our-robots-what-nature-did-for-us">Prof. Leslie Kaelbling, <a href="https://iclr.cc/virtual_2020/speaker_2.html">Doing for Our Robots What Nature Did For Us</a></h2>
+<p>This talk was fascinating. It is about robotics, and especially how to design the “software” of our robots. We want to program a robot in a way that it could work the best it can over all possible domains it can encounter.</p>
+<h1 id="workshops">Workshops</h1>
+<h1 id="some-interesting-papers">Some Interesting Papers</h1>
+<h2 id="natural-language-processing">Natural Language Processing</h2>
+<h3 id="harwath-et-al.-learning-hierarchical-discrete-linguistic-units-from-visually-grounded-speech">Harwath et al., <a href="https://openreview.net/forum?id=B1elCp4KwH">Learning Hierarchical Discrete Linguistic Units from Visually-Grounded Speech</a></h3>
+<p>Humans can easily deconstruct all the information available in speech (meaning, language, emotion, speaker, etc.). However, this is very hard for machines. This paper explores the capacity of algorithms to reason about all the aspects of the signal, including visual cues.</p>
+<p>Their goal is to use spoken captions of images to train a predictive model.</p>
+<ul>
+<li>speech signal: contains a lot of information (meaning, language, emotion, speaker, environment)
+<ul>
+<li>difficult to identify these different parts for an algo (although easy for a human)</li>
+</ul></li>
+<li>dominated by supervised ML
+<ul>
+<li>automated speech recognition (ASR) = P(text | waveform)</li>
+<li>text-to-speech (TTS) = P(waveform | text, speaker)</li>
+<li>high sample complexity</li>
+<li>bad out-of-domain performance</li>
+<li>limited by annotation capability</li>
+</ul></li>
+<li>human-like learning
+<ul>
+<li>ability to jointly reason about all the aspects of the signal</li>
+<li>rapidly adapt to new speaker or noise conditions</li>
+<li>learn new words for a single example</li>
+<li>utilize unlabelled multimodal data</li>
+</ul></li>
+<li>using visual grounding for self-supervision
+<ul>
+<li>humans can leverage cross-modal correspondences to learn what spoken words represent without requiring any text or symbolic input whatsoever</li>
+<li>hypothesis: similar for computer algorithms?</li>
+</ul></li>
+<li>goal: use spoken captions of images to train a predictive model
+<ul>
+<li>learn a hierarchical structure of units</li>
+<li>learn the corresponding text, but also the transcription of the spoken sounds, at a sub-word level</li>
+</ul></li>
+<li>prefer models that learn a discrete tokenisation of the speech
+<ul>
+<li>language has an intrinsically symbolic structure
+<ul>
+<li>convey meaning with discrete words</li>
+<li>words are in turn composed of a finite set of speech sounds (phones)</li>
+</ul></li>
+<li>model that can discover discrete representations for word and phone-like units
+<ul>
+<li>more interpretable</li>
+<li>able to do few-shot learning (learn a new word-like unit in terms of known phone-like units)</li>
+<li>path towards learning compositional structure from continuous signals</li>
+</ul></li>
+</ul></li>
+<li>model for audio-visual grounding:
+<ul>
+<li>NN for image</li>
+<li>NN for raw speech</li>
+<li>shared embedding space</li>
+<li>semantic supervision</li>
+</ul></li>
+<li>preliminary studies
+<ul>
+<li>lower layers features are correlated with phones</li>
+<li>higher lauer features are correlated with words</li>
+</ul></li>
+<li>add a vector quantizing layer in the speech NN</li>
+<li>hierarchy of quantization layers
+<ul>
+<li>capture phones and words</li>
+</ul></li>
+<li>do an ABX test to compare performance to speech-only models</li>
+<li>conclusion
+<ul>
+<li>novel linguistic unit learning paradigm using multimodal data without text</li>
+<li>SOTA performance on learning phonetic and word-level units</li>
+<li>discovery of discreteness as a good inductive bias for semantic task from speech</li>
+</ul></li>
+</ul>
+<h2 id="reinforcement-learning">Reinforcement Learning</h2>
+<h2 id="ml-and-neural-network-theory">ML and Neural Network Theory</h2>
+    </section>
+</article>
+
+
+    <footer>
+      Site proudly generated by
+      <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+    </footer>
+  </body>
+</html>

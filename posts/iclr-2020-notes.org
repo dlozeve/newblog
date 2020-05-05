@@ -1,0 +1,162 @@
+---
+title: "ICLR 2020 Notes"
+date: 2020-05-05
+---
+
+ICLR is one of the most important conferences in machine learning, and
+as such, I was very excited to have the opportunity to volunteer and
+attend the first fully-virtual edition of the event. The whole content
+of the conference has been made [[https://iclr.cc/virtual_2020/index.html][publicly available]], only a few days
+after the end of the event!
+
+I would like to thank the [[https://iclr.cc/Conferences/2020/Committees][organizing committee]] for this incredible
+event, and the possibility to volunteer to help other
+participants[fn:volunteer].
+
+The many volunteers, the online-only nature of the event, and the low
+registration fees also allowed for what felt like a very diverse,
+inclusive event. Many graduate students and researchers from industry
+(like me), who do not generally have the time or the resources to
+travel to conferences like this, were able to attend, and make the
+exchanges richer.
+
+In this post, I will try to give my impressions on the event, and
+share the most interesting events and papers I saw.
+
+[fn:volunteer] To better organize the event, and help people navigate
+the various online tools, they brought in 500(!) volunteers, waved our
+registration fees, and asked us to do simple load-testing and tech
+support. This was a very generous offer, and felt very rewarding for
+us, as we could attend the conference, and give back to the
+organization a little bit.
+
+* The Format of the Virtual Conference
+
+As a result of global travel restrictions, the conference was made
+fully-virtual. It was supposed to take place in Addis Ababa, Ethiopia,
+which is great for people who are often the target of restrictive visa
+policies in Northern American countries.
+
+The thing I appreciated most about the conference format was its
+emphasis on /asynchronous/ communication. Given how little time they
+had to plan the conference, they could have made all poster
+presentations via video-conference and call it a day. Instead, each
+poster had to record a 5-minute video summarising their
+research. Alongside each presentation, there was a dedicated
+Rocket.Chat channel[fn:rocketchat] where anyone could ask a question
+to the authors, or just show their appreciation for the work. This was
+a fantastic idea as it allowed any participant to interact with papers
+and authors at any time they please, which is especially important in
+a setting where people were spread all over the globe.
+
+There were also Zoom session where authors were available for direct,
+face-to-face discussions, allowing for more traditional
+conversations. But asking questions on the channel had also the
+advantage of keeping a track of all questions that were asked by other
+people. As such, I quickly acquired the habit of watching the video,
+looking at the chat to see the previous discussions (even if they
+happened in the middle of the night in my timezone!), and then
+skimming the paper or asking questions myself.
+
+All of these excellent ideas were implemented by an [[https://iclr.cc/virtual_2020/papers.html?filter=keywords][amazing website]],
+collecting all papers in a searchable, easy-to-use interface, and even
+a nice [[https://iclr.cc/virtual_2020/paper_vis.html][visualisation]] of papers as a point cloud!
+
+[fn:rocketchat] [[https://rocket.chat/][Rocket.Chat]] seems to be an [[https://github.com/RocketChat/Rocket.Chat][open-source]] alternative to
+Slack. Overall, the experience was great, and I appreciate the efforts
+of the organizers to use open source software instead of proprietary
+applications. I hope other conferences will do the same, and perhaps
+even avoid Zoom, because of recent privacy concerns (maybe try
+[[https://jitsi.org/][Jitsi]]?).
+
+* Speakers
+
+Overall, there were 8 speakers (two for each day of the main
+conference). They made a 40-minute presentation, and then there was a
+Q&A both via the chat and via Zoom. I only saw 4 of them, but I expect
+I will be watching the others in the near future.
+
+** Prof. Leslie Kaelbling, [[https://iclr.cc/virtual_2020/speaker_2.html][Doing for Our Robots What Nature Did For Us]]
+
+This talk was fascinating. It is about robotics, and especially how to
+design the "software" of our robots. We want to program a robot in a
+way that it could work the best it can over all possible domains it
+can encounter.
+
+
+
+* Workshops
+
+* Some Interesting Papers
+
+** Natural Language Processing
+
+*** Harwath et al., [[https://openreview.net/forum?id=B1elCp4KwH][Learning Hierarchical Discrete Linguistic Units from Visually-Grounded Speech]]
+
+Humans can easily deconstruct all the information available in speech
+(meaning, language, emotion, speaker, etc.). However, this is very
+hard for machines. This paper explores the capacity of algorithms to
+reason about all the aspects of the signal, including visual cues.
+
+Their goal is to use spoken captions of images to train a predictive
+model.
+
+- speech signal: contains a lot of information (meaning, language,
+  emotion, speaker, environment)
+  - difficult to identify these different parts for an algo (although
+    easy for a human)
+- dominated by supervised ML
+  - automated speech recognition (ASR) = P(text | waveform)
+  - text-to-speech (TTS) = P(waveform | text, speaker)
+  - high sample complexity
+  - bad out-of-domain performance
+  - limited by annotation capability
+- human-like learning
+  - ability to jointly reason about all the aspects of the signal
+  - rapidly adapt to new speaker or noise conditions
+  - learn new words for a single example
+  - utilize unlabelled multimodal data
+- using visual grounding for self-supervision
+  - humans can leverage cross-modal correspondences to learn what
+    spoken words represent without requiring any text or symbolic
+    input whatsoever
+  - hypothesis: similar for computer algorithms?
+- goal: use spoken captions of images to train a predictive model
+  - learn a hierarchical structure of units
+  - learn the corresponding text, but also the transcription of the
+    spoken sounds, at a sub-word level
+- prefer models that learn a discrete tokenisation of the speech
+  - language has an intrinsically symbolic structure
+    - convey meaning with discrete words
+    - words are in turn composed of a finite set of speech sounds
+      (phones)
+  - model that can discover discrete representations for word and
+    phone-like units
+    - more interpretable
+    - able to do few-shot learning (learn a new word-like unit in
+      terms of known phone-like units)
+    - path towards learning compositional structure from continuous
+      signals
+- model for audio-visual grounding:
+  - NN for image
+  - NN for raw speech
+  - shared embedding space
+  - semantic supervision
+- preliminary studies
+  - lower layers features are correlated with phones
+  - higher lauer features are correlated with words
+- add a vector quantizing layer in the speech NN
+- hierarchy of quantization layers
+  - capture phones and words
+- do an ABX test to compare performance to speech-only models
+- conclusion
+  - novel linguistic unit learning paradigm using multimodal data
+    without text
+  - SOTA performance on learning phonetic and word-level units
+  - discovery of discreteness as a good inductive bias for semantic
+    task from speech
+
+** Reinforcement Learning
+
+** ML and Neural Network Theory
+
