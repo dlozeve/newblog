@@ -20,8 +20,9 @@ inclusive event. Many graduate students and researchers from industry
 travel to conferences like this, were able to attend, and make the
 exchanges richer.
 
-In this post, I will try to give my impressions on the event, and
-share the most interesting events and papers I saw.
+In this post, I will try to give my impressions on the event, the
+speakers, and the workshops that I could attend. I will do a quick
+recap of the most interesting papers I saw in a future post.
 
 [fn:volunteer] To better organize the event, and help people navigate
 the various online tools, they brought in 500(!) volunteers, waved our
@@ -60,7 +61,7 @@ skimming the paper or asking questions myself.
 
 All of these excellent ideas were implemented by an [[https://iclr.cc/virtual_2020/papers.html?filter=keywords][amazing website]],
 collecting all papers in a searchable, easy-to-use interface, and even
-a nice [[https://iclr.cc/virtual_2020/paper_vis.html][visualisation]] of papers as a point cloud!
+including a nice [[https://iclr.cc/virtual_2020/paper_vis.html][visualisation]] of papers as a point cloud!
 
 [fn:slideslive] The videos are streamed using [[https://library.slideslive.com/][SlidesLive]], which is a
 great solution for synchronising videos and slides. It is very
@@ -80,8 +81,8 @@ even avoid Zoom, because of recent privacy concerns (maybe try
 
 Overall, there were 8 speakers (two for each day of the main
 conference). They made a 40-minute presentation, and then there was a
-Q&A both via the chat and via Zoom. I only saw 4 of them, but I expect
-I will be watching the others in the near future.
+Q&A both via the chat and via Zoom. I only saw a few of them, but I
+expect I will be watching the others in the near future.
 
 ** Prof. Leslie Kaelbling, [[https://iclr.cc/virtual_2020/speaker_2.html][Doing for Our Robots What Nature Did For Us]]
 
@@ -112,12 +113,12 @@ encourage you to watch the talk!
 
 ** Dr. Laurent Dinh, [[https://iclr.cc/virtual_2020/speaker_4.html][Invertible Models and Normalizing Flows]]
 
-This is a talk about an area of ML research I do not know very well,
-but very clearly presented. I really like the approach of teaching a
-set of methods from a "historical", personal point of view. Laurent
-Dinh shows us how he arrived at this topic, what he finds interesting,
-in a very personal and relatable manner. This has the double advantage
-of introducing us to a topic that he is passionate about, while also
+This is a very clear presentation of an area of ML research I do not
+know very well. I really like the approach of teaching a set of
+methods from a "historical", personal point of view. Laurent Dinh
+shows us how he arrived at this topic, what he finds interesting, in a
+very personal and relatable manner. This has the double advantage of
+introducing us to a topic that he is passionate about, while also
 giving us a glimpse of a researcher's process, without hiding the
 momentary disillusions and disappointments, but emphasising the great
 achievements. Normalizing flows are also very interesting because it
@@ -138,9 +139,9 @@ go deeper in the approaches he recommends. Yoshua Bengio is also very
 good at broadening the debate around deep learning, and introducing
 very important concepts from cognitive science.
 
-** Prof. Michael I. Jordan, [[https://iclr.cc/virtual_2020/speaker_8.html][The Decision-Making Side of Machine Learning: Dynamical, Statistical and Economic Perspectives]]
+# ** Prof. Michael I. Jordan, [[https://iclr.cc/virtual_2020/speaker_8.html][The Decision-Making Side of Machine Learning: Dynamical, Statistical and Economic Perspectives]]
 
-TODO
+# TODO
 
 * Workshops
 
@@ -182,7 +183,7 @@ between ML practitioners and cognitive scientists will greatly help
 advance both fields. I only watched [[https://baicsworkshop.github.io/program/baics_45.html][Leslie Kaelbling's presentation]],
 which echoes a lot of things from her talk at the main conference. It
 complements it nicely, with more focus on intelligence, especially
-/embodied/ intelligence. I think she has the rights approach to
+/embodied/ intelligence. I think she has the right approach to
 relationships between AI and natural science, explicitly listing the
 things from her work that would be helpful to natural scientists, and
 things she wish she knew about natural intelligences. It raises many
@@ -192,9 +193,8 @@ understand. I felt it was very motivational!
 ** [[https://iclr.cc/virtual_2020/workshops_5.html][Integration of Deep Neural Models and Differential Equations]]
 
 I didn't attend this workshop, but I think I will watch the
-presentations if I can find some time. I have found the intersection
-of differential equations and ML very interesting, ever since the
-famous [[https://papers.nips.cc/paper/7892-neural-ordinary-differential-equations][NeurIPS best paper]] on Neural ODEs. I think that such
-improvements to ML theory from other fields in mathematics would be
-extremely beneficial to a better understanding of the systems we
-build.
+presentations if I can find the time. I have found the intersection of
+differential equations and ML very interesting, ever since the famous
+[[https://papers.nips.cc/paper/7892-neural-ordinary-differential-equations][NeurIPS best paper]] on Neural ODEs. I think that such improvements to
+ML theory from other fields in mathematics would be extremely
+beneficial to a better understanding of the systems we build.
