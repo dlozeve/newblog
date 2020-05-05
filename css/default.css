@@ -2,6 +2,7 @@ body {
     background: #fafafa;
     counter-reset: theorem;
     counter-reset: definition;
+    counter-reset: sidenote-counter; /* Hack, otherwise we break Tufte CSS */
 }
 
 header {
