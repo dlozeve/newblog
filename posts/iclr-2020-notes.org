@@ -135,78 +135,12 @@ very important concepts from cognitive science.
 
 TODO
 
-* Workshops
-
 * Some Interesting Papers
 
 ** Natural Language Processing
-
-*** Harwath et al., [[https://openreview.net/forum?id=B1elCp4KwH][Learning Hierarchical Discrete Linguistic Units from Visually-Grounded Speech]]
-
-Humans can easily deconstruct all the information available in speech
-(meaning, language, emotion, speaker, etc.). However, this is very
-hard for machines. This paper explores the capacity of algorithms to
-reason about all the aspects of the signal, including visual cues.
-
-Their goal is to use spoken captions of images to train a predictive
-model.
-
-- speech signal: contains a lot of information (meaning, language,
-  emotion, speaker, environment)
-  - difficult to identify these different parts for an algo (although
-    easy for a human)
-- dominated by supervised ML
-  - automated speech recognition (ASR) = P(text | waveform)
-  - text-to-speech (TTS) = P(waveform | text, speaker)
-  - high sample complexity
-  - bad out-of-domain performance
-  - limited by annotation capability
-- human-like learning
-  - ability to jointly reason about all the aspects of the signal
-  - rapidly adapt to new speaker or noise conditions
-  - learn new words for a single example
-  - utilize unlabelled multimodal data
-- using visual grounding for self-supervision
-  - humans can leverage cross-modal correspondences to learn what
-    spoken words represent without requiring any text or symbolic
-    input whatsoever
-  - hypothesis: similar for computer algorithms?
-- goal: use spoken captions of images to train a predictive model
-  - learn a hierarchical structure of units
-  - learn the corresponding text, but also the transcription of the
-    spoken sounds, at a sub-word level
-- prefer models that learn a discrete tokenisation of the speech
-  - language has an intrinsically symbolic structure
-    - convey meaning with discrete words
-    - words are in turn composed of a finite set of speech sounds
-      (phones)
-  - model that can discover discrete representations for word and
-    phone-like units
-    - more interpretable
-    - able to do few-shot learning (learn a new word-like unit in
-      terms of known phone-like units)
-    - path towards learning compositional structure from continuous
-      signals
-- model for audio-visual grounding:
-  - NN for image
-  - NN for raw speech
-  - shared embedding space
-  - semantic supervision
-- preliminary studies
-  - lower layers features are correlated with phones
-  - higher lauer features are correlated with words
-- add a vector quantizing layer in the speech NN
-- hierarchy of quantization layers
-  - capture phones and words
-- do an ABX test to compare performance to speech-only models
-- conclusion
-  - novel linguistic unit learning paradigm using multimodal data
-    without text
-  - SOTA performance on learning phonetic and word-level units
-  - discovery of discreteness as a good inductive bias for semantic
-    task from speech
 
 ** Reinforcement Learning
 
 ** ML and Neural Network Theory
 
+* Workshops

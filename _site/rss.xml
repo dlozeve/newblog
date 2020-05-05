@@ -45,83 +45,11 @@
 <p>This talk was very interesting, and yet felt very familiar, as if I already saw a very similar one elsewhere. Especially for Yann LeCun, who clearly reuses the same slides for many presentations at various events. They both came back to their favourite subjects: self-supervised learning for Yann LeCun, and system 1/system 2 for Yoshua Bengio. All in all, they are very good speakers, and their presentations are always insightful. Yann LeCun gives a lot of references on recent technical advances, which is great if you want to go deeper in the approaches he recommends. Yoshua Bengio is also very good at broadening the debate around deep learning, and introducing very important concepts from cognitive science.</p>
 <h2 id="prof.-michael-i.-jordan-the-decision-making-side-of-machine-learning-dynamical-statistical-and-economic-perspectives">Prof. Michael I. Jordan, <a href="https://iclr.cc/virtual_2020/speaker_8.html">The Decision-Making Side of Machine Learning: Dynamical, Statistical and Economic Perspectives</a></h2>
 <p>TODO</p>
-<h1 id="workshops">Workshops</h1>
 <h1 id="some-interesting-papers">Some Interesting Papers</h1>
 <h2 id="natural-language-processing">Natural Language Processing</h2>
-<h3 id="harwath-et-al.-learning-hierarchical-discrete-linguistic-units-from-visually-grounded-speech">Harwath et al., <a href="https://openreview.net/forum?id=B1elCp4KwH">Learning Hierarchical Discrete Linguistic Units from Visually-Grounded Speech</a></h3>
-<p>Humans can easily deconstruct all the information available in speech (meaning, language, emotion, speaker, etc.). However, this is very hard for machines. This paper explores the capacity of algorithms to reason about all the aspects of the signal, including visual cues.</p>
-<p>Their goal is to use spoken captions of images to train a predictive model.</p>
-<ul>
-<li>speech signal: contains a lot of information (meaning, language, emotion, speaker, environment)
-<ul>
-<li>difficult to identify these different parts for an algo (although easy for a human)</li>
-</ul></li>
-<li>dominated by supervised ML
-<ul>
-<li>automated speech recognition (ASR) = P(text | waveform)</li>
-<li>text-to-speech (TTS) = P(waveform | text, speaker)</li>
-<li>high sample complexity</li>
-<li>bad out-of-domain performance</li>
-<li>limited by annotation capability</li>
-</ul></li>
-<li>human-like learning
-<ul>
-<li>ability to jointly reason about all the aspects of the signal</li>
-<li>rapidly adapt to new speaker or noise conditions</li>
-<li>learn new words for a single example</li>
-<li>utilize unlabelled multimodal data</li>
-</ul></li>
-<li>using visual grounding for self-supervision
-<ul>
-<li>humans can leverage cross-modal correspondences to learn what spoken words represent without requiring any text or symbolic input whatsoever</li>
-<li>hypothesis: similar for computer algorithms?</li>
-</ul></li>
-<li>goal: use spoken captions of images to train a predictive model
-<ul>
-<li>learn a hierarchical structure of units</li>
-<li>learn the corresponding text, but also the transcription of the spoken sounds, at a sub-word level</li>
-</ul></li>
-<li>prefer models that learn a discrete tokenisation of the speech
-<ul>
-<li>language has an intrinsically symbolic structure
-<ul>
-<li>convey meaning with discrete words</li>
-<li>words are in turn composed of a finite set of speech sounds (phones)</li>
-</ul></li>
-<li>model that can discover discrete representations for word and phone-like units
-<ul>
-<li>more interpretable</li>
-<li>able to do few-shot learning (learn a new word-like unit in terms of known phone-like units)</li>
-<li>path towards learning compositional structure from continuous signals</li>
-</ul></li>
-</ul></li>
-<li>model for audio-visual grounding:
-<ul>
-<li>NN for image</li>
-<li>NN for raw speech</li>
-<li>shared embedding space</li>
-<li>semantic supervision</li>
-</ul></li>
-<li>preliminary studies
-<ul>
-<li>lower layers features are correlated with phones</li>
-<li>higher lauer features are correlated with words</li>
-</ul></li>
-<li>add a vector quantizing layer in the speech NN</li>
-<li>hierarchy of quantization layers
-<ul>
-<li>capture phones and words</li>
-</ul></li>
-<li>do an ABX test to compare performance to speech-only models</li>
-<li>conclusion
-<ul>
-<li>novel linguistic unit learning paradigm using multimodal data without text</li>
-<li>SOTA performance on learning phonetic and word-level units</li>
-<li>discovery of discreteness as a good inductive bias for semantic task from speech</li>
-</ul></li>
-</ul>
 <h2 id="reinforcement-learning">Reinforcement Learning</h2>
 <h2 id="ml-and-neural-network-theory">ML and Neural Network Theory</h2>
+<h1 id="workshops">Workshops</h1>
     </section>
 </article>
 ]]></description>
