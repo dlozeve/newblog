@@ -8,8 +8,69 @@
         <name>Dimitri Lozeve</name>
         <email>dimitri+web@lozeve.com</email>
     </author>
-    <updated>2020-05-05T00:00:00Z</updated>
+    <updated>2020-05-26T00:00:00Z</updated>
     <entry>
+    <title>Operations Research and Optimisation: where to start?</title>
+    <link href="https://www.lozeve.com/posts/operations-research-references.html" />
+    <id>https://www.lozeve.com/posts/operations-research-references.html</id>
+    <published>2020-05-26T00:00:00Z</published>
+    <updated>2020-05-26T00:00:00Z</updated>
+    <summary type="html"><![CDATA[<article>
+    <section class="header">
+        
+    </section>
+    <section>
+        <p><a href="https://en.wikipedia.org/wiki/Operations_research">Operations research</a> (OR) is a vast area comprising a lot of theory, different branches of mathematics, and too many applications to count. In this post, I will try to explain why I find it so fascinating, but also why it can be a little disconcerting to explore at first. Then I will try to ease the newcomer’s path in this rich area, by suggesting a very rough “map” of the field and a few references to get started.</p>
+<p>Keep in mind that although I studied it during my graduate studies, this is not my primary area of expertise (I’m a data scientist by trade), and I definitely don’t pretend to know everything in OR. This is a field too vast for any single person to understand in its entirety, and I talk mostly from a “amateur mathematician and computer scientist” standpoint.</p>
+<h1 id="why-is-it-hard-to-approach">Why is it hard to approach?</h1>
+<p>Operations research can be difficult to approach, since there are many references and subfields. Compared to machine learning for instance, OR has a slightly longer history (going back to the 17th century, for example with <a href="https://en.wikipedia.org/wiki/Gaspard_Monge">Monge</a> and the <a href="https://en.wikipedia.org/wiki/Transportation_theory_(mathematics)">optimal transport problem</a>)<span><label for="sn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-1" class="margin-toggle"/><span class="marginnote"> For a very nice introduction (in French) to optimal transport, see these blog posts by <a href="https://twitter.com/gabrielpeyre">Gabriel Peyré</a>, on the CNRS maths blog: <a href="https://images.math.cnrs.fr/Le-transport-optimal-numerique-et-ses-applications-Partie-1.html">Part 1</a> and <a href="https://images.math.cnrs.fr/Le-transport-optimal-numerique-et-ses-applications-Partie-2.html">Part 2</a>. See also the resources on <a href="https://optimaltransport.github.io/">optimaltransport.github.io</a> (in English).<br />
+<br />
+</span></span>. This means that good textbooks and such have existed for a long time, but also that there will be plenty of material to choose from.</p>
+<p>Moreover, OR is very close to applications. Sometimes methods may vary a lot in their presentation depending on whether they’re applied to train tracks, sudoku, or travelling salesmen. In practice, the terminology and notations are not the same everywhere. This is disconcerting if you are used to “pure” mathematics, where notations evolved over a long time and is pretty much standardised for many areas. In contrast, if you’re used to the statistics literature with its <a href="https://lingpipe-blog.com/2009/10/13/whats-wrong-with-probability-notation/">strange notations</a>, you will find that OR is actually very well formalized.</p>
+<p>There are many subfields of operations research, including all kinds of optimization (constrained and unconstrained), game theory, dynamic programming, stochastic processes, etc.</p>
+<h1 id="where-to-start">Where to start</h1>
+<p>For an overall introduction, I recommend <span class="citation" data-cites="wentzel1988_operat">Wentzel (<a href="#ref-wentzel1988_operat">1988</a>)</span>. It is an old book, published by Mir Publications, a Soviet publisher which published many excellent scientific textbooks<span><label for="sn-2" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-2" class="margin-toggle"/><span class="marginnote"> Mir also published <a href="https://mirtitles.org/2011/06/03/physics-for-everyone/"><em>Physics for Everyone</em></a> by Lev Landau and Alexander Kitaigorodsky, a three-volume introduction to physics that is really accessible. Together with Feynman’s famous <a href="https://www.feynmanlectures.caltech.edu/">lectures</a>, I read them (in French) when I was a kid, and it was the best introduction I could possibly have to the subject.<br />
+<br />
+</span></span>. It is out of print, but it is available <a href="https://archive.org/details/WentzelOperationsResearchMir1983">on Archive.org</a>. The book is quite old, but everything presented is still extremely relevant today. It requires absolutely no background, and covers everything: a general introduction to the field, linear programming, dynamic programming, Markov processes and queues, Monte Carlo methods, and game theory. Even if you already know some of these topics, the presentations is so clear that it is a pleasure to read! (In particular, it is one of the best presentations of dynamic programming that I have ever read. The explanation of the simplex algorithm is also excellent.)</p>
+<ul>
+<li>why it may be more difficult to approach than other, more recent areas like ML and DL
+<ul>
+<li>slightly longer history</li>
+<li>always very close to applications: somehow more “messy” in its notations, vocabulary, standard references, etc, as other “purer” fields of maths (similar to stats in this regard)</li>
+<li>often approached from a applied point of view means that many very different concepts are often mixed together</li>
+</ul></li>
+<li>why it is interesting and you should pursue it anyway
+<ul>
+<li>history of the field</li>
+<li>examples of applications</li>
+<li>theory perspective, rigorous field</li>
+</ul></li>
+<li>different subfields
+<ul>
+<li>optimisation: constrained and unconstrained</li>
+<li>game theory</li>
+<li>dynamic programming</li>
+<li>stochastic processes</li>
+<li>simulation</li>
+</ul></li>
+<li>how to learn and practice
+<ul>
+<li>references</li>
+<li>courses</li>
+<li>computational assets</li>
+</ul></li>
+</ul>
+<h1 id="references" class="unnumbered">References</h1>
+<div id="refs" class="references">
+<div id="ref-wentzel1988_operat">
+<p>Wentzel, Elena S. 1988. <em>Operations Research: A Methodological Approach</em>. Moscow: Mir publishers.</p>
+</div>
+</div>
+    </section>
+</article>
+]]></summary>
+</entry>
+<entry>
     <title>ICLR 2020 Notes: Speakers and Workshops</title>
     <link href="https://www.lozeve.com/posts/iclr-2020-notes.html" />
     <id>https://www.lozeve.com/posts/iclr-2020-notes.html</id>
@@ -61,52 +122,6 @@
 <p>Cognitive science is fascinating, and I believe that collaboration between ML practitioners and cognitive scientists will greatly help advance both fields. I only watched <a href="https://baicsworkshop.github.io/program/baics_45.html">Leslie Kaelbling’s presentation</a>, which echoes a lot of things from her talk at the main conference. It complements it nicely, with more focus on intelligence, especially <em>embodied</em> intelligence. I think she has the right approach to relationships between AI and natural science, explicitly listing the things from her work that would be helpful to natural scientists, and things she wish she knew about natural intelligences. It raises many fascinating questions on ourselves, what we build, and what we understand. I felt it was very motivational!</p>
 <h3 id="integration-of-deep-neural-models-and-differential-equations"><a href="https://iclr.cc/virtual_2020/workshops_5.html">Integration of Deep Neural Models and Differential Equations</a></h3>
 <p>I didn’t attend this workshop, but I think I will watch the presentations if I can find the time. I have found the intersection of differential equations and ML very interesting, ever since the famous <a href="https://papers.nips.cc/paper/7892-neural-ordinary-differential-equations">NeurIPS best paper</a> on Neural ODEs. I think that such improvements to ML theory from other fields in mathematics would be extremely beneficial to a better understanding of the systems we build.</p>
-    </section>
-</article>
-]]></summary>
-</entry>
-<entry>
-    <title>Operations Research and Optimisation: where to start?</title>
-    <link href="https://www.lozeve.com/posts/operations-research-references.html" />
-    <id>https://www.lozeve.com/posts/operations-research-references.html</id>
-    <published>2020-04-08T00:00:00Z</published>
-    <updated>2020-04-08T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<article>
-    <section class="header">
-        
-    </section>
-    <section>
-        <p><a href="https://en.wikipedia.org/wiki/Operations_research">Operations research</a> (OR) is a vast area comprising a lot of theory, different branches of mathematics, and too many applications to count. In this post, I will try to explain why I find it so fascinating, but also why it can be a little disconcerting to explore at first. Then I will try to ease the newcomer’s path in this rich area, by suggesting a very rough “map” of the field and a few references to get started.</p>
-<p>Keep in mind that although I studied it during my graduate studies, this is not my primary area of expertise (I’m a data scientist by trade), and I definitely don’t pretend to know everything in OR. This is a field too vast for any single person to understand in its entirety, and I talk mostly from a “amateur mathematician and computer scientist” standpoint.</p>
-<h1 id="why-is-it-hard-to-approach">Why is it hard to approach?</h1>
-<ul>
-<li>why it may be more difficult to approach than other, more recent areas like ML and DL
-<ul>
-<li>slightly longer history</li>
-<li>always very close to applications: somehow more “messy” in its notations, vocabulary, standard references, etc, as other “purer” fields of maths (similar to stats in this regard)</li>
-<li>often approached from a applied point of view means that many very different concepts are often mixed together</li>
-</ul></li>
-<li>why it is interesting and you should pursue it anyway
-<ul>
-<li>history of the field</li>
-<li>examples of applications</li>
-<li>theory perspective, rigorous field</li>
-</ul></li>
-<li>different subfields
-<ul>
-<li>optimisation: constrained and unconstrained</li>
-<li>game theory</li>
-<li>dynamic programming</li>
-<li>stochastic processes</li>
-<li>simulation</li>
-</ul></li>
-<li>how to learn and practice
-<ul>
-<li>references</li>
-<li>courses</li>
-<li>computational assets</li>
-</ul></li>
-</ul>
     </section>
 </article>
 ]]></summary>

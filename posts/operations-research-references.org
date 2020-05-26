@@ -1,6 +1,6 @@
 ---
 title: "Operations Research and Optimisation: where to start?"
-date: 2020-04-08
+date: 2020-05-26
 ---
 
 [[https://en.wikipedia.org/wiki/Operations_research][Operations research]] (OR) is a vast area comprising a lot of theory,
@@ -23,18 +23,53 @@ scientist" standpoint.
 Operations research can be difficult to approach, since there are many
 references and subfields. Compared to machine learning for instance,
 OR has a slightly longer history (going back to the 17th century, for
-example with Monge and the optimal transport problem). This means that
-good textbooks and such have existed for a long time, but also that
-there will be plenty of material to choose from.
+example with [[https://en.wikipedia.org/wiki/Gaspard_Monge][Monge]] and the [[https://en.wikipedia.org/wiki/Transportation_theory_(mathematics)][optimal transport
+problem]])[fn:optimaltransport]. This means that good textbooks and such
+have existed for a long time, but also that there will be plenty of
+material to choose from.
+
+[fn:optimaltransport] {-} For a very nice introduction (in French) to
+optimal transport, see these blog posts by [[https://twitter.com/gabrielpeyre][Gabriel Peyré]], on the CNRS
+maths blog: [[https://images.math.cnrs.fr/Le-transport-optimal-numerique-et-ses-applications-Partie-1.html][Part 1]] and [[https://images.math.cnrs.fr/Le-transport-optimal-numerique-et-ses-applications-Partie-2.html][Part 2]]. See also the resources on
+[[https://optimaltransport.github.io/][optimaltransport.github.io]] (in English).
+
 
 Moreover, OR is very close to applications. Sometimes methods may vary
 a lot in their presentation depending on whether they're applied to
 train tracks, sudoku, or travelling salesmen. In practice, the
 terminology and notations are not the same everywhere. This is
-disconcerting if you are used to mathematics, where notations evolved
-over a long time and is pretty much standardised for many areas. In
-contrast, if you're used to the statistics literature with its [[https://lingpipe-blog.com/2009/10/13/whats-wrong-with-probability-notation/][strange
-notations]], you will find that OR is actually very well formalised.
+disconcerting if you are used to "pure" mathematics, where notations
+evolved over a long time and is pretty much standardised for many
+areas. In contrast, if you're used to the statistics literature with
+its [[https://lingpipe-blog.com/2009/10/13/whats-wrong-with-probability-notation/][strange notations]], you will find that OR is actually very well
+formalized.
+
+There are many subfields of operations research, including all kinds
+of optimization (constrained and unconstrained), game theory, dynamic
+programming, stochastic processes, etc.
+
+* Where to start
+
+For an overall introduction, I recommend cite:wentzel1988_operat. It
+is an old book, published by Mir Publications, a Soviet publisher
+which published many excellent scientific textbooks[fn:mir]. It is out
+of print, but it is available [[https://archive.org/details/WentzelOperationsResearchMir1983][on Archive.org]]. The book is quite old,
+but everything presented is still extremely relevant today. It
+requires absolutely no background, and covers everything: a general
+introduction to the field, linear programming, dynamic programming,
+Markov processes and queues, Monte Carlo methods, and game
+theory. Even if you already know some of these topics, the
+presentations is so clear that it is a pleasure to read!  (In
+particular, it is one of the best presentations of dynamic programming
+that I have ever read. The explanation of the simplex algorithm is
+also excellent.)
+
+[fn:mir] {-} Mir also published [[https://mirtitles.org/2011/06/03/physics-for-everyone/][/Physics for Everyone/]] by Lev Landau
+and Alexander Kitaigorodsky, a three-volume introduction to physics
+that is really accessible. Together with Feynman's famous [[https://www.feynmanlectures.caltech.edu/][lectures]], I
+read them (in French) when I was a kid, and it was the best
+introduction I could possibly have to the subject.
+
 
 - why it may be more difficult to approach than other, more recent
   areas like ML and DL
@@ -58,3 +93,5 @@ notations]], you will find that OR is actually very well formalised.
   - references
   - courses
   - computational assets
+
+* References
