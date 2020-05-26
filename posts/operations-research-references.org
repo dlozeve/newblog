@@ -105,6 +105,42 @@ solvers [[solvers][below]]).
 
 ** Theory and algorithms
 
+The basic algorithm for optimization is the [[https://en.wikipedia.org/wiki/Simplex_algorithm][simplex algorithm]],
+developed by Dantzig in the 1940s to solve [[https://en.wikipedia.org/wiki/Linear_programming][linear programming]]
+problems. It is the one of the main building blocks for mathematical
+optimization, and is used and referenced extensively in all kinds of
+approaches. As such, it is really important to understand it in
+detail. There are many books on the subject, but I especially liked
+cite:chvatal1983_linear (out of print, but you can find cheap used
+versions on Amazon). It covers everything there is to know on the
+simplex algorithms (step-by-step explanations with simple examples,
+correctness and complexity analysis, computational and implementation
+considerations) and to many applications. I think it is overall the
+best introduction. cite:vanderbei2014_linear follows a very similar
+outline, but contains more recent computational
+considerations[fn:simplex_implem]. (The author also has [[http://vanderbei.princeton.edu/307/lectures.html][lecture
+slides]].)
+
+[fn:simplex_implem] For all the details about practical
+implementations of the simplex algorithm, cite:maros2003_comput is
+dedicated to the computational aspects and contains everything you
+will need.
+
+
+For more books on linear programming, the two books
+cite:dantzig1997_linear, cite:dantzig2003_linear are very complete, if
+somewhat more mathematically advanced. cite:bertsimas1997_introd is
+also a great reference, if you can find it.
+
+For all the other subfields, [[https://or.stackexchange.com/a/870][this great StackExchange answer]] contains
+a lot of useful references, including most of the above. Of particular
+note are cite:peyreComputationalOptimalTransport2019 for optimal
+transport, cite:boyd2004_convex for convex optimization ([[https://web.stanford.edu/~boyd/cvxbook/][freely
+available online]]), and cite:nocedal2006_numer for numerical
+optimization. cite:kochenderfer2019_algor is not in the list (because
+it is very recent) but is also excellent, with examples in Julia
+covering nearly every kind of optimization algorithms.
+
 ** Online courses
 
 * Solvers and computational resources <<solvers>>
