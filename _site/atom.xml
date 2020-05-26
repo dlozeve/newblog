@@ -21,23 +21,23 @@
     </section>
     <section>
         <p>ICLR is one of the most important conferences in machine learning, and as such, I was very excited to have the opportunity to volunteer and attend the first fully-virtual edition of the event. The whole content of the conference has been made <a href="https://iclr.cc/virtual_2020/index.html">publicly available</a>, only a few days after the end of the event!</p>
-<p>I would like to thank the <a href="https://iclr.cc/Conferences/2020/Committees">organizing committee</a> for this incredible event, and the possibility to volunteer to help other participants<span><label for="sn-1" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-1" class="margin-toggle"/><span class="sidenote">To better organize the event, and help people navigate the various online tools, they brought in 500(!) volunteers, waved our registration fees, and asked us to do simple load-testing and tech support. This was a very generous offer, and felt very rewarding for us, as we could attend the conference, and give back to the organization a little bit.<br />
+<p>I would like to thank the <a href="https://iclr.cc/Conferences/2020/Committees">organizing committee</a> for this incredible event, and the possibility to volunteer to help other participants<span><label for="sn-1" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-1" class="margin-toggle" /><span class="sidenote">To better organize the event, and help people navigate the various online tools, they brought in 500(!) volunteers, waved our registration fees, and asked us to do simple load-testing and tech support. This was a very generous offer, and felt very rewarding for us, as we could attend the conference, and give back to the organization a little bit.<br />
 <br />
 </span></span>.</p>
 <p>The many volunteers, the online-only nature of the event, and the low registration fees also allowed for what felt like a very diverse, inclusive event. Many graduate students and researchers from industry (like me), who do not generally have the time or the resources to travel to conferences like this, were able to attend, and make the exchanges richer.</p>
 <p>In this post, I will try to give my impressions on the event, the speakers, and the workshops that I could attend. I will do a quick recap of the most interesting papers I saw in a future post.</p>
-<h1 id="the-format-of-the-virtual-conference">The Format of the Virtual Conference</h1>
+<h2 id="the-format-of-the-virtual-conference">The Format of the Virtual Conference</h2>
 <p>As a result of global travel restrictions, the conference was made fully-virtual. It was supposed to take place in Addis Ababa, Ethiopia, which is great for people who are often the target of restrictive visa policies in Northern American countries.</p>
-<p>The thing I appreciated most about the conference format was its emphasis on <em>asynchronous</em> communication. Given how little time they had to plan the conference, they could have made all poster presentations via video-conference and call it a day. Instead, each poster had to record a 5-minute video<span><label for="sn-2" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-2" class="margin-toggle"/><span class="sidenote">The videos are streamed using <a href="https://library.slideslive.com/">SlidesLive</a>, which is a great solution for synchronising videos and slides. It is very comfortable to navigate through the slides and synchronising the video to the slides and vice-versa. As a result, SlidesLive also has a very nice library of talks, including major conferences. This is much better than browsing YouTube randomly.<br />
+<p>The thing I appreciated most about the conference format was its emphasis on <em>asynchronous</em> communication. Given how little time they had to plan the conference, they could have made all poster presentations via video-conference and call it a day. Instead, each poster had to record a 5-minute video<span><label for="sn-2" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-2" class="margin-toggle" /><span class="sidenote">The videos are streamed using <a href="https://library.slideslive.com/">SlidesLive</a>, which is a great solution for synchronising videos and slides. It is very comfortable to navigate through the slides and synchronising the video to the slides and vice-versa. As a result, SlidesLive also has a very nice library of talks, including major conferences. This is much better than browsing YouTube randomly.<br />
 <br />
-</span></span> summarising their research. Alongside each presentation, there was a dedicated Rocket.Chat channel<span><label for="sn-3" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-3" class="margin-toggle"/><span class="sidenote"><a href="https://rocket.chat/">Rocket.Chat</a> seems to be an <a href="https://github.com/RocketChat/Rocket.Chat">open-source</a> alternative to Slack. Overall, the experience was great, and I appreciate the efforts of the organizers to use open source software instead of proprietary applications. I hope other conferences will do the same, and perhaps even avoid Zoom, because of recent privacy concerns (maybe try <a href="https://jitsi.org/">Jitsi</a>?).<br />
+</span></span> summarising their research. Alongside each presentation, there was a dedicated Rocket.Chat channel<span><label for="sn-3" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-3" class="margin-toggle" /><span class="sidenote"><a href="https://rocket.chat/">Rocket.Chat</a> seems to be an <a href="https://github.com/RocketChat/Rocket.Chat">open-source</a> alternative to Slack. Overall, the experience was great, and I appreciate the efforts of the organizers to use open source software instead of proprietary applications. I hope other conferences will do the same, and perhaps even avoid Zoom, because of recent privacy concerns (maybe try <a href="https://jitsi.org/">Jitsi</a>?).<br />
 <br />
 </span></span> where anyone could ask a question to the authors, or just show their appreciation for the work. This was a fantastic idea as it allowed any participant to interact with papers and authors at any time they please, which is especially important in a setting where people were spread all over the globe.</p>
 <p>There were also Zoom session where authors were available for direct, face-to-face discussions, allowing for more traditional conversations. But asking questions on the channel had also the advantage of keeping a track of all questions that were asked by other people. As such, I quickly acquired the habit of watching the video, looking at the chat to see the previous discussions (even if they happened in the middle of the night in my timezone!), and then skimming the paper or asking questions myself.</p>
 <p>All of these excellent ideas were implemented by an <a href="https://iclr.cc/virtual_2020/papers.html?filter=keywords">amazing website</a>, collecting all papers in a searchable, easy-to-use interface, and even including a nice <a href="https://iclr.cc/virtual_2020/paper_vis.html">visualisation</a> of papers as a point cloud!</p>
-<h1 id="speakers">Speakers</h1>
+<h2 id="speakers">Speakers</h2>
 <p>Overall, there were 8 speakers (two for each day of the main conference). They made a 40-minute presentation, and then there was a Q&amp;A both via the chat and via Zoom. I only saw a few of them, but I expect I will be watching the others in the near future.</p>
-<h2 id="prof.-leslie-kaelbling-doing-for-our-robots-what-nature-did-for-us">Prof. Leslie Kaelbling, <a href="https://iclr.cc/virtual_2020/speaker_2.html">Doing for Our Robots What Nature Did For Us</a></h2>
+<h3 id="prof.-leslie-kaelbling-doing-for-our-robots-what-nature-did-for-us">Prof. Leslie Kaelbling, <a href="https://iclr.cc/virtual_2020/speaker_2.html">Doing for Our Robots What Nature Did For Us</a></h3>
 <p>This talk was fascinating. It is about robotics, and especially how to design the “software” of our robots. We want to program a robot in a way that it could work the best it can over all possible domains it can encounter. I loved the discussion on how to describe the space of distributions over domains, from the point of view of the robot factory:</p>
 <ul>
 <li>The domain could be very narrow (e.g. playing a specific Atari game) or very broad and complex (performing a complex task in an open world).</li>
@@ -45,21 +45,21 @@
 </ul>
 <p>There are many ways to describe a policy (i.e. the software running in the robot’s head), and many ways to obtain them. If you are familiar with recent advances in reinforcement learning, this talk is a great occasion to take a step back, and review the relevant background ideas from engineering and control theory.</p>
 <p>Finally, the most important take-away from this talk is the importance of <em>abstractions</em>. Whatever the methods we use to program our robots, we still need a lot of human insights to give them good structural biases. There are many more insights, on the cost of experience, (hierarchical) planning, learning constraints, etc, so I strongly encourage you to watch the talk!</p>
-<h2 id="dr.-laurent-dinh-invertible-models-and-normalizing-flows">Dr. Laurent Dinh, <a href="https://iclr.cc/virtual_2020/speaker_4.html">Invertible Models and Normalizing Flows</a></h2>
+<h3 id="dr.-laurent-dinh-invertible-models-and-normalizing-flows">Dr. Laurent Dinh, <a href="https://iclr.cc/virtual_2020/speaker_4.html">Invertible Models and Normalizing Flows</a></h3>
 <p>This is a very clear presentation of an area of ML research I do not know very well. I really like the approach of teaching a set of methods from a “historical”, personal point of view. Laurent Dinh shows us how he arrived at this topic, what he finds interesting, in a very personal and relatable manner. This has the double advantage of introducing us to a topic that he is passionate about, while also giving us a glimpse of a researcher’s process, without hiding the momentary disillusions and disappointments, but emphasising the great achievements. Normalizing flows are also very interesting because it is grounded in strong theoretical results, that brings together a lot of different methods.</p>
-<h2 id="profs.-yann-lecun-and-yoshua-bengio-reflections-from-the-turing-award-winners">Profs. Yann LeCun and Yoshua Bengio, <a href="https://iclr.cc/virtual_2020/speaker_7.html">Reflections from the Turing Award Winners</a></h2>
+<h3 id="profs.-yann-lecun-and-yoshua-bengio-reflections-from-the-turing-award-winners">Profs. Yann LeCun and Yoshua Bengio, <a href="https://iclr.cc/virtual_2020/speaker_7.html">Reflections from the Turing Award Winners</a></h3>
 <p>This talk was very interesting, and yet felt very familiar, as if I already saw a very similar one elsewhere. Especially for Yann LeCun, who clearly reuses the same slides for many presentations at various events. They both came back to their favourite subjects: self-supervised learning for Yann LeCun, and system 1/system 2 for Yoshua Bengio. All in all, they are very good speakers, and their presentations are always insightful. Yann LeCun gives a lot of references on recent technical advances, which is great if you want to go deeper in the approaches he recommends. Yoshua Bengio is also very good at broadening the debate around deep learning, and introducing very important concepts from cognitive science.</p>
-<h1 id="workshops">Workshops</h1>
+<h2 id="workshops">Workshops</h2>
 <p>On Sunday, there were <a href="https://iclr.cc/virtual_2020/workshops.html">15 different workshops</a>. All of them were recorded, and are available on the website. As always, unfortunately, there are too many interesting things to watch everything, but I saw bits and pieces of different workshops.</p>
-<h2 id="beyond-tabula-rasa-in-reinforcement-learning-agents-that-remember-adapt-and-generalize"><a href="https://iclr.cc/virtual_2020/workshops_12.html">Beyond ‘tabula rasa’ in reinforcement learning: agents that remember, adapt, and generalize</a></h2>
+<h3 id="beyond-tabula-rasa-in-reinforcement-learning-agents-that-remember-adapt-and-generalize"><a href="https://iclr.cc/virtual_2020/workshops_12.html">Beyond ‘tabula rasa’ in reinforcement learning: agents that remember, adapt, and generalize</a></h3>
 <p>A lot of pretty advanced talks about RL. The general theme was meta-learning, aka “learning to learn”. This is a very active area of research, which goes way beyond classical RL theory, and offer many interesting avenues to adjacent fields (both inside ML and outside, especially cognitive science). The <a href="http://www.betr-rl.ml/2020/abs/101/">first talk</a>, by Martha White, about inductive biases, was a very interesting and approachable introduction to the problems and challenges of the field. There was also a panel with Jürgen Schmidhuber. We hear a lot about him from the various controversies, but it’s nice to see him talking about research and future developments in RL.</p>
-<h2 id="causal-learning-for-decision-making"><a href="https://iclr.cc/virtual_2020/workshops_14.html">Causal Learning For Decision Making</a></h2>
-<p>Ever since I read Judea Pearl’s <a href="https://www.goodreads.com/book/show/36204378-the-book-of-why"><em>The Book of Why</em></a> on causality, I have been interested in how we can incorporate causality reasoning in machine learning. This is a complex topic, and I’m not sure yet that it is a complete revolution as Judea Pearl likes to portray it, but it nevertheless introduces a lot of new fascinating ideas. Yoshua Bengio gave an interesting talk<span><label for="sn-4" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-4" class="margin-toggle"/><span class="sidenote">You can find it at 4:45:20 in the <a href="https://slideslive.com/38926830/workshop-on-causal-learning-for-decision-making">livestream</a> of the workshop.<br />
+<h3 id="causal-learning-for-decision-making"><a href="https://iclr.cc/virtual_2020/workshops_14.html">Causal Learning For Decision Making</a></h3>
+<p>Ever since I read Judea Pearl’s <a href="https://www.goodreads.com/book/show/36204378-the-book-of-why"><em>The Book of Why</em></a> on causality, I have been interested in how we can incorporate causality reasoning in machine learning. This is a complex topic, and I’m not sure yet that it is a complete revolution as Judea Pearl likes to portray it, but it nevertheless introduces a lot of new fascinating ideas. Yoshua Bengio gave an interesting talk<span><label for="sn-4" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-4" class="margin-toggle" /><span class="sidenote">You can find it at 4:45:20 in the <a href="https://slideslive.com/38926830/workshop-on-causal-learning-for-decision-making">livestream</a> of the workshop.<br />
 <br />
 </span></span> (even though very similar to his keynote talk) on causal priors for deep learning.</p>
-<h2 id="bridging-ai-and-cognitive-science"><a href="https://iclr.cc/virtual_2020/workshops_4.html">Bridging AI and Cognitive Science</a></h2>
+<h3 id="bridging-ai-and-cognitive-science"><a href="https://iclr.cc/virtual_2020/workshops_4.html">Bridging AI and Cognitive Science</a></h3>
 <p>Cognitive science is fascinating, and I believe that collaboration between ML practitioners and cognitive scientists will greatly help advance both fields. I only watched <a href="https://baicsworkshop.github.io/program/baics_45.html">Leslie Kaelbling’s presentation</a>, which echoes a lot of things from her talk at the main conference. It complements it nicely, with more focus on intelligence, especially <em>embodied</em> intelligence. I think she has the right approach to relationships between AI and natural science, explicitly listing the things from her work that would be helpful to natural scientists, and things she wish she knew about natural intelligences. It raises many fascinating questions on ourselves, what we build, and what we understand. I felt it was very motivational!</p>
-<h2 id="integration-of-deep-neural-models-and-differential-equations"><a href="https://iclr.cc/virtual_2020/workshops_5.html">Integration of Deep Neural Models and Differential Equations</a></h2>
+<h3 id="integration-of-deep-neural-models-and-differential-equations"><a href="https://iclr.cc/virtual_2020/workshops_5.html">Integration of Deep Neural Models and Differential Equations</a></h3>
 <p>I didn’t attend this workshop, but I think I will watch the presentations if I can find the time. I have found the intersection of differential equations and ML very interesting, ever since the famous <a href="https://papers.nips.cc/paper/7892-neural-ordinary-differential-equations">NeurIPS best paper</a> on Neural ODEs. I think that such improvements to ML theory from other fields in mathematics would be extremely beneficial to a better understanding of the systems we build.</p>
     </section>
 </article>
@@ -78,16 +78,16 @@
     <section>
         <p>Two weeks ago, I did a presentation for my colleagues of the paper from <span class="citation" data-cites="yurochkin2019_hierar_optim_trans_docum_repres">Yurochkin et al. (<a href="#ref-yurochkin2019_hierar_optim_trans_docum_repres">2019</a>)</span>, from <a href="https://papers.nips.cc/book/advances-in-neural-information-processing-systems-32-2019">NeurIPS 2019</a>. It contains an interesting approach to document classification leading to strong performance, and, most importantly, excellent interpretability.</p>
 <p>This paper seems interesting to me because of it uses two methods with strong theoretical guarantees: optimal transport and topic modelling. Optimal transport looks very promising to me in NLP, and has seen a lot of interest in recent years due to advances in approximation algorithms, such as entropy regularisation. It is also quite refreshing to see approaches using solid results in optimisation, compared to purely experimental deep learning methods.</p>
-<h1 id="introduction-and-motivation">Introduction and motivation</h1>
+<h2 id="introduction-and-motivation">Introduction and motivation</h2>
 <p>The problem of the paper is to measure similarity (i.e. a distance) between pairs of documents, by incorporating <em>semantic</em> similarities (and not only syntactic artefacts), without encountering scalability issues.</p>
 <p>They propose a “meta-distance” between documents, called the hierarchical optimal topic transport (HOTT), providing a scalable metric incorporating topic information between documents. As such, they try to combine two different levels of analysis:</p>
 <ul>
 <li>word embeddings data, to embed language knowledge (via pre-trained embeddings for instance),</li>
 <li>topic modelling methods (e.g. <a href="https://scikit-learn.org/stable/modules/decomposition.html#latentdirichletallocation">Latent Dirichlet Allocation</a>), to represent semantically-meaningful groups of words.</li>
 </ul>
-<h1 id="background-optimal-transport">Background: optimal transport</h1>
+<h2 id="background-optimal-transport">Background: optimal transport</h2>
 <p>The essential backbone of the method is the Wasserstein distance, derived from optimal transport theory. Optimal transport is a fascinating and deep subject, so I won’t enter into the details here. For an introduction to the theory and its applications, check out the excellent book from <span class="citation" data-cites="peyreComputationalOptimalTransport2019">Peyré and Cuturi (<a href="#ref-peyreComputationalOptimalTransport2019">2019</a>)</span>, (<a href="https://arxiv.org/abs/1803.00567">available on ArXiv</a> as well). There are also <a href="https://images.math.cnrs.fr/Le-transport-optimal-numerique-et-ses-applications-Partie-1.html?lang=fr">very nice posts</a> (in French) by Gabriel Peyré on the <a href="https://images.math.cnrs.fr/">CNRS maths blog</a>. Many more resources (including slides for presentations) are available at <a href="https://optimaltransport.github.io" class="uri">https://optimaltransport.github.io</a>. For a more complete theoretical treatment of the subject, check out <span class="citation" data-cites="santambrogioOptimalTransportApplied2015">Santambrogio (<a href="#ref-santambrogioOptimalTransportApplied2015">2015</a>)</span>, or, if you’re feeling particularly adventurous, <span class="citation" data-cites="villaniOptimalTransportOld2009">Villani (<a href="#ref-villaniOptimalTransportOld2009">2009</a>)</span>.</p>
-<p>For this paper, only a superficial understanding of how the <a href="https://en.wikipedia.org/wiki/Wasserstein_metric">Wasserstein distance</a> works is necessary. Optimal transport is an optimisation technique to lift a distance between points in a given metric space, to a distance between probability <em>distributions</em> over this metric space. The historical example is to move piles of dirt around: you know the distance between any two points, and you have piles of dirt lying around<span><label for="sn-1" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-1" class="margin-toggle"/><span class="marginnote"> Optimal transport originated with Monge, and then Kantorovich, both of whom had very clear military applications in mind (either in Revolutionary France, or during WWII). A lot of historical examples move cannon balls, or other military equipment, along a front line.<br />
+<p>For this paper, only a superficial understanding of how the <a href="https://en.wikipedia.org/wiki/Wasserstein_metric">Wasserstein distance</a> works is necessary. Optimal transport is an optimisation technique to lift a distance between points in a given metric space, to a distance between probability <em>distributions</em> over this metric space. The historical example is to move piles of dirt around: you know the distance between any two points, and you have piles of dirt lying around<span><label for="sn-1" class="margin-toggle">⊕</label><input type="checkbox" id="sn-1" class="margin-toggle" /><span class="marginnote"> Optimal transport originated with Monge, and then Kantorovich, both of whom had very clear military applications in mind (either in Revolutionary France, or during WWII). A lot of historical examples move cannon balls, or other military equipment, along a front line.<br />
 <br />
 </span></span>. Now, if you want to move these piles to another configuration (fewer piles, say, or a different repartition of dirt a few metres away), you need to find the most efficient way to move them. The total cost you obtain will define a distance between the two configurations of dirt, and is usually called the <a href="https://en.wikipedia.org/wiki/Earth_mover%27s_distance">earth mover’s distance</a>, which is just an instance of the general Wasserstein metric.</p>
 <p>More formally, we start with two sets of points <span class="math inline">\(x = (x_1, x_2, \ldots,
@@ -99,7 +99,7 @@ W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
 <p>Now, how can this be applied to a natural language setting? Once we have word embeddings, we can consider that the vocabulary forms a metric space (we can compute a distance, for instance the euclidean or the <a href="https://en.wikipedia.org/wiki/Cosine_similarity">cosine distance</a>, between two word embeddings). The key is to define documents as <em>distributions</em> over words.</p>
 <p>Given a vocabulary <span class="math inline">\(V \subset \mathbb{R}^n\)</span> and a corpus <span class="math inline">\(D = (d^1, d^2, \ldots, d^{\lvert D \rvert})\)</span>, we represent a document as <span class="math inline">\(d^i \in \Delta^{l_i}\)</span> where <span class="math inline">\(l_i\)</span> is the number of unique words in <span class="math inline">\(d^i\)</span>, and <span class="math inline">\(d^i_j\)</span> is the proportion of word <span class="math inline">\(v_j\)</span> in the document <span class="math inline">\(d^i\)</span>. The word mover’s distance (WMD) is then defined simply as <span class="math display">\[ \operatorname{WMD}(d^1, d^2) = W_1(d^1, d^2). \]</span></p>
 <p>If you didn’t follow all of this, don’t worry! The gist is: if you have a distance between points, you can solve an optimisation problem to obtain a distance between <em>distributions</em> over these points! This is especially useful when you consider that each word embedding is a point, and a document is just a set of words, along with the number of times they appear.</p>
-<h1 id="hierarchical-optimal-transport">Hierarchical optimal transport</h1>
+<h2 id="hierarchical-optimal-transport">Hierarchical optimal transport</h2>
 <p>Using optimal transport, we can use the word mover’s distance to define a metric between documents. However, this suffers from two drawbacks:</p>
 <ul>
 <li>Documents represented as distributions over words are not easily interpretable. For long documents, the vocabulary is huge and word frequencies are not easily understandable for humans.</li>
@@ -122,18 +122,18 @@ W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
 </ul>
 <p>The first one can be precomputed once for all subsequent distances, so it is invariable in the number of documents we have to process. The second one only operates on <span class="math inline">\(\lvert T \rvert\)</span> topics instead of the full vocabulary: the resulting optimisation problem is much smaller! This is great for performance, as it should be easy now to compute all pairwise distances in a large set of documents.</p>
 <p>Another interesting insight is that topics are represented as collections of words (we can keep the top 20 as a visual representations), and documents as collections of topics with weights. Both of these representations are highly interpretable for a human being who wants to understand what’s going on. I think this is one of the strongest aspects of these approaches: both the various representations and the algorithms are fully interpretable. Compared to a deep learning approach, we can make sense of every intermediate step, from the representations of topics to the weights in the optimisation algorithm to compute higher-level distances.</p>
-<p><img src="/images/hott_fig1.jpg" /><span><label for="sn-2" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-2" class="margin-toggle"/><span class="marginnote"> Representation of two documents in topic space, along with how the distance was computed between them. Everything is interpretable: from the documents as collections of topics, to the matchings between topics determining the overall distance between the books <span class="citation" data-cites="yurochkin2019_hierar_optim_trans_docum_repres">(Yurochkin et al. <a href="#ref-yurochkin2019_hierar_optim_trans_docum_repres">2019</a>)</span>.<br />
+<p><img src="/images/hott_fig1.jpg" /><span><label for="sn-2" class="margin-toggle">⊕</label><input type="checkbox" id="sn-2" class="margin-toggle" /><span class="marginnote"> Representation of two documents in topic space, along with how the distance was computed between them. Everything is interpretable: from the documents as collections of topics, to the matchings between topics determining the overall distance between the books <span class="citation" data-cites="yurochkin2019_hierar_optim_trans_docum_repres">(Yurochkin et al. <a href="#ref-yurochkin2019_hierar_optim_trans_docum_repres">2019</a>)</span>.<br />
 <br />
 </span></span></p>
-<h1 id="experiments">Experiments</h1>
+<h2 id="experiments">Experiments</h2>
 <p>The paper is very complete regarding experiments, providing a full evaluation of the method on one particular application: document clustering. They use <a href="https://scikit-learn.org/stable/modules/decomposition.html#latentdirichletallocation">Latent Dirichlet Allocation</a> to compute topics and GloVe for pretrained word embeddings <span class="citation" data-cites="pennington2014_glove">(Pennington, Socher, and Manning <a href="#ref-pennington2014_glove">2014</a>)</span>, and <a href="https://www.gurobi.com/">Gurobi</a> to solve the optimisation problems. Their code is available <a href="https://github.com/IBM/HOTT">on GitHub</a>.</p>
 <p>If you want the details, I encourage you to read the full paper, they tested the methods on a wide variety of datasets, with datasets containing very short documents (like Twitter), and long documents with a large vocabulary (books). With a simple <span class="math inline">\(k\)</span>-NN classification, they establish that HOTT performs best on average, especially on large vocabularies (books, the “gutenberg” dataset). It also has a much better computational performance than alternative methods based on regularisation of the optimal transport problem directly on words. So the hierarchical nature of the approach allows to gain considerably in performance, along with improvements in interpretability.</p>
 <p>What’s really interesting in the paper is the sensitivity analysis: they ran experiments with different word embeddings methods (word2vec, <span class="citation" data-cites="mikolovDistributedRepresentationsWords2013">(Mikolov et al. <a href="#ref-mikolovDistributedRepresentationsWords2013">2013</a>)</span>), and with different parameters for the topic modelling (topic truncation, number of topics, etc). All of these reveal that changes in hyperparameters do not impact the performance of HOTT significantly. This is extremely important in a field like NLP where most of the times small variations in approach lead to drastically different results.</p>
-<h1 id="conclusion">Conclusion</h1>
+<h2 id="conclusion">Conclusion</h2>
 <p>All in all, this paper present a very interesting approach to compute distance between natural-language documents. It is no secret that I like methods with strong theoretical background (in this case optimisation and optimal transport), guaranteeing a stability and benefiting from decades of research in a well-established domain.</p>
 <p>Most importantly, this paper allows for future exploration in document representation with <em>interpretability</em> in mind. This is often added as an afterthought in academic research but is one of the most important topics for the industry, as a system must be understood by end users, often not trained in ML, before being deployed. The notion of topic, and distances as weights, can be understood easily by anyone without significant background in ML or in maths.</p>
 <p>Finally, I feel like they did not stop at a simple theoretical argument, but carefully checked on real-world datasets, measuring sensitivity to all the arbitrary choices they had to take. Again, from an industry perspective, this allows to implement the new approach quickly and easily, being confident that it won’t break unexpectedly without extensive testing.</p>
-<h1 id="references" class="unnumbered">References</h1>
+<h2 id="references" class="unnumbered">References</h2>
 <div id="refs" class="references">
 <div id="ref-mikolovDistributedRepresentationsWords2013">
 <p>Mikolov, Tomas, Ilya Sutskever, Kai Chen, Greg S Corrado, and Jeff Dean. 2013. “Distributed Representations of Words and Phrases and Their Compositionality.” In <em>Advances in Neural Information Processing Systems 26</em>, 3111–9. <a href="http://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf" class="uri">http://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf</a>.</p>
@@ -190,13 +190,13 @@ W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
         
     </section>
     <section>
-        <h2 id="ginibre-ensemble-and-its-properties">Ginibre ensemble and its properties</h2>
+        <h3 id="ginibre-ensemble-and-its-properties">Ginibre ensemble and its properties</h3>
 <p>The <em>Ginibre ensemble</em> is a set of random matrices with the entries chosen independently. Each entry of a <span class="math inline">\(n \times n\)</span> matrix is a complex number, with both the real and imaginary part sampled from a normal distribution of mean zero and variance <span class="math inline">\(1/2n\)</span>.</p>
 <p>Random matrices distributions are very complex and are a very active subject of research. I stumbled on this example while reading an article in <em>Notices of the AMS</em> by Brian C. Hall <a href="#ref-1">(1)</a>.</p>
 <p>Now what is interesting about these random matrices is the distribution of their <span class="math inline">\(n\)</span> eigenvalues in the complex plane.</p>
 <p>The <a href="https://en.wikipedia.org/wiki/Circular_law">circular law</a> (first established by Jean Ginibre in 1965 <a href="#ref-2">(2)</a>) states that when <span class="math inline">\(n\)</span> is large, with high probability, almost all the eigenvalues lie in the unit disk. Moreover, they tend to be nearly uniformly distributed there.</p>
 <p>I find this mildly fascinating that such a straightforward definition of a random matrix can exhibit such non-random properties in their spectrum.</p>
-<h2 id="simulation">Simulation</h2>
+<h3 id="simulation">Simulation</h3>
 <p>I ran a quick simulation, thanks to <a href="https://julialang.org/">Julia</a>’s great ecosystem for linear algebra and statistical distributions:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode julia"><code class="sourceCode julia"><a class="sourceLine" id="cb1-1" title="1">using LinearAlgebra</a>
 <a class="sourceLine" id="cb1-2" title="2">using UnicodePlots</a>
@@ -210,7 +210,7 @@ W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
 <a class="sourceLine" id="cb1-10" title="10">scatterplot(real(v), imag(v), xlim=[-<span class="fl">1.5</span>,<span class="fl">1.5</span>], ylim=[-<span class="fl">1.5</span>,<span class="fl">1.5</span>])</a></code></pre></div>
 <p>I like using <code>UnicodePlots</code> for this kind of quick-and-dirty plots, directly in the terminal. Here is the output:</p>
 <p><img src="../images/ginibre.png" /></p>
-<h2 id="references">References</h2>
+<h3 id="references">References</h3>
 <ol>
 <li><span id="ref-1"></span>Hall, Brian C. 2019. “Eigenvalues of Random Matrices in the General Linear Group in the Large-<span class="math inline">\(N\)</span> Limit.” <em>Notices of the American Mathematical Society</em> 66, no. 4 (Spring): 568-569. <a href="https://www.ams.org/journals/notices/201904/201904FullIssue.pdf" class="uri">https://www.ams.org/journals/notices/201904/201904FullIssue.pdf</a></li>
 <li><span id="ref-2"></span>Ginibre, Jean. “Statistical ensembles of complex, quaternion, and real matrices.” Journal of Mathematical Physics 6.3 (1965): 440-449. <a href="https://doi.org/10.1063/1.1704292" class="uri">https://doi.org/10.1063/1.1704292</a></li>
@@ -230,7 +230,7 @@ W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
         
     </section>
     <section>
-        <h1 id="introduction">Introduction</h1>
+        <h2 id="introduction">Introduction</h2>
 <p>I have recently bought the book <em>Category Theory</em> from Steve Awodey <span class="citation" data-cites="awodeyCategoryTheory2010">(Awodey <a href="#ref-awodeyCategoryTheory2010">2010</a>)</span> is awesome, but probably the topic for another post), and a particular passage excited my curiosity:</p>
 <blockquote>
 <p>Let us begin by distinguishing between the following things: i. categorical foundations for mathematics, ii. mathematical foundations for category theory.</p>
@@ -240,7 +240,7 @@ W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
 <p>Now, I remember some basics from my undergrad studies about foundations of mathematics. I was told that if you could define arithmetic, you basically had everything else “for free” (as Kronecker famously said, “natural numbers were created by God, everything else is the work of men”). I was also told that two sets of axioms existed, the <a href="https://en.wikipedia.org/wiki/Peano_axioms">Peano axioms</a> and the <a href="https://en.wikipedia.org/wiki/Zermelo%E2%80%93Fraenkel_set_theory">Zermelo-Fraenkel</a> axioms. Also, I should steer clear of the axiom of choice if I could, because one can do <a href="https://en.wikipedia.org/wiki/Banach%E2%80%93Tarski_paradox">strange things</a> with it, and it is equivalent to many <a href="https://en.wikipedia.org/wiki/Zorn%27s_lemma">different statements</a>. Finally (and this I knew mainly from <em>Logicomix</em>, I must admit), it is <a href="https://en.wikipedia.org/wiki/G%C3%B6del%27s_incompleteness_theorems">impossible</a> for a set of axioms to be both complete and consistent.</p>
 <p>Given all this, I realised that my knowledge of foundational mathematics was pretty deficient. I do not believe that it is a very important topic that everyone should know about, even though Gödel’s incompleteness theorem is very interesting from a logical and philosophical standpoint. However, I wanted to go deeper on this subject.</p>
 <p>In this post, I will try to share my path through Peano’s axioms <span class="citation" data-cites="gowersPrincetonCompanionMathematics2010">(Gowers, Barrow-Green, and Leader <a href="#ref-gowersPrincetonCompanionMathematics2010">2010</a>)</span>, because they are very simple, and it is easy to uncover basic algebraic structure from them.</p>
-<h1 id="the-axioms">The Axioms</h1>
+<h2 id="the-axioms">The Axioms</h2>
 <p>The purpose of the axioms is to define a collection of objects that we will call the <em>natural numbers</em>. Here, we place ourselves in the context of <a href="https://en.wikipedia.org/wiki/First-order_logic">first-order logic</a>. Logic is not the main topic here, so I will just assume that I have access to some quantifiers, to some predicates, to some variables, and, most importantly, to a relation <span class="math inline">\(=\)</span> which is reflexive, symmetric, transitive, and closed over the natural numbers.</p>
 <p>Without further digressions, let us define two symbols <span class="math inline">\(0\)</span> and <span class="math inline">\(s\)</span> (called <em>successor</em>) such that:</p>
 <ol>
@@ -266,14 +266,14 @@ then <span class="math inline">\(A\)</span> contains every natural number.</li>
 then <span class="math inline">\(\varphi(n)\)</span> is true for every natural number <span class="math inline">\(n\)</span>.</li>
 </ul>
 <p>The alternative formulation is much better in my opinion, as it obviously implies the first one (juste choose <span class="math inline">\(\varphi(n)\)</span> as “<span class="math inline">\(n\)</span> is a natural number”), and it only references predicates. It will also be much more useful afterwards, as we will see.</p>
-<h1 id="addition">Addition</h1>
+<h2 id="addition">Addition</h2>
 <p>What is needed afterwards? The most basic notion after the natural numbers themselves is the addition operator. We define an operator <span class="math inline">\(+\)</span> by the following (recursive) rules:</p>
 <ol>
 <li><span class="math inline">\(\forall a,\quad a+0 = a\)</span>.</li>
 <li><span class="math inline">\(\forall a, \forall b,\quad a + s(b) = s(a+b)\)</span>.</li>
 </ol>
 <p>Let us use these rules to prove the basic properties of <span class="math inline">\(+\)</span>.</p>
-<h2 id="commutativity">Commutativity</h2>
+<h3 id="commutativity">Commutativity</h3>
 <div class="proposition">
 <p><span class="math inline">\(\forall a, \forall b,\quad a+b = b+a\)</span>.</p>
 </div>
@@ -292,14 +292,14 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
 <p>We used the opposite of the second rule for <span class="math inline">\(+\)</span>, namely <span class="math inline">\(\forall a,
 \forall b,\quad s(a) + b = s(a+b)\)</span>. This can easily be proved by another induction.</p>
 </div>
-<h2 id="associativity">Associativity</h2>
+<h3 id="associativity">Associativity</h3>
 <div class="proposition">
 <p><span class="math inline">\(\forall a, \forall b, \forall c,\quad a+(b+c) = (a+b)+c\)</span>.</p>
 </div>
 <div class="proof">
 <p>Todo, left as an exercise to the reader 😉</p>
 </div>
-<h2 id="identity-element">Identity element</h2>
+<h3 id="identity-element">Identity element</h3>
 <div class="proposition">
 <p><span class="math inline">\(\forall a,\quad a+0 = 0+a = a\)</span>.</p>
 </div>
@@ -307,14 +307,14 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
 <p>This follows directly from the definition of <span class="math inline">\(+\)</span> and commutativity.</p>
 </div>
 <p>From all these properties, it follows that the set of natural numbers with <span class="math inline">\(+\)</span> is a commutative <a href="https://en.wikipedia.org/wiki/Monoid">monoid</a>.</p>
-<h1 id="going-further">Going further</h1>
+<h2 id="going-further">Going further</h2>
 <p>We have imbued our newly created set of natural numbers with a significant algebraic structure. From there, similar arguments will create more structure, notably by introducing another operation <span class="math inline">\(\times\)</span>, and an order <span class="math inline">\(\leq\)</span>.</p>
 <p>It is now a matter of conventional mathematics to construct the integers <span class="math inline">\(\mathbb{Z}\)</span> and the rationals <span class="math inline">\(\mathbb{Q}\)</span> (using equivalence classes), and eventually the real numbers <span class="math inline">\(\mathbb{R}\)</span>.</p>
 <p>It is remarkable how very few (and very simple, as far as you would consider the induction axiom “simple”) axioms are enough to build an entire theory of mathematics. This sort of things makes me agree with Eugene Wigner <span class="citation" data-cites="wignerUnreasonableEffectivenessMathematics1990">(Wigner <a href="#ref-wignerUnreasonableEffectivenessMathematics1990">1990</a>)</span> when he says that “mathematics is the science of skillful operations with concepts and rules invented just for this purpose”. We drew some arbitrary rules out of thin air, and derived countless properties and theorems from them, basically for our own enjoyment. (As Wigner would say, it is <em>incredible</em> that any of these fanciful inventions coming out of nowhere turned out to be even remotely useful.) Mathematics is done mainly for the mathematician’s own pleasure!</p>
 <blockquote>
 <p>Mathematics cannot be defined without acknowledging its most obvious feature: namely, that it is interesting — M. Polanyi <span class="citation" data-cites="wignerUnreasonableEffectivenessMathematics1990">(Wigner <a href="#ref-wignerUnreasonableEffectivenessMathematics1990">1990</a>)</span></p>
 </blockquote>
-<h1 id="references" class="unnumbered">References</h1>
+<h2 id="references" class="unnumbered">References</h2>
 <div id="refs" class="references">
 <div id="ref-awodeyCategoryTheory2010">
 <p>Awodey, Steve. 2010. <em>Category Theory</em>. 2nd ed. Oxford Logic Guides 52. Oxford ; New York: Oxford University Press.</p>
@@ -341,11 +341,11 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
         
     </section>
     <section>
-        <h1 id="introduction">Introduction</h1>
+        <h2 id="introduction">Introduction</h2>
 <p>In this series of blog posts, I intend to write my notes as I go through Richard S. Sutton’s excellent <em>Reinforcement Learning: An Introduction</em> <a href="#ref-1">(1)</a>.</p>
 <p>I will try to formalise the maths behind it a little bit, mainly because I would like to use it as a useful personal reference to the main concepts in RL. I will probably add a few remarks about a possible implementation as I go on.</p>
-<h1 id="relationship-between-agent-and-environment">Relationship between agent and environment</h1>
-<h2 id="context-and-assumptions">Context and assumptions</h2>
+<h2 id="relationship-between-agent-and-environment">Relationship between agent and environment</h2>
+<h3 id="context-and-assumptions">Context and assumptions</h3>
 <p>The goal of reinforcement learning is to select the best actions availables to an agent as it goes through a series of states in an environment. In this post, we will only consider <em>discrete</em> time steps.</p>
 <p>The most important hypothesis we make is the <em>Markov property:</em></p>
 <blockquote>
@@ -362,21 +362,21 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
  \mathcal{S}\)</span> to a set <span class="math inline">\(\mathcal{A}(s)\)</span> of possible <em>actions</em> for this state. In this post, we will often simplify by using <span class="math inline">\(\mathcal{A}\)</span> as a set, assuming that all actions are possible for each state,</li>
 <li><span class="math inline">\(\mathcal{R} \subset \mathbb{R}\)</span> is a set of <em>rewards</em>,</li>
 <li><p>and <span class="math inline">\(p\)</span> is a function representing the <em>dynamics</em> of the MDP:</p>
-<p>such that <span class="math display">\[ \forall s \in \mathcal{S}, \forall a \in \mathcal{A},\quad \sum_{s&#39;, r} p(s&#39;, r \;|\; s, a) = 1. \]</span></p></li>
+<p>such that <span class="math display">\[ \forall s \in \mathcal{S}, \forall a \in \mathcal{A},\quad \sum_{s', r} p(s', r \;|\; s, a) = 1. \]</span></p></li>
 </ul>
 </div>
-<p>The function <span class="math inline">\(p\)</span> represents the probability of transitioning to the state <span class="math inline">\(s&#39;\)</span> and getting a reward <span class="math inline">\(r\)</span> when the agent is at state <span class="math inline">\(s\)</span> and chooses action <span class="math inline">\(a\)</span>.</p>
+<p>The function <span class="math inline">\(p\)</span> represents the probability of transitioning to the state <span class="math inline">\(s'\)</span> and getting a reward <span class="math inline">\(r\)</span> when the agent is at state <span class="math inline">\(s\)</span> and chooses action <span class="math inline">\(a\)</span>.</p>
 <p>We will also use occasionally the <em>state-transition probabilities</em>:</p>
 
-<h2 id="rewarding-the-agent">Rewarding the agent</h2>
+<h3 id="rewarding-the-agent">Rewarding the agent</h3>
 <div class="definition">
 <p>The <em>expected reward</em> of a state-action pair is the function</p>
 </div>
 <div class="definition">
 <p>The <em>discounted return</em> is the sum of all future rewards, with a multiplicative factor to give more weights to more immediate rewards: <span class="math display">\[ G_t := \sum_{k=t+1}^T \gamma^{k-t-1} R_k, \]</span> where <span class="math inline">\(T\)</span> can be infinite or <span class="math inline">\(\gamma\)</span> can be 1, but not both.</p>
 </div>
-<h1 id="deciding-what-to-do-policies">Deciding what to do: policies</h1>
-<h2 id="defining-our-policy-and-its-value">Defining our policy and its value</h2>
+<h2 id="deciding-what-to-do-policies">Deciding what to do: policies</h2>
+<h3 id="defining-our-policy-and-its-value">Defining our policy and its value</h3>
 <p>A <em>policy</em> is a way for the agent to choose the next action to perform.</p>
 <div class="definition">
 <p>A <em>policy</em> is a function <span class="math inline">\(\pi\)</span> defined as</p>
@@ -389,8 +389,8 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
 <div class="definition">
 <p>The <em>action-value function</em> of a policy <span class="math inline">\(\pi\)</span> is</p>
 </div>
-<h2 id="the-quest-for-the-optimal-policy">The quest for the optimal policy</h2>
-<h1 id="references">References</h1>
+<h3 id="the-quest-for-the-optimal-policy">The quest for the optimal policy</h3>
+<h2 id="references">References</h2>
 <ol>
 <li><span id="ref-1"></span>R. S. Sutton and A. G. Barto, Reinforcement learning: an introduction, Second edition. Cambridge, MA: The MIT Press, 2018.</li>
 </ol>
@@ -409,14 +409,14 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
         
     </section>
     <section>
-        <h1 id="the-apl-family-of-languages">The APL family of languages</h1>
-<h2 id="why-apl">Why APL?</h2>
+        <h2 id="the-apl-family-of-languages">The APL family of languages</h2>
+<h3 id="why-apl">Why APL?</h3>
 <p>I recently got interested in <a href="https://en.wikipedia.org/wiki/APL_(programming_language)">APL</a>, an <em>array-based</em> programming language. In APL (and derivatives), we try to reason about programs as series of transformations of multi-dimensional arrays. This is exactly the kind of style I like in Haskell and other functional languages, where I also try to use higher-order functions (map, fold, etc) on lists or arrays. A developer only needs to understand these abstractions once, instead of deconstructing each loop or each recursive function encountered in a program.</p>
 <p>APL also tries to be a really simple and <em>terse</em> language. This combined with strange Unicode characters for primitive functions and operators, gives it a reputation of unreadability. However, there is only a small number of functions to learn, and you get used really quickly to read them and understand what they do. Some combinations also occur so frequently that you can recognize them instantly (APL programmers call them <em>idioms</em>).</p>
-<h2 id="implementations">Implementations</h2>
+<h3 id="implementations">Implementations</h3>
 <p>APL is actually a family of languages. The classic APL, as created by Ken Iverson, with strange symbols, has many implementations. I initially tried <a href="https://www.gnu.org/software/apl/">GNU APL</a>, but due to the lack of documentation and proper tooling, I went to <a href="https://www.dyalog.com/">Dyalog APL</a> (which is proprietary, but free for personal use). There are also APL derivatives, that often use ASCII symbols: <a href="http://www.jsoftware.com/">J</a> (free) and <a href="https://code.kx.com/q/">Q/kdb+</a> (proprietary, but free for personal use).</p>
 <p>The advantage of Dyalog is that it comes with good tooling (which is necessary for inserting all the symbols!), a large ecosystem, and pretty good <a href="http://docs.dyalog.com/">documentation</a>. If you want to start, look at <a href="http://www.dyalog.com/mastering-dyalog-apl.htm"><em>Mastering Dyalog APL</em></a> by Bernard Legrand, freely available online.</p>
-<h1 id="the-ising-model-in-apl">The Ising model in APL</h1>
+<h2 id="the-ising-model-in-apl">The Ising model in APL</h2>
 <p>I needed a small project to try APL while I was learning. Something array-based, obviously. Since I already implemented a Metropolis-Hastings simulation of the <a href="./ising-model.html">Ising model</a>, which is based on a regular lattice, I decided to reimplement it in Dyalog APL.</p>
 <p>It is only a few lines long, but I will try to explain what it does step by step.</p>
 <p>The first function simply generates a random lattice filled by elements of <span class="math inline">\(\{-1,+1\}\)</span>.</p>
@@ -477,7 +477,7 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
 <li><code>?0</code> returns a uniform random number in <span class="math inline">\([0,1)\)</span>. Based on this value, we decide whether to update the lattice, and we return it.</li>
 </ul>
 <p>We can now bring everything together for display:</p>
-<pre class="apl"><code>Ising←{&#39; ⌹&#39;[1+1=({10 U ⍵}⍣⍵)L ⍺]}
+<pre class="apl"><code>Ising←{' ⌹'[1+1=({10 U ⍵}⍣⍵)L ⍺]}
 </code></pre>
 <ul>
 <li>We draw a random lattice of size ⍺ with <code>L ⍺</code>.</li>
@@ -590,11 +590,11 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
                 new
         }
 
-        Ising←{&#39; ⌹&#39;[1+1=({10 U ⍵}⍣⍵)L ⍺]}
+        Ising←{' ⌹'[1+1=({10 U ⍵}⍣⍵)L ⍺]}
 
 :EndNamespace
 </code></pre>
-<h1 id="conclusion">Conclusion</h1>
+<h2 id="conclusion">Conclusion</h2>
 <p>The algorithm is very fast (I think it can be optimized by the interpreter because there is no branching), and is easy to reason about. The whole program fits in a few lines, and you clearly see what each function and each line does. It could probably be optimized further (I don’t know every APL function yet…), and also could probably be golfed to a few lines (at the cost of readability?).</p>
 <p>It took me some time to write this, but Dyalog’s tools make it really easy to insert symbols and to look up what they do. Next time, I will look into some ASCII-based APL descendants. J seems to have a <a href="http://code.jsoftware.com/wiki/NuVoc">good documentation</a> and a tradition of <em>tacit definitions</em>, similar to the point-free style in Haskell. Overall, J seems well-suited to modern functional programming, while APL is still under the influence of its early days when it was more procedural. Another interesting area is K, Q, and their database engine kdb+, which seems to be extremely performant and actually used in production.</p>
 <p>Still, Unicode symbols make the code much more readable, mainly because there is a one-to-one link between symbols and functions, which cannot be maintained with only a few ASCII characters.</p>
@@ -617,7 +617,7 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
     <section>
         <p>The <a href="https://en.wikipedia.org/wiki/Ising_model">Ising model</a> is a model used to represent magnetic dipole moments in statistical physics. Physical details are on the Wikipedia page, but what is interesting is that it follows a complex probability distribution on a lattice, where each site can take the value +1 or -1.</p>
 <p><img src="../images/ising.gif" /></p>
-<h1 id="mathematical-definition">Mathematical definition</h1>
+<h2 id="mathematical-definition">Mathematical definition</h2>
 <p>We have a lattice <span class="math inline">\(\Lambda\)</span> consisting of sites <span class="math inline">\(k\)</span>. For each site, there is a moment <span class="math inline">\(\sigma_k \in \{ -1, +1 \}\)</span>. <span class="math inline">\(\sigma =
 (\sigma_k)_{k\in\Lambda}\)</span> is called the <em>configuration</em> of the lattice.</p>
 <p>The total energy of the configuration is given by the <em>Hamiltonian</em> <span class="math display">\[
@@ -627,16 +627,16 @@ H(\sigma) = -\sum_{i\sim j} J_{ij}\, \sigma_i\, \sigma_j,
 \pi_\beta(\sigma) = \frac{e^{-\beta H(\sigma)}}{Z_\beta}
 \]</span> where <span class="math inline">\(\beta = (k_B T)^{-1}\)</span> is the inverse temperature, and <span class="math inline">\(Z_\beta\)</span> the normalisation constant.</p>
 <p>For our simulation, we will use a constant interaction term <span class="math inline">\(J &gt; 0\)</span>. If <span class="math inline">\(\sigma_i = \sigma_j\)</span>, the probability will be proportional to <span class="math inline">\(\exp(\beta J)\)</span>, otherwise it would be <span class="math inline">\(\exp(\beta J)\)</span>. Thus, adjacent spins will try to align themselves.</p>
-<h1 id="simulation">Simulation</h1>
+<h2 id="simulation">Simulation</h2>
 <p>The Ising model is generally simulated using Markov Chain Monte Carlo (MCMC), with the <a href="https://en.wikipedia.org/wiki/Metropolis%E2%80%93Hastings_algorithm">Metropolis-Hastings</a> algorithm.</p>
 <p>The algorithm starts from a random configuration and runs as follows:</p>
 <ol>
-<li>Select a site <span class="math inline">\(i\)</span> at random and reverse its spin: <span class="math inline">\(\sigma&#39;_i = -\sigma_i\)</span></li>
-<li>Compute the variation in energy (hamiltonian) <span class="math inline">\(\Delta E = H(\sigma&#39;) - H(\sigma)\)</span></li>
+<li>Select a site <span class="math inline">\(i\)</span> at random and reverse its spin: <span class="math inline">\(\sigma'_i = -\sigma_i\)</span></li>
+<li>Compute the variation in energy (hamiltonian) <span class="math inline">\(\Delta E = H(\sigma') - H(\sigma)\)</span></li>
 <li>If the energy is lower, accept the new configuration</li>
 <li>Otherwise, draw a uniform random number <span class="math inline">\(u \in ]0,1[\)</span> and accept the new configuration if <span class="math inline">\(u &lt; \min(1, e^{-\beta \Delta E})\)</span>.</li>
 </ol>
-<h1 id="implementation">Implementation</h1>
+<h2 id="implementation">Implementation</h2>
 <p>The simulation is in Clojure, using the <a href="http://quil.info/">Quil library</a> (a <a href="https://processing.org/">Processing</a> library for Clojure) to display the state of the system.</p>
 <p>This post is “literate Clojure”, and contains <a href="https://github.com/dlozeve/ising-model/blob/master/src/ising_model/core.clj"><code>core.clj</code></a>. The complete project can be found on <a href="https://github.com/dlozeve/ising-model">GitHub</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb1-1" title="1">(<span class="kw">ns</span> ising-model.core</a>
@@ -656,14 +656,14 @@ H(\sigma) = -\sum_{i\sim j} J_{ij}\, \sigma_i\, \sigma_j,
 <a class="sourceLine" id="cb2-10" title="10">     <span class="at">:iteration</span> <span class="dv">0</span>}))</a></code></pre></div>
 <p>Given a site <span class="math inline">\(i\)</span>, we reverse its spin to generate a new configuration state.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb3-1" title="1">(<span class="bu">defn</span><span class="fu"> toggle-state </span>[state i]</a>
-<a class="sourceLine" id="cb3-2" title="2">  <span class="st">&quot;Compute the new state when we toggle a cell&#39;s value&quot;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="st">&quot;Compute the new state when we toggle a cell's value&quot;</span></a>
 <a class="sourceLine" id="cb3-3" title="3">  (<span class="kw">let</span> [matrix (<span class="at">:matrix</span> state)]</a>
 <a class="sourceLine" id="cb3-4" title="4">    (<span class="kw">assoc</span> state <span class="at">:matrix</span> (<span class="kw">assoc</span> matrix i (<span class="kw">*</span> <span class="dv">-1</span> (matrix i))))))</a></code></pre></div>
 <p>In order to decide whether to accept this new state, we compute the difference in energy introduced by reversing site <span class="math inline">\(i\)</span>: <span class="math display">\[ \Delta E =
 J\sigma_i \sum_{j\sim i} \sigma_j.  \]</span></p>
 <p>The <code>filter some?</code> is required to eliminate sites outside of the boundaries of the lattice.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb4-1" title="1">(<span class="bu">defn</span><span class="fu"> get-neighbours </span>[state idx]</a>
-<a class="sourceLine" id="cb4-2" title="2">  <span class="st">&quot;Return the values of a cell&#39;s neighbours&quot;</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="st">&quot;Return the values of a cell's neighbours&quot;</span></a>
 <a class="sourceLine" id="cb4-3" title="3">  [(<span class="kw">get</span> (<span class="at">:matrix</span> state) (<span class="kw">-</span> idx (<span class="at">:grid-size</span> state)))</a>
 <a class="sourceLine" id="cb4-4" title="4">   (<span class="kw">get</span> (<span class="at">:matrix</span> state) (<span class="kw">dec</span> idx))</a>
 <a class="sourceLine" id="cb4-5" title="5">   (<span class="kw">get</span> (<span class="at">:matrix</span> state) (<span class="kw">inc</span> idx))</a>
@@ -716,7 +716,7 @@ J\sigma_i \sum_{j\sim i} \sigma_j.  \]</span></p>
 <a class="sourceLine" id="cb9-7" title="7">  <span class="at">:mouse-clicked</span> mouse-clicked</a>
 <a class="sourceLine" id="cb9-8" title="8">  <span class="at">:features</span> [<span class="at">:keep-on-top</span> <span class="at">:no-bind-output</span>]</a>
 <a class="sourceLine" id="cb9-9" title="9">  <span class="at">:middleware</span> [m/fun-mode])</a></code></pre></div>
-<h1 id="conclusion">Conclusion</h1>
+<h2 id="conclusion">Conclusion</h2>
 <p>The Ising model is a really easy (and common) example use of MCMC and Metropolis-Hastings. It allows to easily and intuitively understand how the algorithm works, and to make nice visualizations!</p>
     </section>
 </article>
@@ -737,13 +737,13 @@ J\sigma_i \sum_{j\sim i} \sigma_j.  \]</span></p>
     <section>
         <p>L-systems are a formal way to make interesting visualisations. You can use them to model a wide variety of objects: space-filling curves, fractals, biological systems, tilings, etc.</p>
 <p>See the Github repo: <a href="https://github.com/dlozeve/lsystems" class="uri">https://github.com/dlozeve/lsystems</a></p>
-<h1 id="what-is-an-l-system">What is an L-system?</h1>
-<h2 id="a-few-examples-to-get-started">A few examples to get started</h2>
+<h2 id="what-is-an-l-system">What is an L-system?</h2>
+<h3 id="a-few-examples-to-get-started">A few examples to get started</h3>
 <p><img src="../images/lsystems/dragon.png" /></p>
 <p><img src="../images/lsystems/gosper.png" /></p>
 <p><img src="../images/lsystems/plant.png" /></p>
 <p><img src="../images/lsystems/penroseP3.png" /></p>
-<h2 id="definition">Definition</h2>
+<h3 id="definition">Definition</h3>
 <p>An <a href="https://en.wikipedia.org/wiki/L-system">L-system</a> is a set of rewriting rules generating sequences of symbols. Formally, an L-system is a triplet of:</p>
 <ul>
 <li>an <em>alphabet</em> <span class="math inline">\(V\)</span> (an arbitrary set of symbols)</li>
@@ -752,7 +752,7 @@ J\sigma_i \sum_{j\sim i} \sigma_j.  \]</span></p>
 </ul>
 <p>During an iteration, the algorithm takes each symbol in the current word and replaces it by the value in its rewriting rule. Not that the output of the rewriting rule can be absolutely <em>anything</em> in <span class="math inline">\(V^*\)</span>, including the empty word! (So yes, you can generate symbols just to delete them afterwards.)</p>
 <p>At this point, an L-system is nothing more than a way to generate very long strings of characters. In order to get something useful out of this, we have to give them <em>meaning</em>.</p>
-<h2 id="drawing-instructions-and-representation">Drawing instructions and representation</h2>
+<h3 id="drawing-instructions-and-representation">Drawing instructions and representation</h3>
 <p>Our objective is to draw the output of the L-system in order to visually inspect the output. The most common way is to interpret the output as a sequence of instruction for a LOGO-like drawing turtle. For instance, a simple alphabet consisting only in the symbols <span class="math inline">\(F\)</span>, <span class="math inline">\(+\)</span>, and <span class="math inline">\(-\)</span> could represent the instructions “move forward”, “turn right by 90°”, and “turn left by 90°” respectively.</p>
 <p>Thus, we add new components to our definition of L-systems:</p>
 <ul>
@@ -770,8 +770,8 @@ J\sigma_i \sum_{j\sim i} \sigma_j.  \]</span></p>
 <p>Finally, our complete L-system, representable by a turtle with capabilities <span class="math inline">\(I\)</span>, can be defined as <span class="math display">\[ L = (V, \omega, P, d, \theta,
 R). \]</span></p>
 <p>One could argue that the representation is not part of the L-system, and that the same L-system could be represented differently by changing the representation rules. However, in our setting, we won’t observe the L-system other than by displaying it, so we might as well consider that two systems differing only by their representation rules are different systems altogether.</p>
-<h1 id="implementation-details">Implementation details</h1>
-<h2 id="the-lsystem-data-type">The <code>LSystem</code> data type</h2>
+<h2 id="implementation-details">Implementation details</h2>
+<h3 id="the-lsystem-data-type">The <code>LSystem</code> data type</h3>
 <p>The mathematical definition above translate almost immediately in a Haskell data type:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb1-1" title="1"><span class="co">-- | L-system data type</span></a>
 <a class="sourceLine" id="cb1-2" title="2"><span class="kw">data</span> <span class="dt">LSystem</span> a <span class="fu">=</span> <span class="dt">LSystem</span></a>
@@ -790,12 +790,12 @@ R). \]</span></p>
 <a class="sourceLine" id="cb1-15" title="15">  } <span class="kw">deriving</span> (<span class="dt">Eq</span>, <span class="dt">Show</span>, <span class="dt">Generic</span>)</a></code></pre></div>
 <p>Here, <code>a</code> is the type of the literal in the alphabet. For all practical purposes, it will almost always be <code>Char</code>.</p>
 <p><code>Instruction</code> is just a sum type over all possible instructions listed above.</p>
-<h2 id="iterating-and-representing">Iterating and representing</h2>
+<h3 id="iterating-and-representing">Iterating and representing</h3>
 <p>From here, generating L-systems and iterating is straightforward. We iterate recursively by looking up each symbol in <code>rules</code> and replacing it by its expansion. We then transform the result to a list of <code>Instruction</code>.</p>
-<h2 id="drawing">Drawing</h2>
+<h3 id="drawing">Drawing</h3>
 <p>The only remaining thing is to implement the virtual turtle which will actually execute the instructions. It goes through the list of instructions, building a sequence of points and maintaining an internal state (position, angle, stack). The stack is used when <code>Push</code> and <code>Pop</code> operations are met. In this case, the turtle builds a separate line starting from its current position.</p>
 <p>The final output is a set of lines, each being a simple sequence of points. All relevant data types are provided by the <a href="https://hackage.haskell.org/package/gloss">Gloss</a> library, along with the function that can display the resulting <code>Picture</code>.</p>
-<h1 id="common-file-format-for-l-systems">Common file format for L-systems</h1>
+<h2 id="common-file-format-for-l-systems">Common file format for L-systems</h2>
 <p>In order to define new L-systems quickly and easily, it is necessary to encode them in some form. We chose to represent them as JSON values.</p>
 <p>Here is an example for the <a href="https://en.wikipedia.org/wiki/Gosper_curve">Gosper curve</a>:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb2-1" title="1"><span class="fu">{</span></a>
@@ -816,12 +816,12 @@ R). \]</span></p>
 <a class="sourceLine" id="cb2-16" title="16">  <span class="ot">]</span></a>
 <a class="sourceLine" id="cb2-17" title="17"><span class="fu">}</span></a></code></pre></div>
 <p>Using this format, it is easy to define new L-systems (along with how they should be represented). This is translated nearly automatically to the <code>LSystem</code> data type using <a href="https://hackage.haskell.org/package/aeson">Aeson</a>.</p>
-<h1 id="variations-on-l-systems">Variations on L-systems</h1>
+<h2 id="variations-on-l-systems">Variations on L-systems</h2>
 <p>We can widen the possibilities of L-systems in various ways. L-systems are in effect deterministic context-free grammars.</p>
 <p>By allowing multiple rewriting rules for each symbol with probabilities, we can extend the model to <a href="https://en.wikipedia.org/wiki/Probabilistic_context-free_grammar">probabilistic context-free grammars</a>.</p>
 <p>We can also have replacement rules not for a single symbol, but for a subsequence of them, thus effectively taking into account their neighbours (context-sensitive grammars). This seems very close to 1D cellular automata.</p>
 <p>Finally, L-systems could also have a 3D representation (for instance space-filling curves in 3 dimensions).</p>
-<h1 id="usage-notes">Usage notes</h1>
+<h2 id="usage-notes">Usage notes</h2>
 <ol>
 <li>Clone the repository: <code>git clone [[https://github.com/dlozeve/lsystems]]</code></li>
 <li>Build: <code>stack build</code></li>
@@ -846,7 +846,7 @@ Available options:
 <p>Apart from the selection of the input JSON file, you can adjust the number of iterations and the colors.</p>
 <p><code>stack exec lsystems-exe -- examples/levyC.json -n 12 -c 0,255,255</code></p>
 <p><img src="../images/lsystems/levyC.png" /></p>
-<h1 id="references">References</h1>
+<h2 id="references">References</h2>
 <ol>
 <li>Prusinkiewicz, Przemyslaw; Lindenmayer, Aristid (1990). <em>The Algorithmic Beauty of Plants.</em> Springer-Verlag. ISBN 978-0-387-97297-8. <a href="http://algorithmicbotany.org/papers/#abop" class="uri">http://algorithmicbotany.org/papers/#abop</a></li>
 <li>Weisstein, Eric W. “Lindenmayer System.” From MathWorld–A Wolfram Web Resource. <a href="http://mathworld.wolfram.com/LindenmayerSystem.html" class="uri">http://mathworld.wolfram.com/LindenmayerSystem.html</a></li>

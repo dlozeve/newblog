@@ -49,7 +49,7 @@
         
     </section>
     <section>
-        <h1 id="introduction">Introduction</h1>
+        <h2 id="introduction">Introduction</h2>
 <p>I have recently bought the book <em>Category Theory</em> from Steve Awodey <span class="citation" data-cites="awodeyCategoryTheory2010">(Awodey <a href="#ref-awodeyCategoryTheory2010">2010</a>)</span> is awesome, but probably the topic for another post), and a particular passage excited my curiosity:</p>
 <blockquote>
 <p>Let us begin by distinguishing between the following things: i. categorical foundations for mathematics, ii. mathematical foundations for category theory.</p>
@@ -59,7 +59,7 @@
 <p>Now, I remember some basics from my undergrad studies about foundations of mathematics. I was told that if you could define arithmetic, you basically had everything else “for free” (as Kronecker famously said, “natural numbers were created by God, everything else is the work of men”). I was also told that two sets of axioms existed, the <a href="https://en.wikipedia.org/wiki/Peano_axioms">Peano axioms</a> and the <a href="https://en.wikipedia.org/wiki/Zermelo%E2%80%93Fraenkel_set_theory">Zermelo-Fraenkel</a> axioms. Also, I should steer clear of the axiom of choice if I could, because one can do <a href="https://en.wikipedia.org/wiki/Banach%E2%80%93Tarski_paradox">strange things</a> with it, and it is equivalent to many <a href="https://en.wikipedia.org/wiki/Zorn%27s_lemma">different statements</a>. Finally (and this I knew mainly from <em>Logicomix</em>, I must admit), it is <a href="https://en.wikipedia.org/wiki/G%C3%B6del%27s_incompleteness_theorems">impossible</a> for a set of axioms to be both complete and consistent.</p>
 <p>Given all this, I realised that my knowledge of foundational mathematics was pretty deficient. I do not believe that it is a very important topic that everyone should know about, even though Gödel’s incompleteness theorem is very interesting from a logical and philosophical standpoint. However, I wanted to go deeper on this subject.</p>
 <p>In this post, I will try to share my path through Peano’s axioms <span class="citation" data-cites="gowersPrincetonCompanionMathematics2010">(Gowers, Barrow-Green, and Leader <a href="#ref-gowersPrincetonCompanionMathematics2010">2010</a>)</span>, because they are very simple, and it is easy to uncover basic algebraic structure from them.</p>
-<h1 id="the-axioms">The Axioms</h1>
+<h2 id="the-axioms">The Axioms</h2>
 <p>The purpose of the axioms is to define a collection of objects that we will call the <em>natural numbers</em>. Here, we place ourselves in the context of <a href="https://en.wikipedia.org/wiki/First-order_logic">first-order logic</a>. Logic is not the main topic here, so I will just assume that I have access to some quantifiers, to some predicates, to some variables, and, most importantly, to a relation <span class="math inline">\(=\)</span> which is reflexive, symmetric, transitive, and closed over the natural numbers.</p>
 <p>Without further digressions, let us define two symbols <span class="math inline">\(0\)</span> and <span class="math inline">\(s\)</span> (called <em>successor</em>) such that:</p>
 <ol>
@@ -85,14 +85,14 @@ then <span class="math inline">\(A\)</span> contains every natural number.</li>
 then <span class="math inline">\(\varphi(n)\)</span> is true for every natural number <span class="math inline">\(n\)</span>.</li>
 </ul>
 <p>The alternative formulation is much better in my opinion, as it obviously implies the first one (juste choose <span class="math inline">\(\varphi(n)\)</span> as “<span class="math inline">\(n\)</span> is a natural number”), and it only references predicates. It will also be much more useful afterwards, as we will see.</p>
-<h1 id="addition">Addition</h1>
+<h2 id="addition">Addition</h2>
 <p>What is needed afterwards? The most basic notion after the natural numbers themselves is the addition operator. We define an operator <span class="math inline">\(+\)</span> by the following (recursive) rules:</p>
 <ol>
 <li><span class="math inline">\(\forall a,\quad a+0 = a\)</span>.</li>
 <li><span class="math inline">\(\forall a, \forall b,\quad a + s(b) = s(a+b)\)</span>.</li>
 </ol>
 <p>Let us use these rules to prove the basic properties of <span class="math inline">\(+\)</span>.</p>
-<h2 id="commutativity">Commutativity</h2>
+<h3 id="commutativity">Commutativity</h3>
 <div class="proposition">
 <p><span class="math inline">\(\forall a, \forall b,\quad a+b = b+a\)</span>.</p>
 </div>
@@ -111,14 +111,14 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
 <p>We used the opposite of the second rule for <span class="math inline">\(+\)</span>, namely <span class="math inline">\(\forall a,
 \forall b,\quad s(a) + b = s(a+b)\)</span>. This can easily be proved by another induction.</p>
 </div>
-<h2 id="associativity">Associativity</h2>
+<h3 id="associativity">Associativity</h3>
 <div class="proposition">
 <p><span class="math inline">\(\forall a, \forall b, \forall c,\quad a+(b+c) = (a+b)+c\)</span>.</p>
 </div>
 <div class="proof">
 <p>Todo, left as an exercise to the reader 😉</p>
 </div>
-<h2 id="identity-element">Identity element</h2>
+<h3 id="identity-element">Identity element</h3>
 <div class="proposition">
 <p><span class="math inline">\(\forall a,\quad a+0 = 0+a = a\)</span>.</p>
 </div>
@@ -126,14 +126,14 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
 <p>This follows directly from the definition of <span class="math inline">\(+\)</span> and commutativity.</p>
 </div>
 <p>From all these properties, it follows that the set of natural numbers with <span class="math inline">\(+\)</span> is a commutative <a href="https://en.wikipedia.org/wiki/Monoid">monoid</a>.</p>
-<h1 id="going-further">Going further</h1>
+<h2 id="going-further">Going further</h2>
 <p>We have imbued our newly created set of natural numbers with a significant algebraic structure. From there, similar arguments will create more structure, notably by introducing another operation <span class="math inline">\(\times\)</span>, and an order <span class="math inline">\(\leq\)</span>.</p>
 <p>It is now a matter of conventional mathematics to construct the integers <span class="math inline">\(\mathbb{Z}\)</span> and the rationals <span class="math inline">\(\mathbb{Q}\)</span> (using equivalence classes), and eventually the real numbers <span class="math inline">\(\mathbb{R}\)</span>.</p>
 <p>It is remarkable how very few (and very simple, as far as you would consider the induction axiom “simple”) axioms are enough to build an entire theory of mathematics. This sort of things makes me agree with Eugene Wigner <span class="citation" data-cites="wignerUnreasonableEffectivenessMathematics1990">(Wigner <a href="#ref-wignerUnreasonableEffectivenessMathematics1990">1990</a>)</span> when he says that “mathematics is the science of skillful operations with concepts and rules invented just for this purpose”. We drew some arbitrary rules out of thin air, and derived countless properties and theorems from them, basically for our own enjoyment. (As Wigner would say, it is <em>incredible</em> that any of these fanciful inventions coming out of nowhere turned out to be even remotely useful.) Mathematics is done mainly for the mathematician’s own pleasure!</p>
 <blockquote>
 <p>Mathematics cannot be defined without acknowledging its most obvious feature: namely, that it is interesting — M. Polanyi <span class="citation" data-cites="wignerUnreasonableEffectivenessMathematics1990">(Wigner <a href="#ref-wignerUnreasonableEffectivenessMathematics1990">1990</a>)</span></p>
 </blockquote>
-<h1 id="references" class="unnumbered">References</h1>
+<h2 id="references" class="unnumbered">References</h2>
 <div id="refs" class="references">
 <div id="ref-awodeyCategoryTheory2010">
 <p>Awodey, Steve. 2010. <em>Category Theory</em>. 2nd ed. Oxford Logic Guides 52. Oxford ; New York: Oxford University Press.</p>

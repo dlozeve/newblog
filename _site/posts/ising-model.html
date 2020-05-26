@@ -53,7 +53,7 @@
     <section>
         <p>The <a href="https://en.wikipedia.org/wiki/Ising_model">Ising model</a> is a model used to represent magnetic dipole moments in statistical physics. Physical details are on the Wikipedia page, but what is interesting is that it follows a complex probability distribution on a lattice, where each site can take the value +1 or -1.</p>
 <p><img src="../images/ising.gif" /></p>
-<h1 id="mathematical-definition">Mathematical definition</h1>
+<h2 id="mathematical-definition">Mathematical definition</h2>
 <p>We have a lattice <span class="math inline">\(\Lambda\)</span> consisting of sites <span class="math inline">\(k\)</span>. For each site, there is a moment <span class="math inline">\(\sigma_k \in \{ -1, +1 \}\)</span>. <span class="math inline">\(\sigma =
 (\sigma_k)_{k\in\Lambda}\)</span> is called the <em>configuration</em> of the lattice.</p>
 <p>The total energy of the configuration is given by the <em>Hamiltonian</em> <span class="math display">\[
@@ -63,7 +63,7 @@ H(\sigma) = -\sum_{i\sim j} J_{ij}\, \sigma_i\, \sigma_j,
 \pi_\beta(\sigma) = \frac{e^{-\beta H(\sigma)}}{Z_\beta}
 \]</span> where <span class="math inline">\(\beta = (k_B T)^{-1}\)</span> is the inverse temperature, and <span class="math inline">\(Z_\beta\)</span> the normalisation constant.</p>
 <p>For our simulation, we will use a constant interaction term <span class="math inline">\(J &gt; 0\)</span>. If <span class="math inline">\(\sigma_i = \sigma_j\)</span>, the probability will be proportional to <span class="math inline">\(\exp(\beta J)\)</span>, otherwise it would be <span class="math inline">\(\exp(\beta J)\)</span>. Thus, adjacent spins will try to align themselves.</p>
-<h1 id="simulation">Simulation</h1>
+<h2 id="simulation">Simulation</h2>
 <p>The Ising model is generally simulated using Markov Chain Monte Carlo (MCMC), with the <a href="https://en.wikipedia.org/wiki/Metropolis%E2%80%93Hastings_algorithm">Metropolis-Hastings</a> algorithm.</p>
 <p>The algorithm starts from a random configuration and runs as follows:</p>
 <ol>
@@ -72,7 +72,7 @@ H(\sigma) = -\sum_{i\sim j} J_{ij}\, \sigma_i\, \sigma_j,
 <li>If the energy is lower, accept the new configuration</li>
 <li>Otherwise, draw a uniform random number <span class="math inline">\(u \in ]0,1[\)</span> and accept the new configuration if <span class="math inline">\(u &lt; \min(1, e^{-\beta \Delta E})\)</span>.</li>
 </ol>
-<h1 id="implementation">Implementation</h1>
+<h2 id="implementation">Implementation</h2>
 <p>The simulation is in Clojure, using the <a href="http://quil.info/">Quil library</a> (a <a href="https://processing.org/">Processing</a> library for Clojure) to display the state of the system.</p>
 <p>This post is “literate Clojure”, and contains <a href="https://github.com/dlozeve/ising-model/blob/master/src/ising_model/core.clj"><code>core.clj</code></a>. The complete project can be found on <a href="https://github.com/dlozeve/ising-model">GitHub</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb1-1" title="1">(<span class="kw">ns</span> ising-model.core</a>
@@ -152,7 +152,7 @@ J\sigma_i \sum_{j\sim i} \sigma_j.  \]</span></p>
 <a class="sourceLine" id="cb9-7" title="7">  <span class="at">:mouse-clicked</span> mouse-clicked</a>
 <a class="sourceLine" id="cb9-8" title="8">  <span class="at">:features</span> [<span class="at">:keep-on-top</span> <span class="at">:no-bind-output</span>]</a>
 <a class="sourceLine" id="cb9-9" title="9">  <span class="at">:middleware</span> [m/fun-mode])</a></code></pre></div>
-<h1 id="conclusion">Conclusion</h1>
+<h2 id="conclusion">Conclusion</h2>
 <p>The Ising model is a really easy (and common) example use of MCMC and Metropolis-Hastings. It allows to easily and intuitively understand how the algorithm works, and to make nice visualizations!</p>
     </section>
 </article>

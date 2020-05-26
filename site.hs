@@ -41,6 +41,7 @@ main = hakyll $ do
   match "posts/*" $ do
     route $ setExtension "html"
     compile $ customPandocCompiler
+      >>= return . fmap demoteHeaders
       >>= loadAndApplyTemplate "templates/post.html"    postCtx
       >>= saveSnapshot "content"
       >>= loadAndApplyTemplate "templates/default.html" postCtx
@@ -56,6 +57,7 @@ main = hakyll $ do
   match (fromList ["contact.org", "cv.org", "skills.org", "projects.org"]) $ do
     route $ setExtension "html"
     compile $ customPandocCompiler
+      >>= return . fmap demoteHeaders
       >>= loadAndApplyTemplate "templates/default.html" defaultContext
       >>= relativizeUrls
 
