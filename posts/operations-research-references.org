@@ -50,6 +50,8 @@ programming, stochastic processes, etc.
 
 * Where to start
 
+** Introduction and modelling
+
 For an overall introduction, I recommend cite:wentzel1988_operat. It
 is an old book, published by Mir Publications, a Soviet publisher
 which published many excellent scientific textbooks[fn:mir]. It is out
@@ -71,27 +73,40 @@ read them (in French) when I was a kid, and it was the best
 introduction I could possibly have to the subject.
 
 
-- why it may be more difficult to approach than other, more recent
-  areas like ML and DL
-  - slightly longer history
-  - always very close to applications: somehow more "messy" in its
-    notations, vocabulary, standard references, etc, as other "purer"
-    fields of maths (similar to stats in this regard)
-  - often approached from a applied point of view means that many very
-    different concepts are often mixed together
-- why it is interesting and you should pursue it anyway
-  - history of the field
-  - examples of applications
-  - theory perspective, rigorous field
-- different subfields
-  - optimisation: constrained and unconstrained
-  - game theory
-  - dynamic programming
-  - stochastic processes
-  - simulation
-- how to learn and practice
-  - references
-  - courses
-  - computational assets
+If you are interested in optimization, the first thing you have to
+learn is modelling, i.e. transforming your problem (described in
+natural language, often from a particular industrial application) into
+a mathematical programme. The mathematical programme is the structure
+on which you will be able to apply an algorithm to find an optimal
+solution. Even if (like me) you are initially more interested by the
+algorithmic side of things, learning to create models will shed a lot
+of light on the overall process, and will give you more insight in
+general on the reasoning behind algorithms.
+
+The best book I have read on the subject is
+cite:williams2013_model. It contains a lot of concrete, step-by-step
+examples on concrete applications, in a multitude of domains, and
+remains very easy to read and to follow. It covers nearly every type
+of problem, so it is very useful as a reference. When you encounter a
+concrete problem in real life afterwards, you will know how to
+construct an appropriate model, and in the process you will often
+identify a common type of problem. The book then gives plenty of
+advice on how to best approach each type of problem. Finally, it is
+also a great resource to build a "mental map" of the field, avoiding
+to get lost in the jungle of linear, stochastic, mixed integer,
+quadratic, and other network problems.
+
+Another interesting resource is the freely available [[https://docs.mosek.com/modeling-cookbook/index.html][MOSEK Modeling
+Cookbook]], covering many types of problems, with more mathematical
+details than in cite:williams2013_model. It is built for people
+wanting to use the commercial [[https://www.mosek.com/][MOSEK]] solver, so it could be useful if
+you plan to use a solver package like this one (more details on
+solvers [[solvers][below]]).
+
+** Theory and algorithms
+
+** Online courses
+
+* Solvers and computational resources <<solvers>>
 
 * References

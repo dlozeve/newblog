@@ -29,41 +29,23 @@
 <p>Moreover, OR is very close to applications. Sometimes methods may vary a lot in their presentation depending on whether they’re applied to train tracks, sudoku, or travelling salesmen. In practice, the terminology and notations are not the same everywhere. This is disconcerting if you are used to “pure” mathematics, where notations evolved over a long time and is pretty much standardised for many areas. In contrast, if you’re used to the statistics literature with its <a href="https://lingpipe-blog.com/2009/10/13/whats-wrong-with-probability-notation/">strange notations</a>, you will find that OR is actually very well formalized.</p>
 <p>There are many subfields of operations research, including all kinds of optimization (constrained and unconstrained), game theory, dynamic programming, stochastic processes, etc.</p>
 <h1 id="where-to-start">Where to start</h1>
+<h2 id="introduction-and-modelling">Introduction and modelling</h2>
 <p>For an overall introduction, I recommend <span class="citation" data-cites="wentzel1988_operat">Wentzel (<a href="#ref-wentzel1988_operat">1988</a>)</span>. It is an old book, published by Mir Publications, a Soviet publisher which published many excellent scientific textbooks<span><label for="sn-2" class="margin-toggle">&#8853;</label><input type="checkbox" id="sn-2" class="margin-toggle"/><span class="marginnote"> Mir also published <a href="https://mirtitles.org/2011/06/03/physics-for-everyone/"><em>Physics for Everyone</em></a> by Lev Landau and Alexander Kitaigorodsky, a three-volume introduction to physics that is really accessible. Together with Feynman’s famous <a href="https://www.feynmanlectures.caltech.edu/">lectures</a>, I read them (in French) when I was a kid, and it was the best introduction I could possibly have to the subject.<br />
 <br />
 </span></span>. It is out of print, but it is available <a href="https://archive.org/details/WentzelOperationsResearchMir1983">on Archive.org</a>. The book is quite old, but everything presented is still extremely relevant today. It requires absolutely no background, and covers everything: a general introduction to the field, linear programming, dynamic programming, Markov processes and queues, Monte Carlo methods, and game theory. Even if you already know some of these topics, the presentations is so clear that it is a pleasure to read! (In particular, it is one of the best presentations of dynamic programming that I have ever read. The explanation of the simplex algorithm is also excellent.)</p>
-<ul>
-<li>why it may be more difficult to approach than other, more recent areas like ML and DL
-<ul>
-<li>slightly longer history</li>
-<li>always very close to applications: somehow more “messy” in its notations, vocabulary, standard references, etc, as other “purer” fields of maths (similar to stats in this regard)</li>
-<li>often approached from a applied point of view means that many very different concepts are often mixed together</li>
-</ul></li>
-<li>why it is interesting and you should pursue it anyway
-<ul>
-<li>history of the field</li>
-<li>examples of applications</li>
-<li>theory perspective, rigorous field</li>
-</ul></li>
-<li>different subfields
-<ul>
-<li>optimisation: constrained and unconstrained</li>
-<li>game theory</li>
-<li>dynamic programming</li>
-<li>stochastic processes</li>
-<li>simulation</li>
-</ul></li>
-<li>how to learn and practice
-<ul>
-<li>references</li>
-<li>courses</li>
-<li>computational assets</li>
-</ul></li>
-</ul>
+<p>If you are interested in optimization, the first thing you have to learn is modelling, i.e. transforming your problem (described in natural language, often from a particular industrial application) into a mathematical programme. The mathematical programme is the structure on which you will be able to apply an algorithm to find an optimal solution. Even if (like me) you are initially more interested by the algorithmic side of things, learning to create models will shed a lot of light on the overall process, and will give you more insight in general on the reasoning behind algorithms.</p>
+<p>The best book I have read on the subject is <span class="citation" data-cites="williams2013_model">Williams (<a href="#ref-williams2013_model">2013</a>)</span>. It contains a lot of concrete, step-by-step examples on concrete applications, in a multitude of domains, and remains very easy to read and to follow. It covers nearly every type of problem, so it is very useful as a reference. When you encounter a concrete problem in real life afterwards, you will know how to construct an appropriate model, and in the process you will often identify a common type of problem. The book then gives plenty of advice on how to best approach each type of problem. Finally, it is also a great resource to build a “mental map” of the field, avoiding to get lost in the jungle of linear, stochastic, mixed integer, quadratic, and other network problems.</p>
+<p>Another interesting resource is the freely available <a href="https://docs.mosek.com/modeling-cookbook/index.html">MOSEK Modeling Cookbook</a>, covering many types of problems, with more mathematical details than in <span class="citation" data-cites="williams2013_model">Williams (<a href="#ref-williams2013_model">2013</a>)</span>. It is built for people wanting to use the commercial <a href="https://www.mosek.com/">MOSEK</a> solver, so it could be useful if you plan to use a solver package like this one (more details on solvers <a href="#solvers">below</a>).</p>
+<h2 id="theory-and-algorithms">Theory and algorithms</h2>
+<h2 id="online-courses">Online courses</h2>
+<h1 id="solvers-and-computational-resources">Solvers and computational resources <span id="solvers"></span></h1>
 <h1 id="references" class="unnumbered">References</h1>
 <div id="refs" class="references">
 <div id="ref-wentzel1988_operat">
 <p>Wentzel, Elena S. 1988. <em>Operations Research: A Methodological Approach</em>. Moscow: Mir publishers.</p>
+</div>
+<div id="ref-williams2013_model">
+<p>Williams, H. Paul. 2013. <em>Model Building in Mathematical Programming</em>. Chichester, West Sussex: Wiley. <a href="https://www.wiley.com/en-fr/Model+Building+in+Mathematical+Programming,+5th+Edition-p-9781118443330" class="uri">https://www.wiley.com/en-fr/Model+Building+in+Mathematical+Programming,+5th+Edition-p-9781118443330</a>.</p>
 </div>
 </div>
     </section>
