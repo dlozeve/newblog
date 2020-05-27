@@ -1,0 +1,243 @@
+---
+title: "Operations Research and Optimization: where to start?"
+date: 2020-05-27
+---
+
+[[https://en.wikipedia.org/wiki/Operations_research][Operations research]] (OR) is a vast area comprising a lot of theory,
+different branches of mathematics, and too many applications to
+count. In this post, I will try to explain why it can be a little
+disconcerting to explore at first, and how to start investigating the
+topic with a few references to get started.
+
+Keep in mind that although I studied it during my graduate studies,
+this is not my primary area of expertise (I'm a data scientist by
+trade), and I definitely don't pretend to know everything in OR. This
+is a field too vast for any single person to understand in its
+entirety, and I talk mostly from an "amateur mathematician and
+computer scientist" standpoint.
+
+* Why is it hard to approach?
+
+Operations research can be difficult to approach, since there are many
+references and subfields. Compared to machine learning for instance,
+OR has a slightly longer history (going back to the 17th century, for
+example with [[https://en.wikipedia.org/wiki/Gaspard_Monge][Monge]] and the [[https://en.wikipedia.org/wiki/Transportation_theory_(mathematics)][optimal transport
+problem]])[fn:optimaltransport]. This means that good textbooks and such
+have existed for a long time, but also that there will be plenty of
+material to choose from.
+
+[fn:optimaltransport] {-} For a very nice introduction (in French) to
+optimal transport, see these blog posts by [[https://twitter.com/gabrielpeyre][Gabriel Peyré]], on the CNRS
+maths blog: [[https://images.math.cnrs.fr/Le-transport-optimal-numerique-et-ses-applications-Partie-1.html][Part 1]] and [[https://images.math.cnrs.fr/Le-transport-optimal-numerique-et-ses-applications-Partie-2.html][Part 2]]. See also the resources on
+[[https://optimaltransport.github.io/][optimaltransport.github.io]] (in English).
+
+
+Moreover, OR is very close to applications. Sometimes methods may vary
+a lot in their presentation depending on whether they're applied to
+train tracks, sudoku, or travelling salesmen. In practice, the
+terminology and notations are not the same everywhere. This is
+disconcerting if you are used to "pure" mathematics, where notations
+evolved over a long time and is pretty much standardised for many
+areas. In contrast, if you're used to the statistics literature with
+its [[https://lingpipe-blog.com/2009/10/13/whats-wrong-with-probability-notation/][strange notations]], you will find that OR is actually very well
+formalized.
+
+There are many subfields of operations research, including all kinds
+of optimization (constrained and unconstrained), game theory, dynamic
+programming, stochastic processes, etc.
+
+* Where to start
+
+** Introduction and modelling
+
+For an overall introduction, I recommend cite:wentzel1988_operat. It
+is an old book, published by Mir Publications, a Soviet publisher
+which published many excellent scientific textbooks[fn:mir]. It is out
+of print, but it is available [[https://archive.org/details/WentzelOperationsResearchMir1983][on Archive.org]][fn:wentzel]. The book is
+quite old, but everything presented is still extremely relevant
+today. It requires absolutely no background, and covers everything: a
+general introduction to the field, linear programming, dynamic
+programming, Markov processes and queues, Monte Carlo methods, and
+game theory. Even if you already know some of these topics, the
+presentations is so clear that it is a pleasure to read!  (In
+particular, it is one of the best presentations of dynamic programming
+that I have ever read. The explanation of the simplex algorithm is
+also excellent.)
+
+[fn:wentzel] {-}
+#+ATTR_HTML: :width 200px
+[[file:/images/or_references/wentzel.jpg]]
+
+[fn:mir] {-} Mir also published [[https://mirtitles.org/2011/06/03/physics-for-everyone/][/Physics for Everyone/]] by Lev Landau
+and Alexander Kitaigorodsky, a three-volume introduction to physics
+that is really accessible. Together with Feynman's famous [[https://www.feynmanlectures.caltech.edu/][lectures]], I
+read them (in French) when I was a kid, and it was the best
+introduction I could possibly have to the subject.
+
+
+If you are interested in optimization, the first thing you have to
+learn is modelling, i.e. transforming your problem (described in
+natural language, often from a particular industrial application) into
+a mathematical programme. The mathematical programme is the structure
+on which you will be able to apply an algorithm to find an optimal
+solution. Even if (like me) you are initially more interested in the
+algorithmic side of things, learning to create models will shed a lot
+of light on the overall process, and will give you more insight in
+general on the reasoning behind algorithms.
+
+The best book I have read on the subject is
+cite:williams2013_model[fn:williams]. It contains a lot of concrete,
+step-by-step examples on concrete applications, in a multitude of
+domains, and remains very easy to read and to follow. It covers nearly
+every type of problem, so it is very useful as a reference. When you
+encounter a concrete problem in real life afterwards, you will know
+how to construct an appropriate model, and in the process you will
+often identify a common type of problem. The book then gives plenty of
+advice on how to approach each type of problem. Finally, it is also a
+great resource to build a "mental map" of the field, avoiding getting
+lost in the jungle of linear, stochastic, mixed integer, quadratic,
+and other network problems.
+
+[fn:williams] {-}
+#+ATTR_HTML: :width 200px
+[[file:/images/or_references/williams.jpg]]
+
+
+Another interesting resource is the freely available [[https://docs.mosek.com/modeling-cookbook/index.html][MOSEK Modeling
+Cookbook]], covering many types of problems, with more mathematical
+details than in cite:williams2013_model. It is built for people
+wanting to use the commercial [[https://www.mosek.com/][MOSEK]] solver, so it could be useful if
+you plan to use a solver package like this one (more details on
+solvers [[solvers][below]]).
+
+** Theory and algorithms
+
+The basic algorithm for optimization is the [[https://en.wikipedia.org/wiki/Simplex_algorithm][simplex algorithm]],
+developed by Dantzig in the 1940s to solve [[https://en.wikipedia.org/wiki/Linear_programming][linear programming]]
+problems. It is the one of the main building blocks for mathematical
+optimization, and is used and referenced extensively in all kinds of
+approaches. As such, it is really important to understand it in
+detail. There are many books on the subject, but I especially liked
+cite:chvatal1983_linear (out of print, but you can find cheap used
+versions on Amazon). It covers everything there is to know on the
+simplex algorithms (step-by-step explanations with simple examples,
+correctness and complexity analysis, computational and implementation
+considerations) and to many applications. I think it is overall the
+best introduction. cite:vanderbei2014_linear follows a very similar
+outline, but contains more recent computational
+considerations[fn:simplex_implem]. (The author also has [[http://vanderbei.princeton.edu/307/lectures.html][lecture
+slides]].)
+
+[fn:simplex_implem] For all the details about practical
+implementations of the simplex algorithm, cite:maros2003_comput is
+dedicated to the computational aspects and contains everything you
+will need.
+
+
+For more books on linear programming, the two books
+cite:dantzig1997_linear, cite:dantzig2003_linear are very complete, if
+somewhat more mathematically advanced. cite:bertsimas1997_introd is
+also a great reference, if you can find it.
+
+For all the other subfields, [[https://or.stackexchange.com/a/870][this great StackExchange answer]] contains
+a lot of useful references, including most of the above. Of particular
+note are cite:peyreComputationalOptimalTransport2019 for optimal
+transport, cite:boyd2004_convex for convex optimization ([[https://web.stanford.edu/~boyd/cvxbook/][freely
+available online]]), and cite:nocedal2006_numer for numerical
+optimization. cite:kochenderfer2019_algor[fn:kochenderfer] is not in
+the list (because it is very recent) but is also excellent, with
+examples in Julia covering nearly every kind of optimization
+algorithms.
+
+[fn:kochenderfer] {-}
+#+ATTR_HTML: :width 200px
+[[file:/images/or_references/kochenderfer.jpg]]
+
+
+** Online courses
+
+If you would like to watch video lectures, there are a few good
+opportunities freely available online, in particular on [[https://ocw.mit.edu/index.htm][MIT
+OpenCourseWare]]. The list of courses at MIT is available [[https://orc.mit.edu/academics/course-offerings][on their
+webpage]]. I haven't actually looked in details at the courses
+content[fn:courses], so I cannot vouch for them directly, but MIT
+courses are generally of excellent quality. Most courses are also
+taught by Bertsimas and Bertsekas, who are very famous and wrote many
+excellent books.
+
+[fn:courses] I am more comfortable reading books than watching lecture
+videos online. Although I liked attending classes during my studies, I
+do not have the same feeling in front of a video. When I read, I can
+re-read three times the same sentence, pause to look up something, or
+skim a few paragraphs. I find that the inability to do that with a
+video diminishes greatly my ability to concentrate.
+
+
+Of particular notes are:
+- [[https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-251j-introduction-to-mathematical-programming-fall-2009/][Introduction to Mathematical Programming]],
+- [[https://ocw.mit.edu/courses/sloan-school-of-management/15-084j-nonlinear-programming-spring-2004/][Nonlinear Optimization]],
+- [[https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-253-convex-analysis-and-optimization-spring-2012/][Convex Analysis and Optimization]],
+- [[https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-972-algebraic-techniques-and-semidefinite-optimization-spring-2006/][Algebraic Techniques and Semidefinite Optimization]],
+- [[https://ocw.mit.edu/courses/sloan-school-of-management/15-083j-integer-programming-and-combinatorial-optimization-fall-2009/][Integer Programming and Combinatorial Optimization]].
+
+Another interesting course I found online is [[https://www.ams.jhu.edu/~wcook12/dl/index.html][Deep Learning in Discrete
+Optimization]], at Johns Hopkins[fn:cook]. It contains an interesting
+overview of deep learning and integer programming, with a focus on
+connections, and applications to recent research areas in ML
+(reinforcement learning, attention, etc.).
+
+[fn:cook] {-} It is taught by William Cook, who is the author of [[https://press.princeton.edu/books/paperback/9780691163529/in-pursuit-of-the-traveling-salesman][/In
+Pursuit of the Traveling Salesman/]], a nice introduction to the TSP
+problem in a readable form.
+
+
+* Solvers and computational resources <<solvers>>
+
+When you start reading about modelling and algorithms, I recommend you
+try solving a few problems yourself, either by hand for small
+instances, or using an existing solver. It will allow you to follow
+the examples in books, while also practising your modelling
+skills. You will also get an intuition of what is difficult to model
+and to solve.
+
+There are many solvers available, both free and commercial, with
+various capabilities. I recommend you use the fantastic [[https://github.com/JuliaOpt/JuMP.jl][JuMP]][fn:jump]
+library for Julia, which exposes a domain-specific language for
+modelling, along with interfaces to nearly all major solver
+packages. (Even if you don't know Julia, this is a great and easy way
+to start!) If you'd rather use Python, you can use Google's [[https://developers.google.com/optimization/introduction/python][OR-Tools]]
+or [[https://github.com/coin-or/pulp][PuLP]] for linear programming.
+
+[fn:jump] {-}
+#+ATTR_HTML: :width 250px
+[[file:/images/or_references/jump.svg]]
+
+
+Regarding solvers, there is a [[http://www.juliaopt.org/JuMP.jl/stable/installation/#Getting-Solvers-1][list of solvers]] on JuMP's documentation,
+with their capabilities and their license. Free solvers include [[https://www.gnu.org/software/glpk/][GLPK]]
+(linear programming), [[https://github.com/coin-or/Ipopt][Ipopt]] (non-linear programming), and [[https://scip.zib.de/][SCIP]]
+(mixed-integer linear programming).
+
+Commercial solvers often have better performance, and some of them
+propose a free academic license: [[https://www.mosek.com/][MOSEK]], [[https://www.gurobi.com/][Gurobi]], and [[https://www.ibm.com/analytics/cplex-optimizer][IBM CPLEX]] in
+particular all offer free academic licenses and work very well with
+JuMP.
+
+Another awesome resource is the [[https://neos-server.org/neos/][NEOS Server]]. It offers free computing
+resources for numerical optimization, including all major free and
+commercial solvers! You can submit jobs on it in a standard format, or
+interface your favourite programming language with it. The fact that
+such an amazing resource exists for free, for everyone is
+extraordinary. They also have an accompanying book, the [[https://neos-guide.org/][NEOS Guide]],
+containing many case studies and description of problem types. The
+[[https://neos-guide.org/content/optimization-taxonomy][taxonomy]] may be particularly useful.
+
+* Conclusion
+
+Operations research is a fascinating topic, and it has an abundant
+literature that makes it very easy to dive into the subject. If you
+are interested in algorithms, modelling for practical applications, or
+just wish to understand more, I hope to have given you the first steps
+to follow, start reading and experimenting.
+
+* References
