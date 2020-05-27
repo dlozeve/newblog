@@ -143,6 +143,41 @@ covering nearly every kind of optimization algorithms.
 
 ** Online courses
 
+If you would like to watch video lectures, there are a few good
+opportunities freely available online, in particular on [[https://ocw.mit.edu/index.htm][MIT
+OpenCourseWare]]. The list of courses at MIT is available [[https://orc.mit.edu/academics/course-offerings][on their
+webpage]]. I haven't actually looked in details at the courses
+content[fn:courses], so I cannot vouch for them directly, but MIT
+courses are generally of excellent quality. Most courses are also
+taught by Bertsimas and Bertsekas, who are very famous and wrote many
+excellent books.
+
+[fn:courses] I am more comfortable reading books than watching lecture
+videos online. Although I liked attending classes during my studies, I
+do not have the same feeling in front of a video. When I read, I can
+re-read three times the same sentence, pause to look up something, or
+skim a few paragraphs. I find that the inability to do that with a
+video diminishes greatly my ability to concentrate.
+
+
+Of particular notes are:
+- [[https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-251j-introduction-to-mathematical-programming-fall-2009/][Introduction to Mathematical Programming]],
+- [[https://ocw.mit.edu/courses/sloan-school-of-management/15-084j-nonlinear-programming-spring-2004/][Nonlinear Optimization]],
+- [[https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-253-convex-analysis-and-optimization-spring-2012/][Convex Analysis and Optimization]],
+- [[https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-972-algebraic-techniques-and-semidefinite-optimization-spring-2006/][Algebraic Techniques and Semidefinite Optimization]],
+- [[https://ocw.mit.edu/courses/sloan-school-of-management/15-083j-integer-programming-and-combinatorial-optimization-fall-2009/][Integer Programming and Combinatorial Optimization]].
+
+Another interesting course I found online is [[https://www.ams.jhu.edu/~wcook12/dl/index.html][Deep Learning in Discrete
+Optimization]], at Johns Hopkins[fn:cook]. It contains an interesting
+overview of deep learning and integer programming, with a focus on
+connections, and applications to recent research areas in ML
+(reinforcement learning, attention, etc.).
+
+[fn:cook] {-} It is taught by William Cook, who is the author of [[https://press.princeton.edu/books/paperback/9780691163529/in-pursuit-of-the-traveling-salesman][/In
+Pursuit of the Traveling Salesman/]], a nice introduction to the TSP
+problem in a readable form.
+
+
 * Solvers and computational resources <<solvers>>
 
 * References
