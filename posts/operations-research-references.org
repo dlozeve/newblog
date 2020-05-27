@@ -1,22 +1,20 @@
 ---
-title: "Operations Research and Optimisation: where to start?"
-date: 2020-05-26
+title: "Operations Research and Optimization: where to start?"
+date: 2020-05-27
 ---
 
 [[https://en.wikipedia.org/wiki/Operations_research][Operations research]] (OR) is a vast area comprising a lot of theory,
 different branches of mathematics, and too many applications to
-count. In this post, I will try to explain why I find it so
-fascinating, but also why it can be a little disconcerting to explore
-at first. Then I will try to ease the newcomer's path in this rich
-area, by suggesting a very rough "map" of the field and a few
-references to get started.
+count. In this post, I will try to explain why it can be a little
+disconcerting to explore at first, and how to start investigating the
+topic with a few references to get started.
 
 Keep in mind that although I studied it during my graduate studies,
 this is not my primary area of expertise (I'm a data scientist by
 trade), and I definitely don't pretend to know everything in OR. This
 is a field too vast for any single person to understand in its
-entirety, and I talk mostly from a "amateur mathematician and computer
-scientist" standpoint.
+entirety, and I talk mostly from an "amateur mathematician and
+computer scientist" standpoint.
 
 * Why is it hard to approach?
 
@@ -78,7 +76,7 @@ learn is modelling, i.e. transforming your problem (described in
 natural language, often from a particular industrial application) into
 a mathematical programme. The mathematical programme is the structure
 on which you will be able to apply an algorithm to find an optimal
-solution. Even if (like me) you are initially more interested by the
+solution. Even if (like me) you are initially more interested in the
 algorithmic side of things, learning to create models will shed a lot
 of light on the overall process, and will give you more insight in
 general on the reasoning behind algorithms.
@@ -91,10 +89,10 @@ of problem, so it is very useful as a reference. When you encounter a
 concrete problem in real life afterwards, you will know how to
 construct an appropriate model, and in the process you will often
 identify a common type of problem. The book then gives plenty of
-advice on how to best approach each type of problem. Finally, it is
-also a great resource to build a "mental map" of the field, avoiding
-to get lost in the jungle of linear, stochastic, mixed integer,
-quadratic, and other network problems.
+advice on how to approach each type of problem. Finally, it is also a
+great resource to build a "mental map" of the field, avoiding getting
+lost in the jungle of linear, stochastic, mixed integer, quadratic,
+and other network problems.
 
 Another interesting resource is the freely available [[https://docs.mosek.com/modeling-cookbook/index.html][MOSEK Modeling
 Cookbook]], covering many types of problems, with more mathematical
@@ -213,5 +211,13 @@ such an amazing resource exists for free, for everyone is
 extraordinary. They also have an accompanying book, the [[https://neos-guide.org/][NEOS Guide]],
 containing many case studies and description of problem types. The
 [[https://neos-guide.org/content/optimization-taxonomy][taxonomy]] may be particularly useful.
+
+* Conclusion
+
+Operations research is a fascinating topic, and it has an abundant
+literature that makes it very easy to dive into the subject. If you
+are interested in algorithms, modelling for practical applications, or
+just wish to understand more, I hope to have given you the first steps
+to follow, start reading and experimenting.
 
 * References
