@@ -53,16 +53,20 @@ programming, stochastic processes, etc.
 For an overall introduction, I recommend cite:wentzel1988_operat. It
 is an old book, published by Mir Publications, a Soviet publisher
 which published many excellent scientific textbooks[fn:mir]. It is out
-of print, but it is available [[https://archive.org/details/WentzelOperationsResearchMir1983][on Archive.org]]. The book is quite old,
-but everything presented is still extremely relevant today. It
-requires absolutely no background, and covers everything: a general
-introduction to the field, linear programming, dynamic programming,
-Markov processes and queues, Monte Carlo methods, and game
-theory. Even if you already know some of these topics, the
+of print, but it is available [[https://archive.org/details/WentzelOperationsResearchMir1983][on Archive.org]][fn:wentzel]. The book is
+quite old, but everything presented is still extremely relevant
+today. It requires absolutely no background, and covers everything: a
+general introduction to the field, linear programming, dynamic
+programming, Markov processes and queues, Monte Carlo methods, and
+game theory. Even if you already know some of these topics, the
 presentations is so clear that it is a pleasure to read!  (In
 particular, it is one of the best presentations of dynamic programming
 that I have ever read. The explanation of the simplex algorithm is
 also excellent.)
+
+[fn:wentzel] {-}
+#+ATTR_HTML: :width 200px
+[[file:/images/or_references/wentzel.jpg]]
 
 [fn:mir] {-} Mir also published [[https://mirtitles.org/2011/06/03/physics-for-everyone/][/Physics for Everyone/]] by Lev Landau
 and Alexander Kitaigorodsky, a three-volume introduction to physics
@@ -82,17 +86,22 @@ of light on the overall process, and will give you more insight in
 general on the reasoning behind algorithms.
 
 The best book I have read on the subject is
-cite:williams2013_model. It contains a lot of concrete, step-by-step
-examples on concrete applications, in a multitude of domains, and
-remains very easy to read and to follow. It covers nearly every type
-of problem, so it is very useful as a reference. When you encounter a
-concrete problem in real life afterwards, you will know how to
-construct an appropriate model, and in the process you will often
-identify a common type of problem. The book then gives plenty of
+cite:williams2013_model[fn:williams]. It contains a lot of concrete,
+step-by-step examples on concrete applications, in a multitude of
+domains, and remains very easy to read and to follow. It covers nearly
+every type of problem, so it is very useful as a reference. When you
+encounter a concrete problem in real life afterwards, you will know
+how to construct an appropriate model, and in the process you will
+often identify a common type of problem. The book then gives plenty of
 advice on how to approach each type of problem. Finally, it is also a
 great resource to build a "mental map" of the field, avoiding getting
 lost in the jungle of linear, stochastic, mixed integer, quadratic,
 and other network problems.
+
+[fn:williams] {-}
+#+ATTR_HTML: :width 200px
+[[file:/images/or_references/williams.jpg]]
+
 
 Another interesting resource is the freely available [[https://docs.mosek.com/modeling-cookbook/index.html][MOSEK Modeling
 Cookbook]], covering many types of problems, with more mathematical
@@ -135,9 +144,15 @@ a lot of useful references, including most of the above. Of particular
 note are cite:peyreComputationalOptimalTransport2019 for optimal
 transport, cite:boyd2004_convex for convex optimization ([[https://web.stanford.edu/~boyd/cvxbook/][freely
 available online]]), and cite:nocedal2006_numer for numerical
-optimization. cite:kochenderfer2019_algor is not in the list (because
-it is very recent) but is also excellent, with examples in Julia
-covering nearly every kind of optimization algorithms.
+optimization. cite:kochenderfer2019_algor[fn:kochenderfer] is not in
+the list (because it is very recent) but is also excellent, with
+examples in Julia covering nearly every kind of optimization
+algorithms.
+
+[fn:kochenderfer] {-}
+#+ATTR_HTML: :width 200px
+[[file:/images/or_references/kochenderfer.jpg]]
+
 
 ** Online courses
 
@@ -186,12 +201,17 @@ skills. You will also get an intuition of what is difficult to model
 and to solve.
 
 There are many solvers available, both free and commercial, with
-various capabilities. I recommend you use the fantastic [[https://github.com/JuliaOpt/JuMP.jl][JuMP]] library
-for Julia, which exposes a domain-specific language for modelling,
-along with interfaces to nearly all major solver packages. (Even if
-you don't know Julia, this is a great and easy way to start!) If you'd
-rather use Python, you can use Google's [[https://developers.google.com/optimization/introduction/python][OR-Tools]] or [[https://github.com/coin-or/pulp][PuLP]] for linear
-programming.
+various capabilities. I recommend you use the fantastic [[https://github.com/JuliaOpt/JuMP.jl][JuMP]][fn:jump]
+library for Julia, which exposes a domain-specific language for
+modelling, along with interfaces to nearly all major solver
+packages. (Even if you don't know Julia, this is a great and easy way
+to start!) If you'd rather use Python, you can use Google's [[https://developers.google.com/optimization/introduction/python][OR-Tools]]
+or [[https://github.com/coin-or/pulp][PuLP]] for linear programming.
+
+[fn:jump] {-}
+#+ATTR_HTML: :width 250px
+[[file:/images/or_references/jump.svg]]
+
 
 Regarding solvers, there is a [[http://www.juliaopt.org/JuMP.jl/stable/installation/#Getting-Solvers-1][list of solvers]] on JuMP's documentation,
 with their capabilities and their license. Free solvers include [[https://www.gnu.org/software/glpk/][GLPK]]
