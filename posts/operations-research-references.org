@@ -180,4 +180,38 @@ problem in a readable form.
 
 * Solvers and computational resources <<solvers>>
 
+When you start reading about modelling and algorithms, I recommend you
+try solving a few problems yourself, either by hand for small
+instances, or using an existing solver. It will allow you to follow
+the examples in books, while also practising your modelling
+skills. You will also get an intuition of what is difficult to model
+and to solve.
+
+There are many solvers available, both free and commercial, with
+various capabilities. I recommend you use the fantastic [[https://github.com/JuliaOpt/JuMP.jl][JuMP]] library
+for Julia, which exposes a domain-specific language for modelling,
+along with interfaces to nearly all major solver packages. (Even if
+you don't know Julia, this is a great and easy way to start!) If you'd
+rather use Python, you can use Google's [[https://developers.google.com/optimization/introduction/python][OR-Tools]] or [[https://github.com/coin-or/pulp][PuLP]] for linear
+programming.
+
+Regarding solvers, there is a [[http://www.juliaopt.org/JuMP.jl/stable/installation/#Getting-Solvers-1][list of solvers]] on JuMP's documentation,
+with their capabilities and their license. Free solvers include [[https://www.gnu.org/software/glpk/][GLPK]]
+(linear programming), [[https://github.com/coin-or/Ipopt][Ipopt]] (non-linear programming), and [[https://scip.zib.de/][SCIP]]
+(mixed-integer linear programming).
+
+Commercial solvers often have better performance, and some of them
+propose a free academic license: [[https://www.mosek.com/][MOSEK]], [[https://www.gurobi.com/][Gurobi]], and [[https://www.ibm.com/analytics/cplex-optimizer][IBM CPLEX]] in
+particular all offer free academic licenses and work very well with
+JuMP.
+
+Another awesome resource is the [[https://neos-server.org/neos/][NEOS Server]]. It offers free computing
+resources for numerical optimization, including all major free and
+commercial solvers! You can submit jobs on it in a standard format, or
+interface your favourite programming language with it. The fact that
+such an amazing resource exists for free, for everyone is
+extraordinary. They also have an accompanying book, the [[https://neos-guide.org/][NEOS Guide]],
+containing many case studies and description of problem types. The
+[[https://neos-guide.org/content/optimization-taxonomy][taxonomy]] may be particularly useful.
+
 * References
