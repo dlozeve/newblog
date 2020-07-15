@@ -27,6 +27,17 @@ integer so that its absolute value is less or equal to ~≢Y~, splits
   split←(0>⊣)⌽((⊂↑),(⊂↓))
 #+end_src
 
+There are three nested trains here. The first one, ~((⊂↑),(⊂↓))~, uses
+the two functions [[https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/Take.htm][Take]] (~↑~) and [[https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/Drop.htm][Drop]] (~↓~) to build a nested array
+consisting of the two outputs we need. (Take and Drop already have the
+behaviour needed regarding negative arguments.) However, if the left
+argument is positive, the two arrays will not be in the correct
+order. So we need a way to reverse them if ~X<0~.
+
+The second train ~(0>⊣)~ will return 1 if its left argument is
+positive. From this, we can use [[https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/Rotate.htm][Rotate]] (~⌽~) to correctly order the
+nested array, in the last train.
+
 ** 2. Character Building
 
 #+begin_quote
@@ -66,6 +77,11 @@ use any system functions (names beginning with ~⎕~)
   characters←{(~⍵∊127+⍳64)⊂⍵}
 #+end_src
 
+First, we build a binary array from the string, encoding each
+continuation character as 0, and all the others as 1. Next, we can use
+this binary array with [[https://help.dyalog.com/latest/#Language/Primitive%20Functions/Partitioned%20Enclose.htm][Partitioned Enclose]] (~⊂~) to return the correct
+output.
+
 ** 3. Excel-lent Columns
 
 #+begin_quote
@@ -83,6 +99,12 @@ identifier between A and XFD, returns the corresponding column number
   columns←26⊥⎕A∘⍳
 #+end_src
 
+We use the alphabet ~⎕A~ and [[https://help.dyalog.com/latest/#Language/Primitive%20Functions/Index%20Of.htm][Index Of]] (~⍳~) to compute the index in
+the alphabet of every character. As a train, this can be done by
+~(⎕A∘⍳)~. We then obtain an array of numbers, each representing a
+letter from 1 to 26. The [[https://help.dyalog.com/latest/#Language/Primitive%20Functions/Decode.htm][Decode]] (~⊥~) function can then turn this
+base-26 number into the expected result.
+
 ** 4. Take a Leap
 
 #+begin_quote
@@ -98,6 +120,17 @@ A leap year algorithm can be found [[https://en.wikipedia.org/wiki/Leap_year#Alg
   leap←1 3∊⍨(0+.=400 100 4∘.|⊢)
 #+end_src
 
+According to the algorithm, a year is a leap year in two situations:
+- if it is divisible by 4, but not 100 (and therefore not 400),
+- if it is divisible by 400 (and therefore 4 and 100 as well).
+
+The train ~(400 100 4∘.|⊢)~ will test if each year in the right
+argument is divisible by 400, 100, and 4, using an [[https://help.dyalog.com/latest/#Language/Primitive%20Operators/Outer%20Product.htm][Outer Product]]. We
+then use an [[https://help.dyalog.com/latest/#Language/Primitive%20Operators/Inner%20Product.htm][Inner Product]] to count how many times each year is
+divisible by one of these numbers. If the count is 1 or 3, it is a
+leap year. Note that we use [[https://help.dyalog.com/latest/#Language/Primitive%20Operators/Commute.htm][Commute]] (~⍨~) to keep the dfn as a train,
+and to preserve the natural right-to-left reading of the algorithm.
+
 ** 5. Stepping in the Proper Direction
 
 #+begin_quote
@@ -109,6 +142,15 @@ the second, inclusively.
 #+begin_src default
   stepping←{(⊃⍵)+(-×-/⍵)×0,⍳|-/⍵}
 #+end_src
+
+First, we have to compute the range of the output, which is the
+absolute value of the difference between the two integers ~|-/⍵~. From
+this, we compute the actual sequence, including zero: ~0,⍳|-/⍵~.
+
+This sequence will always be nondecreasing, but we have to make it
+decreasing if needed, so we multiply it by the opposite of the sign of
+~-/⍵~. Finally, we just have to start the sequence at the first
+element of ~⍵~.
 
 ** 6. Please Move to the Front
 
@@ -122,6 +164,10 @@ while all other elements keep their order.
 #+begin_src default
   movefront←{⍵[⍋⍺≠⍵]}
 #+end_src
+
+~⍺≠⍵~ will return a binary vector marking as 0 all elements equal to
+the left argument. Using this index to sort in the usual way with
+[[https://help.dyalog.com/latest/#Language/Primitive%20Functions/Grade%20Up%20Monadic.htm][Grade Up]] will return the expected result.
 
 ** 7. See You in a Bit
 
@@ -145,6 +191,18 @@ argument are found in the right argument (0 otherwise).
   bits←{f←⍸∘⌽(2∘⊥⍣¯1)⋄∧/(f⍺)∊f⍵}
 #+end_src
 
+The difficult part is to find the set of states for an integer. We
+need a function that will return ~1 8 128~ (or an equivalent
+representation) for an input of ~137~. To do this, we need the base-2
+representations of $137 = 1 + 8 + 128 = 2^0 + 2^3 + 2^7 =
+10010001_2$. The function ~(2∘⊥⍣¯1)~ will return the base-2
+representation of its argument, and by [[https://help.dyalog.com/latest/#Language/Primitive%20Functions/Reverse.htm][reversing]] and finding [[https://help.dyalog.com/latest/#Language/Primitive%20Functions/Where.htm][where]] the
+non-zero elements are, we find the correct exponents (~1 3 7~ in this
+case). That is what the function ~f~ does.
+
+Next, we just need to check that all elements of ~f⍺~ are also in
+~f⍵~.
+
 ** 8. Zigzag Numbers
 
 #+begin_quote
@@ -160,6 +218,8 @@ integer is a zigzag number, 0 otherwise.
 #+begin_src default
   zigzag←∧/2=∘|2-/∘×2-/(10∘⊥⍣¯1)
 #+end_src
+
+TODO
 
 ** 9. Rise and Fall
 
@@ -177,6 +237,8 @@ conform to the following pattern (0 otherwise):
   risefall←{∧/(⍳∘≢≡⍋)¨(⊂((⊢⍳⌈/)↑⊢),⍵),⊂⌽((⊢⍳⌈/)↓⊢),⍵}
 #+end_src
 
+TODO
+
 ** 10. Stacking It Up
 
 #+begin_quote
@@ -191,6 +253,8 @@ right argument.
 #+begin_src default
   stacking←{↑⊃,/↓¨⍕¨⍵}
 #+end_src
+
+TODO
 
 #+begin_src default
   :EndNamespace
