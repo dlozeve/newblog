@@ -52,7 +52,15 @@
         
     </section>
     <section>
-        <p>Two weeks ago, I did a presentation for my colleagues of the paper from <span class="citation" data-cites="yurochkin2019_hierar_optim_trans_docum_repres">Yurochkin et al. (<a href="#ref-yurochkin2019_hierar_optim_trans_docum_repres">2019</a>)</span>, from <a href="https://papers.nips.cc/book/advances-in-neural-information-processing-systems-32-2019">NeurIPS 2019</a>. It contains an interesting approach to document classification leading to strong performance, and, most importantly, excellent interpretability.</p>
+        <h2>Table of Contents</h2><ul>
+<li><a href="#introduction-and-motivation">Introduction and motivation</a></li>
+<li><a href="#background-optimal-transport">Background: optimal transport</a></li>
+<li><a href="#hierarchical-optimal-transport">Hierarchical optimal transport</a></li>
+<li><a href="#experiments">Experiments</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+<p>Two weeks ago, I did a presentation for my colleagues of the paper from <span class="citation" data-cites="yurochkin2019_hierar_optim_trans_docum_repres">Yurochkin et al. (<a href="#ref-yurochkin2019_hierar_optim_trans_docum_repres">2019</a>)</span>, from <a href="https://papers.nips.cc/book/advances-in-neural-information-processing-systems-32-2019">NeurIPS 2019</a>. It contains an interesting approach to document classification leading to strong performance, and, most importantly, excellent interpretability.</p>
 <p>This paper seems interesting to me because of it uses two methods with strong theoretical guarantees: optimal transport and topic modelling. Optimal transport looks very promising to me in NLP, and has seen a lot of interest in recent years due to advances in approximation algorithms, such as entropy regularisation. It is also quite refreshing to see approaches using solid results in optimisation, compared to purely experimental deep learning methods.</p>
 <h2 id="introduction-and-motivation">Introduction and motivation</h2>
 <p>The problem of the paper is to measure similarity (i.e. a distance) between pairs of documents, by incorporating <em>semantic</em> similarities (and not only syntactic artefacts), without encountering scalability issues.</p>

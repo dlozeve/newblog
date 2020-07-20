@@ -40,7 +40,10 @@ main = hakyll $ do
 
   match "posts/*" $ do
     route $ setExtension "html"
-    compile $ customPandocCompiler
+    compile $ do
+      underlying <- getUnderlying
+      toc <- getMetadataField underlying "toc"
+      customPandocCompiler (toc == Just "yes" || toc == Just "true")
       >>= return . fmap demoteHeaders
       >>= loadAndApplyTemplate "templates/post.html"    postCtx
       >>= saveSnapshot "content"
@@ -49,14 +52,14 @@ main = hakyll $ do
 
   match "projects/*" $ do
     route $ setExtension "html"
-    compile $ customPandocCompiler
+    compile $ customPandocCompiler False
       >>= loadAndApplyTemplate "templates/project.html" postCtx
       >>= loadAndApplyTemplate "templates/default.html" postCtx
       >>= relativizeUrls
 
   match (fromList ["contact.org", "cv.org", "skills.org", "projects.org"]) $ do
     route $ setExtension "html"
-    compile $ customPandocCompiler
+    compile $ customPandocCompiler False
       >>= return . fmap demoteHeaders
       >>= loadAndApplyTemplate "templates/default.html" defaultContext
       >>= relativizeUrls
@@ -158,8 +161,8 @@ myReadPandocBiblio ropt csl biblio item = do
   return $ fmap (const pandoc') item
 
 -- Pandoc compiler with KaTeX and bibliography support --------------------
-customPandocCompiler :: Compiler (Item String)
-customPandocCompiler =
+customPandocCompiler :: Bool -> Compiler (Item String)
+customPandocCompiler withTOC =
   let customExtensions = extensionsFromList [Ext_latex_macros]
       defaultExtensions = writerExtensions defaultHakyllWriterOptions
       newExtensions = defaultExtensions `mappend` customExtensions
@@ -167,11 +170,16 @@ customPandocCompiler =
         { writerExtensions = newExtensions
         , writerHTMLMathMethod = KaTeX ""
         }
+      writerOptionsWithTOC = writerOptions
+        { writerTableOfContents = True
+        , writerTOCDepth = 2
+        , writerTemplate = Just "<h1>Table of Contents</h1>$toc$\n$body$"
+        }
       readerOptions = defaultHakyllReaderOptions
   in do
     csl <- load $ fromFilePath "csl/chicago-author-date.csl"
     bib <- load $ fromFilePath "bib/bibliography.bib"
-    writePandocWith writerOptions <$>
+    writePandocWith (if withTOC then writerOptionsWithTOC else writerOptions) <$>
      (getResourceBody >>= myReadPandocBiblio readerOptions csl bib >>= traverse (return . usingSideNotes))
 
 type FeedRenderer = FeedConfiguration

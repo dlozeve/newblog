@@ -1,7 +1,10 @@
 ---
 title: "Operations Research and Optimization: where to start?"
 date: 2020-05-27
+toc: true
 ---
+
+* Introduction
 
 [[https://en.wikipedia.org/wiki/Operations_research][Operations research]] (OR) is a vast area comprising a lot of theory,
 different branches of mathematics, and too many applications to

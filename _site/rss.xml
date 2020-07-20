@@ -16,7 +16,20 @@
         
     </section>
     <section>
-        <p><a href="https://en.wikipedia.org/wiki/Operations_research">Operations research</a> (OR) is a vast area comprising a lot of theory, different branches of mathematics, and too many applications to count. In this post, I will try to explain why it can be a little disconcerting to explore at first, and how to start investigating the topic with a few references to get started.</p>
+        <h2>Table of Contents</h2><ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#why-is-it-hard-to-approach">Why is it hard to approach?</a></li>
+<li><a href="#where-to-start">Where to start</a><ul>
+<li><a href="#introduction-and-modelling">Introduction and modelling</a></li>
+<li><a href="#theory-and-algorithms">Theory and algorithms</a></li>
+<li><a href="#online-courses">Online courses</a></li>
+</ul></li>
+<li><a href="#solvers-and-computational-resources">Solvers and computational resources <span id="solvers"></span></a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+<h2 id="introduction">Introduction</h2>
+<p><a href="https://en.wikipedia.org/wiki/Operations_research">Operations research</a> (OR) is a vast area comprising a lot of theory, different branches of mathematics, and too many applications to count. In this post, I will try to explain why it can be a little disconcerting to explore at first, and how to start investigating the topic with a few references to get started.</p>
 <p>Keep in mind that although I studied it during my graduate studies, this is not my primary area of expertise (I’m a data scientist by trade), and I definitely don’t pretend to know everything in OR. This is a field too vast for any single person to understand in its entirety, and I talk mostly from an “amateur mathematician and computer scientist” standpoint.</p>
 <h2 id="why-is-it-hard-to-approach">Why is it hard to approach?</h2>
 <p>Operations research can be difficult to approach, since there are many references and subfields. Compared to machine learning for instance, OR has a slightly longer history (going back to the 17th century, for example with <a href="https://en.wikipedia.org/wiki/Gaspard_Monge">Monge</a> and the <a href="https://en.wikipedia.org/wiki/Transportation_theory_(mathematics)">optimal transport problem</a>)<span><label for="sn-1" class="margin-toggle">⊕</label><input type="checkbox" id="sn-1" class="margin-toggle" /><span class="marginnote"> For a very nice introduction (in French) to optimal transport, see these blog posts by <a href="https://twitter.com/gabrielpeyre">Gabriel Peyré</a>, on the CNRS maths blog: <a href="https://images.math.cnrs.fr/Le-transport-optimal-numerique-et-ses-applications-Partie-1.html">Part 1</a> and <a href="https://images.math.cnrs.fr/Le-transport-optimal-numerique-et-ses-applications-Partie-2.html">Part 2</a>. See also the resources on <a href="https://optimaltransport.github.io/">optimaltransport.github.io</a> (in English).<br />
@@ -131,7 +144,21 @@
         
     </section>
     <section>
-        <p>ICLR is one of the most important conferences in machine learning, and as such, I was very excited to have the opportunity to volunteer and attend the first fully-virtual edition of the event. The whole content of the conference has been made <a href="https://iclr.cc/virtual_2020/index.html">publicly available</a>, only a few days after the end of the event!</p>
+        <h2>Table of Contents</h2><ul>
+<li><a href="#the-format-of-the-virtual-conference">The Format of the Virtual Conference</a></li>
+<li><a href="#speakers">Speakers</a><ul>
+<li><a href="#prof.-leslie-kaelbling-doing-for-our-robots-what-nature-did-for-us">Prof. Leslie Kaelbling, <span>Doing for Our Robots What Nature Did For Us</span></a></li>
+<li><a href="#dr.-laurent-dinh-invertible-models-and-normalizing-flows">Dr. Laurent Dinh, <span>Invertible Models and Normalizing Flows</span></a></li>
+<li><a href="#profs.-yann-lecun-and-yoshua-bengio-reflections-from-the-turing-award-winners">Profs. Yann LeCun and Yoshua Bengio, <span>Reflections from the Turing Award Winners</span></a></li>
+</ul></li>
+<li><a href="#workshops">Workshops</a><ul>
+<li><a href="#beyond-tabula-rasa-in-reinforcement-learning-agents-that-remember-adapt-and-generalize"><span>Beyond ‘tabula rasa’ in reinforcement learning: agents that remember, adapt, and generalize</span></a></li>
+<li><a href="#causal-learning-for-decision-making"><span>Causal Learning For Decision Making</span></a></li>
+<li><a href="#bridging-ai-and-cognitive-science"><span>Bridging AI and Cognitive Science</span></a></li>
+<li><a href="#integration-of-deep-neural-models-and-differential-equations"><span>Integration of Deep Neural Models and Differential Equations</span></a></li>
+</ul></li>
+</ul>
+<p>ICLR is one of the most important conferences in machine learning, and as such, I was very excited to have the opportunity to volunteer and attend the first fully-virtual edition of the event. The whole content of the conference has been made <a href="https://iclr.cc/virtual_2020/index.html">publicly available</a>, only a few days after the end of the event!</p>
 <p>I would like to thank the <a href="https://iclr.cc/Conferences/2020/Committees">organizing committee</a> for this incredible event, and the possibility to volunteer to help other participants<span><label for="sn-1" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-1" class="margin-toggle" /><span class="sidenote">To better organize the event, and help people navigate the various online tools, they brought in 500(!) volunteers, waved our registration fees, and asked us to do simple load-testing and tech support. This was a very generous offer, and felt very rewarding for us, as we could attend the conference, and give back to the organization a little bit.<br />
 <br />
 </span></span>.</p>
@@ -187,7 +214,15 @@
         
     </section>
     <section>
-        <p>Two weeks ago, I did a presentation for my colleagues of the paper from <span class="citation" data-cites="yurochkin2019_hierar_optim_trans_docum_repres">Yurochkin et al. (<a href="#ref-yurochkin2019_hierar_optim_trans_docum_repres">2019</a>)</span>, from <a href="https://papers.nips.cc/book/advances-in-neural-information-processing-systems-32-2019">NeurIPS 2019</a>. It contains an interesting approach to document classification leading to strong performance, and, most importantly, excellent interpretability.</p>
+        <h2>Table of Contents</h2><ul>
+<li><a href="#introduction-and-motivation">Introduction and motivation</a></li>
+<li><a href="#background-optimal-transport">Background: optimal transport</a></li>
+<li><a href="#hierarchical-optimal-transport">Hierarchical optimal transport</a></li>
+<li><a href="#experiments">Experiments</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+<p>Two weeks ago, I did a presentation for my colleagues of the paper from <span class="citation" data-cites="yurochkin2019_hierar_optim_trans_docum_repres">Yurochkin et al. (<a href="#ref-yurochkin2019_hierar_optim_trans_docum_repres">2019</a>)</span>, from <a href="https://papers.nips.cc/book/advances-in-neural-information-processing-systems-32-2019">NeurIPS 2019</a>. It contains an interesting approach to document classification leading to strong performance, and, most importantly, excellent interpretability.</p>
 <p>This paper seems interesting to me because of it uses two methods with strong theoretical guarantees: optimal transport and topic modelling. Optimal transport looks very promising to me in NLP, and has seen a lot of interest in recent years due to advances in approximation algorithms, such as entropy regularisation. It is also quite refreshing to see approaches using solid results in optimisation, compared to purely experimental deep learning methods.</p>
 <h2 id="introduction-and-motivation">Introduction and motivation</h2>
 <p>The problem of the paper is to measure similarity (i.e. a distance) between pairs of documents, by incorporating <em>semantic</em> similarities (and not only syntactic artefacts), without encountering scalability issues.</p>
@@ -341,7 +376,18 @@ W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
         
     </section>
     <section>
-        <h2 id="introduction">Introduction</h2>
+        <h2>Table of Contents</h2><ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#the-axioms">The Axioms</a></li>
+<li><a href="#addition">Addition</a><ul>
+<li><a href="#commutativity">Commutativity</a></li>
+<li><a href="#associativity">Associativity</a></li>
+<li><a href="#identity-element">Identity element</a></li>
+</ul></li>
+<li><a href="#going-further">Going further</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+<h2 id="introduction">Introduction</h2>
 <p>I have recently bought the book <em>Category Theory</em> from Steve Awodey <span class="citation" data-cites="awodeyCategoryTheory2010">(Awodey <a href="#ref-awodeyCategoryTheory2010">2010</a>)</span> is awesome, but probably the topic for another post), and a particular passage excited my curiosity:</p>
 <blockquote>
 <p>Let us begin by distinguishing between the following things: i. categorical foundations for mathematics, ii. mathematical foundations for category theory.</p>
@@ -520,7 +566,15 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
         
     </section>
     <section>
-        <h2 id="the-apl-family-of-languages">The APL family of languages</h2>
+        <h2>Table of Contents</h2><ul>
+<li><a href="#the-apl-family-of-languages">The APL family of languages</a><ul>
+<li><a href="#why-apl">Why APL?</a></li>
+<li><a href="#implementations">Implementations</a></li>
+</ul></li>
+<li><a href="#the-ising-model-in-apl">The Ising model in APL</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul>
+<h2 id="the-apl-family-of-languages">The APL family of languages</h2>
 <h3 id="why-apl">Why APL?</h3>
 <p>I recently got interested in <a href="https://en.wikipedia.org/wiki/APL_(programming_language)">APL</a>, an <em>array-based</em> programming language. In APL (and derivatives), we try to reason about programs as series of transformations of multi-dimensional arrays. This is exactly the kind of style I like in Haskell and other functional languages, where I also try to use higher-order functions (map, fold, etc) on lists or arrays. A developer only needs to understand these abstractions once, instead of deconstructing each loop or each recursive function encountered in a program.</p>
 <p>APL also tries to be a really simple and <em>terse</em> language. This combined with strange Unicode characters for primitive functions and operators, gives it a reputation of unreadability. However, there is only a small number of functions to learn, and you get used really quickly to read them and understand what they do. Some combinations also occur so frequently that you can recognize them instantly (APL programmers call them <em>idioms</em>).</p>
@@ -726,7 +780,13 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
         
     </section>
     <section>
-        <p>The <a href="https://en.wikipedia.org/wiki/Ising_model">Ising model</a> is a model used to represent magnetic dipole moments in statistical physics. Physical details are on the Wikipedia page, but what is interesting is that it follows a complex probability distribution on a lattice, where each site can take the value +1 or -1.</p>
+        <h2>Table of Contents</h2><ul>
+<li><a href="#mathematical-definition">Mathematical definition</a></li>
+<li><a href="#simulation">Simulation</a></li>
+<li><a href="#implementation">Implementation</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul>
+<p>The <a href="https://en.wikipedia.org/wiki/Ising_model">Ising model</a> is a model used to represent magnetic dipole moments in statistical physics. Physical details are on the Wikipedia page, but what is interesting is that it follows a complex probability distribution on a lattice, where each site can take the value +1 or -1.</p>
 <p><img src="../images/ising.gif" /></p>
 <h2 id="mathematical-definition">Mathematical definition</h2>
 <p>We have a lattice <span class="math inline">\(\Lambda\)</span> consisting of sites <span class="math inline">\(k\)</span>. For each site, there is a moment <span class="math inline">\(\sigma_k \in \{ -1, +1 \}\)</span>. <span class="math inline">\(\sigma =
@@ -846,7 +906,23 @@ J\sigma_i \sum_{j\sim i} \sigma_j.  \]</span></p>
         
     </section>
     <section>
-        <p>L-systems are a formal way to make interesting visualisations. You can use them to model a wide variety of objects: space-filling curves, fractals, biological systems, tilings, etc.</p>
+        <h2>Table of Contents</h2><ul>
+<li><a href="#what-is-an-l-system">What is an L-system?</a><ul>
+<li><a href="#a-few-examples-to-get-started">A few examples to get started</a></li>
+<li><a href="#definition">Definition</a></li>
+<li><a href="#drawing-instructions-and-representation">Drawing instructions and representation</a></li>
+</ul></li>
+<li><a href="#implementation-details">Implementation details</a><ul>
+<li><a href="#the-lsystem-data-type">The <code>LSystem</code> data type</a></li>
+<li><a href="#iterating-and-representing">Iterating and representing</a></li>
+<li><a href="#drawing">Drawing</a></li>
+</ul></li>
+<li><a href="#common-file-format-for-l-systems">Common file format for L-systems</a></li>
+<li><a href="#variations-on-l-systems">Variations on L-systems</a></li>
+<li><a href="#usage-notes">Usage notes</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+<p>L-systems are a formal way to make interesting visualisations. You can use them to model a wide variety of objects: space-filling curves, fractals, biological systems, tilings, etc.</p>
 <p>See the Github repo: <a href="https://github.com/dlozeve/lsystems" class="uri">https://github.com/dlozeve/lsystems</a></p>
 <h2 id="what-is-an-l-system">What is an L-system?</h2>
 <h3 id="a-few-examples-to-get-started">A few examples to get started</h3>

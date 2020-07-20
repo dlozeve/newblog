@@ -3,6 +3,7 @@ title: Generating and representing L-systems
 author: Dimitri Lozeve
 date: 2018-01-18
 tags: lsystems visualization algorithms haskell
+toc: true
 ---
 
 L-systems are a formal way to make interesting visualisations. You can

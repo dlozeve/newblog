@@ -1,6 +1,7 @@
 ---
 title: "Peano Axioms"
 date: 2019-03-18
+toc: true
 ---
 
 * Introduction

@@ -3,6 +3,7 @@ title: Ising model simulation
 author: Dimitri Lozeve
 date: 2018-02-05
 tags: ising visualization simulation montecarlo
+toc: true
 ---
 
 The [[https://en.wikipedia.org/wiki/Ising_model][Ising model]] is a

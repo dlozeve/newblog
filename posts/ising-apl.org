@@ -2,6 +2,7 @@
 title: Ising model simulation in APL
 date: 2018-03-05
 tags: ising simulation montecarlo apl
+toc: true
 ---
 
 * The APL family of languages
