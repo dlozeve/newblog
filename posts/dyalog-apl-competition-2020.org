@@ -204,7 +204,10 @@ integer is a zigzag number, 0 otherwise.
 
 *Solution:* ~∧/2=∘|2-/∘×2-/(10∘⊥⍣¯1)~
 
-TODO
+First, we decompose a number into an array of digits, using
+~(10∘⊥⍣¯1)~ ([[https://help.dyalog.com/latest/#Language/Primitive%20Functions/Decode.htm][Decode]] (~⊥~) in base 10). Then, we [[https://help.dyalog.com/latest/#Language/Primitive%20Operators/Reduce%20N%20Wise.htm][Reduce N Wise]] to
+compute the difference between each pair of digits, take the sign, and
+ensure that the signs are indeed alternating.
 
 ** 9. Rise and Fall
 
@@ -220,7 +223,30 @@ conform to the following pattern (0 otherwise):
 
 *Solution:* ~{∧/(⍳∘≢≡⍋)¨(⊂((⊢⍳⌈/)↑⊢),⍵),⊂⌽((⊢⍳⌈/)↓⊢),⍵}~
 
-TODO
+How do we approach this? First we have to split the vector at the
+"apex". The train ~(⊢⍳⌈/)~ will return the [[https://help.dyalog.com/latest/#Language/Primitive%20Functions/Index%20Of.htm][index of]] (~⍳~) the maximum
+element. 
+
+#+begin_src default
+      (⊢⍳⌈/)1 3 3 4 5 2 1
+5
+#+end_src
+
+Combined with [[https://help.dyalog.com/latest/#Language/Primitive%20Functions/Take.htm][Take]] (~↑~) and [[https://help.dyalog.com/latest/#Language/Primitive%20Functions/Drop.htm][Drop]] (~↓~), we build a two-element vector
+containing both parts, in ascending order (we [[https://help.dyalog.com/latest/#Language/Primitive%20Functions/Reverse.htm][Reverse]] (~⌽~) one of
+them). Note that we have to [[https://help.dyalog.com/latest/#Language/Primitive%20Functions/Ravel.htm][Ravel]] (~,~) the argument to avoid rank
+errors in Index Of.
+
+#+begin_src default
+      {(⊂((⊢⍳⌈/)↑⊢),⍵),⊂⌽((⊢⍳⌈/)↓⊢),⍵}1 3 3 4 5 2 1
+┌─────────┬───┐
+│1 3 3 4 5│1 2│
+└─────────┴───┘
+#+end_src
+
+Next, ~(⍳∘≢≡⍋)~ on each of the two vectors will test if they are
+non-decreasing (i.e. if the ranks of all the elements correspond to a
+simple range from 1 to the size of the vector).
 
 ** 10. Stacking It Up
 
@@ -235,7 +261,44 @@ right argument.
 
 *Solution:* ~{↑⊃,/↓¨⍕¨⍵}~
 
-TODO
+So this is a little bit by trial-and-error. The first step is to
+[[https://help.dyalog.com/latest/#Language/Primitive%20Functions/Format%20Monadic.htm][Format]] (~⍕~) everything to get strings. The next step would be to
+"stack everything vertically", so we will need [[https://help.dyalog.com/latest/#Language/Primitive%20Functions/Mix.htm][Mix]] (~↑~) at some
+point. However, if we do it immediately we don't get the correct
+result:
+
+#+begin_src default
+      {↑⍕¨⍵}(3 3⍴⍳9)(↑'Adam' 'Michael')
+1 2 3  
+4 5 6  
+7 8 9  
+       
+Adam   
+Michael
+#+end_src
+
+Mix is padding with spaces both horizontally (necessary as we want the
+output to be a simple array of characters) and vertically (not what we
+want). We will have to decompose everything line by line, and then mix
+all the lines together. This is exactly what [[https://help.dyalog.com/latest/#Language/Primitive%20Functions/Split.htm][Split]] (~↓~) does:
+
+#+begin_src default
+      {↓¨⍕¨⍵}(3 3⍴⍳9)(↑'Adam' 'Michael')(⍳10) '*'(5 5⍴⍳25)
+┌───────────────────┬─────────────────┬──────────────────────┬─┬───────────────
+│┌─────┬─────┬─────┐│┌───────┬───────┐│┌────────────────────┐│*│┌──────────────
+││1 2 3│4 5 6│7 8 9│││Adam   │Michael│││1 2 3 4 5 6 7 8 9 10││ ││ 1  2  3  4  5
+│└─────┴─────┴─────┘│└───────┴───────┘│└────────────────────┘│ │└──────────────
+└───────────────────┴─────────────────┴──────────────────────┴─┴───────────────
+
+      ─────────────────────────────────────────────────────────────┐
+      ┬──────────────┬──────────────┬──────────────┬──────────────┐│
+      │ 6  7  8  9 10│11 12 13 14 15│16 17 18 19 20│21 22 23 24 25││
+      ┴──────────────┴──────────────┴──────────────┴──────────────┘│
+      ─────────────────────────────────────────────────────────────┘
+#+end_src
+
+Next, we clean this up with Ravel (~,~) and we can Mix to obtain the
+final result.
 
 #+begin_src default
   :EndNamespace
