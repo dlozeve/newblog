@@ -18,20 +18,26 @@ Write a function that, given a right argument ~Y~ which is a scalar or
 a non-empty vector and a left argument ~X~ which is a single non-zero
 integer so that its absolute value is less or equal to ~≢Y~, splits
 ~Y~ into a vector of two vectors according to ~X~, as follows:
-- If ~X>0~, the first vector contains the first ~X~ elements of ~Y~
-  and the second vector contains the remaining elements.
-- If ~X<0~, the second vector contains the last ~|X~ elements of ~Y~
-  and the first vector contains the remaining elements.
+
+If ~X>0~, the first vector contains the first ~X~ elements of ~Y~ and
+the second vector contains the remaining elements.
+
+If ~X<0~, the second vector contains the last ~|X~ elements of ~Y~ and
+the first vector contains the remaining elements.
 #+end_quote
 
 *Solution:* ~(0>⊣)⌽((⊂↑),(⊂↓))~
 
-There are three nested trains here. The first one, ~((⊂↑),(⊂↓))~, uses
-the two functions [[https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/Take.htm][Take]] (~↑~) and [[https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/Drop.htm][Drop]] (~↓~) to build a nested array
-consisting of the two outputs we need. (Take and Drop already have the
-behaviour needed regarding negative arguments.) However, if the left
-argument is positive, the two arrays will not be in the correct
-order. So we need a way to reverse them if ~X<0~.
+There are three nested trains here[fn:trains]. The first one,
+~((⊂↑),(⊂↓))~, uses the two functions [[https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/Take.htm][Take]] (~↑~) and [[https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/Drop.htm][Drop]] (~↓~) to
+build a nested array consisting of the two outputs we need. (Take and
+Drop already have the behaviour needed regarding negative arguments.)
+However, if the left argument is positive, the two arrays will not be
+in the correct order. So we need a way to reverse them if ~X<0~.
+
+[fn:trains] Trains are nice to read (even if they are easy to abuse),
+and generally make for shorter dfns, which is better for Phase I.
+
 
 The second train ~(0>⊣)~ will return 1 if its left argument is
 positive. From this, we can use [[https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/Rotate.htm][Rotate]] (~⌽~) to correctly order the
@@ -136,7 +142,9 @@ the second, inclusively.
 
 First, we have to compute the range of the output, which is the
 absolute value of the difference between the two integers ~|-/⍵~. From
-this, we compute the actual sequence, including zero: ~0,⍳|-/⍵~.
+this, we compute the actual sequence, including zero[fn::If we had
+~⎕IO←0~, we could have written ~⍳|1+-/⍵~, but this is the same number
+of characters.]: ~0,⍳|-/⍵~.
 
 This sequence will always be nondecreasing, but we have to make it
 decreasing if needed, so we multiply it by the opposite of the sign of
@@ -261,11 +269,15 @@ right argument.
 
 *Solution:* ~{↑⊃,/↓¨⍕¨⍵}~
 
-So this is a little bit by trial-and-error. The first step is to
-[[https://help.dyalog.com/latest/#Language/Primitive%20Functions/Format%20Monadic.htm][Format]] (~⍕~) everything to get strings. The next step would be to
-"stack everything vertically", so we will need [[https://help.dyalog.com/latest/#Language/Primitive%20Functions/Mix.htm][Mix]] (~↑~) at some
-point. However, if we do it immediately we don't get the correct
-result:
+The first step is to [[https://help.dyalog.com/latest/#Language/Primitive%20Functions/Format%20Monadic.htm][Format]] (~⍕~) everything to get
+strings.[fn:trial-error] The next step would be to "stack everything
+vertically", so we will need [[https://help.dyalog.com/latest/#Language/Primitive%20Functions/Mix.htm][Mix]] (~↑~) at some point. However, if we
+do it immediately we don't get the correct result:
+
+[fn:trial-error] {-} A lot of trial-and-error is always necessary when
+dealing with nested arrays, and this being about formatting
+exacerbates the problem.
+
 
 #+begin_src default
       {↑⍕¨⍵}(3 3⍴⍳9)(↑'Adam' 'Michael')
@@ -280,7 +292,8 @@ Michael
 Mix is padding with spaces both horizontally (necessary as we want the
 output to be a simple array of characters) and vertically (not what we
 want). We will have to decompose everything line by line, and then mix
-all the lines together. This is exactly what [[https://help.dyalog.com/latest/#Language/Primitive%20Functions/Split.htm][Split]] (~↓~) does:
+all the lines together. This is exactly what [[https://help.dyalog.com/latest/#Language/Primitive%20Functions/Split.htm][Split]][fn::Split is the
+dual of Mix.] (~↓~) does:
 
 #+begin_src default
       {↓¨⍕¨⍵}(3 3⍴⍳9)(↑'Adam' 'Michael')(⍳10) '*'(5 5⍴⍳25)
