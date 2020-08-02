@@ -7,8 +7,381 @@
         <description><![CDATA[Recent posts]]></description>
         <atom:link href="https://www.lozeve.com/rss.xml" rel="self"
                    type="application/rss+xml" />
-        <lastBuildDate>Wed, 27 May 2020 00:00:00 UT</lastBuildDate>
+        <lastBuildDate>Sun, 02 Aug 2020 00:00:00 UT</lastBuildDate>
         <item>
+    <title>Dyalog APL Problem Solving Competition 2020 — Phase II</title>
+    <link>https://www.lozeve.com/posts/dyalog-apl-competition-2020-phase-2.html</link>
+    <description><![CDATA[<article>
+    <section class="header">
+        
+    </section>
+    <section>
+        <h2>Table of Contents</h2><ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#problem-1-take-a-dive">Problem 1 – Take a Dive</a></li>
+<li><a href="#problem-2-another-step-in-the-proper-direction">Problem 2 – Another Step in the Proper Direction</a></li>
+<li><a href="#problem-3-past-tasks-blast">Problem 3 – Past Tasks Blast</a></li>
+<li><a href="#problem-4-bioinformatics">Problem 4 – Bioinformatics</a></li>
+<li><a href="#problem-5-future-and-present-value">Problem 5 – Future and Present Value</a></li>
+<li><a href="#problem-6-merge">Problem 6 – Merge</a></li>
+<li><a href="#problem-7-upc">Problem 7 – UPC</a></li>
+<li><a href="#problem-8-balancing-the-scales">Problem 8 – Balancing the Scales</a></li>
+<li><a href="#problem-9-upwardly-mobile">Problem 9 – Upwardly Mobile</a></li>
+</ul>
+<h2 id="introduction">Introduction</h2>
+<p>After <a href="./dyalog-apl-competition-2020-phase-1.html">Phase I</a>, here are my solutions to Phase II problems. The full code is included in the post, but everything is also available <a href="https://github.com/dlozeve/apl-competition-2020">on GitHub</a>.</p>
+<p>A PDF of the problems descriptions is available on <a href="https://www.dyalogaplcompetition.com/">the competition website</a>, or directly from <a href="https://github.com/dlozeve/apl-competition-2020/blob/master/Contest2020/2020%20APL%20Problem%20Solving%20Competition%20Phase%20II%20Problems.pdf">my GitHub repo</a>.</p>
+<p>The submission guidelines gave a template where everything is defined in a <code>Contest2020.Problems</code> Namespace. I kept the default values for <code>⎕IO</code> and <code>⎕ML</code> because the problems were not particularly easier with <code>⎕IO←0</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb1-1" title="1">:Namespace Contest2020</a>
+<a class="sourceLine" id="cb1-2" title="2"></a>
+<a class="sourceLine" id="cb1-3" title="3">    :Namespace Problems</a>
+<a class="sourceLine" id="cb1-4" title="4">        (⎕IO ⎕ML ⎕WX)←1 1 3</a></code></pre></div>
+<blockquote>
+<p>This post is still a work in progress! I will try to write explanations for every problem below.</p>
+</blockquote>
+<h2 id="problem-1-take-a-dive">Problem 1 – Take a Dive</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb2-1" title="1">∇ score←dd DiveScore scores</a>
+<a class="sourceLine" id="cb2-2" title="2">  :If 7=≢scores</a>
+<a class="sourceLine" id="cb2-3" title="3">      scores←scores[¯2↓2↓⍋scores]</a>
+<a class="sourceLine" id="cb2-4" title="4">  :ElseIf 5=≢scores</a>
+<a class="sourceLine" id="cb2-5" title="5">      scores←scores[¯1↓1↓⍋scores]</a>
+<a class="sourceLine" id="cb2-6" title="6">  :Else</a>
+<a class="sourceLine" id="cb2-7" title="7">      scores←scores</a>
+<a class="sourceLine" id="cb2-8" title="8">  :EndIf</a>
+<a class="sourceLine" id="cb2-9" title="9">  score←2(⍎⍕)dd×+/scores</a>
+<a class="sourceLine" id="cb2-10" title="10">∇</a></code></pre></div>
+<h2 id="problem-2-another-step-in-the-proper-direction">Problem 2 – Another Step in the Proper Direction</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb3-1" title="1">∇ steps←{p}Steps fromTo;segments;width</a>
+<a class="sourceLine" id="cb3-2" title="2">  width←|-/fromTo</a>
+<a class="sourceLine" id="cb3-3" title="3">  :If 0=⎕NC'p' ⍝ No left argument: same as Problem 5 of Phase I</a>
+<a class="sourceLine" id="cb3-4" title="4">      segments←0,⍳width</a>
+<a class="sourceLine" id="cb3-5" title="5">  :ElseIf p&lt;0 ⍝ -⌊p is the number of equally-sized steps to take</a>
+<a class="sourceLine" id="cb3-6" title="6">      segments←(-⌊p){0,⍵×⍺÷⍨⍳⍺}width</a>
+<a class="sourceLine" id="cb3-7" title="7">  :ElseIf p&gt;0 ⍝ p is the step size</a>
+<a class="sourceLine" id="cb3-8" title="8">      segments←p{⍵⌊⍺×0,⍳⌈⍵÷⍺}width</a>
+<a class="sourceLine" id="cb3-9" title="9">  :ElseIf p=0 ⍝ As if we took zero step</a>
+<a class="sourceLine" id="cb3-10" title="10">      segments←0</a>
+<a class="sourceLine" id="cb3-11" title="11">  :EndIf</a>
+<a class="sourceLine" id="cb3-12" title="12">  ⍝ Take into account the start point and the direction.</a>
+<a class="sourceLine" id="cb3-13" title="13">  steps←fromTo{(⊃⍺)+(-×-/⍺)×⍵}segments</a>
+<a class="sourceLine" id="cb3-14" title="14">∇</a></code></pre></div>
+<h2 id="problem-3-past-tasks-blast">Problem 3 – Past Tasks Blast</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb4-1" title="1">∇ urls←PastTasks url;r;paths</a>
+<a class="sourceLine" id="cb4-2" title="2">  r←HttpCommand.Get url</a>
+<a class="sourceLine" id="cb4-3" title="3">  paths←('[a-zA-Z0-9_/]+\.pdf'⎕S'&amp;')r.Data</a>
+<a class="sourceLine" id="cb4-4" title="4">  urls←('https://www.dyalog.com/'∘,)¨paths</a>
+<a class="sourceLine" id="cb4-5" title="5">∇</a></code></pre></div>
+<h2 id="problem-4-bioinformatics">Problem 4 – Bioinformatics</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb5-1" title="1">⍝ Test if a DNA string is a reverse palindrome.</a>
+<a class="sourceLine" id="cb5-2" title="2">isrevp←{⍵≡⌽'TAGC'['ATCG'⍳⍵]}</a>
+<a class="sourceLine" id="cb5-3" title="3"></a>
+<a class="sourceLine" id="cb5-4" title="4">⍝ Generate all subarrays (position, length) pairs, for</a>
+<a class="sourceLine" id="cb5-5" title="5">⍝ 4 ≤ length ≤ 12.</a>
+<a class="sourceLine" id="cb5-6" title="6">subarrays←{⊃,/(⍳⍵),¨¨3↓¨⍳¨12⌊1+⍵-⍳⍵}</a>
+<a class="sourceLine" id="cb5-7" title="7"></a>
+<a class="sourceLine" id="cb5-8" title="8">∇ r←revp dna;positions</a>
+<a class="sourceLine" id="cb5-9" title="9">  positions←subarrays⍴dna</a>
+<a class="sourceLine" id="cb5-10" title="10">  ⍝ Filter subarrays which are reverse palindromes.</a>
+<a class="sourceLine" id="cb5-11" title="11">  r←↑({isrevp dna[¯1+⍵[1]+⍳⍵[2]]}¨positions)/positions</a>
+<a class="sourceLine" id="cb5-12" title="12">∇</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb6-1" title="1">sset←{((1E6|2∘×)⍣⍵)1}</a></code></pre></div>
+<h2 id="problem-5-future-and-present-value">Problem 5 – Future and Present Value</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb7-1" title="1">⍝ First solution: ((1+⊢)⊥⊣) computes the total return</a>
+<a class="sourceLine" id="cb7-2" title="2">⍝ for a vector of amounts ⍺ and a vector of rates</a>
+<a class="sourceLine" id="cb7-3" title="3">⍝ ⍵. It is applied to every prefix subarray of amounts</a>
+<a class="sourceLine" id="cb7-4" title="4">⍝ and rates to get all intermediate values. However,</a>
+<a class="sourceLine" id="cb7-5" title="5">⍝ this has quadratic complexity.</a>
+<a class="sourceLine" id="cb7-6" title="6">⍝ rr←(,\⊣)((1+⊢)⊥⊣)¨(,\⊢)</a>
+<a class="sourceLine" id="cb7-7" title="7"></a>
+<a class="sourceLine" id="cb7-8" title="8">⍝ Second solution: We want to be able to use the</a>
+<a class="sourceLine" id="cb7-9" title="9">⍝ recurrence relation (recur) and scan through the</a>
+<a class="sourceLine" id="cb7-10" title="10">⍝ vectors of amounts and rates, accumulating the total</a>
+<a class="sourceLine" id="cb7-11" title="11">⍝ value at every time step. However, APL evaluation is</a>
+<a class="sourceLine" id="cb7-12" title="12">⍝ right-associative, so a simple Scan</a>
+<a class="sourceLine" id="cb7-13" title="13">⍝ (recur\amounts,¨values) would not give the correct</a>
+<a class="sourceLine" id="cb7-14" title="14">⍝ result, since recur is not associative and we need</a>
+<a class="sourceLine" id="cb7-15" title="15">⍝ to evaluate it left-to-right. (In any case, in this</a>
+<a class="sourceLine" id="cb7-16" title="16">⍝ case, Scan would have quadratic complexity, so would</a>
+<a class="sourceLine" id="cb7-17" title="17">⍝ not bring any benefit over the previous solution.)</a>
+<a class="sourceLine" id="cb7-18" title="18">⍝ What we need is something akin to Haskell's scanl</a>
+<a class="sourceLine" id="cb7-19" title="19">⍝ function, which would evaluate left to right in O(n)</a>
+<a class="sourceLine" id="cb7-20" title="20">⍝ time. This is what we do here, accumulating values</a>
+<a class="sourceLine" id="cb7-21" title="21">⍝ from left to right. (This is inspired from</a>
+<a class="sourceLine" id="cb7-22" title="22">⍝ dfns.ascan, although heavily simplified.)</a>
+<a class="sourceLine" id="cb7-23" title="23">rr←{recur←{⍵[1]+⍺×1+⍵[2]} ⋄ 1↓⌽⊃{(⊂(⊃⍵)recur⍺),⍵}/⌽⍺,¨⍵}</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb8-1" title="1">⍝ Simply apply the formula for cashflow calculations.</a>
+<a class="sourceLine" id="cb8-2" title="2">pv←{+/⍺÷×\1+⍵}</a></code></pre></div>
+<h2 id="problem-6-merge">Problem 6 – Merge</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb9-1" title="1">∇ val←ns getval var</a>
+<a class="sourceLine" id="cb9-2" title="2">  :If ''≡var ⍝ literal '@'</a>
+<a class="sourceLine" id="cb9-3" title="3">      val←'@'</a>
+<a class="sourceLine" id="cb9-4" title="4">  :ElseIf (⊂var)∊ns.⎕NL ¯2</a>
+<a class="sourceLine" id="cb9-5" title="5">      val←⍕ns⍎var</a>
+<a class="sourceLine" id="cb9-6" title="6">  :Else</a>
+<a class="sourceLine" id="cb9-7" title="7">      val←'???'</a>
+<a class="sourceLine" id="cb9-8" title="8">  :EndIf</a>
+<a class="sourceLine" id="cb9-9" title="9">∇</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb10-1" title="1">∇ text←templateFile Merge jsonFile;template;ns</a>
+<a class="sourceLine" id="cb10-2" title="2">  template←⊃⎕NGET templateFile 1</a>
+<a class="sourceLine" id="cb10-3" title="3">  ns←⎕JSON⊃⎕NGET jsonFile</a>
+<a class="sourceLine" id="cb10-4" title="4">  ⍝ We use a simple regex search and replace on the</a>
+<a class="sourceLine" id="cb10-5" title="5">  ⍝ template.</a>
+<a class="sourceLine" id="cb10-6" title="6">  text←↑('@[a-zA-Z]*@'⎕R{ns getval ¯1↓1↓⍵.Match})template</a>
+<a class="sourceLine" id="cb10-7" title="7">∇</a></code></pre></div>
+<h2 id="problem-7-upc">Problem 7 – UPC</h2>
+<div class="sourceCode" id="cb11"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb11-1" title="1">CheckDigit←{10|-⍵+.×11⍴3 1}</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb12-1" title="1">⍝ Left and right representations of digits. Decoding</a>
+<a class="sourceLine" id="cb12-2" title="2">⍝ the binary representation from decimal is more</a>
+<a class="sourceLine" id="cb12-3" title="3">⍝ compact than writing everything explicitly.</a>
+<a class="sourceLine" id="cb12-4" title="4">lrepr←⍉(7⍴2)⊤13 25 19 61 35 49 47 59 55 11</a>
+<a class="sourceLine" id="cb12-5" title="5">rrepr←~¨lrepr</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb13-1" title="1">∇ bits←WriteUPC digits;left;right</a>
+<a class="sourceLine" id="cb13-2" title="2">  :If (11=≢digits)∧∧/digits∊0,⍳9</a>
+<a class="sourceLine" id="cb13-3" title="3">      left←,lrepr[1+6↑digits;]</a>
+<a class="sourceLine" id="cb13-4" title="4">      right←,rrepr[1+6↓digits,CheckDigit digits;]</a>
+<a class="sourceLine" id="cb13-5" title="5">      bits←1 0 1,left,0 1 0 1 0,right,1 0 1</a>
+<a class="sourceLine" id="cb13-6" title="6">  :Else</a>
+<a class="sourceLine" id="cb13-7" title="7">      bits←¯1</a>
+<a class="sourceLine" id="cb13-8" title="8">  :EndIf</a>
+<a class="sourceLine" id="cb13-9" title="9">∇</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb14-1" title="1">∇ digits←ReadUPC bits</a>
+<a class="sourceLine" id="cb14-2" title="2">  :If 95≠⍴bits ⍝ incorrect number of bits</a>
+<a class="sourceLine" id="cb14-3" title="3">      digits←¯1</a>
+<a class="sourceLine" id="cb14-4" title="4">  :Else</a>
+<a class="sourceLine" id="cb14-5" title="5">      ⍝ Test if the barcode was scanned right-to-left.</a>
+<a class="sourceLine" id="cb14-6" title="6">      :If 0=2|+/bits[3+⍳7]</a>
+<a class="sourceLine" id="cb14-7" title="7">          bits←⌽bits</a>
+<a class="sourceLine" id="cb14-8" title="8">      :EndIf</a>
+<a class="sourceLine" id="cb14-9" title="9">      digits←({¯1+lrepr⍳⍵}¨(7/⍳6)⊆42↑3↓bits),{¯1+rrepr⍳⍵}¨(7/⍳6)⊆¯42↑¯3↓bits</a>
+<a class="sourceLine" id="cb14-10" title="10">      :If ~∧/digits∊0,⍳9 ⍝ incorrect parity</a>
+<a class="sourceLine" id="cb14-11" title="11">          digits←¯1</a>
+<a class="sourceLine" id="cb14-12" title="12">      :ElseIf (⊃⌽digits)≠CheckDigit ¯1↓digits ⍝ incorrect check digit</a>
+<a class="sourceLine" id="cb14-13" title="13">          digits←¯1</a>
+<a class="sourceLine" id="cb14-14" title="14">      :EndIf</a>
+<a class="sourceLine" id="cb14-15" title="15">  :EndIf</a>
+<a class="sourceLine" id="cb14-16" title="16">∇</a></code></pre></div>
+<h2 id="problem-8-balancing-the-scales">Problem 8 – Balancing the Scales</h2>
+<div class="sourceCode" id="cb15"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb15-1" title="1">∇ parts←Balance nums;subsets;partitions</a>
+<a class="sourceLine" id="cb15-2" title="2">  ⍝ This is a brute force solution, running in</a>
+<a class="sourceLine" id="cb15-3" title="3">  ⍝ exponential time. We generate all the possible</a>
+<a class="sourceLine" id="cb15-4" title="4">  ⍝ partitions, filter out those which are not</a>
+<a class="sourceLine" id="cb15-5" title="5">  ⍝ balanced, and return the first matching one. There</a>
+<a class="sourceLine" id="cb15-6" title="6">  ⍝ are more advanced approach running in</a>
+<a class="sourceLine" id="cb15-7" title="7">  ⍝ pseudo-polynomial time (based on dynamic</a>
+<a class="sourceLine" id="cb15-8" title="8">  ⍝ programming, see the &quot;Partition problem&quot; Wikipedia</a>
+<a class="sourceLine" id="cb15-9" title="9">  ⍝ page), but they are not warranted here, as the</a>
+<a class="sourceLine" id="cb15-10" title="10">  ⍝ input size remains fairly small.</a>
+<a class="sourceLine" id="cb15-11" title="11"></a>
+<a class="sourceLine" id="cb15-12" title="12">  ⍝ Generate all partitions of a vector of a given</a>
+<a class="sourceLine" id="cb15-13" title="13">  ⍝ size, as binary mask vectors.</a>
+<a class="sourceLine" id="cb15-14" title="14">  subsets←{1↓2⊥⍣¯1⍳2*⍵}</a>
+<a class="sourceLine" id="cb15-15" title="15">  ⍝ Keep only the subsets whose sum is exactly</a>
+<a class="sourceLine" id="cb15-16" title="16">  ⍝ (+/nums)÷2.</a>
+<a class="sourceLine" id="cb15-17" title="17">  partitions←nums{((2÷⍨+/⍺)=⍺+.×⍵)/⍵}subsets⍴nums</a>
+<a class="sourceLine" id="cb15-18" title="18">  :If 0=≢,partitions</a>
+<a class="sourceLine" id="cb15-19" title="19">      ⍝ If no partition satisfy the above</a>
+<a class="sourceLine" id="cb15-20" title="20">      ⍝ criterion, we return ⍬.</a>
+<a class="sourceLine" id="cb15-21" title="21">      parts←⍬</a>
+<a class="sourceLine" id="cb15-22" title="22">  :Else</a>
+<a class="sourceLine" id="cb15-23" title="23">      ⍝ Otherwise, we return the first possible</a>
+<a class="sourceLine" id="cb15-24" title="24">      ⍝ partition.</a>
+<a class="sourceLine" id="cb15-25" title="25">      parts←nums{((⊂,(⊂~))⊃↓⍉⍵)/¨2⍴⊂⍺}partitions</a>
+<a class="sourceLine" id="cb15-26" title="26">  :EndIf</a>
+<a class="sourceLine" id="cb15-27" title="27">∇</a></code></pre></div>
+<h2 id="problem-9-upwardly-mobile">Problem 9 – Upwardly Mobile</h2>
+<div class="sourceCode" id="cb16"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb16-1" title="1">∇ weights←Weights filename;mobile;branches;mat</a>
+<a class="sourceLine" id="cb16-2" title="2">  ⍝ Put your code and comments below here</a>
+<a class="sourceLine" id="cb16-3" title="3"></a>
+<a class="sourceLine" id="cb16-4" title="4">  ⍝ Parse the mobile input file.</a>
+<a class="sourceLine" id="cb16-5" title="5">  mobile←↑⊃⎕NGET filename 1</a>
+<a class="sourceLine" id="cb16-6" title="6">  branches←⍸mobile∊'┌┴┐'</a>
+<a class="sourceLine" id="cb16-7" title="7">  ⍝ TODO: Build the matrix of coefficients mat.</a>
+<a class="sourceLine" id="cb16-8" title="8"></a>
+<a class="sourceLine" id="cb16-9" title="9">  ⍝ Solve the system of equations (arbitrarily setting</a>
+<a class="sourceLine" id="cb16-10" title="10">  ⍝ the first variable at 1 because the system is</a>
+<a class="sourceLine" id="cb16-11" title="11">  ⍝ overdetermined), then multiply the coefficients by</a>
+<a class="sourceLine" id="cb16-12" title="12">  ⍝ their least common multiple to get the smallest</a>
+<a class="sourceLine" id="cb16-13" title="13">  ⍝ integer weights.</a>
+<a class="sourceLine" id="cb16-14" title="14">  weights←((1∘,)×(∧/÷))mat[;1]⌹1↓[2]mat</a>
+<a class="sourceLine" id="cb16-15" title="15">∇</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb17-1" title="1">    :EndNamespace</a>
+<a class="sourceLine" id="cb17-2" title="2">:EndNamespace</a></code></pre></div>
+    </section>
+</article>
+]]></description>
+    <pubDate>Sun, 02 Aug 2020 00:00:00 UT</pubDate>
+    <guid>https://www.lozeve.com/posts/dyalog-apl-competition-2020-phase-2.html</guid>
+    <dc:creator>Dimitri Lozeve</dc:creator>
+</item>
+<item>
+    <title>Dyalog APL Problem Solving Competition 2020 — Phase I</title>
+    <link>https://www.lozeve.com/posts/dyalog-apl-competition-2020-phase-1.html</link>
+    <description><![CDATA[<article>
+    <section class="header">
+        
+    </section>
+    <section>
+        <h2>Table of Contents</h2><ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#lets-split">1. Let’s Split!</a></li>
+<li><a href="#character-building">2. Character Building</a></li>
+<li><a href="#excel-lent-columns">3. Excel-lent Columns</a></li>
+<li><a href="#take-a-leap">4. Take a Leap</a></li>
+<li><a href="#stepping-in-the-proper-direction">5. Stepping in the Proper Direction</a></li>
+<li><a href="#please-move-to-the-front">6. Please Move to the Front</a></li>
+<li><a href="#see-you-in-a-bit">7. See You in a Bit</a></li>
+<li><a href="#zigzag-numbers">8. Zigzag Numbers</a></li>
+<li><a href="#rise-and-fall">9. Rise and Fall</a></li>
+<li><a href="#stacking-it-up">10. Stacking It Up</a></li>
+</ul>
+<h2 id="introduction">Introduction</h2>
+<p>I’ve always been quite fond of <a href="https://en.wikipedia.org/wiki/APL_(programming_language)">APL</a> and its “array-oriented” approach of programming<span><label for="sn-1" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-1" class="margin-toggle" /><span class="sidenote">See my <a href="./ising-apl.html">previous post</a> on simulating the Ising model with APL. It also contains more background on APL.<br />
+<br />
+</span></span>. Every year, <a href="https://www.dyalog.com/">Dyalog</a> (the company behind probably the most popular APL implementation) organises a competition with various challenges in APL.</p>
+<p>The <a href="https://www.dyalogaplcompetition.com/">Dyalog APL Problem Solving Competition</a> consists of two phases:</p>
+<ul>
+<li>Phase I consists of 10 short puzzles (similar to what one can find on <a href="https://projecteuler.net/">Project Euler</a> or similar), that can be solved by a one-line APL function.</li>
+<li>Phase II is a collection of larger problems, that may require longer solutions and a larger context (e.g. reading and writing to files), often in a more applied setting. Problems are often inspired by existing domains, such as AI, bioinformatics, and so on.</li>
+</ul>
+<p>In 2018, I participated in the competition, entering only Phase I<span><label for="sn-2" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-2" class="margin-toggle" /><span class="sidenote">Since I was a student at the time, I was eligible for a prize, and <a href="https://www.dyalog.com/nnews/128/456/Winners-Announced-for-the-2018-APL-Programming-Contest.htm">I won $100</a> for a 10-line submission, which is quite good!<br />
+<br />
+</span></span> (my solutions are on <a href="https://github.com/dlozeve/apl-competition-2018">GitHub</a>). This year, I entered in both phases. I explain my solutions to Phase I in this post. Another post will contain annotated solutions for Phase II problems.</p>
+<p>The full code for my submission is on GitHub at <a href="https://github.com/dlozeve/apl-competition-2020">dlozeve/apl-competition-2020</a>, but everything is reproduced in this post.</p>
+<h2 id="lets-split">1. Let’s Split!</h2>
+<blockquote>
+<p>Write a function that, given a right argument <code>Y</code> which is a scalar or a non-empty vector and a left argument <code>X</code> which is a single non-zero integer so that its absolute value is less or equal to <code>≢Y</code>, splits <code>Y</code> into a vector of two vectors according to <code>X</code>, as follows:</p>
+<p>If <code>X&gt;0</code>, the first vector contains the first <code>X</code> elements of <code>Y</code> and the second vector contains the remaining elements.</p>
+<p>If <code>X&lt;0</code>, the second vector contains the last <code>|X</code> elements of <code>Y</code> and the first vector contains the remaining elements.</p>
+</blockquote>
+<p><strong>Solution:</strong> <code>(0&gt;⊣)⌽((⊂↑),(⊂↓))</code></p>
+<p>There are three nested trains here<span><label for="sn-3" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-3" class="margin-toggle" /><span class="sidenote">Trains are nice to read (even if they are easy to abuse), and generally make for shorter dfns, which is better for Phase I.<br />
+<br />
+</span></span>. The first one, <code>((⊂↑),(⊂↓))</code>, uses the two functions <a href="https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/Take.htm">Take</a> (<code>↑</code>) and <a href="https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/Drop.htm">Drop</a> (<code>↓</code>) to build a nested array consisting of the two outputs we need. (Take and Drop already have the behaviour needed regarding negative arguments.) However, if the left argument is positive, the two arrays will not be in the correct order. So we need a way to reverse them if <code>X&lt;0</code>.</p>
+<p>The second train <code>(0&gt;⊣)</code> will return 1 if its left argument is positive. From this, we can use <a href="https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/Rotate.htm">Rotate</a> (<code>⌽</code>) to correctly order the nested array, in the last train.</p>
+<h2 id="character-building">2. Character Building</h2>
+<blockquote>
+<p>UTF-8 encodes Unicode characters using 1-4 integers for each character. Dyalog APL includes a system function, <code>⎕UCS</code>, that can convert characters into integers and integers into characters. The expression <code>'UTF-8'∘⎕UCS</code> converts between characters and UTF-8.</p>
+<p>Consider the following:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb1-1" title="1">      'UTF-8'∘⎕UCS 'D¥⍺⌊○9'</a>
+<a class="sourceLine" id="cb1-2" title="2">68 194 165 226 141 186 226 140 138 226 151 139 57</a>
+<a class="sourceLine" id="cb1-3" title="3">      'UTF-8'∘⎕UCS 68 194 165 226 141 186 226 140 138 226 151 139 57</a>
+<a class="sourceLine" id="cb1-4" title="4">D¥⍺⌊○9</a></code></pre></div>
+<p>How many integers does each character use?</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb2-1" title="1">      'UTF-8'∘⎕UCS¨ 'D¥⍺⌊○9' ⍝ using ]Boxing on</a>
+<a class="sourceLine" id="cb2-2" title="2">┌──┬───────┬───────────┬───────────┬───────────┬──┐</a>
+<a class="sourceLine" id="cb2-3" title="3">│68│194 165│226 141 186│226 140 138│226 151 139│57│</a>
+<a class="sourceLine" id="cb2-4" title="4">└──┴───────┴───────────┴───────────┴───────────┴──┘      </a></code></pre></div>
+<p>The rule is that an integer in the range 128 to 191 (inclusive) continues the character of the previous integer (which may itself be a continuation). With that in mind, write a function that, given a right argument which is a simple integer vector representing valid UTF-8 text, encloses each sequence of integers that represent a single character, like the result of <code>'UTF-8'∘⎕UCS¨'UTF-8'∘⎕UCS</code> but does not use any system functions (names beginning with <code>⎕</code>)</p>
+</blockquote>
+<p><strong>Solution:</strong> <code>{(~⍵∊127+⍳64)⊂⍵}</code></p>
+<p>First, we build a binary array from the string, encoding each continuation character as 0, and all the others as 1. Next, we can use this binary array with <a href="https://help.dyalog.com/latest/#Language/Primitive%20Functions/Partitioned%20Enclose.htm">Partitioned Enclose</a> (<code>⊂</code>) to return the correct output.</p>
+<h2 id="excel-lent-columns">3. Excel-lent Columns</h2>
+<blockquote>
+<p>A Microsoft Excel spreadsheet numbers its rows counting up from 1. However, Excel’s columns are labelled alphabetically — beginning with A–Z, then AA–AZ, BA–BZ, up to ZA–ZZ, then AAA–AAZ and so on.</p>
+<p>Write a function that, given a right argument which is a character scalar or non-empty vector representing a valid character Excel column identifier between A and XFD, returns the corresponding column number</p>
+</blockquote>
+<p><strong>Solution:</strong> <code>26⊥⎕A∘⍳</code></p>
+<p>We use the alphabet <code>⎕A</code> and <a href="https://help.dyalog.com/latest/#Language/Primitive%20Functions/Index%20Of.htm">Index Of</a> (<code>⍳</code>) to compute the index in the alphabet of every character. As a train, this can be done by <code>(⎕A∘⍳)</code>. We then obtain an array of numbers, each representing a letter from 1 to 26. The <a href="https://help.dyalog.com/latest/#Language/Primitive%20Functions/Decode.htm">Decode</a> (<code>⊥</code>) function can then turn this base-26 number into the expected result.</p>
+<h2 id="take-a-leap">4. Take a Leap</h2>
+<blockquote>
+<p>Write a function that, given a right argument which is an integer array of year numbers greater than or equal to 1752 and less than 4000, returns a result of the same shape as the right argument where 1 indicates that the corresponding year is a leap year (0 otherwise).</p>
+<p>A leap year algorithm can be found <a href="https://en.wikipedia.org/wiki/Leap_year#Algorithm">here</a>.</p>
+</blockquote>
+<p><strong>Solution:</strong> <code>1 3∊⍨(0+.=400 100 4∘.|⊢)</code></p>
+<p>According to the algorithm, a year is a leap year in two situations:</p>
+<ul>
+<li>if it is divisible by 4, but not 100 (and therefore not 400),</li>
+<li>if it is divisible by 400 (and therefore 4 and 100 as well).</li>
+</ul>
+<p>The train <code>(400 100 4∘.|⊢)</code> will test if each year in the right argument is divisible by 400, 100, and 4, using an <a href="https://help.dyalog.com/latest/#Language/Primitive%20Operators/Outer%20Product.htm">Outer Product</a>. We then use an <a href="https://help.dyalog.com/latest/#Language/Primitive%20Operators/Inner%20Product.htm">Inner Product</a> to count how many times each year is divisible by one of these numbers. If the count is 1 or 3, it is a leap year. Note that we use <a href="https://help.dyalog.com/latest/#Language/Primitive%20Operators/Commute.htm">Commute</a> (<code>⍨</code>) to keep the dfn as a train, and to preserve the natural right-to-left reading of the algorithm.</p>
+<h2 id="stepping-in-the-proper-direction">5. Stepping in the Proper Direction</h2>
+<blockquote>
+<p>Write a function that, given a right argument of 2 integers, returns a vector of the integers from the first element of the right argument to the second, inclusively.</p>
+</blockquote>
+<p><strong>Solution:</strong> <code>{(⊃⍵)+(-×-/⍵)×0,⍳|-/⍵}</code></p>
+<p>First, we have to compute the range of the output, which is the absolute value of the difference between the two integers <code>|-/⍵</code>. From this, we compute the actual sequence, including zero<span><label for="sn-4" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-4" class="margin-toggle" /><span class="sidenote">If we had <code>⎕IO←0</code>, we could have written <code>⍳|1+-/⍵</code>, but this is the same number of characters.<br />
+<br />
+</span></span>: <code>0,⍳|-/⍵</code>.</p>
+<p>This sequence will always be nondecreasing, but we have to make it decreasing if needed, so we multiply it by the opposite of the sign of <code>-/⍵</code>. Finally, we just have to start the sequence at the first element of <code>⍵</code>.</p>
+<h2 id="please-move-to-the-front">6. Please Move to the Front</h2>
+<blockquote>
+<p>Write a function that, given a right argument which is an integer vector and a left argument which is an integer scalar, reorders the right argument so any elements equal to the left argument come first while all other elements keep their order.</p>
+</blockquote>
+<p><strong>Solution:</strong> <code>{⍵[⍋⍺≠⍵]}</code></p>
+<p><code>⍺≠⍵</code> will return a binary vector marking as 0 all elements equal to the left argument. Using this index to sort in the usual way with <a href="https://help.dyalog.com/latest/#Language/Primitive%20Functions/Grade%20Up%20Monadic.htm">Grade Up</a> will return the expected result.</p>
+<h2 id="see-you-in-a-bit">7. See You in a Bit</h2>
+<blockquote>
+<p>A common technique for encoding a set of on/off states is to use a value of <span class="math inline">\(2^n\)</span> for the state in position <span class="math inline">\(n\)</span> (origin 0), 1 if the state is “on” or 0 for “off” and then add the values. Dyalog APL’s <a href="https://help.dyalog.com/17.1/#Language/APL%20Component%20Files/Component%20Files.htm#File_Access_Control">component file permission codes</a> are an example of this. For example, if you wanted to grant permissions for read (access code 1), append (access code 8) and rename (access code 128) then the resulting code would be 137 because that’s 1 + 8 + 128.</p>
+<p>Write a function that, given a non-negative right argument which is an integer scalar representing the encoded state and a left argument which is an integer scalar representing the encoded state settings that you want to query, returns 1 if all of the codes in the left argument are found in the right argument (0 otherwise).</p>
+</blockquote>
+<p><strong>Solution:</strong> <code>{f←⍸∘⌽(2∘⊥⍣¯1)⋄∧/(f⍺)∊f⍵}</code></p>
+<p>The difficult part is to find the set of states for an integer. We need a function that will return <code>1 8 128</code> (or an equivalent representation) for an input of <code>137</code>. To do this, we need the base-2 representations of <span class="math inline">\(137 = 1 + 8 + 128 = 2^0 + 2^3 + 2^7 =
+10010001_2\)</span>. The function <code>(2∘⊥⍣¯1)</code> will return the base-2 representation of its argument, and by <a href="https://help.dyalog.com/latest/#Language/Primitive%20Functions/Reverse.htm">reversing</a> and finding <a href="https://help.dyalog.com/latest/#Language/Primitive%20Functions/Where.htm">where</a> the non-zero elements are, we find the correct exponents (<code>1 3 7</code> in this case). That is what the function <code>f</code> does.</p>
+<p>Next, we just need to check that all elements of <code>f⍺</code> are also in <code>f⍵</code>.</p>
+<h2 id="zigzag-numbers">8. Zigzag Numbers</h2>
+<blockquote>
+<p>A zigzag number is an integer in which the difference in magnitude of each pair of consecutive digits alternates from positive to negative or negative to positive.</p>
+<p>Write a function that takes a single integer greater than or equal to 100 and less than 10<sup>15</sup> as its right argument and returns a 1 if the integer is a zigzag number, 0 otherwise.</p>
+</blockquote>
+<p><strong>Solution:</strong> <code>∧/2=∘|2-/∘×2-/(10∘⊥⍣¯1)</code></p>
+<p>First, we decompose a number into an array of digits, using <code>(10∘⊥⍣¯1)</code> (<a href="https://help.dyalog.com/latest/#Language/Primitive%20Functions/Decode.htm">Decode</a> (<code>⊥</code>) in base 10). Then, we <a href="https://help.dyalog.com/latest/#Language/Primitive%20Operators/Reduce%20N%20Wise.htm">Reduce N Wise</a> to compute the difference between each pair of digits, take the sign, and ensure that the signs are indeed alternating.</p>
+<h2 id="rise-and-fall">9. Rise and Fall</h2>
+<blockquote>
+<p>Write a function that, given a right argument which is an integer scalar or vector, returns a 1 if the values of the right argument conform to the following pattern (0 otherwise):</p>
+<ul>
+<li>The elements increase or stay the same until the “apex” (the highest value) is reached</li>
+<li>After the apex, any remaining values decrease or remain the same</li>
+</ul>
+</blockquote>
+<p><strong>Solution:</strong> <code>{∧/(⍳∘≢≡⍋)¨(⊂((⊢⍳⌈/)↑⊢),⍵),⊂⌽((⊢⍳⌈/)↓⊢),⍵}</code></p>
+<p>How do we approach this? First we have to split the vector at the “apex”. The train <code>(⊢⍳⌈/)</code> will return the <a href="https://help.dyalog.com/latest/#Language/Primitive%20Functions/Index%20Of.htm">index of</a> (<code>⍳</code>) the maximum element.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb3-1" title="1">      (⊢⍳⌈/)1 3 3 4 5 2 1</a>
+<a class="sourceLine" id="cb3-2" title="2">5</a></code></pre></div>
+<p>Combined with <a href="https://help.dyalog.com/latest/#Language/Primitive%20Functions/Take.htm">Take</a> (<code>↑</code>) and <a href="https://help.dyalog.com/latest/#Language/Primitive%20Functions/Drop.htm">Drop</a> (<code>↓</code>), we build a two-element vector containing both parts, in ascending order (we <a href="https://help.dyalog.com/latest/#Language/Primitive%20Functions/Reverse.htm">Reverse</a> (<code>⌽</code>) one of them). Note that we have to <a href="https://help.dyalog.com/latest/#Language/Primitive%20Functions/Ravel.htm">Ravel</a> (<code>,</code>) the argument to avoid rank errors in Index Of.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb4-1" title="1">      {(⊂((⊢⍳⌈/)↑⊢),⍵),⊂⌽((⊢⍳⌈/)↓⊢),⍵}1 3 3 4 5 2 1</a>
+<a class="sourceLine" id="cb4-2" title="2">┌─────────┬───┐</a>
+<a class="sourceLine" id="cb4-3" title="3">│1 3 3 4 5│1 2│</a>
+<a class="sourceLine" id="cb4-4" title="4">└─────────┴───┘</a></code></pre></div>
+<p>Next, <code>(⍳∘≢≡⍋)</code> on each of the two vectors will test if they are non-decreasing (i.e. if the ranks of all the elements correspond to a simple range from 1 to the size of the vector).</p>
+<h2 id="stacking-it-up">10. Stacking It Up</h2>
+<blockquote>
+<p>Write a function that takes as its right argument a vector of simple arrays of rank 2 or less (scalar, vector, or matrix). Each simple array will consist of either non-negative integers or printable ASCII characters. The function must return a simple character array that displays identically to what <code>{⎕←⍵}¨</code> displays when applied to the right argument.</p>
+</blockquote>
+<p><strong>Solution:</strong> <code>{↑⊃,/↓¨⍕¨⍵}</code></p>
+<p>The first step is to <a href="https://help.dyalog.com/latest/#Language/Primitive%20Functions/Format%20Monadic.htm">Format</a> (<code>⍕</code>) everything to get strings.<span><label for="sn-5" class="margin-toggle">⊕</label><input type="checkbox" id="sn-5" class="margin-toggle" /><span class="marginnote"> A lot of trial-and-error is always necessary when dealing with nested arrays, and this being about formatting exacerbates the problem.<br />
+<br />
+</span></span> The next step would be to “stack everything vertically”, so we will need <a href="https://help.dyalog.com/latest/#Language/Primitive%20Functions/Mix.htm">Mix</a> (<code>↑</code>) at some point. However, if we do it immediately we don’t get the correct result:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb5-1" title="1">      {↑⍕¨⍵}(3 3⍴⍳9)(↑'Adam' 'Michael')</a>
+<a class="sourceLine" id="cb5-2" title="2">1 2 3  </a>
+<a class="sourceLine" id="cb5-3" title="3">4 5 6  </a>
+<a class="sourceLine" id="cb5-4" title="4">7 8 9  </a>
+<a class="sourceLine" id="cb5-5" title="5"></a>
+<a class="sourceLine" id="cb5-6" title="6">Adam   </a>
+<a class="sourceLine" id="cb5-7" title="7">Michael</a></code></pre></div>
+<p>Mix is padding with spaces both horizontally (necessary as we want the output to be a simple array of characters) and vertically (not what we want). We will have to decompose everything line by line, and then mix all the lines together. This is exactly what <a href="https://help.dyalog.com/latest/#Language/Primitive%20Functions/Split.htm">Split</a><span><label for="sn-6" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-6" class="margin-toggle" /><span class="sidenote">Split is the dual of Mix.<br />
+<br />
+</span></span> (<code>↓</code>) does:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb6-1" title="1">      {↓¨⍕¨⍵}(3 3⍴⍳9)(↑'Adam' 'Michael')(⍳10) '*'(5 5⍴⍳25)</a>
+<a class="sourceLine" id="cb6-2" title="2">┌───────────────────┬─────────────────┬──────────────────────┬─┬───────────────</a>
+<a class="sourceLine" id="cb6-3" title="3">│┌─────┬─────┬─────┐│┌───────┬───────┐│┌────────────────────┐│*│┌──────────────</a>
+<a class="sourceLine" id="cb6-4" title="4">││1 2 3│4 5 6│7 8 9│││Adam   │Michael│││1 2 3 4 5 6 7 8 9 10││ ││ 1  2  3  4  5</a>
+<a class="sourceLine" id="cb6-5" title="5">│└─────┴─────┴─────┘│└───────┴───────┘│└────────────────────┘│ │└──────────────</a>
+<a class="sourceLine" id="cb6-6" title="6">└───────────────────┴─────────────────┴──────────────────────┴─┴───────────────</a>
+<a class="sourceLine" id="cb6-7" title="7"></a>
+<a class="sourceLine" id="cb6-8" title="8">      ─────────────────────────────────────────────────────────────┐</a>
+<a class="sourceLine" id="cb6-9" title="9">      ┬──────────────┬──────────────┬──────────────┬──────────────┐│</a>
+<a class="sourceLine" id="cb6-10" title="10">      │ 6  7  8  9 10│11 12 13 14 15│16 17 18 19 20│21 22 23 24 25││</a>
+<a class="sourceLine" id="cb6-11" title="11">      ┴──────────────┴──────────────┴──────────────┴──────────────┘│</a>
+<a class="sourceLine" id="cb6-12" title="12">      ─────────────────────────────────────────────────────────────┘</a></code></pre></div>
+<p>Next, we clean this up with Ravel (<code>,</code>) and we can Mix to obtain the final result.</p>
+    </section>
+</article>
+]]></description>
+    <pubDate>Sun, 02 Aug 2020 00:00:00 UT</pubDate>
+    <guid>https://www.lozeve.com/posts/dyalog-apl-competition-2020-phase-1.html</guid>
+    <dc:creator>Dimitri Lozeve</dc:creator>
+</item>
+<item>
     <title>Operations Research and Optimization: where to start?</title>
     <link>https://www.lozeve.com/posts/operations-research-references.html</link>
     <description><![CDATA[<article>
@@ -768,282 +1141,6 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
 ]]></description>
     <pubDate>Mon, 05 Mar 2018 00:00:00 UT</pubDate>
     <guid>https://www.lozeve.com/posts/ising-apl.html</guid>
-    <dc:creator>Dimitri Lozeve</dc:creator>
-</item>
-<item>
-    <title>Ising model simulation</title>
-    <link>https://www.lozeve.com/posts/ising-model.html</link>
-    <description><![CDATA[<article>
-    <section class="header">
-        
-            by Dimitri Lozeve
-        
-    </section>
-    <section>
-        <h2>Table of Contents</h2><ul>
-<li><a href="#mathematical-definition">Mathematical definition</a></li>
-<li><a href="#simulation">Simulation</a></li>
-<li><a href="#implementation">Implementation</a></li>
-<li><a href="#conclusion">Conclusion</a></li>
-</ul>
-<p>The <a href="https://en.wikipedia.org/wiki/Ising_model">Ising model</a> is a model used to represent magnetic dipole moments in statistical physics. Physical details are on the Wikipedia page, but what is interesting is that it follows a complex probability distribution on a lattice, where each site can take the value +1 or -1.</p>
-<p><img src="../images/ising.gif" /></p>
-<h2 id="mathematical-definition">Mathematical definition</h2>
-<p>We have a lattice <span class="math inline">\(\Lambda\)</span> consisting of sites <span class="math inline">\(k\)</span>. For each site, there is a moment <span class="math inline">\(\sigma_k \in \{ -1, +1 \}\)</span>. <span class="math inline">\(\sigma =
-(\sigma_k)_{k\in\Lambda}\)</span> is called the <em>configuration</em> of the lattice.</p>
-<p>The total energy of the configuration is given by the <em>Hamiltonian</em> <span class="math display">\[
-H(\sigma) = -\sum_{i\sim j} J_{ij}\, \sigma_i\, \sigma_j,
-\]</span> where <span class="math inline">\(i\sim j\)</span> denotes <em>neighbours</em>, and <span class="math inline">\(J\)</span> is the <em>interaction matrix</em>.</p>
-<p>The <em>configuration probability</em> is given by: <span class="math display">\[
-\pi_\beta(\sigma) = \frac{e^{-\beta H(\sigma)}}{Z_\beta}
-\]</span> where <span class="math inline">\(\beta = (k_B T)^{-1}\)</span> is the inverse temperature, and <span class="math inline">\(Z_\beta\)</span> the normalisation constant.</p>
-<p>For our simulation, we will use a constant interaction term <span class="math inline">\(J &gt; 0\)</span>. If <span class="math inline">\(\sigma_i = \sigma_j\)</span>, the probability will be proportional to <span class="math inline">\(\exp(\beta J)\)</span>, otherwise it would be <span class="math inline">\(\exp(\beta J)\)</span>. Thus, adjacent spins will try to align themselves.</p>
-<h2 id="simulation">Simulation</h2>
-<p>The Ising model is generally simulated using Markov Chain Monte Carlo (MCMC), with the <a href="https://en.wikipedia.org/wiki/Metropolis%E2%80%93Hastings_algorithm">Metropolis-Hastings</a> algorithm.</p>
-<p>The algorithm starts from a random configuration and runs as follows:</p>
-<ol>
-<li>Select a site <span class="math inline">\(i\)</span> at random and reverse its spin: <span class="math inline">\(\sigma'_i = -\sigma_i\)</span></li>
-<li>Compute the variation in energy (hamiltonian) <span class="math inline">\(\Delta E = H(\sigma') - H(\sigma)\)</span></li>
-<li>If the energy is lower, accept the new configuration</li>
-<li>Otherwise, draw a uniform random number <span class="math inline">\(u \in ]0,1[\)</span> and accept the new configuration if <span class="math inline">\(u &lt; \min(1, e^{-\beta \Delta E})\)</span>.</li>
-</ol>
-<h2 id="implementation">Implementation</h2>
-<p>The simulation is in Clojure, using the <a href="http://quil.info/">Quil library</a> (a <a href="https://processing.org/">Processing</a> library for Clojure) to display the state of the system.</p>
-<p>This post is “literate Clojure”, and contains <a href="https://github.com/dlozeve/ising-model/blob/master/src/ising_model/core.clj"><code>core.clj</code></a>. The complete project can be found on <a href="https://github.com/dlozeve/ising-model">GitHub</a>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb1-1" title="1">(<span class="kw">ns</span> ising-model.core</a>
-<a class="sourceLine" id="cb1-2" title="2">  (<span class="at">:require</span> [quil.core <span class="at">:as</span> q]</a>
-<a class="sourceLine" id="cb1-3" title="3">        [quil.middleware <span class="at">:as</span> m]))</a></code></pre></div>
-<p>The application works with Quil’s <a href="https://github.com/quil/quil/wiki/Functional-mode-(fun-mode)">functional mode</a>, with each function taking a state and returning an updated state at each time step.</p>
-<p>The <code>setup</code> function generates the initial state, with random initial spins. It also sets the frame rate. The matrix is a single vector in row-major mode. The state also holds relevant parameters for the simulation: <span class="math inline">\(\beta\)</span>, <span class="math inline">\(J\)</span>, and the iteration step.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb2-1" title="1">(<span class="bu">defn</span><span class="fu"> setup </span>[size]</a>
-<a class="sourceLine" id="cb2-2" title="2">  <span class="st">&quot;Setup the display parameters and the initial state&quot;</span></a>
-<a class="sourceLine" id="cb2-3" title="3">  (q/frame-rate <span class="dv">300</span>)</a>
-<a class="sourceLine" id="cb2-4" title="4">  (q/color-mode <span class="at">:hsb</span>)</a>
-<a class="sourceLine" id="cb2-5" title="5">  (<span class="kw">let</span> [matrix (<span class="kw">vec</span> (<span class="kw">repeatedly</span> (<span class="kw">*</span> size size) #(<span class="kw">-</span> (<span class="kw">*</span> <span class="dv">2</span> (<span class="kw">rand-int</span> <span class="dv">2</span>)) <span class="dv">1</span>)))]</a>
-<a class="sourceLine" id="cb2-6" title="6">    {<span class="at">:grid-size</span> size</a>
-<a class="sourceLine" id="cb2-7" title="7">     <span class="at">:matrix</span> matrix</a>
-<a class="sourceLine" id="cb2-8" title="8">     <span class="at">:beta</span> <span class="dv">10</span></a>
-<a class="sourceLine" id="cb2-9" title="9">     <span class="at">:intensity</span> <span class="dv">10</span></a>
-<a class="sourceLine" id="cb2-10" title="10">     <span class="at">:iteration</span> <span class="dv">0</span>}))</a></code></pre></div>
-<p>Given a site <span class="math inline">\(i\)</span>, we reverse its spin to generate a new configuration state.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb3-1" title="1">(<span class="bu">defn</span><span class="fu"> toggle-state </span>[state i]</a>
-<a class="sourceLine" id="cb3-2" title="2">  <span class="st">&quot;Compute the new state when we toggle a cell's value&quot;</span></a>
-<a class="sourceLine" id="cb3-3" title="3">  (<span class="kw">let</span> [matrix (<span class="at">:matrix</span> state)]</a>
-<a class="sourceLine" id="cb3-4" title="4">    (<span class="kw">assoc</span> state <span class="at">:matrix</span> (<span class="kw">assoc</span> matrix i (<span class="kw">*</span> <span class="dv">-1</span> (matrix i))))))</a></code></pre></div>
-<p>In order to decide whether to accept this new state, we compute the difference in energy introduced by reversing site <span class="math inline">\(i\)</span>: <span class="math display">\[ \Delta E =
-J\sigma_i \sum_{j\sim i} \sigma_j.  \]</span></p>
-<p>The <code>filter some?</code> is required to eliminate sites outside of the boundaries of the lattice.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb4-1" title="1">(<span class="bu">defn</span><span class="fu"> get-neighbours </span>[state idx]</a>
-<a class="sourceLine" id="cb4-2" title="2">  <span class="st">&quot;Return the values of a cell's neighbours&quot;</span></a>
-<a class="sourceLine" id="cb4-3" title="3">  [(<span class="kw">get</span> (<span class="at">:matrix</span> state) (<span class="kw">-</span> idx (<span class="at">:grid-size</span> state)))</a>
-<a class="sourceLine" id="cb4-4" title="4">   (<span class="kw">get</span> (<span class="at">:matrix</span> state) (<span class="kw">dec</span> idx))</a>
-<a class="sourceLine" id="cb4-5" title="5">   (<span class="kw">get</span> (<span class="at">:matrix</span> state) (<span class="kw">inc</span> idx))</a>
-<a class="sourceLine" id="cb4-6" title="6">   (<span class="kw">get</span> (<span class="at">:matrix</span> state) (<span class="kw">+</span> (<span class="at">:grid-size</span> state) idx))])</a>
-<a class="sourceLine" id="cb4-7" title="7"></a>
-<a class="sourceLine" id="cb4-8" title="8">(<span class="bu">defn</span><span class="fu"> delta-e </span>[state i]</a>
-<a class="sourceLine" id="cb4-9" title="9">  <span class="st">&quot;Compute the energy difference introduced by a particular cell&quot;</span></a>
-<a class="sourceLine" id="cb4-10" title="10">  (<span class="kw">*</span> (<span class="at">:intensity</span> state) ((<span class="at">:matrix</span> state) i)</a>
-<a class="sourceLine" id="cb4-11" title="11">     (<span class="kw">reduce</span> <span class="kw">+</span> (<span class="kw">filter</span> some? (get-neighbours state i)))))</a></code></pre></div>
-<p>We also add a function to compute directly the hamiltonian for the entire configuration state. We can use it later to log its values across iterations.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb5-1" title="1">(<span class="bu">defn</span><span class="fu"> hamiltonian </span>[state]</a>
-<a class="sourceLine" id="cb5-2" title="2">  <span class="st">&quot;Compute the Hamiltonian of a configuration state&quot;</span></a>
-<a class="sourceLine" id="cb5-3" title="3">  (<span class="kw">-</span> (<span class="kw">reduce</span> <span class="kw">+</span> (<span class="kw">for</span> [i (<span class="kw">range</span> (<span class="kw">count</span> (<span class="at">:matrix</span> state)))</a>
-<a class="sourceLine" id="cb5-4" title="4">             j (<span class="kw">filter</span> some? (get-neighbours state i))]</a>
-<a class="sourceLine" id="cb5-5" title="5">         (<span class="kw">*</span> (<span class="at">:intensity</span> state) ((<span class="at">:matrix</span> state) i) j)))))</a></code></pre></div>
-<p>Finally, we put everything together in the <code>update-state</code> function, which will decide whether to accept or reject the new configuration.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb6-1" title="1">(<span class="bu">defn</span><span class="fu"> update-state </span>[state]</a>
-<a class="sourceLine" id="cb6-2" title="2">  <span class="st">&quot;Accept or reject a new state based on energy</span></a>
-<a class="sourceLine" id="cb6-3" title="3"><span class="st">  difference (Metropolis-Hastings)&quot;</span></a>
-<a class="sourceLine" id="cb6-4" title="4">  (<span class="kw">let</span> [i (<span class="kw">rand-int</span> (<span class="kw">count</span> (<span class="at">:matrix</span> state)))</a>
-<a class="sourceLine" id="cb6-5" title="5">    new-state (toggle-state state i)</a>
-<a class="sourceLine" id="cb6-6" title="6">    alpha (q/exp (<span class="kw">-</span> (<span class="kw">*</span> (<span class="at">:beta</span> state) (delta-e state i))))]</a>
-<a class="sourceLine" id="cb6-7" title="7">    <span class="co">;;(println (hamiltonian new-state))</span></a>
-<a class="sourceLine" id="cb6-8" title="8">    (<span class="kw">update</span> (<span class="kw">if</span> (<span class="kw">&lt;</span> (<span class="kw">rand</span>) alpha) new-state state)</a>
-<a class="sourceLine" id="cb6-9" title="9">        <span class="at">:iteration</span> <span class="kw">inc</span>)))</a></code></pre></div>
-<p>The last thing to do is to draw the new configuration:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb7-1" title="1">(<span class="bu">defn</span><span class="fu"> draw-state </span>[state]</a>
-<a class="sourceLine" id="cb7-2" title="2">  <span class="st">&quot;Draw a configuration state as a grid&quot;</span></a>
-<a class="sourceLine" id="cb7-3" title="3">  (q/background <span class="dv">255</span>)</a>
-<a class="sourceLine" id="cb7-4" title="4">  (<span class="kw">let</span> [cell-size (<span class="kw">quot</span> (q/width) (<span class="at">:grid-size</span> state))]</a>
-<a class="sourceLine" id="cb7-5" title="5">    (<span class="kw">doseq</span> [[i v] (map-indexed <span class="kw">vector</span> (<span class="at">:matrix</span> state))]</a>
-<a class="sourceLine" id="cb7-6" title="6">  (<span class="kw">let</span> [x (<span class="kw">*</span> cell-size (<span class="kw">rem</span> i (<span class="at">:grid-size</span> state)))</a>
-<a class="sourceLine" id="cb7-7" title="7">        y (<span class="kw">*</span> cell-size  (<span class="kw">quot</span> i (<span class="at">:grid-size</span> state)))]</a>
-<a class="sourceLine" id="cb7-8" title="8">    (q/no-stroke)</a>
-<a class="sourceLine" id="cb7-9" title="9">    (q/fill</a>
-<a class="sourceLine" id="cb7-10" title="10">     (<span class="kw">if</span> (<span class="kw">=</span> <span class="dv">1</span> v) <span class="dv">0</span> <span class="dv">255</span>))</a>
-<a class="sourceLine" id="cb7-11" title="11">    (q/rect x y cell-size cell-size))))</a>
-<a class="sourceLine" id="cb7-12" title="12">  <span class="co">;;(when (zero? (mod (:iteration state) 50)) (q/save-frame &quot;img/ising-######.jpg&quot;))</span></a>
-<a class="sourceLine" id="cb7-13" title="13">  )</a></code></pre></div>
-<p>And to reset the simulation when the user clicks anywhere on the screen:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb8-1" title="1">(<span class="bu">defn</span><span class="fu"> mouse-clicked </span>[state event]</a>
-<a class="sourceLine" id="cb8-2" title="2">  <span class="st">&quot;When the mouse is clicked, reset the configuration to a random one&quot;</span></a>
-<a class="sourceLine" id="cb8-3" title="3">  (setup <span class="dv">100</span>))</a></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode clojure"><code class="sourceCode clojure"><a class="sourceLine" id="cb9-1" title="1">(q/defsketch ising-model</a>
-<a class="sourceLine" id="cb9-2" title="2">  <span class="at">:title</span> <span class="st">&quot;Ising model&quot;</span></a>
-<a class="sourceLine" id="cb9-3" title="3">  <span class="at">:size</span> [<span class="dv">300</span> <span class="dv">300</span>]</a>
-<a class="sourceLine" id="cb9-4" title="4">  <span class="at">:setup</span> #(setup <span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb9-5" title="5">  <span class="at">:update</span> update-state</a>
-<a class="sourceLine" id="cb9-6" title="6">  <span class="at">:draw</span> draw-state</a>
-<a class="sourceLine" id="cb9-7" title="7">  <span class="at">:mouse-clicked</span> mouse-clicked</a>
-<a class="sourceLine" id="cb9-8" title="8">  <span class="at">:features</span> [<span class="at">:keep-on-top</span> <span class="at">:no-bind-output</span>]</a>
-<a class="sourceLine" id="cb9-9" title="9">  <span class="at">:middleware</span> [m/fun-mode])</a></code></pre></div>
-<h2 id="conclusion">Conclusion</h2>
-<p>The Ising model is a really easy (and common) example use of MCMC and Metropolis-Hastings. It allows to easily and intuitively understand how the algorithm works, and to make nice visualizations!</p>
-    </section>
-</article>
-]]></description>
-    <pubDate>Mon, 05 Feb 2018 00:00:00 UT</pubDate>
-    <guid>https://www.lozeve.com/posts/ising-model.html</guid>
-    <dc:creator>Dimitri Lozeve</dc:creator>
-</item>
-<item>
-    <title>Generating and representing L-systems</title>
-    <link>https://www.lozeve.com/posts/lsystems.html</link>
-    <description><![CDATA[<article>
-    <section class="header">
-        
-            by Dimitri Lozeve
-        
-    </section>
-    <section>
-        <h2>Table of Contents</h2><ul>
-<li><a href="#what-is-an-l-system">What is an L-system?</a><ul>
-<li><a href="#a-few-examples-to-get-started">A few examples to get started</a></li>
-<li><a href="#definition">Definition</a></li>
-<li><a href="#drawing-instructions-and-representation">Drawing instructions and representation</a></li>
-</ul></li>
-<li><a href="#implementation-details">Implementation details</a><ul>
-<li><a href="#the-lsystem-data-type">The <code>LSystem</code> data type</a></li>
-<li><a href="#iterating-and-representing">Iterating and representing</a></li>
-<li><a href="#drawing">Drawing</a></li>
-</ul></li>
-<li><a href="#common-file-format-for-l-systems">Common file format for L-systems</a></li>
-<li><a href="#variations-on-l-systems">Variations on L-systems</a></li>
-<li><a href="#usage-notes">Usage notes</a></li>
-<li><a href="#references">References</a></li>
-</ul>
-<p>L-systems are a formal way to make interesting visualisations. You can use them to model a wide variety of objects: space-filling curves, fractals, biological systems, tilings, etc.</p>
-<p>See the Github repo: <a href="https://github.com/dlozeve/lsystems" class="uri">https://github.com/dlozeve/lsystems</a></p>
-<h2 id="what-is-an-l-system">What is an L-system?</h2>
-<h3 id="a-few-examples-to-get-started">A few examples to get started</h3>
-<p><img src="../images/lsystems/dragon.png" /></p>
-<p><img src="../images/lsystems/gosper.png" /></p>
-<p><img src="../images/lsystems/plant.png" /></p>
-<p><img src="../images/lsystems/penroseP3.png" /></p>
-<h3 id="definition">Definition</h3>
-<p>An <a href="https://en.wikipedia.org/wiki/L-system">L-system</a> is a set of rewriting rules generating sequences of symbols. Formally, an L-system is a triplet of:</p>
-<ul>
-<li>an <em>alphabet</em> <span class="math inline">\(V\)</span> (an arbitrary set of symbols)</li>
-<li>an <em>axiom</em> <span class="math inline">\(\omega\)</span>, which is a non-empty word of the alphabet (<span class="math inline">\(\omega \in V^+\)</span>)</li>
-<li>a set of <em>rewriting rules</em> (or <em>productions</em>) <span class="math inline">\(P\)</span>, each mapping a symbol to a word: <span class="math inline">\(P \subset V \times V^*\)</span>. Symbols not present in <span class="math inline">\(P\)</span> are assumed to be mapped to themselves.</li>
-</ul>
-<p>During an iteration, the algorithm takes each symbol in the current word and replaces it by the value in its rewriting rule. Not that the output of the rewriting rule can be absolutely <em>anything</em> in <span class="math inline">\(V^*\)</span>, including the empty word! (So yes, you can generate symbols just to delete them afterwards.)</p>
-<p>At this point, an L-system is nothing more than a way to generate very long strings of characters. In order to get something useful out of this, we have to give them <em>meaning</em>.</p>
-<h3 id="drawing-instructions-and-representation">Drawing instructions and representation</h3>
-<p>Our objective is to draw the output of the L-system in order to visually inspect the output. The most common way is to interpret the output as a sequence of instruction for a LOGO-like drawing turtle. For instance, a simple alphabet consisting only in the symbols <span class="math inline">\(F\)</span>, <span class="math inline">\(+\)</span>, and <span class="math inline">\(-\)</span> could represent the instructions “move forward”, “turn right by 90°”, and “turn left by 90°” respectively.</p>
-<p>Thus, we add new components to our definition of L-systems:</p>
-<ul>
-<li>a set of <em>instructions</em>, <span class="math inline">\(I\)</span>. These are limited by the capabilities of our imagined turtle, so we can assume that they are the same for every L-system we will consider:
-<ul>
-<li><code>Forward</code> makes the turtle draw a straight segment.</li>
-<li><code>TurnLeft</code> and <code>TurnRight</code> makes the turtle turn on itself by a given angle.</li>
-<li><code>Push</code> and <code>Pop</code> allow the turtle to store and retrieve its position on a stack. This will allow for branching in the turtle’s path.</li>
-<li><code>Stay</code>, which orders the turtle to do nothing.</li>
-</ul></li>
-<li>a <em>distance</em> <span class="math inline">\(d \in \mathbb{R_+}\)</span>, i.e. how long should each forward segment should be.</li>
-<li>an <em>angle</em> <span class="math inline">\(\theta\)</span> used for rotation.</li>
-<li>a set of <em>representation rules</em> <span class="math inline">\(R \subset V \times I\)</span>. As before, they will match a symbol to an instruction. Symbols not matched by any rule will be associated to <code>Stay</code>.</li>
-</ul>
-<p>Finally, our complete L-system, representable by a turtle with capabilities <span class="math inline">\(I\)</span>, can be defined as <span class="math display">\[ L = (V, \omega, P, d, \theta,
-R). \]</span></p>
-<p>One could argue that the representation is not part of the L-system, and that the same L-system could be represented differently by changing the representation rules. However, in our setting, we won’t observe the L-system other than by displaying it, so we might as well consider that two systems differing only by their representation rules are different systems altogether.</p>
-<h2 id="implementation-details">Implementation details</h2>
-<h3 id="the-lsystem-data-type">The <code>LSystem</code> data type</h3>
-<p>The mathematical definition above translate almost immediately in a Haskell data type:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb1-1" title="1"><span class="co">-- | L-system data type</span></a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="kw">data</span> <span class="dt">LSystem</span> a <span class="fu">=</span> <span class="dt">LSystem</span></a>
-<a class="sourceLine" id="cb1-3" title="3">  {<span class="ot"> name ::</span> <span class="dt">String</span></a>
-<a class="sourceLine" id="cb1-4" title="4">  ,<span class="ot"> alphabet ::</span> [a] <span class="co">-- ^ variables and constants used by the system</span></a>
-<a class="sourceLine" id="cb1-5" title="5">  ,<span class="ot"> axiom ::</span> [a] <span class="co">-- ^ initial state of the system</span></a>
-<a class="sourceLine" id="cb1-6" title="6">  ,<span class="ot"> rules ::</span> [(a, [a])] <span class="co">-- ^ production rules defining how each</span></a>
-<a class="sourceLine" id="cb1-7" title="7">            <span class="co">-- variable can be replaced by a sequence of</span></a>
-<a class="sourceLine" id="cb1-8" title="8">            <span class="co">-- variables and constants</span></a>
-<a class="sourceLine" id="cb1-9" title="9">  ,<span class="ot"> angle ::</span> <span class="dt">Float</span> <span class="co">-- ^ angle used for the representation</span></a>
-<a class="sourceLine" id="cb1-10" title="10">  ,<span class="ot"> distance ::</span> <span class="dt">Float</span> <span class="co">-- ^ distance of each segment in the representation</span></a>
-<a class="sourceLine" id="cb1-11" title="11">  ,<span class="ot"> representation ::</span> [(a, <span class="dt">Instruction</span>)] <span class="co">-- ^ representation rules</span></a>
-<a class="sourceLine" id="cb1-12" title="12">                     <span class="co">-- defining how each variable</span></a>
-<a class="sourceLine" id="cb1-13" title="13">                     <span class="co">-- and constant should be</span></a>
-<a class="sourceLine" id="cb1-14" title="14">                     <span class="co">-- represented</span></a>
-<a class="sourceLine" id="cb1-15" title="15">  } <span class="kw">deriving</span> (<span class="dt">Eq</span>, <span class="dt">Show</span>, <span class="dt">Generic</span>)</a></code></pre></div>
-<p>Here, <code>a</code> is the type of the literal in the alphabet. For all practical purposes, it will almost always be <code>Char</code>.</p>
-<p><code>Instruction</code> is just a sum type over all possible instructions listed above.</p>
-<h3 id="iterating-and-representing">Iterating and representing</h3>
-<p>From here, generating L-systems and iterating is straightforward. We iterate recursively by looking up each symbol in <code>rules</code> and replacing it by its expansion. We then transform the result to a list of <code>Instruction</code>.</p>
-<h3 id="drawing">Drawing</h3>
-<p>The only remaining thing is to implement the virtual turtle which will actually execute the instructions. It goes through the list of instructions, building a sequence of points and maintaining an internal state (position, angle, stack). The stack is used when <code>Push</code> and <code>Pop</code> operations are met. In this case, the turtle builds a separate line starting from its current position.</p>
-<p>The final output is a set of lines, each being a simple sequence of points. All relevant data types are provided by the <a href="https://hackage.haskell.org/package/gloss">Gloss</a> library, along with the function that can display the resulting <code>Picture</code>.</p>
-<h2 id="common-file-format-for-l-systems">Common file format for L-systems</h2>
-<p>In order to define new L-systems quickly and easily, it is necessary to encode them in some form. We chose to represent them as JSON values.</p>
-<p>Here is an example for the <a href="https://en.wikipedia.org/wiki/Gosper_curve">Gosper curve</a>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb2-1" title="1"><span class="fu">{</span></a>
-<a class="sourceLine" id="cb2-2" title="2">  <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;gosper&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb2-3" title="3">  <span class="dt">&quot;alphabet&quot;</span><span class="fu">:</span> <span class="st">&quot;AB+-&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb2-4" title="4">  <span class="dt">&quot;axiom&quot;</span><span class="fu">:</span> <span class="st">&quot;A&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb2-5" title="5">  <span class="dt">&quot;rules&quot;</span><span class="fu">:</span> <span class="ot">[</span></a>
-<a class="sourceLine" id="cb2-6" title="6">    <span class="ot">[</span><span class="st">&quot;A&quot;</span><span class="ot">,</span> <span class="st">&quot;A-B--B+A++AA+B-&quot;</span><span class="ot">],</span></a>
-<a class="sourceLine" id="cb2-7" title="7">    <span class="ot">[</span><span class="st">&quot;B&quot;</span><span class="ot">,</span> <span class="st">&quot;+A-BB--B-A++A+B&quot;</span><span class="ot">]</span></a>
-<a class="sourceLine" id="cb2-8" title="8">  <span class="ot">]</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb2-9" title="9">  <span class="dt">&quot;angle&quot;</span><span class="fu">:</span> <span class="fl">60.0</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb2-10" title="10">  <span class="dt">&quot;distance&quot;</span><span class="fu">:</span> <span class="fl">10.0</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb2-11" title="11">  <span class="dt">&quot;representation&quot;</span><span class="fu">:</span> <span class="ot">[</span></a>
-<a class="sourceLine" id="cb2-12" title="12">    <span class="ot">[</span><span class="st">&quot;A&quot;</span><span class="ot">,</span> <span class="st">&quot;Forward&quot;</span><span class="ot">],</span></a>
-<a class="sourceLine" id="cb2-13" title="13">    <span class="ot">[</span><span class="st">&quot;B&quot;</span><span class="ot">,</span> <span class="st">&quot;Forward&quot;</span><span class="ot">],</span></a>
-<a class="sourceLine" id="cb2-14" title="14">    <span class="ot">[</span><span class="st">&quot;+&quot;</span><span class="ot">,</span> <span class="st">&quot;TurnRight&quot;</span><span class="ot">],</span></a>
-<a class="sourceLine" id="cb2-15" title="15">    <span class="ot">[</span><span class="st">&quot;-&quot;</span><span class="ot">,</span> <span class="st">&quot;TurnLeft&quot;</span><span class="ot">]</span></a>
-<a class="sourceLine" id="cb2-16" title="16">  <span class="ot">]</span></a>
-<a class="sourceLine" id="cb2-17" title="17"><span class="fu">}</span></a></code></pre></div>
-<p>Using this format, it is easy to define new L-systems (along with how they should be represented). This is translated nearly automatically to the <code>LSystem</code> data type using <a href="https://hackage.haskell.org/package/aeson">Aeson</a>.</p>
-<h2 id="variations-on-l-systems">Variations on L-systems</h2>
-<p>We can widen the possibilities of L-systems in various ways. L-systems are in effect deterministic context-free grammars.</p>
-<p>By allowing multiple rewriting rules for each symbol with probabilities, we can extend the model to <a href="https://en.wikipedia.org/wiki/Probabilistic_context-free_grammar">probabilistic context-free grammars</a>.</p>
-<p>We can also have replacement rules not for a single symbol, but for a subsequence of them, thus effectively taking into account their neighbours (context-sensitive grammars). This seems very close to 1D cellular automata.</p>
-<p>Finally, L-systems could also have a 3D representation (for instance space-filling curves in 3 dimensions).</p>
-<h2 id="usage-notes">Usage notes</h2>
-<ol>
-<li>Clone the repository: <code>git clone [[https://github.com/dlozeve/lsystems]]</code></li>
-<li>Build: <code>stack build</code></li>
-<li>Execute <code>stack exec lsystems-exe -- examples/penroseP3.json</code> to see the list of options</li>
-<li>(Optional) Run tests and build documentation: <code>stack test --haddock</code></li>
-</ol>
-<p>Usage: <code>stack exec lsystems-exe -- --help</code></p>
-<pre><code>lsystems -- Generate L-systems
-
-Usage: lsystems-exe FILENAME [-n|--iterations N] [-c|--color R,G,B]
-                    [-w|--white-background]
-  Generate and draw an L-system
-
-Available options:
-  FILENAME                 JSON file specifying an L-system
-  -n,--iterations N        Number of iterations (default: 5)
-  -c,--color R,G,B         Foreground color RGBA
-                           (0-255) (default: RGBA 1.0 1.0 1.0 1.0)
-  -w,--white-background    Use a white background
-  -h,--help                Show this help text
-</code></pre>
-<p>Apart from the selection of the input JSON file, you can adjust the number of iterations and the colors.</p>
-<p><code>stack exec lsystems-exe -- examples/levyC.json -n 12 -c 0,255,255</code></p>
-<p><img src="../images/lsystems/levyC.png" /></p>
-<h2 id="references">References</h2>
-<ol>
-<li>Prusinkiewicz, Przemyslaw; Lindenmayer, Aristid (1990). <em>The Algorithmic Beauty of Plants.</em> Springer-Verlag. ISBN 978-0-387-97297-8. <a href="http://algorithmicbotany.org/papers/#abop" class="uri">http://algorithmicbotany.org/papers/#abop</a></li>
-<li>Weisstein, Eric W. “Lindenmayer System.” From MathWorld–A Wolfram Web Resource. <a href="http://mathworld.wolfram.com/LindenmayerSystem.html" class="uri">http://mathworld.wolfram.com/LindenmayerSystem.html</a></li>
-<li>Corte, Leo. “L-systems and Penrose P3 in Inkscape.” <em>The Brick in the Sky.</em> <a href="https://thebrickinthesky.wordpress.com/2013/03/17/l-systems-and-penrose-p3-in-inkscape/" class="uri">https://thebrickinthesky.wordpress.com/2013/03/17/l-systems-and-penrose-p3-in-inkscape/</a></li>
-</ol>
-    </section>
-</article>
-]]></description>
-    <pubDate>Thu, 18 Jan 2018 00:00:00 UT</pubDate>
-    <guid>https://www.lozeve.com/posts/lsystems.html</guid>
     <dc:creator>Dimitri Lozeve</dc:creator>
 </item>
 

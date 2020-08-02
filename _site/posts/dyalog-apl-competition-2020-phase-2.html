@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+    <meta name="description" content="Dimitri Lozeve's blog: Dyalog APL Problem Solving Competition 2020 — Phase II">
+    
+    <title>Dimitri Lozeve - Dyalog APL Problem Solving Competition 2020 — Phase II</title>
+    <link rel="stylesheet" href="../css/tufte.css" />
+    <link rel="stylesheet" href="../css/pandoc.css" />
+    <link rel="stylesheet" href="../css/default.css" />
+    <link rel="stylesheet" href="../css/syntax.css" />
+
+    <!-- RSS feed -->
+    <link rel="alternate" type="application/rss+xml" title="Dimitri Lozeve's blog" href="../rss.xml" /> 
+
+    <!-- KaTeX CSS styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+ 
+  </head>
+  <body>
+    <article>
+      
+      <header>
+	<nav>
+          <a href="../">Home</a>
+	  <a href="../projects.html">Projects</a>
+          <a href="../archive.html">Archive</a>
+	  <a href="../contact.html">Contact</a>
+	</nav>
+
+	<h1 class="title">Dyalog APL Problem Solving Competition 2020 — Phase II</h1>
+	
+	<p class="subtitle">Annotated Solutions</p>
+	
+	
+	<p class="byline">August  2, 2020</p>
+	
+      </header>
+      
+
+      
+    </article>
+
+    <article>
+    <section class="header">
+        
+    </section>
+    <section>
+        <h2>Table of Contents</h2><ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#problem-1-take-a-dive">Problem 1 – Take a Dive</a></li>
+<li><a href="#problem-2-another-step-in-the-proper-direction">Problem 2 – Another Step in the Proper Direction</a></li>
+<li><a href="#problem-3-past-tasks-blast">Problem 3 – Past Tasks Blast</a></li>
+<li><a href="#problem-4-bioinformatics">Problem 4 – Bioinformatics</a></li>
+<li><a href="#problem-5-future-and-present-value">Problem 5 – Future and Present Value</a></li>
+<li><a href="#problem-6-merge">Problem 6 – Merge</a></li>
+<li><a href="#problem-7-upc">Problem 7 – UPC</a></li>
+<li><a href="#problem-8-balancing-the-scales">Problem 8 – Balancing the Scales</a></li>
+<li><a href="#problem-9-upwardly-mobile">Problem 9 – Upwardly Mobile</a></li>
+</ul>
+<h2 id="introduction">Introduction</h2>
+<p>After <a href="./dyalog-apl-competition-2020-phase-1.html">Phase I</a>, here are my solutions to Phase II problems. The full code is included in the post, but everything is also available <a href="https://github.com/dlozeve/apl-competition-2020">on GitHub</a>.</p>
+<p>A PDF of the problems descriptions is available on <a href="https://www.dyalogaplcompetition.com/">the competition website</a>, or directly from <a href="https://github.com/dlozeve/apl-competition-2020/blob/master/Contest2020/2020%20APL%20Problem%20Solving%20Competition%20Phase%20II%20Problems.pdf">my GitHub repo</a>.</p>
+<p>The submission guidelines gave a template where everything is defined in a <code>Contest2020.Problems</code> Namespace. I kept the default values for <code>⎕IO</code> and <code>⎕ML</code> because the problems were not particularly easier with <code>⎕IO←0</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb1-1" title="1">:Namespace Contest2020</a>
+<a class="sourceLine" id="cb1-2" title="2"></a>
+<a class="sourceLine" id="cb1-3" title="3">    :Namespace Problems</a>
+<a class="sourceLine" id="cb1-4" title="4">        (⎕IO ⎕ML ⎕WX)←1 1 3</a></code></pre></div>
+<blockquote>
+<p>This post is still a work in progress! I will try to write explanations for every problem below.</p>
+</blockquote>
+<h2 id="problem-1-take-a-dive">Problem 1 – Take a Dive</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb2-1" title="1">∇ score←dd DiveScore scores</a>
+<a class="sourceLine" id="cb2-2" title="2">  :If 7=≢scores</a>
+<a class="sourceLine" id="cb2-3" title="3">      scores←scores[¯2↓2↓⍋scores]</a>
+<a class="sourceLine" id="cb2-4" title="4">  :ElseIf 5=≢scores</a>
+<a class="sourceLine" id="cb2-5" title="5">      scores←scores[¯1↓1↓⍋scores]</a>
+<a class="sourceLine" id="cb2-6" title="6">  :Else</a>
+<a class="sourceLine" id="cb2-7" title="7">      scores←scores</a>
+<a class="sourceLine" id="cb2-8" title="8">  :EndIf</a>
+<a class="sourceLine" id="cb2-9" title="9">  score←2(⍎⍕)dd×+/scores</a>
+<a class="sourceLine" id="cb2-10" title="10">∇</a></code></pre></div>
+<h2 id="problem-2-another-step-in-the-proper-direction">Problem 2 – Another Step in the Proper Direction</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb3-1" title="1">∇ steps←{p}Steps fromTo;segments;width</a>
+<a class="sourceLine" id="cb3-2" title="2">  width←|-/fromTo</a>
+<a class="sourceLine" id="cb3-3" title="3">  :If 0=⎕NC'p' ⍝ No left argument: same as Problem 5 of Phase I</a>
+<a class="sourceLine" id="cb3-4" title="4">      segments←0,⍳width</a>
+<a class="sourceLine" id="cb3-5" title="5">  :ElseIf p&lt;0 ⍝ -⌊p is the number of equally-sized steps to take</a>
+<a class="sourceLine" id="cb3-6" title="6">      segments←(-⌊p){0,⍵×⍺÷⍨⍳⍺}width</a>
+<a class="sourceLine" id="cb3-7" title="7">  :ElseIf p&gt;0 ⍝ p is the step size</a>
+<a class="sourceLine" id="cb3-8" title="8">      segments←p{⍵⌊⍺×0,⍳⌈⍵÷⍺}width</a>
+<a class="sourceLine" id="cb3-9" title="9">  :ElseIf p=0 ⍝ As if we took zero step</a>
+<a class="sourceLine" id="cb3-10" title="10">      segments←0</a>
+<a class="sourceLine" id="cb3-11" title="11">  :EndIf</a>
+<a class="sourceLine" id="cb3-12" title="12">  ⍝ Take into account the start point and the direction.</a>
+<a class="sourceLine" id="cb3-13" title="13">  steps←fromTo{(⊃⍺)+(-×-/⍺)×⍵}segments</a>
+<a class="sourceLine" id="cb3-14" title="14">∇</a></code></pre></div>
+<h2 id="problem-3-past-tasks-blast">Problem 3 – Past Tasks Blast</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb4-1" title="1">∇ urls←PastTasks url;r;paths</a>
+<a class="sourceLine" id="cb4-2" title="2">  r←HttpCommand.Get url</a>
+<a class="sourceLine" id="cb4-3" title="3">  paths←('[a-zA-Z0-9_/]+\.pdf'⎕S'&amp;')r.Data</a>
+<a class="sourceLine" id="cb4-4" title="4">  urls←('https://www.dyalog.com/'∘,)¨paths</a>
+<a class="sourceLine" id="cb4-5" title="5">∇</a></code></pre></div>
+<h2 id="problem-4-bioinformatics">Problem 4 – Bioinformatics</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb5-1" title="1">⍝ Test if a DNA string is a reverse palindrome.</a>
+<a class="sourceLine" id="cb5-2" title="2">isrevp←{⍵≡⌽'TAGC'['ATCG'⍳⍵]}</a>
+<a class="sourceLine" id="cb5-3" title="3"></a>
+<a class="sourceLine" id="cb5-4" title="4">⍝ Generate all subarrays (position, length) pairs, for</a>
+<a class="sourceLine" id="cb5-5" title="5">⍝ 4 ≤ length ≤ 12.</a>
+<a class="sourceLine" id="cb5-6" title="6">subarrays←{⊃,/(⍳⍵),¨¨3↓¨⍳¨12⌊1+⍵-⍳⍵}</a>
+<a class="sourceLine" id="cb5-7" title="7"></a>
+<a class="sourceLine" id="cb5-8" title="8">∇ r←revp dna;positions</a>
+<a class="sourceLine" id="cb5-9" title="9">  positions←subarrays⍴dna</a>
+<a class="sourceLine" id="cb5-10" title="10">  ⍝ Filter subarrays which are reverse palindromes.</a>
+<a class="sourceLine" id="cb5-11" title="11">  r←↑({isrevp dna[¯1+⍵[1]+⍳⍵[2]]}¨positions)/positions</a>
+<a class="sourceLine" id="cb5-12" title="12">∇</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb6-1" title="1">sset←{((1E6|2∘×)⍣⍵)1}</a></code></pre></div>
+<h2 id="problem-5-future-and-present-value">Problem 5 – Future and Present Value</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb7-1" title="1">⍝ First solution: ((1+⊢)⊥⊣) computes the total return</a>
+<a class="sourceLine" id="cb7-2" title="2">⍝ for a vector of amounts ⍺ and a vector of rates</a>
+<a class="sourceLine" id="cb7-3" title="3">⍝ ⍵. It is applied to every prefix subarray of amounts</a>
+<a class="sourceLine" id="cb7-4" title="4">⍝ and rates to get all intermediate values. However,</a>
+<a class="sourceLine" id="cb7-5" title="5">⍝ this has quadratic complexity.</a>
+<a class="sourceLine" id="cb7-6" title="6">⍝ rr←(,\⊣)((1+⊢)⊥⊣)¨(,\⊢)</a>
+<a class="sourceLine" id="cb7-7" title="7"></a>
+<a class="sourceLine" id="cb7-8" title="8">⍝ Second solution: We want to be able to use the</a>
+<a class="sourceLine" id="cb7-9" title="9">⍝ recurrence relation (recur) and scan through the</a>
+<a class="sourceLine" id="cb7-10" title="10">⍝ vectors of amounts and rates, accumulating the total</a>
+<a class="sourceLine" id="cb7-11" title="11">⍝ value at every time step. However, APL evaluation is</a>
+<a class="sourceLine" id="cb7-12" title="12">⍝ right-associative, so a simple Scan</a>
+<a class="sourceLine" id="cb7-13" title="13">⍝ (recur\amounts,¨values) would not give the correct</a>
+<a class="sourceLine" id="cb7-14" title="14">⍝ result, since recur is not associative and we need</a>
+<a class="sourceLine" id="cb7-15" title="15">⍝ to evaluate it left-to-right. (In any case, in this</a>
+<a class="sourceLine" id="cb7-16" title="16">⍝ case, Scan would have quadratic complexity, so would</a>
+<a class="sourceLine" id="cb7-17" title="17">⍝ not bring any benefit over the previous solution.)</a>
+<a class="sourceLine" id="cb7-18" title="18">⍝ What we need is something akin to Haskell's scanl</a>
+<a class="sourceLine" id="cb7-19" title="19">⍝ function, which would evaluate left to right in O(n)</a>
+<a class="sourceLine" id="cb7-20" title="20">⍝ time. This is what we do here, accumulating values</a>
+<a class="sourceLine" id="cb7-21" title="21">⍝ from left to right. (This is inspired from</a>
+<a class="sourceLine" id="cb7-22" title="22">⍝ dfns.ascan, although heavily simplified.)</a>
+<a class="sourceLine" id="cb7-23" title="23">rr←{recur←{⍵[1]+⍺×1+⍵[2]} ⋄ 1↓⌽⊃{(⊂(⊃⍵)recur⍺),⍵}/⌽⍺,¨⍵}</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb8-1" title="1">⍝ Simply apply the formula for cashflow calculations.</a>
+<a class="sourceLine" id="cb8-2" title="2">pv←{+/⍺÷×\1+⍵}</a></code></pre></div>
+<h2 id="problem-6-merge">Problem 6 – Merge</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb9-1" title="1">∇ val←ns getval var</a>
+<a class="sourceLine" id="cb9-2" title="2">  :If ''≡var ⍝ literal '@'</a>
+<a class="sourceLine" id="cb9-3" title="3">      val←'@'</a>
+<a class="sourceLine" id="cb9-4" title="4">  :ElseIf (⊂var)∊ns.⎕NL ¯2</a>
+<a class="sourceLine" id="cb9-5" title="5">      val←⍕ns⍎var</a>
+<a class="sourceLine" id="cb9-6" title="6">  :Else</a>
+<a class="sourceLine" id="cb9-7" title="7">      val←'???'</a>
+<a class="sourceLine" id="cb9-8" title="8">  :EndIf</a>
+<a class="sourceLine" id="cb9-9" title="9">∇</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb10-1" title="1">∇ text←templateFile Merge jsonFile;template;ns</a>
+<a class="sourceLine" id="cb10-2" title="2">  template←⊃⎕NGET templateFile 1</a>
+<a class="sourceLine" id="cb10-3" title="3">  ns←⎕JSON⊃⎕NGET jsonFile</a>
+<a class="sourceLine" id="cb10-4" title="4">  ⍝ We use a simple regex search and replace on the</a>
+<a class="sourceLine" id="cb10-5" title="5">  ⍝ template.</a>
+<a class="sourceLine" id="cb10-6" title="6">  text←↑('@[a-zA-Z]*@'⎕R{ns getval ¯1↓1↓⍵.Match})template</a>
+<a class="sourceLine" id="cb10-7" title="7">∇</a></code></pre></div>
+<h2 id="problem-7-upc">Problem 7 – UPC</h2>
+<div class="sourceCode" id="cb11"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb11-1" title="1">CheckDigit←{10|-⍵+.×11⍴3 1}</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb12-1" title="1">⍝ Left and right representations of digits. Decoding</a>
+<a class="sourceLine" id="cb12-2" title="2">⍝ the binary representation from decimal is more</a>
+<a class="sourceLine" id="cb12-3" title="3">⍝ compact than writing everything explicitly.</a>
+<a class="sourceLine" id="cb12-4" title="4">lrepr←⍉(7⍴2)⊤13 25 19 61 35 49 47 59 55 11</a>
+<a class="sourceLine" id="cb12-5" title="5">rrepr←~¨lrepr</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb13-1" title="1">∇ bits←WriteUPC digits;left;right</a>
+<a class="sourceLine" id="cb13-2" title="2">  :If (11=≢digits)∧∧/digits∊0,⍳9</a>
+<a class="sourceLine" id="cb13-3" title="3">      left←,lrepr[1+6↑digits;]</a>
+<a class="sourceLine" id="cb13-4" title="4">      right←,rrepr[1+6↓digits,CheckDigit digits;]</a>
+<a class="sourceLine" id="cb13-5" title="5">      bits←1 0 1,left,0 1 0 1 0,right,1 0 1</a>
+<a class="sourceLine" id="cb13-6" title="6">  :Else</a>
+<a class="sourceLine" id="cb13-7" title="7">      bits←¯1</a>
+<a class="sourceLine" id="cb13-8" title="8">  :EndIf</a>
+<a class="sourceLine" id="cb13-9" title="9">∇</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb14-1" title="1">∇ digits←ReadUPC bits</a>
+<a class="sourceLine" id="cb14-2" title="2">  :If 95≠⍴bits ⍝ incorrect number of bits</a>
+<a class="sourceLine" id="cb14-3" title="3">      digits←¯1</a>
+<a class="sourceLine" id="cb14-4" title="4">  :Else</a>
+<a class="sourceLine" id="cb14-5" title="5">      ⍝ Test if the barcode was scanned right-to-left.</a>
+<a class="sourceLine" id="cb14-6" title="6">      :If 0=2|+/bits[3+⍳7]</a>
+<a class="sourceLine" id="cb14-7" title="7">          bits←⌽bits</a>
+<a class="sourceLine" id="cb14-8" title="8">      :EndIf</a>
+<a class="sourceLine" id="cb14-9" title="9">      digits←({¯1+lrepr⍳⍵}¨(7/⍳6)⊆42↑3↓bits),{¯1+rrepr⍳⍵}¨(7/⍳6)⊆¯42↑¯3↓bits</a>
+<a class="sourceLine" id="cb14-10" title="10">      :If ~∧/digits∊0,⍳9 ⍝ incorrect parity</a>
+<a class="sourceLine" id="cb14-11" title="11">          digits←¯1</a>
+<a class="sourceLine" id="cb14-12" title="12">      :ElseIf (⊃⌽digits)≠CheckDigit ¯1↓digits ⍝ incorrect check digit</a>
+<a class="sourceLine" id="cb14-13" title="13">          digits←¯1</a>
+<a class="sourceLine" id="cb14-14" title="14">      :EndIf</a>
+<a class="sourceLine" id="cb14-15" title="15">  :EndIf</a>
+<a class="sourceLine" id="cb14-16" title="16">∇</a></code></pre></div>
+<h2 id="problem-8-balancing-the-scales">Problem 8 – Balancing the Scales</h2>
+<div class="sourceCode" id="cb15"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb15-1" title="1">∇ parts←Balance nums;subsets;partitions</a>
+<a class="sourceLine" id="cb15-2" title="2">  ⍝ This is a brute force solution, running in</a>
+<a class="sourceLine" id="cb15-3" title="3">  ⍝ exponential time. We generate all the possible</a>
+<a class="sourceLine" id="cb15-4" title="4">  ⍝ partitions, filter out those which are not</a>
+<a class="sourceLine" id="cb15-5" title="5">  ⍝ balanced, and return the first matching one. There</a>
+<a class="sourceLine" id="cb15-6" title="6">  ⍝ are more advanced approach running in</a>
+<a class="sourceLine" id="cb15-7" title="7">  ⍝ pseudo-polynomial time (based on dynamic</a>
+<a class="sourceLine" id="cb15-8" title="8">  ⍝ programming, see the &quot;Partition problem&quot; Wikipedia</a>
+<a class="sourceLine" id="cb15-9" title="9">  ⍝ page), but they are not warranted here, as the</a>
+<a class="sourceLine" id="cb15-10" title="10">  ⍝ input size remains fairly small.</a>
+<a class="sourceLine" id="cb15-11" title="11"></a>
+<a class="sourceLine" id="cb15-12" title="12">  ⍝ Generate all partitions of a vector of a given</a>
+<a class="sourceLine" id="cb15-13" title="13">  ⍝ size, as binary mask vectors.</a>
+<a class="sourceLine" id="cb15-14" title="14">  subsets←{1↓2⊥⍣¯1⍳2*⍵}</a>
+<a class="sourceLine" id="cb15-15" title="15">  ⍝ Keep only the subsets whose sum is exactly</a>
+<a class="sourceLine" id="cb15-16" title="16">  ⍝ (+/nums)÷2.</a>
+<a class="sourceLine" id="cb15-17" title="17">  partitions←nums{((2÷⍨+/⍺)=⍺+.×⍵)/⍵}subsets⍴nums</a>
+<a class="sourceLine" id="cb15-18" title="18">  :If 0=≢,partitions</a>
+<a class="sourceLine" id="cb15-19" title="19">      ⍝ If no partition satisfy the above</a>
+<a class="sourceLine" id="cb15-20" title="20">      ⍝ criterion, we return ⍬.</a>
+<a class="sourceLine" id="cb15-21" title="21">      parts←⍬</a>
+<a class="sourceLine" id="cb15-22" title="22">  :Else</a>
+<a class="sourceLine" id="cb15-23" title="23">      ⍝ Otherwise, we return the first possible</a>
+<a class="sourceLine" id="cb15-24" title="24">      ⍝ partition.</a>
+<a class="sourceLine" id="cb15-25" title="25">      parts←nums{((⊂,(⊂~))⊃↓⍉⍵)/¨2⍴⊂⍺}partitions</a>
+<a class="sourceLine" id="cb15-26" title="26">  :EndIf</a>
+<a class="sourceLine" id="cb15-27" title="27">∇</a></code></pre></div>
+<h2 id="problem-9-upwardly-mobile">Problem 9 – Upwardly Mobile</h2>
+<div class="sourceCode" id="cb16"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb16-1" title="1">∇ weights←Weights filename;mobile;branches;mat</a>
+<a class="sourceLine" id="cb16-2" title="2">  ⍝ Put your code and comments below here</a>
+<a class="sourceLine" id="cb16-3" title="3"></a>
+<a class="sourceLine" id="cb16-4" title="4">  ⍝ Parse the mobile input file.</a>
+<a class="sourceLine" id="cb16-5" title="5">  mobile←↑⊃⎕NGET filename 1</a>
+<a class="sourceLine" id="cb16-6" title="6">  branches←⍸mobile∊'┌┴┐'</a>
+<a class="sourceLine" id="cb16-7" title="7">  ⍝ TODO: Build the matrix of coefficients mat.</a>
+<a class="sourceLine" id="cb16-8" title="8"></a>
+<a class="sourceLine" id="cb16-9" title="9">  ⍝ Solve the system of equations (arbitrarily setting</a>
+<a class="sourceLine" id="cb16-10" title="10">  ⍝ the first variable at 1 because the system is</a>
+<a class="sourceLine" id="cb16-11" title="11">  ⍝ overdetermined), then multiply the coefficients by</a>
+<a class="sourceLine" id="cb16-12" title="12">  ⍝ their least common multiple to get the smallest</a>
+<a class="sourceLine" id="cb16-13" title="13">  ⍝ integer weights.</a>
+<a class="sourceLine" id="cb16-14" title="14">  weights←((1∘,)×(∧/÷))mat[;1]⌹1↓[2]mat</a>
+<a class="sourceLine" id="cb16-15" title="15">∇</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb17-1" title="1">    :EndNamespace</a>
+<a class="sourceLine" id="cb17-2" title="2">:EndNamespace</a></code></pre></div>
+    </section>
+</article>
+
+
+    <footer>
+      Site proudly generated by
+      <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+    </footer>
+  </body>
+</html>
