@@ -1,13 +1,45 @@
 ---
 title: "Dyalog APL Problem Solving Competition 2020 — Phase I"
 subtitle: "Annotated Solutions"
-date: 2020-07-31
+date: 2020-08-02
 toc: true
 ---
 
-#+begin_src default
-  :Namespace Phase1
-#+end_src
+* Introduction
+
+I've always been quite fond of [[https://en.wikipedia.org/wiki/APL_(programming_language)][APL]] and its "array-oriented" approach
+of programming[fn:previous-post]. Every year, [[https://www.dyalog.com/][Dyalog]] (the company
+behind probably the most popular APL implementation) organises a
+competition with various challenges in APL.
+
+[fn:previous-post] See my [[./ising-apl.html][previous post]] on simulating the Ising model
+with APL. It also contains more background on APL.
+
+
+The [[https://www.dyalogaplcompetition.com/][Dyalog APL Problem Solving Competition]] consists of two phases:
+- Phase I consists of 10 short puzzles (similar to what one can find
+  on [[https://projecteuler.net/][Project Euler]] or similar), that can be solved by a one-line APL
+  function.
+- Phase II is a collection of larger problems, that may require longer
+  solutions and a larger context (e.g. reading and writing to files),
+  often in a more applied setting. Problems are often inspired by
+  existing domains, such as AI, bioinformatics, and so on.
+
+In 2018, I participated in the competition, entering only Phase
+I[fn:2018-competition] (my solutions are on [[https://github.com/dlozeve/apl-competition-2018][GitHub]]). This year, I
+entered in both phases. I explain my solutions to Phase I in this
+post. Another post will contain annotated solutions for Phase II
+problems.
+
+[fn:2018-competition] Since I was a student at the time, I was
+eligible for a prize, and [[https://www.dyalog.com/nnews/128/456/Winners-Announced-for-the-2018-APL-Programming-Contest.htm][I won $100]] for a 10-line submission, which
+is quite good!
+
+
+The full code for my submission is on GitHub at
+[[https://github.com/dlozeve/apl-competition-2020][dlozeve/apl-competition-2020]], but everything is reproduced in this
+post.
+
 
 * 1. Let's Split!
 
@@ -87,7 +119,7 @@ output.
 
 #+begin_quote
 A Microsoft Excel spreadsheet numbers its rows counting up
-from 1. However Excel's columns are labelled alphabetically —
+from 1. However, Excel's columns are labelled alphabetically —
 beginning with A–Z, then AA–AZ, BA–BZ, up to ZA–ZZ, then AAA–AAZ and
 so on.
 
@@ -222,7 +254,7 @@ Write a function that, given a right argument which is an integer
 scalar or vector, returns a 1 if the values of the right argument
 conform to the following pattern (0 otherwise):
 
-- The elements increase or stay the same until the "apex" (highest
+- The elements increase or stay the same until the "apex" (the highest
   value) is reached
 - After the apex, any remaining values decrease or remain the same
 #+end_quote
@@ -310,8 +342,3 @@ dual of Mix.] (~↓~) does:
 
 Next, we clean this up with Ravel (~,~) and we can Mix to obtain the
 final result.
-
-#+begin_src default
-  :EndNamespace
-#+end_src
-
