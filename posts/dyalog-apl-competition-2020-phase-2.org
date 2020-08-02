@@ -46,6 +46,17 @@ explanations for every problem below.
   ∇
 #+end_src
 
+This is a very straightforward implementation of the algorithm
+describe in the problem description. I decided to switch explicitly on
+the size of the input vector because I feel it is more natural. For
+the cases with 5 or 7 judges, we use Drop (~↓~) to remove the lowest
+and highest scores.
+
+At the end, we sum up the scores with ~+/~ and multiply them by
+~dd~. The last operation, ~2(⍎⍕)~, is a train using [[https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/Format%20Dyadic.htm][Format (Dyadic)]] to
+round to 2 decimal places, and [[https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/Execute.htm][Execute]] to get actual numbers and not
+strings.
+
 * Problem 2 -- Another Step in the Proper Direction
 
 #+begin_src default
@@ -65,6 +76,20 @@ explanations for every problem below.
   ∇
 #+end_src
 
+This is an extension to [[./dyalog-apl-competition-2020-phase-1.html#stepping-in-the-proper-direction][Problem 5 of Phase I]]. In each case, we compute
+the "segments", i.e., the steps starting from 0. In a last step,
+common to all cases, we add the correct starting point and correct the
+direction if need be.
+
+To compute equally-sized steps, we first divide the segment $[0, 1]$
+in ~p~ equal segments with ~(⍳p)÷p~. This subdivision can then be
+multiplied by the width to obtain the required segments.
+
+When ~p~ is the step size, we just divide the width by the step size
+(rounded to the next largest integer) to get the required number of
+segments. If the last segment is too large, we "crop" it to the width
+with Minimum (~⌊~).
+
 * Problem 3 -- Past Tasks Blast
 
 #+begin_src default
@@ -75,16 +100,55 @@ explanations for every problem below.
   ∇
 #+end_src
 
+I decided to use ~HttpCommand~ for this task, since it is simply one
+~]load HttpCommand~ away and should be platform-independent.
+
+Parsing XML is not something I consider "fun" in the best of cases,
+and I feel like APL is not the best language to do this kind of
+thing. Given how simple the task is, I just decided to find the
+relevant bits with a regular expression using [[https://help.dyalog.com/18.0/index.htm#Language/System%20Functions/r.htm][Replace and Search]]
+(~⎕S~).
+
+After finding all the strings vaguely resembling a PDF file name (only
+alphanumeric characters and underscores, with a =.pdf= extension), I
+just concatenate them to the base URL of the Dyalog domain.
+
 * Problem 4 -- Bioinformatics
+
+The first task can be solved by decomposing it into several functions.
 
 #+begin_src default
   ⍝ Test if a DNA string is a reverse palindrome.
   isrevp←{⍵≡⌽'TAGC'['ATCG'⍳⍵]}
+#+end_src
 
-  ⍝ Generate all subarrays (position, length) pairs, for
-  ⍝ 4 ≤ length ≤ 12.
+First, we compute the complement of a DNA string (using simple
+indexing) and test if its Reverse (~⌽~) is equal to the original
+string.
+
+#+begin_src default
+  ⍝ Generate all subarrays (position, length) pairs, for 4 ≤ length ≤ 12.
   subarrays←{⊃,/(⍳⍵),¨¨3↓¨⍳¨12⌊1+⍵-⍳⍵}
+#+end_src
 
+We first compute all the possible lengths for each starting point. For
+instance, the last element cannot have any (position, length) pair
+associated to it, because there is no three element following it. So
+we crop the possible lengths to $[3, 12]$. For instance for an array
+of size 10:
+
+#+begin_src default
+        {3↓¨⍳¨12⌊1+⍵-⍳⍵}10
+┌──────────────┬───────────┬─────────┬───────┬─────┬───┬─┬┬┬┐
+│4 5 6 7 8 9 10│4 5 6 7 8 9│4 5 6 7 8│4 5 6 7│4 5 6│4 5│4││││
+└──────────────┴───────────┴─────────┴───────┴─────┴───┴─┴┴┴┘
+#+end_src
+
+Then, we just add the corresponding starting position to each length
+(1 for the first block, 2 for the second, and so on). Finally, we
+flatten everything.
+
+#+begin_src default
   ∇ r←revp dna;positions
     positions←subarrays⍴dna
     ⍝ Filter subarrays which are reverse palindromes.
@@ -92,9 +156,25 @@ explanations for every problem below.
   ∇
 #+end_src
 
+For each possible (position, length) pair, we get the corresponding
+DNA substring with ~dna[¯1+⍵[1]+⍳⍵[2]]~ (adding ~¯1~ is necessary
+because ~⎕IO←1~). We test if this substring is a reverse palindrome
+using ~isrevp~ above. [[https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/Replicate.htm][Replicate]] (~/~) then selects only the (position,
+length) pairs for which the substring is a reverse palindrome.
+
+The second task is just about counting the number of subsets modulo
+1,000,000. So we just need to compute $2^n \mod 1000000$ for any
+positive integer $n\leq1000$.
+
 #+begin_src default
   sset←{((1E6|2∘×)⍣⍵)1}
 #+end_src
+
+Since we cannot just compute $2^n$ directly and take the remainder, we
+use modular arithmetic to stay mod 1,000,000 during the whole
+computation. The dfn ~(1E6|2∘×)~ doubles its argument mod
+1,000,000. So we just apply this function $n$ times using the [[https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Operators/Power%20Operator.htm][Power]]
+operator (~⍣~), with an initial value of 1.
 
 * Problem 5 -- Future and Present Value
 
