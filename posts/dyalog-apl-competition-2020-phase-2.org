@@ -1,9 +1,23 @@
 ---
 title: "Dyalog APL Problem Solving Competition 2020 — Phase II"
 subtitle: "Annotated Solutions"
-date: 2020-07-31
+date: 2020-08-02
 toc: true
 ---
+
+* Introduction
+
+After [[./dyalog-apl-competition-2020-phase-1.html][Phase I]], here are my solutions to Phase II problems. The full
+code is included in the post, but everything is also available [[https://github.com/dlozeve/apl-competition-2020][on
+GitHub]].
+
+A PDF of the problems descriptions is available on [[https://www.dyalogaplcompetition.com/][the competition
+website]], or directly from [[https://github.com/dlozeve/apl-competition-2020/blob/master/Contest2020/2020%20APL%20Problem%20Solving%20Competition%20Phase%20II%20Problems.pdf][my GitHub repo]].
+
+The submission guidelines gave a template where everything is defined
+in a ~Contest2020.Problems~ Namespace. I kept the default values for
+~⎕IO~ and ~⎕ML~ because the problems were not particularly easier with
+~⎕IO←0~.
 
 #+begin_src default
   :Namespace Contest2020
@@ -11,6 +25,11 @@ toc: true
 	  :Namespace Problems
 		  (⎕IO ⎕ML ⎕WX)←1 1 3
 #+end_src
+
+#+begin_quote
+This post is still a work in progress! I will try to write
+explanations for every problem below.
+#+end_quote
 
 * Problem 1 -- Take a Dive
 
@@ -45,7 +64,6 @@ toc: true
     steps←fromTo{(⊃⍺)+(-×-/⍺)×⍵}segments
   ∇
 #+end_src
-
 
 * Problem 3 -- Past Tasks Blast
 
