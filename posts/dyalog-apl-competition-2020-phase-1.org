@@ -28,7 +28,7 @@ The [[https://www.dyalogaplcompetition.com/][Dyalog APL Problem Solving Competit
 In 2018, I participated in the competition, entering only Phase
 I[fn:2018-competition] (my solutions are on [[https://github.com/dlozeve/apl-competition-2018][GitHub]]). This year, I
 entered in both phases. I explain my solutions to Phase I in this
-post. Another post will contain annotated solutions for Phase II
+post. [[./dyalog-apl-competition-2020-phase-2.html][Another post]] will contain annotated solutions for Phase II
 problems.
 
 [fn:2018-competition] Since I was a student at the time, I was

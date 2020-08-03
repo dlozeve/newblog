@@ -265,7 +265,7 @@
 </ul>
 <p>In 2018, I participated in the competition, entering only Phase I<span><label for="sn-2" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-2" class="margin-toggle" /><span class="sidenote">Since I was a student at the time, I was eligible for a prize, and <a href="https://www.dyalog.com/nnews/128/456/Winners-Announced-for-the-2018-APL-Programming-Contest.htm">I won $100</a> for a 10-line submission, which is quite good!<br />
 <br />
-</span></span> (my solutions are on <a href="https://github.com/dlozeve/apl-competition-2018">GitHub</a>). This year, I entered in both phases. I explain my solutions to Phase I in this post. Another post will contain annotated solutions for Phase II problems.</p>
+</span></span> (my solutions are on <a href="https://github.com/dlozeve/apl-competition-2018">GitHub</a>). This year, I entered in both phases. I explain my solutions to Phase I in this post. <a href="./dyalog-apl-competition-2020-phase-2.html">Another post</a> will contain annotated solutions for Phase II problems.</p>
 <p>The full code for my submission is on GitHub at <a href="https://github.com/dlozeve/apl-competition-2020">dlozeve/apl-competition-2020</a>, but everything is reproduced in this post.</p>
 <h2 id="lets-split">1. Let’s Split!</h2>
 <blockquote>
