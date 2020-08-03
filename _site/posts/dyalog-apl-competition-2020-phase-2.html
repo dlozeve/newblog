@@ -165,30 +165,42 @@
 <a class="sourceLine" id="cb10-23" title="23">rr←{recur←{⍵[1]+⍺×1+⍵[2]} ⋄ 1↓⌽⊃{(⊂(⊃⍵)recur⍺),⍵}/⌽⍺,¨⍵}</a></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb11-1" title="1">⍝ Simply apply the formula for cashflow calculations.</a>
 <a class="sourceLine" id="cb11-2" title="2">pv←{+/⍺÷×\1+⍵}</a></code></pre></div>
+<p>TODO</p>
 <h2 id="problem-6-merge">Problem 6 – Merge</h2>
-<div class="sourceCode" id="cb12"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb12-1" title="1">∇ val←ns getval var</a>
-<a class="sourceLine" id="cb12-2" title="2">  :If ''≡var ⍝ literal '@'</a>
-<a class="sourceLine" id="cb12-3" title="3">      val←'@'</a>
-<a class="sourceLine" id="cb12-4" title="4">  :ElseIf (⊂var)∊ns.⎕NL ¯2</a>
-<a class="sourceLine" id="cb12-5" title="5">      val←⍕ns⍎var</a>
-<a class="sourceLine" id="cb12-6" title="6">  :Else</a>
-<a class="sourceLine" id="cb12-7" title="7">      val←'???'</a>
-<a class="sourceLine" id="cb12-8" title="8">  :EndIf</a>
-<a class="sourceLine" id="cb12-9" title="9">∇</a></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb13-1" title="1">∇ text←templateFile Merge jsonFile;template;ns</a>
-<a class="sourceLine" id="cb13-2" title="2">  template←⊃⎕NGET templateFile 1</a>
-<a class="sourceLine" id="cb13-3" title="3">  ns←⎕JSON⊃⎕NGET jsonFile</a>
-<a class="sourceLine" id="cb13-4" title="4">  ⍝ We use a simple regex search and replace on the</a>
-<a class="sourceLine" id="cb13-5" title="5">  ⍝ template.</a>
-<a class="sourceLine" id="cb13-6" title="6">  text←↑('@[a-zA-Z]*@'⎕R{ns getval ¯1↓1↓⍵.Match})template</a>
-<a class="sourceLine" id="cb13-7" title="7">∇</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb12-1" title="1">∇ text←templateFile Merge jsonFile;template;ns</a>
+<a class="sourceLine" id="cb12-2" title="2">  template←⊃⎕NGET templateFile 1</a>
+<a class="sourceLine" id="cb12-3" title="3">  ns←⎕JSON⊃⎕NGET jsonFile</a>
+<a class="sourceLine" id="cb12-4" title="4">  ⍝ We use a simple regex search and replace on the</a>
+<a class="sourceLine" id="cb12-5" title="5">  ⍝ template.</a>
+<a class="sourceLine" id="cb12-6" title="6">  text←↑('@[a-zA-Z]*@'⎕R{ns getval ¯1↓1↓⍵.Match})template</a>
+<a class="sourceLine" id="cb12-7" title="7">∇</a></code></pre></div>
+<p>We first read the template and the JSON values from their files. The <a href="https://help.dyalog.com/18.0/index.htm#Language/System%20Functions/nget.htm"><code>⎕NGET</code></a> function read simple text files, and <a href="https://help.dyalog.com/18.0/index.htm#Language/System%20Functions/json.htm"><code>⎕JSON</code></a> extracts the key-value pairs as a namespace.</p>
+<p>Assuming all variable names contain only letters, we match the regex <code>@[a-zA-Z]*@</code> to match variable names enclosed between <code>@</code> symbols. The function <code>getval</code> then returns the appropriate value, and we can replace the variable name in the template.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb13-1" title="1">∇ val←ns getval var</a>
+<a class="sourceLine" id="cb13-2" title="2">  :If ''≡var ⍝ literal '@'</a>
+<a class="sourceLine" id="cb13-3" title="3">      val←'@'</a>
+<a class="sourceLine" id="cb13-4" title="4">  :ElseIf (⊂var)∊ns.⎕NL ¯2</a>
+<a class="sourceLine" id="cb13-5" title="5">      val←⍕ns⍎var</a>
+<a class="sourceLine" id="cb13-6" title="6">  :Else</a>
+<a class="sourceLine" id="cb13-7" title="7">      val←'???'</a>
+<a class="sourceLine" id="cb13-8" title="8">  :EndIf</a>
+<a class="sourceLine" id="cb13-9" title="9">∇</a></code></pre></div>
+<p>This function takes the namespace matching the variable names to their respective values, and the name of the variable.</p>
+<ul>
+<li>If the variable name is empty, we matched the string <code>@@</code>, which corresponds to a literal <code>@</code>.</li>
+<li>If the variable name is present in the namespace, we query the namespace to get the required value.</li>
+<li>Otherwise, we have an unknown variable, so we replace it with <code>???</code>.</li>
+</ul>
 <h2 id="problem-7-upc">Problem 7 – UPC</h2>
 <div class="sourceCode" id="cb14"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb14-1" title="1">CheckDigit←{10|-⍵+.×11⍴3 1}</a></code></pre></div>
+<p>The check digit satisfies the equation <span class="math display">\[ 3 x_{1}+x_{2}+3 x_{3}+x_{4}+3 x_{5}+x_{6}+3 x_{7}+x_{8}+3 x_{9}+x_{10}+3 x_{11}+x_{12} \equiv 0 \bmod 10, \]</span> therefore, <span class="math display">\[ x_{12} \equiv -(3 x_{1}+x_{2}+3 x_{3}+x_{4}+3 x_{5}+x_{6}+3 x_{7}+x_{8}+3 x_{9}+x_{10}+3 x_{11}) \bmod 10. \]</span></p>
+<p>Translated to APL, we just take the dot product between the first 11 digits of the barcode with <code>11⍴3 1</code>, negate it, and take the remainder by 10.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb15-1" title="1">⍝ Left and right representations of digits. Decoding</a>
 <a class="sourceLine" id="cb15-2" title="2">⍝ the binary representation from decimal is more</a>
 <a class="sourceLine" id="cb15-3" title="3">⍝ compact than writing everything explicitly.</a>
 <a class="sourceLine" id="cb15-4" title="4">lrepr←⍉(7⍴2)⊤13 25 19 61 35 49 47 59 55 11</a>
 <a class="sourceLine" id="cb15-5" title="5">rrepr←~¨lrepr</a></code></pre></div>
+<p>For the second task, the first thing we need to do is save the representation of digits. To save space, I did not encode the binary representation explicitly, instead using a decimal representation that I then decode in base 2. The right representation is just the bitwise negation.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb16-1" title="1">∇ bits←WriteUPC digits;left;right</a>
 <a class="sourceLine" id="cb16-2" title="2">  :If (11=≢digits)∧∧/digits∊0,⍳9</a>
 <a class="sourceLine" id="cb16-3" title="3">      left←,lrepr[1+6↑digits;]</a>
@@ -198,6 +210,8 @@
 <a class="sourceLine" id="cb16-7" title="7">      bits←¯1</a>
 <a class="sourceLine" id="cb16-8" title="8">  :EndIf</a>
 <a class="sourceLine" id="cb16-9" title="9">∇</a></code></pre></div>
+<p>First of all, if the vector <code>digits</code> does not have exactly 11 elements, all between 0 and 9, it is an error and we return <code>¯1</code>.</p>
+<p>Then, we take the first 6 digits and encode them with <code>lrepr</code>, and the last 5 digits plus the check digit encoded with <code>rrepr</code>. In each case, adding 1 is necessary because <code>⎕IO←1</code>. We return the final bit array with the required beginning, middle, and end guard patterns.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb17-1" title="1">∇ digits←ReadUPC bits</a>
 <a class="sourceLine" id="cb17-2" title="2">  :If 95≠⍴bits ⍝ incorrect number of bits</a>
 <a class="sourceLine" id="cb17-3" title="3">      digits←¯1</a>
@@ -214,6 +228,12 @@
 <a class="sourceLine" id="cb17-14" title="14">      :EndIf</a>
 <a class="sourceLine" id="cb17-15" title="15">  :EndIf</a>
 <a class="sourceLine" id="cb17-16" title="16">∇</a></code></pre></div>
+<ul>
+<li>If we don’t have the correct number of bits, we return <code>¯1</code>.</li>
+<li>We test the first digit for its parity, to determine if its actually a left representation. If it’s not, we reverse the bit array.</li>
+<li>Then, we take the bit array representing the right digits (<code>¯42↑¯3↓bits</code>), separate the different digits using <a href="https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/Partition.htm">Partition</a> (<code>⊆</code>), and look up each of them in the <code>rrepr</code> vector using <a href="https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/Index%20Of.htm">Index Of</a> (<code>⍳</code>). We do the same for the left digits.</li>
+<li>Final checks for the range of the digits (i.e., if the representations could not be found in the <code>lrepr</code> and <code>rrepr</code> vectors), and for the check digit.</li>
+</ul>
 <h2 id="problem-8-balancing-the-scales">Problem 8 – Balancing the Scales</h2>
 <div class="sourceCode" id="cb18"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb18-1" title="1">∇ parts←Balance nums;subsets;partitions</a>
 <a class="sourceLine" id="cb18-2" title="2">  ⍝ This is a brute force solution, running in</a>
@@ -242,6 +262,7 @@
 <a class="sourceLine" id="cb18-25" title="25">      parts←nums{((⊂,(⊂~))⊃↓⍉⍵)/¨2⍴⊂⍺}partitions</a>
 <a class="sourceLine" id="cb18-26" title="26">  :EndIf</a>
 <a class="sourceLine" id="cb18-27" title="27">∇</a></code></pre></div>
+<p>TODO</p>
 <h2 id="problem-9-upwardly-mobile">Problem 9 – Upwardly Mobile</h2>
 <div class="sourceCode" id="cb19"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb19-1" title="1">∇ weights←Weights filename;mobile;branches;mat</a>
 <a class="sourceLine" id="cb19-2" title="2">  ⍝ Put your code and comments below here</a>
@@ -258,6 +279,7 @@
 <a class="sourceLine" id="cb19-13" title="13">  ⍝ integer weights.</a>
 <a class="sourceLine" id="cb19-14" title="14">  weights←((1∘,)×(∧/÷))mat[;1]⌹1↓[2]mat</a>
 <a class="sourceLine" id="cb19-15" title="15">∇</a></code></pre></div>
+<p>TODO</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb20-1" title="1">    :EndNamespace</a>
 <a class="sourceLine" id="cb20-2" title="2">:EndNamespace</a></code></pre></div>
     </section>

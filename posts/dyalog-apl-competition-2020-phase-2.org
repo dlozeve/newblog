@@ -209,7 +209,28 @@ operator (~⍣~), with an initial value of 1.
   pv←{+/⍺÷×\1+⍵}
 #+end_src
 
+TODO
+
 * Problem 6 -- Merge
+
+#+begin_src default
+  ∇ text←templateFile Merge jsonFile;template;ns
+    template←⊃⎕NGET templateFile 1
+    ns←⎕JSON⊃⎕NGET jsonFile
+    ⍝ We use a simple regex search and replace on the
+    ⍝ template.
+    text←↑('@[a-zA-Z]*@'⎕R{ns getval ¯1↓1↓⍵.Match})template
+  ∇
+#+end_src
+
+We first read the template and the JSON values from their files. The
+[[https://help.dyalog.com/18.0/index.htm#Language/System%20Functions/nget.htm][~⎕NGET~]] function read simple text files, and [[https://help.dyalog.com/18.0/index.htm#Language/System%20Functions/json.htm][~⎕JSON~]] extracts the
+key-value pairs as a namespace.
+
+Assuming all variable names contain only letters, we match the regex
+~@[a-zA-Z]*@~ to match variable names enclosed between ~@~
+symbols. The function ~getval~ then returns the appropriate value, and
+we can replace the variable name in the template.
 
 #+begin_src default
   ∇ val←ns getval var
@@ -223,21 +244,28 @@ operator (~⍣~), with an initial value of 1.
   ∇
 #+end_src
 
-#+begin_src default
-  ∇ text←templateFile Merge jsonFile;template;ns
-    template←⊃⎕NGET templateFile 1
-    ns←⎕JSON⊃⎕NGET jsonFile
-    ⍝ We use a simple regex search and replace on the
-    ⍝ template.
-    text←↑('@[a-zA-Z]*@'⎕R{ns getval ¯1↓1↓⍵.Match})template
-  ∇
-#+end_src
+This function takes the namespace matching the variable names to their
+respective values, and the name of the variable.
+- If the variable name is empty, we matched the string ~@@~, which
+  corresponds to a literal ~@~.
+- If the variable name is present in the namespace, we query the
+  namespace to get the required value.
+- Otherwise, we have an unknown variable, so we replace it with ~???~.
 
 * Problem 7 -- UPC
 
 #+begin_src default
   CheckDigit←{10|-⍵+.×11⍴3 1}
 #+end_src
+
+The check digit satisfies the equation
+\[ 3 x_{1}+x_{2}+3 x_{3}+x_{4}+3 x_{5}+x_{6}+3 x_{7}+x_{8}+3 x_{9}+x_{10}+3 x_{11}+x_{12} \equiv 0 \bmod 10, \]
+therefore,
+\[ x_{12} \equiv -(3 x_{1}+x_{2}+3 x_{3}+x_{4}+3 x_{5}+x_{6}+3 x_{7}+x_{8}+3 x_{9}+x_{10}+3 x_{11}) \bmod 10. \]
+
+Translated to APL, we just take the dot product between the first 11
+digits of the barcode with ~11⍴3 1~, negate it, and take the remainder
+by 10.
 
 #+begin_src default
   ⍝ Left and right representations of digits. Decoding
@@ -246,6 +274,12 @@ operator (~⍣~), with an initial value of 1.
   lrepr←⍉(7⍴2)⊤13 25 19 61 35 49 47 59 55 11
   rrepr←~¨lrepr
 #+end_src
+
+For the second task, the first thing we need to do is save the
+representation of digits. To save space, I did not encode the binary
+representation explicitly, instead using a decimal representation that
+I then decode in base 2. The right representation is just the
+bitwise negation.
 
 #+begin_src default
   ∇ bits←WriteUPC digits;left;right
@@ -258,6 +292,14 @@ operator (~⍣~), with an initial value of 1.
     :EndIf
   ∇
 #+end_src
+
+First of all, if the vector ~digits~ does not have exactly 11
+elements, all between 0 and 9, it is an error and we return ~¯1~.
+
+Then, we take the first 6 digits and encode them with ~lrepr~, and the
+last 5 digits plus the check digit encoded with ~rrepr~. In each case,
+adding 1 is necessary because ~⎕IO←1~. We return the final bit array
+with the required beginning, middle, and end guard patterns.
 
 #+begin_src default
   ∇ digits←ReadUPC bits
@@ -277,6 +319,17 @@ operator (~⍣~), with an initial value of 1.
     :EndIf
   ∇
 #+end_src
+
+- If we don't have the correct number of bits, we return ~¯1~.
+- We test the first digit for its parity, to determine if its actually
+  a left representation. If it's not, we reverse the bit array.
+- Then, we take the bit array representing the right digits
+  (~¯42↑¯3↓bits~), separate the different digits using [[https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/Partition.htm][Partition]]
+  (~⊆~), and look up each of them in the ~rrepr~ vector using [[https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/Index%20Of.htm][Index Of]]
+  (~⍳~). We do the same for the left digits.
+- Final checks for the range of the digits (i.e., if the
+  representations could not be found in the ~lrepr~ and ~rrepr~
+  vectors), and for the check digit.
 
 * Problem 8 -- Balancing the Scales
 
@@ -310,6 +363,8 @@ operator (~⍣~), with an initial value of 1.
   ∇
 #+end_src
 
+TODO
+
 * Problem 9 -- Upwardly Mobile
 
 #+begin_src default
@@ -329,6 +384,8 @@ operator (~⍣~), with an initial value of 1.
     weights←((1∘,)×(∧/÷))mat[;1]⌹1↓[2]mat
   ∇
 #+end_src
+
+TODO
 
 #+begin_src default
 	  :EndNamespace
