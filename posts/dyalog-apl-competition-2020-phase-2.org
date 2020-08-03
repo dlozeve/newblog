@@ -173,34 +173,41 @@ operator (~⍣~), with an initial value of 1.
 
 * Problem 5 -- Future and Present Value
 
-#+begin_src default
-  ⍝ First solution: ((1+⊢)⊥⊣) computes the total return
-  ⍝ for a vector of amounts ⍺ and a vector of rates
-  ⍝ ⍵. It is applied to every prefix subarray of amounts
-  ⍝ and rates to get all intermediate values. However,
-  ⍝ this has quadratic complexity.
-  ⍝ rr←(,\⊣)((1+⊢)⊥⊣)¨(,\⊢)
+First solution: ~((1+⊢)⊥⊣)~ computes the total return for a vector of
+amounts ~⍺~ and a vector of rates ~⍵~. It is applied to every prefix
+subarray of amounts and rates to get all intermediate values. However,
+this has quadratic complexity.
 
-  ⍝ Second solution: We want to be able to use the
-  ⍝ recurrence relation (recur) and scan through the
-  ⍝ vectors of amounts and rates, accumulating the total
-  ⍝ value at every time step. However, APL evaluation is
-  ⍝ right-associative, so a simple Scan
-  ⍝ (recur\amounts,¨values) would not give the correct
-  ⍝ result, since recur is not associative and we need
-  ⍝ to evaluate it left-to-right. (In any case, in this
-  ⍝ case, Scan would have quadratic complexity, so would
-  ⍝ not bring any benefit over the previous solution.)
-  ⍝ What we need is something akin to Haskell's scanl
-  ⍝ function, which would evaluate left to right in O(n)
-  ⍝ time. This is what we do here, accumulating values
-  ⍝ from left to right. (This is inspired from
-  ⍝ dfns.ascan, although heavily simplified.)
+#+begin_src default
+  rr←(,\⊣)((1+⊢)⊥⊣)¨(,\⊢)
+#+end_src
+
+Second solution: We want to be able to use the recurrence relation
+(~recur~) and scan through the vectors of amounts and rates,
+accumulating the total value at every time step. However, APL
+evaluation is right-associative, so a simple [[https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Operators/Scan.htm][Scan]]
+(~recur\amounts,¨values~) would not give the correct result, since
+~recur~ is not associative and we need to evaluate it
+left-to-right. (In any case, in this case, Scan would have quadratic
+complexity, so would not bring any benefit over the previous
+solution.)  What we need is something akin to Haskell's ~scanl~
+function, which would evaluate left to right in $O(n)$
+time[fn:apl-scan]. This is what we do here, accumulating values from
+left to right. (This is inspired from [[https://dfns.dyalog.com/c_ascan.htm][~dfns.ascan~]], although heavily
+simplified.)
+
+[fn:apl-scan] There is an interesting [[https://stackoverflow.com/a/25100675/8864368][StackOverflow answer]] explaining
+the behaviour of Scan, and compares it to Haskell's ~scanl~ function.
+
+
+#+begin_src default
   rr←{recur←{⍵[1]+⍺×1+⍵[2]} ⋄ 1↓⌽⊃{(⊂(⊃⍵)recur⍺),⍵}/⌽⍺,¨⍵}
 #+end_src
 
+For the second task, there is an explicit formula for cashflow
+calculations, so we can just apply it.
+
 #+begin_src default
-  ⍝ Simply apply the formula for cashflow calculations.
   pv←{+/⍺÷×\1+⍵}
 #+end_src
 
@@ -357,6 +364,20 @@ with the required beginning, middle, and end guard patterns.
 #+end_src
 
 * Problem 9 -- Upwardly Mobile
+
+This is the only problem that I didn't complete. It required parsing
+the files containing the graphical representations of the trees, which
+was needlessly complex and, quite frankly, hard and boring with a
+language like APL.
+
+However, the next part is interesting: once we have a matrix of
+coefficients representing the relationships between the weights, we
+can solve the system of equations. [[https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/Matrix%20Divide.htm][Matrix Divide]] (~⌹~) will find one
+solution to the system. Since the system is overdetermined, we fix
+~A=1~ to find one possible solution. Since we want integer weights,
+the solution we find is smaller than the one we want, and may contain
+fractional weights. So we multiply everything by the [[https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/And%20Lowest%20Common%20Multiple.htm][Lowest Common
+Multiple]] (~∧~) to get the smallest integer weights.
 
 #+begin_src default
   ∇ weights←Weights filename;mobile;branches;mat
