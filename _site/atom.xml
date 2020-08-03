@@ -40,9 +40,6 @@
 <a class="sourceLine" id="cb1-2" title="2"></a>
 <a class="sourceLine" id="cb1-3" title="3">    :Namespace Problems</a>
 <a class="sourceLine" id="cb1-4" title="4">        (⎕IO ⎕ML ⎕WX)←1 1 3</a></code></pre></div>
-<blockquote>
-<p>This post is still a work in progress! I will try to write explanations for every problem below.</p>
-</blockquote>
 <h2 id="problem-1-take-a-dive">Problem 1 – Take a Dive</h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb2-1" title="1">∇ score←dd DiveScore scores</a>
 <a class="sourceLine" id="cb2-2" title="2">  :If 7=≢scores</a>
@@ -131,7 +128,6 @@
 <a class="sourceLine" id="cb10-23" title="23">rr←{recur←{⍵[1]+⍺×1+⍵[2]} ⋄ 1↓⌽⊃{(⊂(⊃⍵)recur⍺),⍵}/⌽⍺,¨⍵}</a></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb11-1" title="1">⍝ Simply apply the formula for cashflow calculations.</a>
 <a class="sourceLine" id="cb11-2" title="2">pv←{+/⍺÷×\1+⍵}</a></code></pre></div>
-<p>TODO</p>
 <h2 id="problem-6-merge">Problem 6 – Merge</h2>
 <div class="sourceCode" id="cb12"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb12-1" title="1">∇ text←templateFile Merge jsonFile;template;ns</a>
 <a class="sourceLine" id="cb12-2" title="2">  template←⊃⎕NGET templateFile 1</a>
@@ -228,7 +224,6 @@
 <a class="sourceLine" id="cb18-25" title="25">      parts←nums{((⊂,(⊂~))⊃↓⍉⍵)/¨2⍴⊂⍺}partitions</a>
 <a class="sourceLine" id="cb18-26" title="26">  :EndIf</a>
 <a class="sourceLine" id="cb18-27" title="27">∇</a></code></pre></div>
-<p>TODO</p>
 <h2 id="problem-9-upwardly-mobile">Problem 9 – Upwardly Mobile</h2>
 <div class="sourceCode" id="cb19"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb19-1" title="1">∇ weights←Weights filename;mobile;branches;mat</a>
 <a class="sourceLine" id="cb19-2" title="2">  ⍝ Put your code and comments below here</a>
@@ -245,7 +240,6 @@
 <a class="sourceLine" id="cb19-13" title="13">  ⍝ integer weights.</a>
 <a class="sourceLine" id="cb19-14" title="14">  weights←((1∘,)×(∧/÷))mat[;1]⌹1↓[2]mat</a>
 <a class="sourceLine" id="cb19-15" title="15">∇</a></code></pre></div>
-<p>TODO</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb20-1" title="1">    :EndNamespace</a>
 <a class="sourceLine" id="cb20-2" title="2">:EndNamespace</a></code></pre></div>
     </section>

@@ -26,11 +26,6 @@ in a ~Contest2020.Problems~ Namespace. I kept the default values for
 		  (⎕IO ⎕ML ⎕WX)←1 1 3
 #+end_src
 
-#+begin_quote
-This post is still a work in progress! I will try to write
-explanations for every problem below.
-#+end_quote
-
 * Problem 1 -- Take a Dive
 
 #+begin_src default
@@ -209,8 +204,6 @@ operator (~⍣~), with an initial value of 1.
   pv←{+/⍺÷×\1+⍵}
 #+end_src
 
-TODO
-
 * Problem 6 -- Merge
 
 #+begin_src default
@@ -363,8 +356,6 @@ with the required beginning, middle, and end guard patterns.
   ∇
 #+end_src
 
-TODO
-
 * Problem 9 -- Upwardly Mobile
 
 #+begin_src default
@@ -384,8 +375,6 @@ TODO
     weights←((1∘,)×(∧/÷))mat[;1]⌹1↓[2]mat
   ∇
 #+end_src
-
-TODO
 
 #+begin_src default
 	  :EndNamespace
