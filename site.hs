@@ -30,9 +30,13 @@ main = hakyll $ do
     route   idRoute
     compile copyFileCompiler
 
-  match "css/*" $ do
+  match "css/*.css" $ do
     route   idRoute
     compile compressCssCompiler
+
+  match "css/et-book/**" $ do
+    route   idRoute
+    compile copyFileCompiler
 
   match "bib/*" $ compile biblioCompiler
 
