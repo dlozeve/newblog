@@ -16,14 +16,18 @@
     <link rel="alternate" type="application/rss+xml" title="Dimitri Lozeve's blog" href="../rss.xml" /> 
 
     <!-- KaTeX CSS styles -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 
     <!-- The loading of KaTeX is deferred to speed up page rendering -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
 
     <!-- To automatically render math in text elements, include the auto-render extension: -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
- 
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+
+<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+<!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+
   </head>
   <body>
     <article>
@@ -44,7 +48,6 @@
       </header>
       
 
-      
     </article>
 
     <article>
@@ -52,31 +55,33 @@
         
     </section>
     <section>
-        <h2>Table of Contents</h2><ul>
+        <div id="toc"><h2>Table of Contents</h2><ul>
 <li><a href="#the-format-of-the-virtual-conference">The Format of the Virtual Conference</a></li>
-<li><a href="#speakers">Speakers</a><ul>
+<li><a href="#speakers">Speakers</a>
+<ul>
 <li><a href="#prof.-leslie-kaelbling-doing-for-our-robots-what-nature-did-for-us">Prof. Leslie Kaelbling, <span>Doing for Our Robots What Nature Did For Us</span></a></li>
 <li><a href="#dr.-laurent-dinh-invertible-models-and-normalizing-flows">Dr. Laurent Dinh, <span>Invertible Models and Normalizing Flows</span></a></li>
 <li><a href="#profs.-yann-lecun-and-yoshua-bengio-reflections-from-the-turing-award-winners">Profs. Yann LeCun and Yoshua Bengio, <span>Reflections from the Turing Award Winners</span></a></li>
 </ul></li>
-<li><a href="#workshops">Workshops</a><ul>
+<li><a href="#workshops">Workshops</a>
+<ul>
 <li><a href="#beyond-tabula-rasa-in-reinforcement-learning-agents-that-remember-adapt-and-generalize"><span>Beyond ‘tabula rasa’ in reinforcement learning: agents that remember, adapt, and generalize</span></a></li>
 <li><a href="#causal-learning-for-decision-making"><span>Causal Learning For Decision Making</span></a></li>
 <li><a href="#bridging-ai-and-cognitive-science"><span>Bridging AI and Cognitive Science</span></a></li>
 <li><a href="#integration-of-deep-neural-models-and-differential-equations"><span>Integration of Deep Neural Models and Differential Equations</span></a></li>
 </ul></li>
-</ul>
+</ul></div>
 <p>ICLR is one of the most important conferences in machine learning, and as such, I was very excited to have the opportunity to volunteer and attend the first fully-virtual edition of the event. The whole content of the conference has been made <a href="https://iclr.cc/virtual_2020/index.html">publicly available</a>, only a few days after the end of the event!</p>
-<p>I would like to thank the <a href="https://iclr.cc/Conferences/2020/Committees">organizing committee</a> for this incredible event, and the possibility to volunteer to help other participants<span><label for="sn-1" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-1" class="margin-toggle" /><span class="sidenote">To better organize the event, and help people navigate the various online tools, they brought in 500(!) volunteers, waved our registration fees, and asked us to do simple load-testing and tech support. This was a very generous offer, and felt very rewarding for us, as we could attend the conference, and give back to the organization a little bit.<br />
+<p>I would like to thank the <a href="https://iclr.cc/Conferences/2020/Committees">organizing committee</a> for this incredible event, and the possibility to volunteer to help other participants<span><label for="sn-0" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-0" class="margin-toggle" /><span class="sidenote">To better organize the event, and help people navigate the various online tools, they brought in 500(!) volunteers, waved our registration fees, and asked us to do simple load-testing and tech support. This was a very generous offer, and felt very rewarding for us, as we could attend the conference, and give back to the organization a little bit.<br />
 <br />
 </span></span>.</p>
 <p>The many volunteers, the online-only nature of the event, and the low registration fees also allowed for what felt like a very diverse, inclusive event. Many graduate students and researchers from industry (like me), who do not generally have the time or the resources to travel to conferences like this, were able to attend, and make the exchanges richer.</p>
 <p>In this post, I will try to give my impressions on the event, the speakers, and the workshops that I could attend. I will do a quick recap of the most interesting papers I saw in a future post.</p>
 <h2 id="the-format-of-the-virtual-conference">The Format of the Virtual Conference</h2>
 <p>As a result of global travel restrictions, the conference was made fully-virtual. It was supposed to take place in Addis Ababa, Ethiopia, which is great for people who are often the target of restrictive visa policies in Northern American countries.</p>
-<p>The thing I appreciated most about the conference format was its emphasis on <em>asynchronous</em> communication. Given how little time they had to plan the conference, they could have made all poster presentations via video-conference and call it a day. Instead, each poster had to record a 5-minute video<span><label for="sn-2" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-2" class="margin-toggle" /><span class="sidenote">The videos are streamed using <a href="https://library.slideslive.com/">SlidesLive</a>, which is a great solution for synchronising videos and slides. It is very comfortable to navigate through the slides and synchronising the video to the slides and vice-versa. As a result, SlidesLive also has a very nice library of talks, including major conferences. This is much better than browsing YouTube randomly.<br />
+<p>The thing I appreciated most about the conference format was its emphasis on <em>asynchronous</em> communication. Given how little time they had to plan the conference, they could have made all poster presentations via video-conference and call it a day. Instead, each poster had to record a 5-minute video<span><label for="sn-1" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-1" class="margin-toggle" /><span class="sidenote">The videos are streamed using <a href="https://library.slideslive.com/">SlidesLive</a>, which is a great solution for synchronising videos and slides. It is very comfortable to navigate through the slides and synchronising the video to the slides and vice-versa. As a result, SlidesLive also has a very nice library of talks, including major conferences. This is much better than browsing YouTube randomly.<br />
 <br />
-</span></span> summarising their research. Alongside each presentation, there was a dedicated Rocket.Chat channel<span><label for="sn-3" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-3" class="margin-toggle" /><span class="sidenote"><a href="https://rocket.chat/">Rocket.Chat</a> seems to be an <a href="https://github.com/RocketChat/Rocket.Chat">open-source</a> alternative to Slack. Overall, the experience was great, and I appreciate the efforts of the organizers to use open source software instead of proprietary applications. I hope other conferences will do the same, and perhaps even avoid Zoom, because of recent privacy concerns (maybe try <a href="https://jitsi.org/">Jitsi</a>?).<br />
+</span></span> summarising their research. Alongside each presentation, there was a dedicated Rocket.Chat channel<span><label for="sn-2" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-2" class="margin-toggle" /><span class="sidenote"><a href="https://rocket.chat/">Rocket.Chat</a> seems to be an <a href="https://github.com/RocketChat/Rocket.Chat">open-source</a> alternative to Slack. Overall, the experience was great, and I appreciate the efforts of the organizers to use open source software instead of proprietary applications. I hope other conferences will do the same, and perhaps even avoid Zoom, because of recent privacy concerns (maybe try <a href="https://jitsi.org/">Jitsi</a>?).<br />
 <br />
 </span></span> where anyone could ask a question to the authors, or just show their appreciation for the work. This was a fantastic idea as it allowed any participant to interact with papers and authors at any time they please, which is especially important in a setting where people were spread all over the globe.</p>
 <p>There were also Zoom session where authors were available for direct, face-to-face discussions, allowing for more traditional conversations. But asking questions on the channel had also the advantage of keeping a track of all questions that were asked by other people. As such, I quickly acquired the habit of watching the video, looking at the chat to see the previous discussions (even if they happened in the middle of the night in my timezone!), and then skimming the paper or asking questions myself.</p>
@@ -100,7 +105,7 @@
 <h3 id="beyond-tabula-rasa-in-reinforcement-learning-agents-that-remember-adapt-and-generalize"><a href="https://iclr.cc/virtual_2020/workshops_12.html">Beyond ‘tabula rasa’ in reinforcement learning: agents that remember, adapt, and generalize</a></h3>
 <p>A lot of pretty advanced talks about RL. The general theme was meta-learning, aka “learning to learn”. This is a very active area of research, which goes way beyond classical RL theory, and offer many interesting avenues to adjacent fields (both inside ML and outside, especially cognitive science). The <a href="http://www.betr-rl.ml/2020/abs/101/">first talk</a>, by Martha White, about inductive biases, was a very interesting and approachable introduction to the problems and challenges of the field. There was also a panel with Jürgen Schmidhuber. We hear a lot about him from the various controversies, but it’s nice to see him talking about research and future developments in RL.</p>
 <h3 id="causal-learning-for-decision-making"><a href="https://iclr.cc/virtual_2020/workshops_14.html">Causal Learning For Decision Making</a></h3>
-<p>Ever since I read Judea Pearl’s <a href="https://www.goodreads.com/book/show/36204378-the-book-of-why"><em>The Book of Why</em></a> on causality, I have been interested in how we can incorporate causality reasoning in machine learning. This is a complex topic, and I’m not sure yet that it is a complete revolution as Judea Pearl likes to portray it, but it nevertheless introduces a lot of new fascinating ideas. Yoshua Bengio gave an interesting talk<span><label for="sn-4" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-4" class="margin-toggle" /><span class="sidenote">You can find it at 4:45:20 in the <a href="https://slideslive.com/38926830/workshop-on-causal-learning-for-decision-making">livestream</a> of the workshop.<br />
+<p>Ever since I read Judea Pearl’s <a href="https://www.goodreads.com/book/show/36204378-the-book-of-why"><em>The Book of Why</em></a> on causality, I have been interested in how we can incorporate causality reasoning in machine learning. This is a complex topic, and I’m not sure yet that it is a complete revolution as Judea Pearl likes to portray it, but it nevertheless introduces a lot of new fascinating ideas. Yoshua Bengio gave an interesting talk<span><label for="sn-3" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-3" class="margin-toggle" /><span class="sidenote">You can find it at 4:45:20 in the <a href="https://slideslive.com/38926830/workshop-on-causal-learning-for-decision-making">livestream</a> of the workshop.<br />
 <br />
 </span></span> (even though very similar to his keynote talk) on causal priors for deep learning.</p>
 <h3 id="bridging-ai-and-cognitive-science"><a href="https://iclr.cc/virtual_2020/workshops_4.html">Bridging AI and Cognitive Science</a></h3>

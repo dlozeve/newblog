@@ -16,14 +16,18 @@
     <link rel="alternate" type="application/rss+xml" title="Dimitri Lozeve's blog" href="../rss.xml" /> 
 
     <!-- KaTeX CSS styles -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 
     <!-- The loading of KaTeX is deferred to speed up page rendering -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
 
     <!-- To automatically render math in text elements, include the auto-render extension: -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
- 
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+
+<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+<!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+
   </head>
   <body>
     <article>
@@ -44,7 +48,6 @@
       </header>
       
 
-      
     </article>
 
     <article>
@@ -52,19 +55,20 @@
         
     </section>
     <section>
-        <h2>Table of Contents</h2><ul>
+        <div id="toc"><h2>Table of Contents</h2><ul>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#the-axioms">The Axioms</a></li>
-<li><a href="#addition">Addition</a><ul>
+<li><a href="#addition">Addition</a>
+<ul>
 <li><a href="#commutativity">Commutativity</a></li>
 <li><a href="#associativity">Associativity</a></li>
 <li><a href="#identity-element">Identity element</a></li>
 </ul></li>
 <li><a href="#going-further">Going further</a></li>
 <li><a href="#references">References</a></li>
-</ul>
+</ul></div>
 <h2 id="introduction">Introduction</h2>
-<p>I have recently bought the book <em>Category Theory</em> from Steve Awodey <span class="citation" data-cites="awodeyCategoryTheory2010">(Awodey <a href="#ref-awodeyCategoryTheory2010">2010</a>)</span> is awesome, but probably the topic for another post), and a particular passage excited my curiosity:</p>
+<p>I have recently bought the book <em>Category Theory</em> from Steve Awodey <span class="citation" data-cites="awodeyCategoryTheory2010">(Awodey <a href="#ref-awodeyCategoryTheory2010" role="doc-biblioref">2010</a>)</span> is awesome, but probably the topic for another post), and a particular passage excited my curiosity:</p>
 <blockquote>
 <p>Let us begin by distinguishing between the following things: i. categorical foundations for mathematics, ii. mathematical foundations for category theory.</p>
 <p>As for the first point, one sometimes hears it said that category theory can be used to provide “foundations for mathematics,” as an alternative to set theory. That is in fact the case, but it is not what we are doing here. In set theory, one often begins with existential axioms such as “there is an infinite set” and derives further sets by axioms like “every set has a powerset,” thus building up a universe of mathematical objects (namely sets), which in principle suffice for “all of mathematics.”</p>
@@ -72,7 +76,7 @@
 <p>This statement is interesting because one often considers category theory as pretty “fundamental”, in the sense that it has no issue with considering what I call “dangerous” notions, such as the category <span class="math inline">\(\mathbf{Set}\)</span> of all sets, and even the category <span class="math inline">\(\mathbf{Cat}\)</span> of all categories. Surely a theory this general, that can afford to study such objects, should provide suitable foundations for mathematics? Awodey addresses these issues very explicitly in the section following the quote above, and finds a good way of avoiding circular definitions.</p>
 <p>Now, I remember some basics from my undergrad studies about foundations of mathematics. I was told that if you could define arithmetic, you basically had everything else “for free” (as Kronecker famously said, “natural numbers were created by God, everything else is the work of men”). I was also told that two sets of axioms existed, the <a href="https://en.wikipedia.org/wiki/Peano_axioms">Peano axioms</a> and the <a href="https://en.wikipedia.org/wiki/Zermelo%E2%80%93Fraenkel_set_theory">Zermelo-Fraenkel</a> axioms. Also, I should steer clear of the axiom of choice if I could, because one can do <a href="https://en.wikipedia.org/wiki/Banach%E2%80%93Tarski_paradox">strange things</a> with it, and it is equivalent to many <a href="https://en.wikipedia.org/wiki/Zorn%27s_lemma">different statements</a>. Finally (and this I knew mainly from <em>Logicomix</em>, I must admit), it is <a href="https://en.wikipedia.org/wiki/G%C3%B6del%27s_incompleteness_theorems">impossible</a> for a set of axioms to be both complete and consistent.</p>
 <p>Given all this, I realised that my knowledge of foundational mathematics was pretty deficient. I do not believe that it is a very important topic that everyone should know about, even though Gödel’s incompleteness theorem is very interesting from a logical and philosophical standpoint. However, I wanted to go deeper on this subject.</p>
-<p>In this post, I will try to share my path through Peano’s axioms <span class="citation" data-cites="gowersPrincetonCompanionMathematics2010">(Gowers, Barrow-Green, and Leader <a href="#ref-gowersPrincetonCompanionMathematics2010">2010</a>)</span>, because they are very simple, and it is easy to uncover basic algebraic structure from them.</p>
+<p>In this post, I will try to share my path through Peano’s axioms <span class="citation" data-cites="gowersPrincetonCompanionMathematics2010">(Gowers, Barrow-Green, and Leader <a href="#ref-gowersPrincetonCompanionMathematics2010" role="doc-biblioref">2010</a>)</span>, because they are very simple, and it is easy to uncover basic algebraic structure from them.</p>
 <h2 id="the-axioms">The Axioms</h2>
 <p>The purpose of the axioms is to define a collection of objects that we will call the <em>natural numbers</em>. Here, we place ourselves in the context of <a href="https://en.wikipedia.org/wiki/First-order_logic">first-order logic</a>. Logic is not the main topic here, so I will just assume that I have access to some quantifiers, to some predicates, to some variables, and, most importantly, to a relation <span class="math inline">\(=\)</span> which is reflexive, symmetric, transitive, and closed over the natural numbers.</p>
 <p>Without further digressions, let us define two symbols <span class="math inline">\(0\)</span> and <span class="math inline">\(s\)</span> (called <em>successor</em>) such that:</p>
@@ -113,14 +117,27 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
 <div class="proof">
 <p>First, we prove that every natural number commutes with <span class="math inline">\(0\)</span>.</p>
 <ul>
-<li><span class="math inline">\(0+0 = 0+0\)</span>.</li>
-<li><p>For every natural number <span class="math inline">\(a\)</span> such that <span class="math inline">\(0+a = a+0\)</span>, we have:</p></li>
+<li><p><span class="math inline">\(0+0 = 0+0\)</span>.</p></li>
+<li><p>For every natural number <span class="math inline">\(a\)</span> such that <span class="math inline">\(0+a = a+0\)</span>, we have:</p>
+<span class="math display">\[\begin{align}
+ 0 + s(a) &amp;= s(0+a)\\
+ &amp;= s(a+0)\\
+ &amp;= s(a)\\
+ &amp;= s(a) + 0.
+\end{align}
+\]</span></li>
 </ul>
 <p>By Axiom 5, every natural number commutes with <span class="math inline">\(0\)</span>.</p>
 <p>We can now prove the main proposition:</p>
 <ul>
-<li><span class="math inline">\(\forall a,\quad a+0=0+a\)</span>.</li>
-<li><p>For all <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> such that <span class="math inline">\(a+b=b+a\)</span>,</p></li>
+<li><p><span class="math inline">\(\forall a,\quad a+0=0+a\)</span>.</p></li>
+<li><p>For all <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> such that <span class="math inline">\(a+b=b+a\)</span>,</p>
+<span class="math display">\[\begin{align}
+ a + s(b) &amp;= s(a+b)\\
+ &amp;= s(b+a)\\
+ &amp;= s(b) + a.     
+\end{align}
+\]</span></li>
 </ul>
 <p>We used the opposite of the second rule for <span class="math inline">\(+\)</span>, namely <span class="math inline">\(\forall a,
 \forall b,\quad s(a) + b = s(a+b)\)</span>. This can easily be proved by another induction.</p>
@@ -143,12 +160,12 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
 <h2 id="going-further">Going further</h2>
 <p>We have imbued our newly created set of natural numbers with a significant algebraic structure. From there, similar arguments will create more structure, notably by introducing another operation <span class="math inline">\(\times\)</span>, and an order <span class="math inline">\(\leq\)</span>.</p>
 <p>It is now a matter of conventional mathematics to construct the integers <span class="math inline">\(\mathbb{Z}\)</span> and the rationals <span class="math inline">\(\mathbb{Q}\)</span> (using equivalence classes), and eventually the real numbers <span class="math inline">\(\mathbb{R}\)</span>.</p>
-<p>It is remarkable how very few (and very simple, as far as you would consider the induction axiom “simple”) axioms are enough to build an entire theory of mathematics. This sort of things makes me agree with Eugene Wigner <span class="citation" data-cites="wignerUnreasonableEffectivenessMathematics1990">(Wigner <a href="#ref-wignerUnreasonableEffectivenessMathematics1990">1990</a>)</span> when he says that “mathematics is the science of skillful operations with concepts and rules invented just for this purpose”. We drew some arbitrary rules out of thin air, and derived countless properties and theorems from them, basically for our own enjoyment. (As Wigner would say, it is <em>incredible</em> that any of these fanciful inventions coming out of nowhere turned out to be even remotely useful.) Mathematics is done mainly for the mathematician’s own pleasure!</p>
+<p>It is remarkable how very few (and very simple, as far as you would consider the induction axiom “simple”) axioms are enough to build an entire theory of mathematics. This sort of things makes me agree with Eugene Wigner <span class="citation" data-cites="wignerUnreasonableEffectivenessMathematics1990">(Wigner <a href="#ref-wignerUnreasonableEffectivenessMathematics1990" role="doc-biblioref">1990</a>)</span> when he says that “mathematics is the science of skillful operations with concepts and rules invented just for this purpose”. We drew some arbitrary rules out of thin air, and derived countless properties and theorems from them, basically for our own enjoyment. (As Wigner would say, it is <em>incredible</em> that any of these fanciful inventions coming out of nowhere turned out to be even remotely useful.) Mathematics is done mainly for the mathematician’s own pleasure!</p>
 <blockquote>
-<p>Mathematics cannot be defined without acknowledging its most obvious feature: namely, that it is interesting — M. Polanyi <span class="citation" data-cites="wignerUnreasonableEffectivenessMathematics1990">(Wigner <a href="#ref-wignerUnreasonableEffectivenessMathematics1990">1990</a>)</span></p>
+<p>Mathematics cannot be defined without acknowledging its most obvious feature: namely, that it is interesting — M. Polanyi <span class="citation" data-cites="wignerUnreasonableEffectivenessMathematics1990">(Wigner <a href="#ref-wignerUnreasonableEffectivenessMathematics1990" role="doc-biblioref">1990</a>)</span></p>
 </blockquote>
-<h2 id="references" class="unnumbered">References</h2>
-<div id="refs" class="references">
+<h2 class="unnumbered" id="references">References</h2>
+<div id="refs" class="references hanging-indent" role="doc-bibliography">
 <div id="ref-awodeyCategoryTheory2010">
 <p>Awodey, Steve. 2010. <em>Category Theory</em>. 2nd ed. Oxford Logic Guides 52. Oxford ; New York: Oxford University Press.</p>
 </div>
@@ -156,7 +173,7 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
 <p>Gowers, Timothy, June Barrow-Green, and Imre Leader. 2010. <em>The Princeton Companion to Mathematics</em>. Princeton University Press.</p>
 </div>
 <div id="ref-wignerUnreasonableEffectivenessMathematics1990">
-<p>Wigner, Eugene P. 1990. “The Unreasonable Effectiveness of Mathematics in the Natural Sciences.” In <em>Mathematics and Science</em>, by Ronald E Mickens, 291–306. WORLD SCIENTIFIC. <a href="https://doi.org/10.1142/9789814503488_0018" class="uri">https://doi.org/10.1142/9789814503488_0018</a>.</p>
+<p>Wigner, Eugene P. 1990. “The Unreasonable Effectiveness of Mathematics in the Natural Sciences.” In <em>Mathematics and Science</em>, by Ronald E Mickens, 291–306. WORLD SCIENTIFIC. <a href="https://doi.org/10.1142/9789814503488_0018">https://doi.org/10.1142/9789814503488_0018</a>.</p>
 </div>
 </div>
     </section>

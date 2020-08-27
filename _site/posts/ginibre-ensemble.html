@@ -16,14 +16,18 @@
     <link rel="alternate" type="application/rss+xml" title="Dimitri Lozeve's blog" href="../rss.xml" /> 
 
     <!-- KaTeX CSS styles -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 
     <!-- The loading of KaTeX is deferred to speed up page rendering -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
 
     <!-- To automatically render math in text elements, include the auto-render extension: -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
- 
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+
+<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+<!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+
   </head>
   <body>
     <article>
@@ -44,7 +48,6 @@
       </header>
       
 
-      
     </article>
 
     <article>
@@ -60,22 +63,22 @@
 <p>I find this mildly fascinating that such a straightforward definition of a random matrix can exhibit such non-random properties in their spectrum.</p>
 <h3 id="simulation">Simulation</h3>
 <p>I ran a quick simulation, thanks to <a href="https://julialang.org/">Julia</a>’s great ecosystem for linear algebra and statistical distributions:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode julia"><code class="sourceCode julia"><a class="sourceLine" id="cb1-1" title="1">using LinearAlgebra</a>
-<a class="sourceLine" id="cb1-2" title="2">using UnicodePlots</a>
-<a class="sourceLine" id="cb1-3" title="3"></a>
-<a class="sourceLine" id="cb1-4" title="4"><span class="kw">function</span> ginibre(n)</a>
-<a class="sourceLine" id="cb1-5" title="5">    <span class="kw">return</span> randn((n, n)) * sqrt(<span class="fl">1</span>/<span class="fl">2</span>n) + im * randn((n, n)) * sqrt(<span class="fl">1</span>/<span class="fl">2</span>n)</a>
-<a class="sourceLine" id="cb1-6" title="6"><span class="kw">end</span></a>
-<a class="sourceLine" id="cb1-7" title="7"></a>
-<a class="sourceLine" id="cb1-8" title="8">v = eigvals(ginibre(<span class="fl">2000</span>))</a>
-<a class="sourceLine" id="cb1-9" title="9"></a>
-<a class="sourceLine" id="cb1-10" title="10">scatterplot(real(v), imag(v), xlim=[-<span class="fl">1.5</span>,<span class="fl">1.5</span>], ylim=[-<span class="fl">1.5</span>,<span class="fl">1.5</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">using</span> LinearAlgebra</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="kw">using</span> UnicodePlots</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="kw">function</span> ginibre(n)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>    <span class="kw">return</span> randn((n<span class="op">,</span> n)) <span class="op">*</span> sqrt(<span class="fl">1</span><span class="op">/</span><span class="fl">2</span>n) <span class="op">+</span> <span class="cn">im</span> <span class="op">*</span> randn((n<span class="op">,</span> n)) <span class="op">*</span> sqrt(<span class="fl">1</span><span class="op">/</span><span class="fl">2</span>n)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="kw">end</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>v <span class="op">=</span> eigvals(ginibre(<span class="fl">2000</span>))</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>scatterplot(real(v)<span class="op">,</span> imag(v)<span class="op">,</span> xlim<span class="op">=</span>[<span class="op">-</span><span class="fl">1.5</span><span class="op">,</span><span class="fl">1.5</span>]<span class="op">,</span> ylim<span class="op">=</span>[<span class="op">-</span><span class="fl">1.5</span><span class="op">,</span><span class="fl">1.5</span>])</span></code></pre></div>
 <p>I like using <code>UnicodePlots</code> for this kind of quick-and-dirty plots, directly in the terminal. Here is the output:</p>
 <p><img src="../images/ginibre.png" /></p>
 <h3 id="references">References</h3>
 <ol>
-<li><span id="ref-1"></span>Hall, Brian C. 2019. “Eigenvalues of Random Matrices in the General Linear Group in the Large-<span class="math inline">\(N\)</span> Limit.” <em>Notices of the American Mathematical Society</em> 66, no. 4 (Spring): 568-569. <a href="https://www.ams.org/journals/notices/201904/201904FullIssue.pdf" class="uri">https://www.ams.org/journals/notices/201904/201904FullIssue.pdf</a></li>
-<li><span id="ref-2"></span>Ginibre, Jean. “Statistical ensembles of complex, quaternion, and real matrices.” Journal of Mathematical Physics 6.3 (1965): 440-449. <a href="https://doi.org/10.1063/1.1704292" class="uri">https://doi.org/10.1063/1.1704292</a></li>
+<li><span id="ref-1"></span>Hall, Brian C. 2019. “Eigenvalues of Random Matrices in the General Linear Group in the Large-<span class="math inline">\(N\)</span> Limit.” <em>Notices of the American Mathematical Society</em> 66, no. 4 (Spring): 568-569. <a href="https://www.ams.org/journals/notices/201904/201904FullIssue.pdf">https://www.ams.org/journals/notices/201904/201904FullIssue.pdf</a></li>
+<li><span id="ref-2"></span>Ginibre, Jean. “Statistical ensembles of complex, quaternion, and real matrices.” Journal of Mathematical Physics 6.3 (1965): 440-449. <a href="https://doi.org/10.1063/1.1704292">https://doi.org/10.1063/1.1704292</a></li>
 </ol>
     </section>
 </article>

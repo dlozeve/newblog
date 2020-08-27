@@ -16,14 +16,18 @@
     <link rel="alternate" type="application/rss+xml" title="Dimitri Lozeve's blog" href="../rss.xml" /> 
 
     <!-- KaTeX CSS styles -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 
     <!-- The loading of KaTeX is deferred to speed up page rendering -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
 
     <!-- To automatically render math in text elements, include the auto-render extension: -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
- 
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+
+<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+<!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+
   </head>
   <body>
     <article>
@@ -44,7 +48,6 @@
       </header>
       
 
-      
     </article>
 
     <article>
@@ -52,14 +55,15 @@
         
     </section>
     <section>
-        <h2>Table of Contents</h2><ul>
-<li><a href="#the-apl-family-of-languages">The APL family of languages</a><ul>
+        <div id="toc"><h2>Table of Contents</h2><ul>
+<li><a href="#the-apl-family-of-languages">The APL family of languages</a>
+<ul>
 <li><a href="#why-apl">Why APL?</a></li>
 <li><a href="#implementations">Implementations</a></li>
 </ul></li>
 <li><a href="#the-ising-model-in-apl">The Ising model in APL</a></li>
 <li><a href="#conclusion">Conclusion</a></li>
-</ul>
+</ul></div>
 <h2 id="the-apl-family-of-languages">The APL family of languages</h2>
 <h3 id="why-apl">Why APL?</h3>
 <p>I recently got interested in <a href="https://en.wikipedia.org/wiki/APL_(programming_language)">APL</a>, an <em>array-based</em> programming language. In APL (and derivatives), we try to reason about programs as series of transformations of multi-dimensional arrays. This is exactly the kind of style I like in Haskell and other functional languages, where I also try to use higher-order functions (map, fold, etc) on lists or arrays. A developer only needs to understand these abstractions once, instead of deconstructing each loop or each recursive function encountered in a program.</p>
@@ -132,7 +136,7 @@
 </code></pre>
 <ul>
 <li>We draw a random lattice of size ⍺ with <code>L ⍺</code>.</li>
-<li>We apply to it our update function, with $<em>β</em>$=10, ⍵ times (using the <code>⍣</code> function, which applies a function <span class="math inline">\(n\)</span> times.</li>
+<li>We apply to it our update function, with $β$=10, ⍵ times (using the <code>⍣</code> function, which applies a function <span class="math inline">\(n\)</span> times.</li>
 <li>Finally, we display -1 as a space and 1 as a domino ⌹.</li>
 </ul>
 <p>Final output, with a <span class="math inline">\(80\times 80\)</span> random lattice, after 50000 update steps:</p>

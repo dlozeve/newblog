@@ -16,7 +16,7 @@
         
     </section>
     <section>
-        <h2>Table of Contents</h2><ul>
+        <div id="toc"><h2>Table of Contents</h2><ul>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#problem-1-take-a-dive">Problem 1 – Take a Dive</a></li>
 <li><a href="#problem-2-another-step-in-the-proper-direction">Problem 2 – Another Step in the Proper Direction</a></li>
@@ -27,105 +27,105 @@
 <li><a href="#problem-7-upc">Problem 7 – UPC</a></li>
 <li><a href="#problem-8-balancing-the-scales">Problem 8 – Balancing the Scales</a></li>
 <li><a href="#problem-9-upwardly-mobile">Problem 9 – Upwardly Mobile</a></li>
-</ul>
+</ul></div>
 <h2 id="introduction">Introduction</h2>
 <p>After <a href="./dyalog-apl-competition-2020-phase-1.html">Phase I</a>, here are my solutions to Phase II problems. The full code is included in the post, but everything is also available <a href="https://github.com/dlozeve/apl-competition-2020">on GitHub</a>.</p>
 <p>A PDF of the problems descriptions is available on <a href="https://www.dyalogaplcompetition.com/">the competition website</a>, or directly from <a href="https://github.com/dlozeve/apl-competition-2020/blob/master/Contest2020/2020%20APL%20Problem%20Solving%20Competition%20Phase%20II%20Problems.pdf">my GitHub repo</a>.</p>
 <p>The submission guidelines gave a template where everything is defined in a <code>Contest2020.Problems</code> Namespace. I kept the default values for <code>⎕IO</code> and <code>⎕ML</code> because the problems were not particularly easier with <code>⎕IO←0</code>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb1-1" title="1">:Namespace Contest2020</a>
-<a class="sourceLine" id="cb1-2" title="2"></a>
-<a class="sourceLine" id="cb1-3" title="3">    :Namespace Problems</a>
-<a class="sourceLine" id="cb1-4" title="4">        (⎕IO ⎕ML ⎕WX)←1 1 3</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>:Namespace Contest2020</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a> :Namespace Problems</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>  (⎕IO ⎕ML ⎕WX)←1 1 3</span></code></pre></div>
 <h2 id="problem-1-take-a-dive">Problem 1 – Take a Dive</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb2-1" title="1">∇ score←dd DiveScore scores</a>
-<a class="sourceLine" id="cb2-2" title="2">  :If 7=≢scores</a>
-<a class="sourceLine" id="cb2-3" title="3">      scores←scores[¯2↓2↓⍋scores]</a>
-<a class="sourceLine" id="cb2-4" title="4">  :ElseIf 5=≢scores</a>
-<a class="sourceLine" id="cb2-5" title="5">      scores←scores[¯1↓1↓⍋scores]</a>
-<a class="sourceLine" id="cb2-6" title="6">  :Else</a>
-<a class="sourceLine" id="cb2-7" title="7">      scores←scores</a>
-<a class="sourceLine" id="cb2-8" title="8">  :EndIf</a>
-<a class="sourceLine" id="cb2-9" title="9">  score←2(⍎⍕)dd×+/scores</a>
-<a class="sourceLine" id="cb2-10" title="10">∇</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>∇ score←dd DiveScore scores</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>  :If 7=≢scores</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>   scores←scores[¯2↓2↓⍋scores]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>  :ElseIf 5=≢scores</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>   scores←scores[¯1↓1↓⍋scores]</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>  :Else</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>   scores←scores</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>  :EndIf</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>  score←2(⍎⍕)dd×+/scores</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a>∇</span></code></pre></div>
 <p>This is a very straightforward implementation of the algorithm describe in the problem description. I decided to switch explicitly on the size of the input vector because I feel it is more natural. For the cases with 5 or 7 judges, we use Drop (<code>↓</code>) to remove the lowest and highest scores.</p>
 <p>At the end, we sum up the scores with <code>+/</code> and multiply them by <code>dd</code>. The last operation, <code>2(⍎⍕)</code>, is a train using <a href="https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/Format%20Dyadic.htm">Format (Dyadic)</a> to round to 2 decimal places, and <a href="https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/Execute.htm">Execute</a> to get actual numbers and not strings.</p>
 <h2 id="problem-2-another-step-in-the-proper-direction">Problem 2 – Another Step in the Proper Direction</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb3-1" title="1">∇ steps←{p}Steps fromTo;segments;width</a>
-<a class="sourceLine" id="cb3-2" title="2">  width←|-/fromTo</a>
-<a class="sourceLine" id="cb3-3" title="3">  :If 0=⎕NC'p' ⍝ No left argument: same as Problem 5 of Phase I</a>
-<a class="sourceLine" id="cb3-4" title="4">      segments←0,⍳width</a>
-<a class="sourceLine" id="cb3-5" title="5">  :ElseIf p&lt;0 ⍝ -⌊p is the number of equally-sized steps to take</a>
-<a class="sourceLine" id="cb3-6" title="6">      segments←(-⌊p){0,⍵×⍺÷⍨⍳⍺}width</a>
-<a class="sourceLine" id="cb3-7" title="7">  :ElseIf p&gt;0 ⍝ p is the step size</a>
-<a class="sourceLine" id="cb3-8" title="8">      segments←p{⍵⌊⍺×0,⍳⌈⍵÷⍺}width</a>
-<a class="sourceLine" id="cb3-9" title="9">  :ElseIf p=0 ⍝ As if we took zero step</a>
-<a class="sourceLine" id="cb3-10" title="10">      segments←0</a>
-<a class="sourceLine" id="cb3-11" title="11">  :EndIf</a>
-<a class="sourceLine" id="cb3-12" title="12">  ⍝ Take into account the start point and the direction.</a>
-<a class="sourceLine" id="cb3-13" title="13">  steps←fromTo{(⊃⍺)+(-×-/⍺)×⍵}segments</a>
-<a class="sourceLine" id="cb3-14" title="14">∇</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>∇ steps←{p}Steps fromTo;segments;width</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>  width←|-/fromTo</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>  :If 0=⎕NC'p' ⍝ No left argument: same as Problem 5 of Phase I</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>   segments←0,⍳width</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>  :ElseIf p&lt;0 ⍝ -⌊p is the number of equally-sized steps to take</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>   segments←(-⌊p){0,⍵×⍺÷⍨⍳⍺}width</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>  :ElseIf p&gt;0 ⍝ p is the step size</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>   segments←p{⍵⌊⍺×0,⍳⌈⍵÷⍺}width</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>  :ElseIf p=0 ⍝ As if we took zero step</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>   segments←0</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>  :EndIf</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a>  ⍝ Take into account the start point and the direction.</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>  steps←fromTo{(⊃⍺)+(-×-/⍺)×⍵}segments</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a>∇</span></code></pre></div>
 <p>This is an extension to <a href="./dyalog-apl-competition-2020-phase-1.html#stepping-in-the-proper-direction">Problem 5 of Phase I</a>. In each case, we compute the “segments”, i.e., the steps starting from 0. In a last step, common to all cases, we add the correct starting point and correct the direction if need be.</p>
 <p>To compute equally-sized steps, we first divide the segment <span class="math inline">\([0, 1]\)</span> in <code>p</code> equal segments with <code>(⍳p)÷p</code>. This subdivision can then be multiplied by the width to obtain the required segments.</p>
 <p>When <code>p</code> is the step size, we just divide the width by the step size (rounded to the next largest integer) to get the required number of segments. If the last segment is too large, we “crop” it to the width with Minimum (<code>⌊</code>).</p>
 <h2 id="problem-3-past-tasks-blast">Problem 3 – Past Tasks Blast</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb4-1" title="1">∇ urls←PastTasks url;r;paths</a>
-<a class="sourceLine" id="cb4-2" title="2">  r←HttpCommand.Get url</a>
-<a class="sourceLine" id="cb4-3" title="3">  paths←('[a-zA-Z0-9_/]+\.pdf'⎕S'&amp;')r.Data</a>
-<a class="sourceLine" id="cb4-4" title="4">  urls←('https://www.dyalog.com/'∘,)¨paths</a>
-<a class="sourceLine" id="cb4-5" title="5">∇</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>∇ urls←PastTasks url;r;paths</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>  r←HttpCommand.Get url</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>  paths←('[a-zA-Z0-9_/]+\.pdf'⎕S'&amp;')r.Data</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>  urls←('https://www.dyalog.com/'∘,)¨paths</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>∇</span></code></pre></div>
 <p>I decided to use <code>HttpCommand</code> for this task, since it is simply one <code>]load HttpCommand</code> away and should be platform-independent.</p>
 <p>Parsing XML is not something I consider “fun” in the best of cases, and I feel like APL is not the best language to do this kind of thing. Given how simple the task is, I just decided to find the relevant bits with a regular expression using <a href="https://help.dyalog.com/18.0/index.htm#Language/System%20Functions/r.htm">Replace and Search</a> (<code>⎕S</code>).</p>
 <p>After finding all the strings vaguely resembling a PDF file name (only alphanumeric characters and underscores, with a <code>.pdf</code> extension), I just concatenate them to the base URL of the Dyalog domain.</p>
 <h2 id="problem-4-bioinformatics">Problem 4 – Bioinformatics</h2>
 <p>The first task can be solved by decomposing it into several functions.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb5-1" title="1">⍝ Test if a DNA string is a reverse palindrome.</a>
-<a class="sourceLine" id="cb5-2" title="2">isrevp←{⍵≡⌽'TAGC'['ATCG'⍳⍵]}</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>⍝ Test if a DNA string is a reverse palindrome.</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>isrevp←{⍵≡⌽'TAGC'['ATCG'⍳⍵]}</span></code></pre></div>
 <p>First, we compute the complement of a DNA string (using simple indexing) and test if its Reverse (<code>⌽</code>) is equal to the original string.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb6-1" title="1">⍝ Generate all subarrays (position, length) pairs, for 4 ≤ length ≤ 12.</a>
-<a class="sourceLine" id="cb6-2" title="2">subarrays←{⊃,/(⍳⍵),¨¨3↓¨⍳¨12⌊1+⍵-⍳⍵}</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>⍝ Generate all subarrays (position, length) pairs, for 4 ≤ length ≤ 12.</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>subarrays←{⊃,/(⍳⍵),¨¨3↓¨⍳¨12⌊1+⍵-⍳⍵}</span></code></pre></div>
 <p>We first compute all the possible lengths for each starting point. For instance, the last element cannot have any (position, length) pair associated to it, because there is no three element following it. So we crop the possible lengths to <span class="math inline">\([3, 12]\)</span>. For instance for an array of size 10:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb7-1" title="1">        {3↓¨⍳¨12⌊1+⍵-⍳⍵}10</a>
-<a class="sourceLine" id="cb7-2" title="2">┌──────────────┬───────────┬─────────┬───────┬─────┬───┬─┬┬┬┐</a>
-<a class="sourceLine" id="cb7-3" title="3">│4 5 6 7 8 9 10│4 5 6 7 8 9│4 5 6 7 8│4 5 6 7│4 5 6│4 5│4││││</a>
-<a class="sourceLine" id="cb7-4" title="4">└──────────────┴───────────┴─────────┴───────┴─────┴───┴─┴┴┴┘</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>        {3↓¨⍳¨12⌊1+⍵-⍳⍵}10</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>┌──────────────┬───────────┬─────────┬───────┬─────┬───┬─┬┬┬┐</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>│4 5 6 7 8 9 10│4 5 6 7 8 9│4 5 6 7 8│4 5 6 7│4 5 6│4 5│4││││</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>└──────────────┴───────────┴─────────┴───────┴─────┴───┴─┴┴┴┘</span></code></pre></div>
 <p>Then, we just add the corresponding starting position to each length (1 for the first block, 2 for the second, and so on). Finally, we flatten everything.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb8-1" title="1">∇ r←revp dna;positions</a>
-<a class="sourceLine" id="cb8-2" title="2">  positions←subarrays⍴dna</a>
-<a class="sourceLine" id="cb8-3" title="3">  ⍝ Filter subarrays which are reverse palindromes.</a>
-<a class="sourceLine" id="cb8-4" title="4">  r←↑({isrevp dna[¯1+⍵[1]+⍳⍵[2]]}¨positions)/positions</a>
-<a class="sourceLine" id="cb8-5" title="5">∇</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>∇ r←revp dna;positions</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>  positions←subarrays⍴dna</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a>  ⍝ Filter subarrays which are reverse palindromes.</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a>  r←↑({isrevp dna[¯1+⍵[1]+⍳⍵[2]]}¨positions)/positions</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a>∇</span></code></pre></div>
 <p>For each possible (position, length) pair, we get the corresponding DNA substring with <code>dna[¯1+⍵[1]+⍳⍵[2]]</code> (adding <code>¯1</code> is necessary because <code>⎕IO←1</code>). We test if this substring is a reverse palindrome using <code>isrevp</code> above. <a href="https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/Replicate.htm">Replicate</a> (<code>/</code>) then selects only the (position, length) pairs for which the substring is a reverse palindrome.</p>
 <p>The second task is just about counting the number of subsets modulo 1,000,000. So we just need to compute <span class="math inline">\(2^n \mod 1000000\)</span> for any positive integer <span class="math inline">\(n\leq1000\)</span>.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb9-1" title="1">sset←{((1E6|2∘×)⍣⍵)1}</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>sset←{((1E6|2∘×)⍣⍵)1}</span></code></pre></div>
 <p>Since we cannot just compute <span class="math inline">\(2^n\)</span> directly and take the remainder, we use modular arithmetic to stay mod 1,000,000 during the whole computation. The dfn <code>(1E6|2∘×)</code> doubles its argument mod 1,000,000. So we just apply this function <span class="math inline">\(n\)</span> times using the <a href="https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Operators/Power%20Operator.htm">Power</a> operator (<code>⍣</code>), with an initial value of 1.</p>
 <h2 id="problem-5-future-and-present-value">Problem 5 – Future and Present Value</h2>
 <p>First solution: <code>((1+⊢)⊥⊣)</code> computes the total return for a vector of amounts <code>⍺</code> and a vector of rates <code>⍵</code>. It is applied to every prefix subarray of amounts and rates to get all intermediate values. However, this has quadratic complexity.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb10-1" title="1">rr←(,\⊣)((1+⊢)⊥⊣)¨(,\⊢)</a></code></pre></div>
-<p>Second solution: We want to be able to use the recurrence relation (<code>recur</code>) and scan through the vectors of amounts and rates, accumulating the total value at every time step. However, APL evaluation is right-associative, so a simple <a href="https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Operators/Scan.htm">Scan</a> (<code>recur\amounts,¨values</code>) would not give the correct result, since <code>recur</code> is not associative and we need to evaluate it left-to-right. (In any case, in this case, Scan would have quadratic complexity, so would not bring any benefit over the previous solution.) What we need is something akin to Haskell’s <code>scanl</code> function, which would evaluate left to right in <span class="math inline">\(O(n)\)</span> time<span><label for="sn-1" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-1" class="margin-toggle" /><span class="sidenote">There is an interesting <a href="https://stackoverflow.com/a/25100675/8864368">StackOverflow answer</a> explaining the behaviour of Scan, and compares it to Haskell’s <code>scanl</code> function.<br />
+<div class="sourceCode" id="cb10"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a>rr←(,\⊣)((1+⊢)⊥⊣)¨(,\⊢)</span></code></pre></div>
+<p>Second solution: We want to be able to use the recurrence relation (<code>recur</code>) and scan through the vectors of amounts and rates, accumulating the total value at every time step. However, APL evaluation is right-associative, so a simple <a href="https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Operators/Scan.htm">Scan</a> (<code>recur\amounts,¨values</code>) would not give the correct result, since <code>recur</code> is not associative and we need to evaluate it left-to-right. (In any case, in this case, Scan would have quadratic complexity, so would not bring any benefit over the previous solution.) What we need is something akin to Haskell’s <code>scanl</code> function, which would evaluate left to right in <span class="math inline">\(O(n)\)</span> time<span><label for="sn-0" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-0" class="margin-toggle" /><span class="sidenote">There is an interesting <a href="https://stackoverflow.com/a/25100675/8864368">StackOverflow answer</a> explaining the behaviour of Scan, and compares it to Haskell’s <code>scanl</code> function.<br />
 <br />
 </span></span>. This is what we do here, accumulating values from left to right. (This is inspired from <a href="https://dfns.dyalog.com/c_ascan.htm"><code>dfns.ascan</code></a>, although heavily simplified.)</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb11-1" title="1">rr←{recur←{⍵[1]+⍺×1+⍵[2]} ⋄ 1↓⌽⊃{(⊂(⊃⍵)recur⍺),⍵}/⌽⍺,¨⍵}</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a>rr←{recur←{⍵[1]+⍺×1+⍵[2]} ⋄ 1↓⌽⊃{(⊂(⊃⍵)recur⍺),⍵}/⌽⍺,¨⍵}</span></code></pre></div>
 <p>For the second task, there is an explicit formula for cashflow calculations, so we can just apply it.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb12-1" title="1">pv←{+/⍺÷×\1+⍵}</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a>pv←{+/⍺÷×\1+⍵}</span></code></pre></div>
 <h2 id="problem-6-merge">Problem 6 – Merge</h2>
-<div class="sourceCode" id="cb13"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb13-1" title="1">∇ text←templateFile Merge jsonFile;template;ns</a>
-<a class="sourceLine" id="cb13-2" title="2">  template←⊃⎕NGET templateFile 1</a>
-<a class="sourceLine" id="cb13-3" title="3">  ns←⎕JSON⊃⎕NGET jsonFile</a>
-<a class="sourceLine" id="cb13-4" title="4">  ⍝ We use a simple regex search and replace on the</a>
-<a class="sourceLine" id="cb13-5" title="5">  ⍝ template.</a>
-<a class="sourceLine" id="cb13-6" title="6">  text←↑('@[a-zA-Z]*@'⎕R{ns getval ¯1↓1↓⍵.Match})template</a>
-<a class="sourceLine" id="cb13-7" title="7">∇</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a>∇ text←templateFile Merge jsonFile;template;ns</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a>  template←⊃⎕NGET templateFile 1</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a>  ns←⎕JSON⊃⎕NGET jsonFile</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a>  ⍝ We use a simple regex search and replace on the</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true"></a>  ⍝ template.</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true"></a>  text←↑('@[a-zA-Z]*@'⎕R{ns getval ¯1↓1↓⍵.Match})template</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true"></a>∇</span></code></pre></div>
 <p>We first read the template and the JSON values from their files. The <a href="https://help.dyalog.com/18.0/index.htm#Language/System%20Functions/nget.htm"><code>⎕NGET</code></a> function read simple text files, and <a href="https://help.dyalog.com/18.0/index.htm#Language/System%20Functions/json.htm"><code>⎕JSON</code></a> extracts the key-value pairs as a namespace.</p>
 <p>Assuming all variable names contain only letters, we match the regex <code>@[a-zA-Z]*@</code> to match variable names enclosed between <code>@</code> symbols. The function <code>getval</code> then returns the appropriate value, and we can replace the variable name in the template.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb14-1" title="1">∇ val←ns getval var</a>
-<a class="sourceLine" id="cb14-2" title="2">  :If ''≡var ⍝ literal '@'</a>
-<a class="sourceLine" id="cb14-3" title="3">      val←'@'</a>
-<a class="sourceLine" id="cb14-4" title="4">  :ElseIf (⊂var)∊ns.⎕NL ¯2</a>
-<a class="sourceLine" id="cb14-5" title="5">      val←⍕ns⍎var</a>
-<a class="sourceLine" id="cb14-6" title="6">  :Else</a>
-<a class="sourceLine" id="cb14-7" title="7">      val←'???'</a>
-<a class="sourceLine" id="cb14-8" title="8">  :EndIf</a>
-<a class="sourceLine" id="cb14-9" title="9">∇</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a>∇ val←ns getval var</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a>  :If ''≡var ⍝ literal '@'</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a>   val←'@'</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a>  :ElseIf (⊂var)∊ns.⎕NL ¯2</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a>   val←⍕ns⍎var</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a>  :Else</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true"></a>   val←'???'</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true"></a>  :EndIf</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true"></a>∇</span></code></pre></div>
 <p>This function takes the namespace matching the variable names to their respective values, and the name of the variable.</p>
 <ul>
 <li>If the variable name is empty, we matched the string <code>@@</code>, which corresponds to a literal <code>@</code>.</li>
@@ -133,42 +133,42 @@
 <li>Otherwise, we have an unknown variable, so we replace it with <code>???</code>.</li>
 </ul>
 <h2 id="problem-7-upc">Problem 7 – UPC</h2>
-<div class="sourceCode" id="cb15"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb15-1" title="1">CheckDigit←{10|-⍵+.×11⍴3 1}</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a>CheckDigit←{10|-⍵+.×11⍴3 1}</span></code></pre></div>
 <p>The check digit satisfies the equation <span class="math display">\[ 3 x_{1}+x_{2}+3 x_{3}+x_{4}+3 x_{5}+x_{6}+3 x_{7}+x_{8}+3 x_{9}+x_{10}+3 x_{11}+x_{12} \equiv 0 \bmod 10, \]</span> therefore, <span class="math display">\[ x_{12} \equiv -(3 x_{1}+x_{2}+3 x_{3}+x_{4}+3 x_{5}+x_{6}+3 x_{7}+x_{8}+3 x_{9}+x_{10}+3 x_{11}) \bmod 10. \]</span></p>
 <p>Translated to APL, we just take the dot product between the first 11 digits of the barcode with <code>11⍴3 1</code>, negate it, and take the remainder by 10.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb16-1" title="1">⍝ Left and right representations of digits. Decoding</a>
-<a class="sourceLine" id="cb16-2" title="2">⍝ the binary representation from decimal is more</a>
-<a class="sourceLine" id="cb16-3" title="3">⍝ compact than writing everything explicitly.</a>
-<a class="sourceLine" id="cb16-4" title="4">lrepr←⍉(7⍴2)⊤13 25 19 61 35 49 47 59 55 11</a>
-<a class="sourceLine" id="cb16-5" title="5">rrepr←~¨lrepr</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a>⍝ Left and right representations of digits. Decoding</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a>⍝ the binary representation from decimal is more</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a>⍝ compact than writing everything explicitly.</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a>lrepr←⍉(7⍴2)⊤13 25 19 61 35 49 47 59 55 11</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a>rrepr←~¨lrepr</span></code></pre></div>
 <p>For the second task, the first thing we need to do is save the representation of digits. To save space, I did not encode the binary representation explicitly, instead using a decimal representation that I then decode in base 2. The right representation is just the bitwise negation.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb17-1" title="1">∇ bits←WriteUPC digits;left;right</a>
-<a class="sourceLine" id="cb17-2" title="2">  :If (11=≢digits)∧∧/digits∊0,⍳9</a>
-<a class="sourceLine" id="cb17-3" title="3">      left←,lrepr[1+6↑digits;]</a>
-<a class="sourceLine" id="cb17-4" title="4">      right←,rrepr[1+6↓digits,CheckDigit digits;]</a>
-<a class="sourceLine" id="cb17-5" title="5">      bits←1 0 1,left,0 1 0 1 0,right,1 0 1</a>
-<a class="sourceLine" id="cb17-6" title="6">  :Else</a>
-<a class="sourceLine" id="cb17-7" title="7">      bits←¯1</a>
-<a class="sourceLine" id="cb17-8" title="8">  :EndIf</a>
-<a class="sourceLine" id="cb17-9" title="9">∇</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a>∇ bits←WriteUPC digits;left;right</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a>  :If (11=≢digits)∧∧/digits∊0,⍳9</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true"></a>   left←,lrepr[1+6↑digits;]</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true"></a>   right←,rrepr[1+6↓digits,CheckDigit digits;]</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true"></a>   bits←1 0 1,left,0 1 0 1 0,right,1 0 1</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true"></a>  :Else</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true"></a>   bits←¯1</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true"></a>  :EndIf</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true"></a>∇</span></code></pre></div>
 <p>First of all, if the vector <code>digits</code> does not have exactly 11 elements, all between 0 and 9, it is an error and we return <code>¯1</code>.</p>
 <p>Then, we take the first 6 digits and encode them with <code>lrepr</code>, and the last 5 digits plus the check digit encoded with <code>rrepr</code>. In each case, adding 1 is necessary because <code>⎕IO←1</code>. We return the final bit array with the required beginning, middle, and end guard patterns.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb18-1" title="1">∇ digits←ReadUPC bits</a>
-<a class="sourceLine" id="cb18-2" title="2">  :If 95≠⍴bits ⍝ incorrect number of bits</a>
-<a class="sourceLine" id="cb18-3" title="3">      digits←¯1</a>
-<a class="sourceLine" id="cb18-4" title="4">  :Else</a>
-<a class="sourceLine" id="cb18-5" title="5">      ⍝ Test if the barcode was scanned right-to-left.</a>
-<a class="sourceLine" id="cb18-6" title="6">      :If 0=2|+/bits[3+⍳7]</a>
-<a class="sourceLine" id="cb18-7" title="7">          bits←⌽bits</a>
-<a class="sourceLine" id="cb18-8" title="8">      :EndIf</a>
-<a class="sourceLine" id="cb18-9" title="9">      digits←({¯1+lrepr⍳⍵}¨(7/⍳6)⊆42↑3↓bits),{¯1+rrepr⍳⍵}¨(7/⍳6)⊆¯42↑¯3↓bits</a>
-<a class="sourceLine" id="cb18-10" title="10">      :If ~∧/digits∊0,⍳9 ⍝ incorrect parity</a>
-<a class="sourceLine" id="cb18-11" title="11">          digits←¯1</a>
-<a class="sourceLine" id="cb18-12" title="12">      :ElseIf (⊃⌽digits)≠CheckDigit ¯1↓digits ⍝ incorrect check digit</a>
-<a class="sourceLine" id="cb18-13" title="13">          digits←¯1</a>
-<a class="sourceLine" id="cb18-14" title="14">      :EndIf</a>
-<a class="sourceLine" id="cb18-15" title="15">  :EndIf</a>
-<a class="sourceLine" id="cb18-16" title="16">∇</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a>∇ digits←ReadUPC bits</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a>  :If 95≠⍴bits ⍝ incorrect number of bits</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true"></a>   digits←¯1</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true"></a>  :Else</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true"></a>   ⍝ Test if the barcode was scanned right-to-left.</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true"></a>   :If 0=2|+/bits[3+⍳7]</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true"></a>    bits←⌽bits</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true"></a>   :EndIf</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true"></a>   digits←({¯1+lrepr⍳⍵}¨(7/⍳6)⊆42↑3↓bits),{¯1+rrepr⍳⍵}¨(7/⍳6)⊆¯42↑¯3↓bits</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true"></a>   :If ~∧/digits∊0,⍳9 ⍝ incorrect parity</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true"></a>    digits←¯1</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true"></a>   :ElseIf (⊃⌽digits)≠CheckDigit ¯1↓digits ⍝ incorrect check digit</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true"></a>    digits←¯1</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true"></a>   :EndIf</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true"></a>  :EndIf</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true"></a>∇</span></code></pre></div>
 <ul>
 <li>If we don’t have the correct number of bits, we return <code>¯1</code>.</li>
 <li>We test the first digit for its parity, to determine if its actually a left representation. If it’s not, we reverse the bit array.</li>
@@ -176,53 +176,53 @@
 <li>Final checks for the range of the digits (i.e., if the representations could not be found in the <code>lrepr</code> and <code>rrepr</code> vectors), and for the check digit.</li>
 </ul>
 <h2 id="problem-8-balancing-the-scales">Problem 8 – Balancing the Scales</h2>
-<div class="sourceCode" id="cb19"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb19-1" title="1">∇ parts←Balance nums;subsets;partitions</a>
-<a class="sourceLine" id="cb19-2" title="2">  ⍝ This is a brute force solution, running in</a>
-<a class="sourceLine" id="cb19-3" title="3">  ⍝ exponential time. We generate all the possible</a>
-<a class="sourceLine" id="cb19-4" title="4">  ⍝ partitions, filter out those which are not</a>
-<a class="sourceLine" id="cb19-5" title="5">  ⍝ balanced, and return the first matching one. There</a>
-<a class="sourceLine" id="cb19-6" title="6">  ⍝ are more advanced approach running in</a>
-<a class="sourceLine" id="cb19-7" title="7">  ⍝ pseudo-polynomial time (based on dynamic</a>
-<a class="sourceLine" id="cb19-8" title="8">  ⍝ programming, see the &quot;Partition problem&quot; Wikipedia</a>
-<a class="sourceLine" id="cb19-9" title="9">  ⍝ page), but they are not warranted here, as the</a>
-<a class="sourceLine" id="cb19-10" title="10">  ⍝ input size remains fairly small.</a>
-<a class="sourceLine" id="cb19-11" title="11"></a>
-<a class="sourceLine" id="cb19-12" title="12">  ⍝ Generate all partitions of a vector of a given</a>
-<a class="sourceLine" id="cb19-13" title="13">  ⍝ size, as binary mask vectors.</a>
-<a class="sourceLine" id="cb19-14" title="14">  subsets←{1↓2⊥⍣¯1⍳2*⍵}</a>
-<a class="sourceLine" id="cb19-15" title="15">  ⍝ Keep only the subsets whose sum is exactly</a>
-<a class="sourceLine" id="cb19-16" title="16">  ⍝ (+/nums)÷2.</a>
-<a class="sourceLine" id="cb19-17" title="17">  partitions←nums{((2÷⍨+/⍺)=⍺+.×⍵)/⍵}subsets⍴nums</a>
-<a class="sourceLine" id="cb19-18" title="18">  :If 0=≢,partitions</a>
-<a class="sourceLine" id="cb19-19" title="19">      ⍝ If no partition satisfy the above</a>
-<a class="sourceLine" id="cb19-20" title="20">      ⍝ criterion, we return ⍬.</a>
-<a class="sourceLine" id="cb19-21" title="21">      parts←⍬</a>
-<a class="sourceLine" id="cb19-22" title="22">  :Else</a>
-<a class="sourceLine" id="cb19-23" title="23">      ⍝ Otherwise, we return the first possible</a>
-<a class="sourceLine" id="cb19-24" title="24">      ⍝ partition.</a>
-<a class="sourceLine" id="cb19-25" title="25">      parts←nums{((⊂,(⊂~))⊃↓⍉⍵)/¨2⍴⊂⍺}partitions</a>
-<a class="sourceLine" id="cb19-26" title="26">  :EndIf</a>
-<a class="sourceLine" id="cb19-27" title="27">∇</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a>∇ parts←Balance nums;subsets;partitions</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true"></a>  ⍝ This is a brute force solution, running in</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true"></a>  ⍝ exponential time. We generate all the possible</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true"></a>  ⍝ partitions, filter out those which are not</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true"></a>  ⍝ balanced, and return the first matching one. There</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true"></a>  ⍝ are more advanced approach running in</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true"></a>  ⍝ pseudo-polynomial time (based on dynamic</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true"></a>  ⍝ programming, see the &quot;Partition problem&quot; Wikipedia</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true"></a>  ⍝ page), but they are not warranted here, as the</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true"></a>  ⍝ input size remains fairly small.</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true"></a></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true"></a>  ⍝ Generate all partitions of a vector of a given</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true"></a>  ⍝ size, as binary mask vectors.</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true"></a>  subsets←{1↓2⊥⍣¯1⍳2*⍵}</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true"></a>  ⍝ Keep only the subsets whose sum is exactly</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true"></a>  ⍝ (+/nums)÷2.</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true"></a>  partitions←nums{((2÷⍨+/⍺)=⍺+.×⍵)/⍵}subsets⍴nums</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true"></a>  :If 0=≢,partitions</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true"></a>   ⍝ If no partition satisfy the above</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true"></a>   ⍝ criterion, we return ⍬.</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true"></a>   parts←⍬</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true"></a>  :Else</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true"></a>   ⍝ Otherwise, we return the first possible</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true"></a>   ⍝ partition.</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true"></a>   parts←nums{((⊂,(⊂~))⊃↓⍉⍵)/¨2⍴⊂⍺}partitions</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true"></a>  :EndIf</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true"></a>∇</span></code></pre></div>
 <h2 id="problem-9-upwardly-mobile">Problem 9 – Upwardly Mobile</h2>
 <p>This is the only problem that I didn’t complete. It required parsing the files containing the graphical representations of the trees, which was needlessly complex and, quite frankly, hard and boring with a language like APL.</p>
 <p>However, the next part is interesting: once we have a matrix of coefficients representing the relationships between the weights, we can solve the system of equations. <a href="https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/Matrix%20Divide.htm">Matrix Divide</a> (<code>⌹</code>) will find one solution to the system. Since the system is overdetermined, we fix <code>A=1</code> to find one possible solution. Since we want integer weights, the solution we find is smaller than the one we want, and may contain fractional weights. So we multiply everything by the <a href="https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/And%20Lowest%20Common%20Multiple.htm">Lowest Common Multiple</a> (<code>∧</code>) to get the smallest integer weights.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb20-1" title="1">∇ weights←Weights filename;mobile;branches;mat</a>
-<a class="sourceLine" id="cb20-2" title="2">  ⍝ Put your code and comments below here</a>
-<a class="sourceLine" id="cb20-3" title="3"></a>
-<a class="sourceLine" id="cb20-4" title="4">  ⍝ Parse the mobile input file.</a>
-<a class="sourceLine" id="cb20-5" title="5">  mobile←↑⊃⎕NGET filename 1</a>
-<a class="sourceLine" id="cb20-6" title="6">  branches←⍸mobile∊'┌┴┐'</a>
-<a class="sourceLine" id="cb20-7" title="7">  ⍝ TODO: Build the matrix of coefficients mat.</a>
-<a class="sourceLine" id="cb20-8" title="8"></a>
-<a class="sourceLine" id="cb20-9" title="9">  ⍝ Solve the system of equations (arbitrarily setting</a>
-<a class="sourceLine" id="cb20-10" title="10">  ⍝ the first variable at 1 because the system is</a>
-<a class="sourceLine" id="cb20-11" title="11">  ⍝ overdetermined), then multiply the coefficients by</a>
-<a class="sourceLine" id="cb20-12" title="12">  ⍝ their least common multiple to get the smallest</a>
-<a class="sourceLine" id="cb20-13" title="13">  ⍝ integer weights.</a>
-<a class="sourceLine" id="cb20-14" title="14">  weights←((1∘,)×(∧/÷))mat[;1]⌹1↓[2]mat</a>
-<a class="sourceLine" id="cb20-15" title="15">∇</a></code></pre></div>
-<div class="sourceCode" id="cb21"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb21-1" title="1">    :EndNamespace</a>
-<a class="sourceLine" id="cb21-2" title="2">:EndNamespace</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a>∇ weights←Weights filename;mobile;branches;mat</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true"></a>  ⍝ Put your code and comments below here</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true"></a>  ⍝ Parse the mobile input file.</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true"></a>  mobile←↑⊃⎕NGET filename 1</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true"></a>  branches←⍸mobile∊'┌┴┐'</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true"></a>  ⍝ TODO: Build the matrix of coefficients mat.</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true"></a>  ⍝ Solve the system of equations (arbitrarily setting</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true"></a>  ⍝ the first variable at 1 because the system is</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true"></a>  ⍝ overdetermined), then multiply the coefficients by</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true"></a>  ⍝ their least common multiple to get the smallest</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true"></a>  ⍝ integer weights.</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true"></a>  weights←((1∘,)×(∧/÷))mat[;1]⌹1↓[2]mat</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true"></a>∇</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a> :EndNamespace</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true"></a>:EndNamespace</span></code></pre></div>
     </section>
 </article>
 ]]></description>
@@ -238,7 +238,7 @@
         
     </section>
     <section>
-        <h2>Table of Contents</h2><ul>
+        <div id="toc"><h2>Table of Contents</h2><ul>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#lets-split">1. Let’s Split!</a></li>
 <li><a href="#character-building">2. Character Building</a></li>
@@ -250,9 +250,9 @@
 <li><a href="#zigzag-numbers">8. Zigzag Numbers</a></li>
 <li><a href="#rise-and-fall">9. Rise and Fall</a></li>
 <li><a href="#stacking-it-up">10. Stacking It Up</a></li>
-</ul>
+</ul></div>
 <h2 id="introduction">Introduction</h2>
-<p>I’ve always been quite fond of <a href="https://en.wikipedia.org/wiki/APL_(programming_language)">APL</a> and its “array-oriented” approach of programming<span><label for="sn-1" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-1" class="margin-toggle" /><span class="sidenote">See my <a href="./ising-apl.html">previous post</a> on simulating the Ising model with APL. It also contains more background on APL.<br />
+<p>I’ve always been quite fond of <a href="https://en.wikipedia.org/wiki/APL_(programming_language)">APL</a> and its “array-oriented” approach of programming<span><label for="sn-0" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-0" class="margin-toggle" /><span class="sidenote">See my <a href="./ising-apl.html">previous post</a> on simulating the Ising model with APL. It also contains more background on APL.<br />
 <br />
 </span></span>. Every year, <a href="https://www.dyalog.com/">Dyalog</a> (the company behind probably the most popular APL implementation) organises a competition with various challenges in APL.</p>
 <p>The <a href="https://www.dyalogaplcompetition.com/">Dyalog APL Problem Solving Competition</a> consists of two phases:</p>
@@ -260,7 +260,7 @@
 <li>Phase I consists of 10 short puzzles (similar to what one can find on <a href="https://projecteuler.net/">Project Euler</a> or similar), that can be solved by a one-line APL function.</li>
 <li>Phase II is a collection of larger problems, that may require longer solutions and a larger context (e.g. reading and writing to files), often in a more applied setting. Problems are often inspired by existing domains, such as AI, bioinformatics, and so on.</li>
 </ul>
-<p>In 2018, I participated in the competition, entering only Phase I<span><label for="sn-2" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-2" class="margin-toggle" /><span class="sidenote">Since I was a student at the time, I was eligible for a prize, and <a href="https://www.dyalog.com/nnews/128/456/Winners-Announced-for-the-2018-APL-Programming-Contest.htm">I won $100</a> for a 10-line submission, which is quite good!<br />
+<p>In 2018, I participated in the competition, entering only Phase I<span><label for="sn-1" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-1" class="margin-toggle" /><span class="sidenote">Since I was a student at the time, I was eligible for a prize, and <a href="https://www.dyalog.com/nnews/128/456/Winners-Announced-for-the-2018-APL-Programming-Contest.htm">I won $100</a> for a 10-line submission, which is quite good!<br />
 <br />
 </span></span> (my solutions are on <a href="https://github.com/dlozeve/apl-competition-2018">GitHub</a>). This year, I entered in both phases. I explain my solutions to Phase I in this post. <a href="./dyalog-apl-competition-2020-phase-2.html">Another post</a> will contain annotated solutions for Phase II problems.</p>
 <p>The full code for my submission is on GitHub at <a href="https://github.com/dlozeve/apl-competition-2020">dlozeve/apl-competition-2020</a>, but everything is reproduced in this post.</p>
@@ -271,7 +271,7 @@
 <p>If <code>X&lt;0</code>, the second vector contains the last <code>|X</code> elements of <code>Y</code> and the first vector contains the remaining elements.</p>
 </blockquote>
 <p><strong>Solution:</strong> <code>(0&gt;⊣)⌽((⊂↑),(⊂↓))</code></p>
-<p>There are three nested trains here<span><label for="sn-3" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-3" class="margin-toggle" /><span class="sidenote">Trains are nice to read (even if they are easy to abuse), and generally make for shorter dfns, which is better for Phase I.<br />
+<p>There are three nested trains here<span><label for="sn-2" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-2" class="margin-toggle" /><span class="sidenote">Trains are nice to read (even if they are easy to abuse), and generally make for shorter dfns, which is better for Phase I.<br />
 <br />
 </span></span>. The first one, <code>((⊂↑),(⊂↓))</code>, uses the two functions <a href="https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/Take.htm">Take</a> (<code>↑</code>) and <a href="https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/Drop.htm">Drop</a> (<code>↓</code>) to build a nested array consisting of the two outputs we need. (Take and Drop already have the behaviour needed regarding negative arguments.) However, if the left argument is positive, the two arrays will not be in the correct order. So we need a way to reverse them if <code>X&lt;0</code>.</p>
 <p>The second train <code>(0&gt;⊣)</code> will return 1 if its left argument is positive. From this, we can use <a href="https://help.dyalog.com/18.0/index.htm#Language/Primitive%20Functions/Rotate.htm">Rotate</a> (<code>⌽</code>) to correctly order the nested array, in the last train.</p>
@@ -279,15 +279,15 @@
 <blockquote>
 <p>UTF-8 encodes Unicode characters using 1-4 integers for each character. Dyalog APL includes a system function, <code>⎕UCS</code>, that can convert characters into integers and integers into characters. The expression <code>'UTF-8'∘⎕UCS</code> converts between characters and UTF-8.</p>
 <p>Consider the following:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb1-1" title="1">      'UTF-8'∘⎕UCS 'D¥⍺⌊○9'</a>
-<a class="sourceLine" id="cb1-2" title="2">68 194 165 226 141 186 226 140 138 226 151 139 57</a>
-<a class="sourceLine" id="cb1-3" title="3">      'UTF-8'∘⎕UCS 68 194 165 226 141 186 226 140 138 226 151 139 57</a>
-<a class="sourceLine" id="cb1-4" title="4">D¥⍺⌊○9</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>      'UTF-8'∘⎕UCS 'D¥⍺⌊○9'</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>68 194 165 226 141 186 226 140 138 226 151 139 57</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>      'UTF-8'∘⎕UCS 68 194 165 226 141 186 226 140 138 226 151 139 57</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>D¥⍺⌊○9</span></code></pre></div>
 <p>How many integers does each character use?</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb2-1" title="1">      'UTF-8'∘⎕UCS¨ 'D¥⍺⌊○9' ⍝ using ]Boxing on</a>
-<a class="sourceLine" id="cb2-2" title="2">┌──┬───────┬───────────┬───────────┬───────────┬──┐</a>
-<a class="sourceLine" id="cb2-3" title="3">│68│194 165│226 141 186│226 140 138│226 151 139│57│</a>
-<a class="sourceLine" id="cb2-4" title="4">└──┴───────┴───────────┴───────────┴───────────┴──┘      </a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>      'UTF-8'∘⎕UCS¨ 'D¥⍺⌊○9' ⍝ using ]Boxing on</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>┌──┬───────┬───────────┬───────────┬───────────┬──┐</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>│68│194 165│226 141 186│226 140 138│226 151 139│57│</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>└──┴───────┴───────────┴───────────┴───────────┴──┘      </span></code></pre></div>
 <p>The rule is that an integer in the range 128 to 191 (inclusive) continues the character of the previous integer (which may itself be a continuation). With that in mind, write a function that, given a right argument which is a simple integer vector representing valid UTF-8 text, encloses each sequence of integers that represent a single character, like the result of <code>'UTF-8'∘⎕UCS¨'UTF-8'∘⎕UCS</code> but does not use any system functions (names beginning with <code>⎕</code>)</p>
 </blockquote>
 <p><strong>Solution:</strong> <code>{(~⍵∊127+⍳64)⊂⍵}</code></p>
@@ -316,7 +316,7 @@
 <p>Write a function that, given a right argument of 2 integers, returns a vector of the integers from the first element of the right argument to the second, inclusively.</p>
 </blockquote>
 <p><strong>Solution:</strong> <code>{(⊃⍵)+(-×-/⍵)×0,⍳|-/⍵}</code></p>
-<p>First, we have to compute the range of the output, which is the absolute value of the difference between the two integers <code>|-/⍵</code>. From this, we compute the actual sequence, including zero<span><label for="sn-4" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-4" class="margin-toggle" /><span class="sidenote">If we had <code>⎕IO←0</code>, we could have written <code>⍳|1+-/⍵</code>, but this is the same number of characters.<br />
+<p>First, we have to compute the range of the output, which is the absolute value of the difference between the two integers <code>|-/⍵</code>. From this, we compute the actual sequence, including zero<span><label for="sn-3" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-3" class="margin-toggle" /><span class="sidenote">If we had <code>⎕IO←0</code>, we could have written <code>⍳|1+-/⍵</code>, but this is the same number of characters.<br />
 <br />
 </span></span>: <code>0,⍳|-/⍵</code>.</p>
 <p>This sequence will always be nondecreasing, but we have to make it decreasing if needed, so we multiply it by the opposite of the sign of <code>-/⍵</code>. Finally, we just have to start the sequence at the first element of <code>⍵</code>.</p>
@@ -352,44 +352,44 @@
 </blockquote>
 <p><strong>Solution:</strong> <code>{∧/(⍳∘≢≡⍋)¨(⊂((⊢⍳⌈/)↑⊢),⍵),⊂⌽((⊢⍳⌈/)↓⊢),⍵}</code></p>
 <p>How do we approach this? First we have to split the vector at the “apex”. The train <code>(⊢⍳⌈/)</code> will return the <a href="https://help.dyalog.com/latest/#Language/Primitive%20Functions/Index%20Of.htm">index of</a> (<code>⍳</code>) the maximum element.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb3-1" title="1">      (⊢⍳⌈/)1 3 3 4 5 2 1</a>
-<a class="sourceLine" id="cb3-2" title="2">5</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>      (⊢⍳⌈/)1 3 3 4 5 2 1</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>5</span></code></pre></div>
 <p>Combined with <a href="https://help.dyalog.com/latest/#Language/Primitive%20Functions/Take.htm">Take</a> (<code>↑</code>) and <a href="https://help.dyalog.com/latest/#Language/Primitive%20Functions/Drop.htm">Drop</a> (<code>↓</code>), we build a two-element vector containing both parts, in ascending order (we <a href="https://help.dyalog.com/latest/#Language/Primitive%20Functions/Reverse.htm">Reverse</a> (<code>⌽</code>) one of them). Note that we have to <a href="https://help.dyalog.com/latest/#Language/Primitive%20Functions/Ravel.htm">Ravel</a> (<code>,</code>) the argument to avoid rank errors in Index Of.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb4-1" title="1">      {(⊂((⊢⍳⌈/)↑⊢),⍵),⊂⌽((⊢⍳⌈/)↓⊢),⍵}1 3 3 4 5 2 1</a>
-<a class="sourceLine" id="cb4-2" title="2">┌─────────┬───┐</a>
-<a class="sourceLine" id="cb4-3" title="3">│1 3 3 4 5│1 2│</a>
-<a class="sourceLine" id="cb4-4" title="4">└─────────┴───┘</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>      {(⊂((⊢⍳⌈/)↑⊢),⍵),⊂⌽((⊢⍳⌈/)↓⊢),⍵}1 3 3 4 5 2 1</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>┌─────────┬───┐</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>│1 3 3 4 5│1 2│</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>└─────────┴───┘</span></code></pre></div>
 <p>Next, <code>(⍳∘≢≡⍋)</code> on each of the two vectors will test if they are non-decreasing (i.e. if the ranks of all the elements correspond to a simple range from 1 to the size of the vector).</p>
 <h2 id="stacking-it-up">10. Stacking It Up</h2>
 <blockquote>
 <p>Write a function that takes as its right argument a vector of simple arrays of rank 2 or less (scalar, vector, or matrix). Each simple array will consist of either non-negative integers or printable ASCII characters. The function must return a simple character array that displays identically to what <code>{⎕←⍵}¨</code> displays when applied to the right argument.</p>
 </blockquote>
 <p><strong>Solution:</strong> <code>{↑⊃,/↓¨⍕¨⍵}</code></p>
-<p>The first step is to <a href="https://help.dyalog.com/latest/#Language/Primitive%20Functions/Format%20Monadic.htm">Format</a> (<code>⍕</code>) everything to get strings.<span><label for="sn-5" class="margin-toggle">⊕</label><input type="checkbox" id="sn-5" class="margin-toggle" /><span class="marginnote"> A lot of trial-and-error is always necessary when dealing with nested arrays, and this being about formatting exacerbates the problem.<br />
+<p>The first step is to <a href="https://help.dyalog.com/latest/#Language/Primitive%20Functions/Format%20Monadic.htm">Format</a> (<code>⍕</code>) everything to get strings.<span><label for="sn-4" class="margin-toggle">⊕</label><input type="checkbox" id="sn-4" class="margin-toggle" /><span class="marginnote"> A lot of trial-and-error is always necessary when dealing with nested arrays, and this being about formatting exacerbates the problem.<br />
 <br />
 </span></span> The next step would be to “stack everything vertically”, so we will need <a href="https://help.dyalog.com/latest/#Language/Primitive%20Functions/Mix.htm">Mix</a> (<code>↑</code>) at some point. However, if we do it immediately we don’t get the correct result:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb5-1" title="1">      {↑⍕¨⍵}(3 3⍴⍳9)(↑'Adam' 'Michael')</a>
-<a class="sourceLine" id="cb5-2" title="2">1 2 3  </a>
-<a class="sourceLine" id="cb5-3" title="3">4 5 6  </a>
-<a class="sourceLine" id="cb5-4" title="4">7 8 9  </a>
-<a class="sourceLine" id="cb5-5" title="5"></a>
-<a class="sourceLine" id="cb5-6" title="6">Adam   </a>
-<a class="sourceLine" id="cb5-7" title="7">Michael</a></code></pre></div>
-<p>Mix is padding with spaces both horizontally (necessary as we want the output to be a simple array of characters) and vertically (not what we want). We will have to decompose everything line by line, and then mix all the lines together. This is exactly what <a href="https://help.dyalog.com/latest/#Language/Primitive%20Functions/Split.htm">Split</a><span><label for="sn-6" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-6" class="margin-toggle" /><span class="sidenote">Split is the dual of Mix.<br />
+<div class="sourceCode" id="cb5"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>      {↑⍕¨⍵}(3 3⍴⍳9)(↑'Adam' 'Michael')</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>1 2 3  </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a>4 5 6  </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>7 8 9  </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>Adam   </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a>Michael</span></code></pre></div>
+<p>Mix is padding with spaces both horizontally (necessary as we want the output to be a simple array of characters) and vertically (not what we want). We will have to decompose everything line by line, and then mix all the lines together. This is exactly what <a href="https://help.dyalog.com/latest/#Language/Primitive%20Functions/Split.htm">Split</a><span><label for="sn-5" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-5" class="margin-toggle" /><span class="sidenote">Split is the dual of Mix.<br />
 <br />
 </span></span> (<code>↓</code>) does:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode default"><code class="sourceCode default"><a class="sourceLine" id="cb6-1" title="1">      {↓¨⍕¨⍵}(3 3⍴⍳9)(↑'Adam' 'Michael')(⍳10) '*'(5 5⍴⍳25)</a>
-<a class="sourceLine" id="cb6-2" title="2">┌───────────────────┬─────────────────┬──────────────────────┬─┬───────────────</a>
-<a class="sourceLine" id="cb6-3" title="3">│┌─────┬─────┬─────┐│┌───────┬───────┐│┌────────────────────┐│*│┌──────────────</a>
-<a class="sourceLine" id="cb6-4" title="4">││1 2 3│4 5 6│7 8 9│││Adam   │Michael│││1 2 3 4 5 6 7 8 9 10││ ││ 1  2  3  4  5</a>
-<a class="sourceLine" id="cb6-5" title="5">│└─────┴─────┴─────┘│└───────┴───────┘│└────────────────────┘│ │└──────────────</a>
-<a class="sourceLine" id="cb6-6" title="6">└───────────────────┴─────────────────┴──────────────────────┴─┴───────────────</a>
-<a class="sourceLine" id="cb6-7" title="7"></a>
-<a class="sourceLine" id="cb6-8" title="8">      ─────────────────────────────────────────────────────────────┐</a>
-<a class="sourceLine" id="cb6-9" title="9">      ┬──────────────┬──────────────┬──────────────┬──────────────┐│</a>
-<a class="sourceLine" id="cb6-10" title="10">      │ 6  7  8  9 10│11 12 13 14 15│16 17 18 19 20│21 22 23 24 25││</a>
-<a class="sourceLine" id="cb6-11" title="11">      ┴──────────────┴──────────────┴──────────────┴──────────────┘│</a>
-<a class="sourceLine" id="cb6-12" title="12">      ─────────────────────────────────────────────────────────────┘</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>      {↓¨⍕¨⍵}(3 3⍴⍳9)(↑'Adam' 'Michael')(⍳10) '*'(5 5⍴⍳25)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>┌───────────────────┬─────────────────┬──────────────────────┬─┬───────────────</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>│┌─────┬─────┬─────┐│┌───────┬───────┐│┌────────────────────┐│*│┌──────────────</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>││1 2 3│4 5 6│7 8 9│││Adam   │Michael│││1 2 3 4 5 6 7 8 9 10││ ││ 1  2  3  4  5</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>│└─────┴─────┴─────┘│└───────┴───────┘│└────────────────────┘│ │└──────────────</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>└───────────────────┴─────────────────┴──────────────────────┴─┴───────────────</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>      ─────────────────────────────────────────────────────────────┐</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true"></a>      ┬──────────────┬──────────────┬──────────────┬──────────────┐│</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true"></a>      │ 6  7  8  9 10│11 12 13 14 15│16 17 18 19 20│21 22 23 24 25││</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true"></a>      ┴──────────────┴──────────────┴──────────────┴──────────────┘│</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true"></a>      ─────────────────────────────────────────────────────────────┘</span></code></pre></div>
 <p>Next, we clean this up with Ravel (<code>,</code>) and we can Mix to obtain the final result.</p>
     </section>
 </article>
@@ -406,10 +406,11 @@
         
     </section>
     <section>
-        <h2>Table of Contents</h2><ul>
+        <div id="toc"><h2>Table of Contents</h2><ul>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#why-is-it-hard-to-approach">Why is it hard to approach?</a></li>
-<li><a href="#where-to-start">Where to start</a><ul>
+<li><a href="#where-to-start">Where to start</a>
+<ul>
 <li><a href="#introduction-and-modelling">Introduction and modelling</a></li>
 <li><a href="#theory-and-algorithms">Theory and algorithms</a></li>
 <li><a href="#online-courses">Online courses</a></li>
@@ -417,44 +418,44 @@
 <li><a href="#solvers-and-computational-resources">Solvers and computational resources <span id="solvers"></span></a></li>
 <li><a href="#conclusion">Conclusion</a></li>
 <li><a href="#references">References</a></li>
-</ul>
+</ul></div>
 <h2 id="introduction">Introduction</h2>
 <p><a href="https://en.wikipedia.org/wiki/Operations_research">Operations research</a> (OR) is a vast area comprising a lot of theory, different branches of mathematics, and too many applications to count. In this post, I will try to explain why it can be a little disconcerting to explore at first, and how to start investigating the topic with a few references to get started.</p>
 <p>Keep in mind that although I studied it during my graduate studies, this is not my primary area of expertise (I’m a data scientist by trade), and I definitely don’t pretend to know everything in OR. This is a field too vast for any single person to understand in its entirety, and I talk mostly from an “amateur mathematician and computer scientist” standpoint.</p>
 <h2 id="why-is-it-hard-to-approach">Why is it hard to approach?</h2>
-<p>Operations research can be difficult to approach, since there are many references and subfields. Compared to machine learning for instance, OR has a slightly longer history (going back to the 17th century, for example with <a href="https://en.wikipedia.org/wiki/Gaspard_Monge">Monge</a> and the <a href="https://en.wikipedia.org/wiki/Transportation_theory_(mathematics)">optimal transport problem</a>)<span><label for="sn-1" class="margin-toggle">⊕</label><input type="checkbox" id="sn-1" class="margin-toggle" /><span class="marginnote"> For a very nice introduction (in French) to optimal transport, see these blog posts by <a href="https://twitter.com/gabrielpeyre">Gabriel Peyré</a>, on the CNRS maths blog: <a href="https://images.math.cnrs.fr/Le-transport-optimal-numerique-et-ses-applications-Partie-1.html">Part 1</a> and <a href="https://images.math.cnrs.fr/Le-transport-optimal-numerique-et-ses-applications-Partie-2.html">Part 2</a>. See also the resources on <a href="https://optimaltransport.github.io/">optimaltransport.github.io</a> (in English).<br />
+<p>Operations research can be difficult to approach, since there are many references and subfields. Compared to machine learning for instance, OR has a slightly longer history (going back to the 17th century, for example with <a href="https://en.wikipedia.org/wiki/Gaspard_Monge">Monge</a> and the <a href="https://en.wikipedia.org/wiki/Transportation_theory_(mathematics)">optimal transport problem</a>)<span><label for="sn-0" class="margin-toggle">⊕</label><input type="checkbox" id="sn-0" class="margin-toggle" /><span class="marginnote"> For a very nice introduction (in French) to optimal transport, see these blog posts by <a href="https://twitter.com/gabrielpeyre">Gabriel Peyré</a>, on the CNRS maths blog: <a href="https://images.math.cnrs.fr/Le-transport-optimal-numerique-et-ses-applications-Partie-1.html">Part 1</a> and <a href="https://images.math.cnrs.fr/Le-transport-optimal-numerique-et-ses-applications-Partie-2.html">Part 2</a>. See also the resources on <a href="https://optimaltransport.github.io/">optimaltransport.github.io</a> (in English).<br />
 <br />
 </span></span>. This means that good textbooks and such have existed for a long time, but also that there will be plenty of material to choose from.</p>
 <p>Moreover, OR is very close to applications. Sometimes methods may vary a lot in their presentation depending on whether they’re applied to train tracks, sudoku, or travelling salesmen. In practice, the terminology and notations are not the same everywhere. This is disconcerting if you are used to “pure” mathematics, where notations evolved over a long time and is pretty much standardised for many areas. In contrast, if you’re used to the statistics literature with its <a href="https://lingpipe-blog.com/2009/10/13/whats-wrong-with-probability-notation/">strange notations</a>, you will find that OR is actually very well formalized.</p>
 <p>There are many subfields of operations research, including all kinds of optimization (constrained and unconstrained), game theory, dynamic programming, stochastic processes, etc.</p>
 <h2 id="where-to-start">Where to start</h2>
 <h3 id="introduction-and-modelling">Introduction and modelling</h3>
-<p>For an overall introduction, I recommend <span class="citation" data-cites="wentzel1988_operat">Wentzel (<a href="#ref-wentzel1988_operat">1988</a>)</span>. It is an old book, published by Mir Publications, a Soviet publisher which published many excellent scientific textbooks<span><label for="sn-2" class="margin-toggle">⊕</label><input type="checkbox" id="sn-2" class="margin-toggle" /><span class="marginnote"> Mir also published <a href="https://mirtitles.org/2011/06/03/physics-for-everyone/"><em>Physics for Everyone</em></a> by Lev Landau and Alexander Kitaigorodsky, a three-volume introduction to physics that is really accessible. Together with Feynman’s famous <a href="https://www.feynmanlectures.caltech.edu/">lectures</a>, I read them (in French) when I was a kid, and it was the best introduction I could possibly have to the subject.<br />
+<p>For an overall introduction, I recommend <span class="citation" data-cites="wentzel1988_operat">Wentzel (<a href="#ref-wentzel1988_operat" role="doc-biblioref">1988</a>)</span>. It is an old book, published by Mir Publications, a Soviet publisher which published many excellent scientific textbooks<span><label for="sn-1" class="margin-toggle">⊕</label><input type="checkbox" id="sn-1" class="margin-toggle" /><span class="marginnote"> Mir also published <a href="https://mirtitles.org/2011/06/03/physics-for-everyone/"><em>Physics for Everyone</em></a> by Lev Landau and Alexander Kitaigorodsky, a three-volume introduction to physics that is really accessible. Together with Feynman’s famous <a href="https://www.feynmanlectures.caltech.edu/">lectures</a>, I read them (in French) when I was a kid, and it was the best introduction I could possibly have to the subject.<br />
 <br />
-</span></span>. It is out of print, but it is available <a href="https://archive.org/details/WentzelOperationsResearchMir1983">on Archive.org</a><span><label for="sn-3" class="margin-toggle">⊕</label><input type="checkbox" id="sn-3" class="margin-toggle" /><span class="marginnote"><br />
+</span></span>. It is out of print, but it is available <a href="https://archive.org/details/WentzelOperationsResearchMir1983">on Archive.org</a><span><label for="sn-2" class="margin-toggle">⊕</label><input type="checkbox" id="sn-2" class="margin-toggle" /><span class="marginnote"><br />
 <br />
 <img src="/images/or_references/wentzel.jpg" width="200" /><br />
 <br />
 </span></span>. The book is quite old, but everything presented is still extremely relevant today. It requires absolutely no background, and covers everything: a general introduction to the field, linear programming, dynamic programming, Markov processes and queues, Monte Carlo methods, and game theory. Even if you already know some of these topics, the presentations is so clear that it is a pleasure to read! (In particular, it is one of the best presentations of dynamic programming that I have ever read. The explanation of the simplex algorithm is also excellent.)</p>
 <p>If you are interested in optimization, the first thing you have to learn is modelling, i.e. transforming your problem (described in natural language, often from a particular industrial application) into a mathematical programme. The mathematical programme is the structure on which you will be able to apply an algorithm to find an optimal solution. Even if (like me) you are initially more interested in the algorithmic side of things, learning to create models will shed a lot of light on the overall process, and will give you more insight in general on the reasoning behind algorithms.</p>
-<p>The best book I have read on the subject is <span class="citation" data-cites="williams2013_model">Williams (<a href="#ref-williams2013_model">2013</a>)</span><span><label for="sn-4" class="margin-toggle">⊕</label><input type="checkbox" id="sn-4" class="margin-toggle" /><span class="marginnote"><br />
+<p>The best book I have read on the subject is <span class="citation" data-cites="williams2013_model">Williams (<a href="#ref-williams2013_model" role="doc-biblioref">2013</a>)</span><span><label for="sn-3" class="margin-toggle">⊕</label><input type="checkbox" id="sn-3" class="margin-toggle" /><span class="marginnote"><br />
 <br />
 <img src="/images/or_references/williams.jpg" width="200" /><br />
 <br />
 </span></span>. It contains a lot of concrete, step-by-step examples on concrete applications, in a multitude of domains, and remains very easy to read and to follow. It covers nearly every type of problem, so it is very useful as a reference. When you encounter a concrete problem in real life afterwards, you will know how to construct an appropriate model, and in the process you will often identify a common type of problem. The book then gives plenty of advice on how to approach each type of problem. Finally, it is also a great resource to build a “mental map” of the field, avoiding getting lost in the jungle of linear, stochastic, mixed integer, quadratic, and other network problems.</p>
-<p>Another interesting resource is the freely available <a href="https://docs.mosek.com/modeling-cookbook/index.html">MOSEK Modeling Cookbook</a>, covering many types of problems, with more mathematical details than in <span class="citation" data-cites="williams2013_model">Williams (<a href="#ref-williams2013_model">2013</a>)</span>. It is built for people wanting to use the commercial <a href="https://www.mosek.com/">MOSEK</a> solver, so it could be useful if you plan to use a solver package like this one (more details on solvers <a href="#solvers">below</a>).</p>
+<p>Another interesting resource is the freely available <a href="https://docs.mosek.com/modeling-cookbook/index.html">MOSEK Modeling Cookbook</a>, covering many types of problems, with more mathematical details than in <span class="citation" data-cites="williams2013_model">Williams (<a href="#ref-williams2013_model" role="doc-biblioref">2013</a>)</span>. It is built for people wanting to use the commercial <a href="https://www.mosek.com/">MOSEK</a> solver, so it could be useful if you plan to use a solver package like this one (more details on solvers <a href="#solvers">below</a>).</p>
 <h3 id="theory-and-algorithms">Theory and algorithms</h3>
-<p>The basic algorithm for optimization is the <a href="https://en.wikipedia.org/wiki/Simplex_algorithm">simplex algorithm</a>, developed by Dantzig in the 1940s to solve <a href="https://en.wikipedia.org/wiki/Linear_programming">linear programming</a> problems. It is the one of the main building blocks for mathematical optimization, and is used and referenced extensively in all kinds of approaches. As such, it is really important to understand it in detail. There are many books on the subject, but I especially liked <span class="citation" data-cites="chvatal1983_linear">Chvátal (<a href="#ref-chvatal1983_linear">1983</a>)</span> (out of print, but you can find cheap used versions on Amazon). It covers everything there is to know on the simplex algorithms (step-by-step explanations with simple examples, correctness and complexity analysis, computational and implementation considerations) and to many applications. I think it is overall the best introduction. <span class="citation" data-cites="vanderbei2014_linear">Vanderbei (<a href="#ref-vanderbei2014_linear">2014</a>)</span> follows a very similar outline, but contains more recent computational considerations<span><label for="sn-5" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-5" class="margin-toggle" /><span class="sidenote">For all the details about practical implementations of the simplex algorithm, <span class="citation" data-cites="maros2003_comput">Maros (<a href="#ref-maros2003_comput">2003</a>)</span> is dedicated to the computational aspects and contains everything you will need.<br />
+<p>The basic algorithm for optimization is the <a href="https://en.wikipedia.org/wiki/Simplex_algorithm">simplex algorithm</a>, developed by Dantzig in the 1940s to solve <a href="https://en.wikipedia.org/wiki/Linear_programming">linear programming</a> problems. It is the one of the main building blocks for mathematical optimization, and is used and referenced extensively in all kinds of approaches. As such, it is really important to understand it in detail. There are many books on the subject, but I especially liked <span class="citation" data-cites="chvatal1983_linear">Chvátal (<a href="#ref-chvatal1983_linear" role="doc-biblioref">1983</a>)</span> (out of print, but you can find cheap used versions on Amazon). It covers everything there is to know on the simplex algorithms (step-by-step explanations with simple examples, correctness and complexity analysis, computational and implementation considerations) and to many applications. I think it is overall the best introduction. <span class="citation" data-cites="vanderbei2014_linear">Vanderbei (<a href="#ref-vanderbei2014_linear" role="doc-biblioref">2014</a>)</span> follows a very similar outline, but contains more recent computational considerations<span><label for="sn-4" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-4" class="margin-toggle" /><span class="sidenote">For all the details about practical implementations of the simplex algorithm, <span class="citation" data-cites="maros2003_comput">Maros (<a href="#ref-maros2003_comput" role="doc-biblioref">2003</a>)</span> is dedicated to the computational aspects and contains everything you will need.<br />
 <br />
 </span></span>. (The author also has <a href="http://vanderbei.princeton.edu/307/lectures.html">lecture slides</a>.)</p>
-<p>For more books on linear programming, the two books <span class="citation" data-cites="dantzig1997_linear">Dantzig (<a href="#ref-dantzig1997_linear">1997</a>)</span>, <span class="citation" data-cites="dantzig2003_linear">Dantzig (<a href="#ref-dantzig2003_linear">2003</a>)</span> are very complete, if somewhat more mathematically advanced. <span class="citation" data-cites="bertsimas1997_introd">Bertsimas and Tsitsiklis (<a href="#ref-bertsimas1997_introd">1997</a>)</span> is also a great reference, if you can find it.</p>
-<p>For all the other subfields, <a href="https://or.stackexchange.com/a/870">this great StackExchange answer</a> contains a lot of useful references, including most of the above. Of particular note are <span class="citation" data-cites="peyreComputationalOptimalTransport2019">Peyré and Cuturi (<a href="#ref-peyreComputationalOptimalTransport2019">2019</a>)</span> for optimal transport, <span class="citation" data-cites="boyd2004_convex">Boyd (<a href="#ref-boyd2004_convex">2004</a>)</span> for convex optimization (<a href="https://web.stanford.edu/~boyd/cvxbook/">freely available online</a>), and <span class="citation" data-cites="nocedal2006_numer">Nocedal (<a href="#ref-nocedal2006_numer">2006</a>)</span> for numerical optimization. <span class="citation" data-cites="kochenderfer2019_algor">Kochenderfer (<a href="#ref-kochenderfer2019_algor">2019</a>)</span><span><label for="sn-6" class="margin-toggle">⊕</label><input type="checkbox" id="sn-6" class="margin-toggle" /><span class="marginnote"><br />
+<p>For more books on linear programming, the two books <span class="citation" data-cites="dantzig1997_linear">Dantzig (<a href="#ref-dantzig1997_linear" role="doc-biblioref">1997</a>)</span>, <span class="citation" data-cites="dantzig2003_linear">Dantzig (<a href="#ref-dantzig2003_linear" role="doc-biblioref">2003</a>)</span> are very complete, if somewhat more mathematically advanced. <span class="citation" data-cites="bertsimas1997_introd">Bertsimas and Tsitsiklis (<a href="#ref-bertsimas1997_introd" role="doc-biblioref">1997</a>)</span> is also a great reference, if you can find it.</p>
+<p>For all the other subfields, <a href="https://or.stackexchange.com/a/870">this great StackExchange answer</a> contains a lot of useful references, including most of the above. Of particular note are <span class="citation" data-cites="peyreComputationalOptimalTransport2019">Peyré and Cuturi (<a href="#ref-peyreComputationalOptimalTransport2019" role="doc-biblioref">2019</a>)</span> for optimal transport, <span class="citation" data-cites="boyd2004_convex">Boyd (<a href="#ref-boyd2004_convex" role="doc-biblioref">2004</a>)</span> for convex optimization (<a href="https://web.stanford.edu/~boyd/cvxbook/">freely available online</a>), and <span class="citation" data-cites="nocedal2006_numer">Nocedal (<a href="#ref-nocedal2006_numer" role="doc-biblioref">2006</a>)</span> for numerical optimization. <span class="citation" data-cites="kochenderfer2019_algor">Kochenderfer (<a href="#ref-kochenderfer2019_algor" role="doc-biblioref">2019</a>)</span><span><label for="sn-5" class="margin-toggle">⊕</label><input type="checkbox" id="sn-5" class="margin-toggle" /><span class="marginnote"><br />
 <br />
 <img src="/images/or_references/kochenderfer.jpg" width="200" /><br />
 <br />
 </span></span> is not in the list (because it is very recent) but is also excellent, with examples in Julia covering nearly every kind of optimization algorithms.</p>
 <h3 id="online-courses">Online courses</h3>
-<p>If you would like to watch video lectures, there are a few good opportunities freely available online, in particular on <a href="https://ocw.mit.edu/index.htm">MIT OpenCourseWare</a>. The list of courses at MIT is available <a href="https://orc.mit.edu/academics/course-offerings">on their webpage</a>. I haven’t actually looked in details at the courses content<span><label for="sn-7" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-7" class="margin-toggle" /><span class="sidenote">I am more comfortable reading books than watching lecture videos online. Although I liked attending classes during my studies, I do not have the same feeling in front of a video. When I read, I can re-read three times the same sentence, pause to look up something, or skim a few paragraphs. I find that the inability to do that with a video diminishes greatly my ability to concentrate.<br />
+<p>If you would like to watch video lectures, there are a few good opportunities freely available online, in particular on <a href="https://ocw.mit.edu/index.htm">MIT OpenCourseWare</a>. The list of courses at MIT is available <a href="https://orc.mit.edu/academics/course-offerings">on their webpage</a>. I haven’t actually looked in details at the courses content<span><label for="sn-6" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-6" class="margin-toggle" /><span class="sidenote">I am more comfortable reading books than watching lecture videos online. Although I liked attending classes during my studies, I do not have the same feeling in front of a video. When I read, I can re-read three times the same sentence, pause to look up something, or skim a few paragraphs. I find that the inability to do that with a video diminishes greatly my ability to concentrate.<br />
 <br />
 </span></span>, so I cannot vouch for them directly, but MIT courses are generally of excellent quality. Most courses are also taught by Bertsimas and Bertsekas, who are very famous and wrote many excellent books.</p>
 <p>Of particular notes are:</p>
@@ -465,12 +466,12 @@
 <li><a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-972-algebraic-techniques-and-semidefinite-optimization-spring-2006/">Algebraic Techniques and Semidefinite Optimization</a>,</li>
 <li><a href="https://ocw.mit.edu/courses/sloan-school-of-management/15-083j-integer-programming-and-combinatorial-optimization-fall-2009/">Integer Programming and Combinatorial Optimization</a>.</li>
 </ul>
-<p>Another interesting course I found online is <a href="https://www.ams.jhu.edu/~wcook12/dl/index.html">Deep Learning in Discrete Optimization</a>, at Johns Hopkins<span><label for="sn-8" class="margin-toggle">⊕</label><input type="checkbox" id="sn-8" class="margin-toggle" /><span class="marginnote"> It is taught by William Cook, who is the author of <a href="https://press.princeton.edu/books/paperback/9780691163529/in-pursuit-of-the-traveling-salesman"><em>In Pursuit of the Traveling Salesman</em></a>, a nice introduction to the TSP problem in a readable form.<br />
+<p>Another interesting course I found online is <a href="https://www.ams.jhu.edu/~wcook12/dl/index.html">Deep Learning in Discrete Optimization</a>, at Johns Hopkins<span><label for="sn-7" class="margin-toggle">⊕</label><input type="checkbox" id="sn-7" class="margin-toggle" /><span class="marginnote"> It is taught by William Cook, who is the author of <a href="https://press.princeton.edu/books/paperback/9780691163529/in-pursuit-of-the-traveling-salesman"><em>In Pursuit of the Traveling Salesman</em></a>, a nice introduction to the TSP problem in a readable form.<br />
 <br />
 </span></span>. It contains an interesting overview of deep learning and integer programming, with a focus on connections, and applications to recent research areas in ML (reinforcement learning, attention, etc.).</p>
 <h2 id="solvers-and-computational-resources">Solvers and computational resources <span id="solvers"></span></h2>
 <p>When you start reading about modelling and algorithms, I recommend you try solving a few problems yourself, either by hand for small instances, or using an existing solver. It will allow you to follow the examples in books, while also practising your modelling skills. You will also get an intuition of what is difficult to model and to solve.</p>
-<p>There are many solvers available, both free and commercial, with various capabilities. I recommend you use the fantastic <a href="https://github.com/JuliaOpt/JuMP.jl">JuMP</a><span><label for="sn-9" class="margin-toggle">⊕</label><input type="checkbox" id="sn-9" class="margin-toggle" /><span class="marginnote"><br />
+<p>There are many solvers available, both free and commercial, with various capabilities. I recommend you use the fantastic <a href="https://github.com/JuliaOpt/JuMP.jl">JuMP</a><span><label for="sn-8" class="margin-toggle">⊕</label><input type="checkbox" id="sn-8" class="margin-toggle" /><span class="marginnote"><br />
 <br />
 <img src="/images/or_references/jump.svg" width="250" /><br />
 <br />
@@ -480,10 +481,10 @@
 <p>Another awesome resource is the <a href="https://neos-server.org/neos/">NEOS Server</a>. It offers free computing resources for numerical optimization, including all major free and commercial solvers! You can submit jobs on it in a standard format, or interface your favourite programming language with it. The fact that such an amazing resource exists for free, for everyone is extraordinary. They also have an accompanying book, the <a href="https://neos-guide.org/">NEOS Guide</a>, containing many case studies and description of problem types. The <a href="https://neos-guide.org/content/optimization-taxonomy">taxonomy</a> may be particularly useful.</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>Operations research is a fascinating topic, and it has an abundant literature that makes it very easy to dive into the subject. If you are interested in algorithms, modelling for practical applications, or just wish to understand more, I hope to have given you the first steps to follow, start reading and experimenting.</p>
-<h2 id="references" class="unnumbered">References</h2>
-<div id="refs" class="references">
+<h2 class="unnumbered" id="references">References</h2>
+<div id="refs" class="references hanging-indent" role="doc-bibliography">
 <div id="ref-bertsimas1997_introd">
-<p>Bertsimas, Dimitris, and John N. Tsitsiklis. 1997. <em>Introduction to Linear Optimization</em>. Belmont, Massachusetts: Athena Scientific. <a href="http://www.athenasc.com/linoptbook.html" class="uri">http://www.athenasc.com/linoptbook.html</a>.</p>
+<p>Bertsimas, Dimitris, and John N. Tsitsiklis. 1997. <em>Introduction to Linear Optimization</em>. Belmont, Massachusetts: Athena Scientific. <a href="http://www.athenasc.com/linoptbook.html">http://www.athenasc.com/linoptbook.html</a>.</p>
 </div>
 <div id="ref-boyd2004_convex">
 <p>Boyd, Stephen. 2004. <em>Convex Optimization</em>. Cambridge, UK New York: Cambridge University Press.</p>
@@ -492,10 +493,10 @@
 <p>Chvátal, Vašek. 1983. <em>Linear Programming</em>. New York: W.H. Freeman.</p>
 </div>
 <div id="ref-dantzig1997_linear">
-<p>Dantzig, George. 1997. <em>Linear Programming 1: Introduction</em>. New York: Springer. <a href="https://www.springer.com/gp/book/9780387948331" class="uri">https://www.springer.com/gp/book/9780387948331</a>.</p>
+<p>Dantzig, George. 1997. <em>Linear Programming 1: Introduction</em>. New York: Springer. <a href="https://www.springer.com/gp/book/9780387948331">https://www.springer.com/gp/book/9780387948331</a>.</p>
 </div>
 <div id="ref-dantzig2003_linear">
-<p>———. 2003. <em>Linear Programming 2: Theory and Extensions</em>. New York: Springer. <a href="https://www.springer.com/gp/book/9780387986135" class="uri">https://www.springer.com/gp/book/9780387986135</a>.</p>
+<p>———. 2003. <em>Linear Programming 2: Theory and Extensions</em>. New York: Springer. <a href="https://www.springer.com/gp/book/9780387986135">https://www.springer.com/gp/book/9780387986135</a>.</p>
 </div>
 <div id="ref-kochenderfer2019_algor">
 <p>Kochenderfer, Mykel. 2019. <em>Algorithms for Optimization</em>. Cambridge, Massachusetts: The MIT Press.</p>
@@ -504,10 +505,10 @@
 <p>Maros, István. 2003. <em>Computational Techniques of the Simplex Method</em>. Boston: Kluwer Academic Publishers.</p>
 </div>
 <div id="ref-nocedal2006_numer">
-<p>Nocedal, Jorge. 2006. <em>Numerical Optimization</em>. New York: Springer. <a href="https://www.springer.com/gp/book/9780387303031" class="uri">https://www.springer.com/gp/book/9780387303031</a>.</p>
+<p>Nocedal, Jorge. 2006. <em>Numerical Optimization</em>. New York: Springer. <a href="https://www.springer.com/gp/book/9780387303031">https://www.springer.com/gp/book/9780387303031</a>.</p>
 </div>
 <div id="ref-peyreComputationalOptimalTransport2019">
-<p>Peyré, Gabriel, and Marco Cuturi. 2019. “Computational Optimal Transport.” <em>Foundations and Trends in Machine Learning</em> 11 (5-6): 355–206. <a href="https://doi.org/10.1561/2200000073" class="uri">https://doi.org/10.1561/2200000073</a>.</p>
+<p>Peyré, Gabriel, and Marco Cuturi. 2019. “Computational Optimal Transport.” <em>Foundations and Trends in Machine Learning</em> 11 (5-6): 355–206. <a href="https://doi.org/10.1561/2200000073">https://doi.org/10.1561/2200000073</a>.</p>
 </div>
 <div id="ref-vanderbei2014_linear">
 <p>Vanderbei, Robert. 2014. <em>Linear Programming : Foundations and Extensions</em>. New York: Springer.</p>
@@ -516,7 +517,7 @@
 <p>Wentzel, Elena S. 1988. <em>Operations Research: A Methodological Approach</em>. Moscow: Mir publishers.</p>
 </div>
 <div id="ref-williams2013_model">
-<p>Williams, H. Paul. 2013. <em>Model Building in Mathematical Programming</em>. Chichester, West Sussex: Wiley. <a href="https://www.wiley.com/en-fr/Model+Building+in+Mathematical+Programming,+5th+Edition-p-9781118443330" class="uri">https://www.wiley.com/en-fr/Model+Building+in+Mathematical+Programming,+5th+Edition-p-9781118443330</a>.</p>
+<p>Williams, H. Paul. 2013. <em>Model Building in Mathematical Programming</em>. Chichester, West Sussex: Wiley. <a href="https://www.wiley.com/en-fr/Model+Building+in+Mathematical+Programming,+5th+Edition-p-9781118443330">https://www.wiley.com/en-fr/Model+Building+in+Mathematical+Programming,+5th+Edition-p-9781118443330</a>.</p>
 </div>
 </div>
     </section>
@@ -534,31 +535,33 @@
         
     </section>
     <section>
-        <h2>Table of Contents</h2><ul>
+        <div id="toc"><h2>Table of Contents</h2><ul>
 <li><a href="#the-format-of-the-virtual-conference">The Format of the Virtual Conference</a></li>
-<li><a href="#speakers">Speakers</a><ul>
+<li><a href="#speakers">Speakers</a>
+<ul>
 <li><a href="#prof.-leslie-kaelbling-doing-for-our-robots-what-nature-did-for-us">Prof. Leslie Kaelbling, <span>Doing for Our Robots What Nature Did For Us</span></a></li>
 <li><a href="#dr.-laurent-dinh-invertible-models-and-normalizing-flows">Dr. Laurent Dinh, <span>Invertible Models and Normalizing Flows</span></a></li>
 <li><a href="#profs.-yann-lecun-and-yoshua-bengio-reflections-from-the-turing-award-winners">Profs. Yann LeCun and Yoshua Bengio, <span>Reflections from the Turing Award Winners</span></a></li>
 </ul></li>
-<li><a href="#workshops">Workshops</a><ul>
+<li><a href="#workshops">Workshops</a>
+<ul>
 <li><a href="#beyond-tabula-rasa-in-reinforcement-learning-agents-that-remember-adapt-and-generalize"><span>Beyond ‘tabula rasa’ in reinforcement learning: agents that remember, adapt, and generalize</span></a></li>
 <li><a href="#causal-learning-for-decision-making"><span>Causal Learning For Decision Making</span></a></li>
 <li><a href="#bridging-ai-and-cognitive-science"><span>Bridging AI and Cognitive Science</span></a></li>
 <li><a href="#integration-of-deep-neural-models-and-differential-equations"><span>Integration of Deep Neural Models and Differential Equations</span></a></li>
 </ul></li>
-</ul>
+</ul></div>
 <p>ICLR is one of the most important conferences in machine learning, and as such, I was very excited to have the opportunity to volunteer and attend the first fully-virtual edition of the event. The whole content of the conference has been made <a href="https://iclr.cc/virtual_2020/index.html">publicly available</a>, only a few days after the end of the event!</p>
-<p>I would like to thank the <a href="https://iclr.cc/Conferences/2020/Committees">organizing committee</a> for this incredible event, and the possibility to volunteer to help other participants<span><label for="sn-1" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-1" class="margin-toggle" /><span class="sidenote">To better organize the event, and help people navigate the various online tools, they brought in 500(!) volunteers, waved our registration fees, and asked us to do simple load-testing and tech support. This was a very generous offer, and felt very rewarding for us, as we could attend the conference, and give back to the organization a little bit.<br />
+<p>I would like to thank the <a href="https://iclr.cc/Conferences/2020/Committees">organizing committee</a> for this incredible event, and the possibility to volunteer to help other participants<span><label for="sn-0" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-0" class="margin-toggle" /><span class="sidenote">To better organize the event, and help people navigate the various online tools, they brought in 500(!) volunteers, waved our registration fees, and asked us to do simple load-testing and tech support. This was a very generous offer, and felt very rewarding for us, as we could attend the conference, and give back to the organization a little bit.<br />
 <br />
 </span></span>.</p>
 <p>The many volunteers, the online-only nature of the event, and the low registration fees also allowed for what felt like a very diverse, inclusive event. Many graduate students and researchers from industry (like me), who do not generally have the time or the resources to travel to conferences like this, were able to attend, and make the exchanges richer.</p>
 <p>In this post, I will try to give my impressions on the event, the speakers, and the workshops that I could attend. I will do a quick recap of the most interesting papers I saw in a future post.</p>
 <h2 id="the-format-of-the-virtual-conference">The Format of the Virtual Conference</h2>
 <p>As a result of global travel restrictions, the conference was made fully-virtual. It was supposed to take place in Addis Ababa, Ethiopia, which is great for people who are often the target of restrictive visa policies in Northern American countries.</p>
-<p>The thing I appreciated most about the conference format was its emphasis on <em>asynchronous</em> communication. Given how little time they had to plan the conference, they could have made all poster presentations via video-conference and call it a day. Instead, each poster had to record a 5-minute video<span><label for="sn-2" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-2" class="margin-toggle" /><span class="sidenote">The videos are streamed using <a href="https://library.slideslive.com/">SlidesLive</a>, which is a great solution for synchronising videos and slides. It is very comfortable to navigate through the slides and synchronising the video to the slides and vice-versa. As a result, SlidesLive also has a very nice library of talks, including major conferences. This is much better than browsing YouTube randomly.<br />
+<p>The thing I appreciated most about the conference format was its emphasis on <em>asynchronous</em> communication. Given how little time they had to plan the conference, they could have made all poster presentations via video-conference and call it a day. Instead, each poster had to record a 5-minute video<span><label for="sn-1" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-1" class="margin-toggle" /><span class="sidenote">The videos are streamed using <a href="https://library.slideslive.com/">SlidesLive</a>, which is a great solution for synchronising videos and slides. It is very comfortable to navigate through the slides and synchronising the video to the slides and vice-versa. As a result, SlidesLive also has a very nice library of talks, including major conferences. This is much better than browsing YouTube randomly.<br />
 <br />
-</span></span> summarising their research. Alongside each presentation, there was a dedicated Rocket.Chat channel<span><label for="sn-3" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-3" class="margin-toggle" /><span class="sidenote"><a href="https://rocket.chat/">Rocket.Chat</a> seems to be an <a href="https://github.com/RocketChat/Rocket.Chat">open-source</a> alternative to Slack. Overall, the experience was great, and I appreciate the efforts of the organizers to use open source software instead of proprietary applications. I hope other conferences will do the same, and perhaps even avoid Zoom, because of recent privacy concerns (maybe try <a href="https://jitsi.org/">Jitsi</a>?).<br />
+</span></span> summarising their research. Alongside each presentation, there was a dedicated Rocket.Chat channel<span><label for="sn-2" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-2" class="margin-toggle" /><span class="sidenote"><a href="https://rocket.chat/">Rocket.Chat</a> seems to be an <a href="https://github.com/RocketChat/Rocket.Chat">open-source</a> alternative to Slack. Overall, the experience was great, and I appreciate the efforts of the organizers to use open source software instead of proprietary applications. I hope other conferences will do the same, and perhaps even avoid Zoom, because of recent privacy concerns (maybe try <a href="https://jitsi.org/">Jitsi</a>?).<br />
 <br />
 </span></span> where anyone could ask a question to the authors, or just show their appreciation for the work. This was a fantastic idea as it allowed any participant to interact with papers and authors at any time they please, which is especially important in a setting where people were spread all over the globe.</p>
 <p>There were also Zoom session where authors were available for direct, face-to-face discussions, allowing for more traditional conversations. But asking questions on the channel had also the advantage of keeping a track of all questions that were asked by other people. As such, I quickly acquired the habit of watching the video, looking at the chat to see the previous discussions (even if they happened in the middle of the night in my timezone!), and then skimming the paper or asking questions myself.</p>
@@ -582,7 +585,7 @@
 <h3 id="beyond-tabula-rasa-in-reinforcement-learning-agents-that-remember-adapt-and-generalize"><a href="https://iclr.cc/virtual_2020/workshops_12.html">Beyond ‘tabula rasa’ in reinforcement learning: agents that remember, adapt, and generalize</a></h3>
 <p>A lot of pretty advanced talks about RL. The general theme was meta-learning, aka “learning to learn”. This is a very active area of research, which goes way beyond classical RL theory, and offer many interesting avenues to adjacent fields (both inside ML and outside, especially cognitive science). The <a href="http://www.betr-rl.ml/2020/abs/101/">first talk</a>, by Martha White, about inductive biases, was a very interesting and approachable introduction to the problems and challenges of the field. There was also a panel with Jürgen Schmidhuber. We hear a lot about him from the various controversies, but it’s nice to see him talking about research and future developments in RL.</p>
 <h3 id="causal-learning-for-decision-making"><a href="https://iclr.cc/virtual_2020/workshops_14.html">Causal Learning For Decision Making</a></h3>
-<p>Ever since I read Judea Pearl’s <a href="https://www.goodreads.com/book/show/36204378-the-book-of-why"><em>The Book of Why</em></a> on causality, I have been interested in how we can incorporate causality reasoning in machine learning. This is a complex topic, and I’m not sure yet that it is a complete revolution as Judea Pearl likes to portray it, but it nevertheless introduces a lot of new fascinating ideas. Yoshua Bengio gave an interesting talk<span><label for="sn-4" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-4" class="margin-toggle" /><span class="sidenote">You can find it at 4:45:20 in the <a href="https://slideslive.com/38926830/workshop-on-causal-learning-for-decision-making">livestream</a> of the workshop.<br />
+<p>Ever since I read Judea Pearl’s <a href="https://www.goodreads.com/book/show/36204378-the-book-of-why"><em>The Book of Why</em></a> on causality, I have been interested in how we can incorporate causality reasoning in machine learning. This is a complex topic, and I’m not sure yet that it is a complete revolution as Judea Pearl likes to portray it, but it nevertheless introduces a lot of new fascinating ideas. Yoshua Bengio gave an interesting talk<span><label for="sn-3" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-3" class="margin-toggle" /><span class="sidenote">You can find it at 4:45:20 in the <a href="https://slideslive.com/38926830/workshop-on-causal-learning-for-decision-making">livestream</a> of the workshop.<br />
 <br />
 </span></span> (even though very similar to his keynote talk) on causal priors for deep learning.</p>
 <h3 id="bridging-ai-and-cognitive-science"><a href="https://iclr.cc/virtual_2020/workshops_4.html">Bridging AI and Cognitive Science</a></h3>
@@ -604,15 +607,15 @@
         
     </section>
     <section>
-        <h2>Table of Contents</h2><ul>
+        <div id="toc"><h2>Table of Contents</h2><ul>
 <li><a href="#introduction-and-motivation">Introduction and motivation</a></li>
 <li><a href="#background-optimal-transport">Background: optimal transport</a></li>
 <li><a href="#hierarchical-optimal-transport">Hierarchical optimal transport</a></li>
 <li><a href="#experiments">Experiments</a></li>
 <li><a href="#conclusion">Conclusion</a></li>
 <li><a href="#references">References</a></li>
-</ul>
-<p>Two weeks ago, I did a presentation for my colleagues of the paper from <span class="citation" data-cites="yurochkin2019_hierar_optim_trans_docum_repres">Yurochkin et al. (<a href="#ref-yurochkin2019_hierar_optim_trans_docum_repres">2019</a>)</span>, from <a href="https://papers.nips.cc/book/advances-in-neural-information-processing-systems-32-2019">NeurIPS 2019</a>. It contains an interesting approach to document classification leading to strong performance, and, most importantly, excellent interpretability.</p>
+</ul></div>
+<p>Two weeks ago, I did a presentation for my colleagues of the paper from <span class="citation" data-cites="yurochkin2019_hierar_optim_trans_docum_repres">Yurochkin et al. (<a href="#ref-yurochkin2019_hierar_optim_trans_docum_repres" role="doc-biblioref">2019</a>)</span>, from <a href="https://papers.nips.cc/book/advances-in-neural-information-processing-systems-32-2019">NeurIPS 2019</a>. It contains an interesting approach to document classification leading to strong performance, and, most importantly, excellent interpretability.</p>
 <p>This paper seems interesting to me because of it uses two methods with strong theoretical guarantees: optimal transport and topic modelling. Optimal transport looks very promising to me in NLP, and has seen a lot of interest in recent years due to advances in approximation algorithms, such as entropy regularisation. It is also quite refreshing to see approaches using solid results in optimisation, compared to purely experimental deep learning methods.</p>
 <h2 id="introduction-and-motivation">Introduction and motivation</h2>
 <p>The problem of the paper is to measure similarity (i.e. a distance) between pairs of documents, by incorporating <em>semantic</em> similarities (and not only syntactic artefacts), without encountering scalability issues.</p>
@@ -622,8 +625,8 @@
 <li>topic modelling methods (e.g. <a href="https://scikit-learn.org/stable/modules/decomposition.html#latentdirichletallocation">Latent Dirichlet Allocation</a>), to represent semantically-meaningful groups of words.</li>
 </ul>
 <h2 id="background-optimal-transport">Background: optimal transport</h2>
-<p>The essential backbone of the method is the Wasserstein distance, derived from optimal transport theory. Optimal transport is a fascinating and deep subject, so I won’t enter into the details here. For an introduction to the theory and its applications, check out the excellent book from <span class="citation" data-cites="peyreComputationalOptimalTransport2019">Peyré and Cuturi (<a href="#ref-peyreComputationalOptimalTransport2019">2019</a>)</span>, (<a href="https://arxiv.org/abs/1803.00567">available on ArXiv</a> as well). There are also <a href="https://images.math.cnrs.fr/Le-transport-optimal-numerique-et-ses-applications-Partie-1.html?lang=fr">very nice posts</a> (in French) by Gabriel Peyré on the <a href="https://images.math.cnrs.fr/">CNRS maths blog</a>. Many more resources (including slides for presentations) are available at <a href="https://optimaltransport.github.io" class="uri">https://optimaltransport.github.io</a>. For a more complete theoretical treatment of the subject, check out <span class="citation" data-cites="santambrogioOptimalTransportApplied2015">Santambrogio (<a href="#ref-santambrogioOptimalTransportApplied2015">2015</a>)</span>, or, if you’re feeling particularly adventurous, <span class="citation" data-cites="villaniOptimalTransportOld2009">Villani (<a href="#ref-villaniOptimalTransportOld2009">2009</a>)</span>.</p>
-<p>For this paper, only a superficial understanding of how the <a href="https://en.wikipedia.org/wiki/Wasserstein_metric">Wasserstein distance</a> works is necessary. Optimal transport is an optimisation technique to lift a distance between points in a given metric space, to a distance between probability <em>distributions</em> over this metric space. The historical example is to move piles of dirt around: you know the distance between any two points, and you have piles of dirt lying around<span><label for="sn-1" class="margin-toggle">⊕</label><input type="checkbox" id="sn-1" class="margin-toggle" /><span class="marginnote"> Optimal transport originated with Monge, and then Kantorovich, both of whom had very clear military applications in mind (either in Revolutionary France, or during WWII). A lot of historical examples move cannon balls, or other military equipment, along a front line.<br />
+<p>The essential backbone of the method is the Wasserstein distance, derived from optimal transport theory. Optimal transport is a fascinating and deep subject, so I won’t enter into the details here. For an introduction to the theory and its applications, check out the excellent book from <span class="citation" data-cites="peyreComputationalOptimalTransport2019">Peyré and Cuturi (<a href="#ref-peyreComputationalOptimalTransport2019" role="doc-biblioref">2019</a>)</span>, (<a href="https://arxiv.org/abs/1803.00567">available on ArXiv</a> as well). There are also <a href="https://images.math.cnrs.fr/Le-transport-optimal-numerique-et-ses-applications-Partie-1.html?lang=fr">very nice posts</a> (in French) by Gabriel Peyré on the <a href="https://images.math.cnrs.fr/">CNRS maths blog</a>. Many more resources (including slides for presentations) are available at <a href="https://optimaltransport.github.io">https://optimaltransport.github.io</a>. For a more complete theoretical treatment of the subject, check out <span class="citation" data-cites="santambrogioOptimalTransportApplied2015">Santambrogio (<a href="#ref-santambrogioOptimalTransportApplied2015" role="doc-biblioref">2015</a>)</span>, or, if you’re feeling particularly adventurous, <span class="citation" data-cites="villaniOptimalTransportOld2009">Villani (<a href="#ref-villaniOptimalTransportOld2009" role="doc-biblioref">2009</a>)</span>.</p>
+<p>For this paper, only a superficial understanding of how the <a href="https://en.wikipedia.org/wiki/Wasserstein_metric">Wasserstein distance</a> works is necessary. Optimal transport is an optimisation technique to lift a distance between points in a given metric space, to a distance between probability <em>distributions</em> over this metric space. The historical example is to move piles of dirt around: you know the distance between any two points, and you have piles of dirt lying around<span><label for="sn-0" class="margin-toggle">⊕</label><input type="checkbox" id="sn-0" class="margin-toggle" /><span class="marginnote"> Optimal transport originated with Monge, and then Kantorovich, both of whom had very clear military applications in mind (either in Revolutionary France, or during WWII). A lot of historical examples move cannon balls, or other military equipment, along a front line.<br />
 <br />
 </span></span>. Now, if you want to move these piles to another configuration (fewer piles, say, or a different repartition of dirt a few metres away), you need to find the most efficient way to move them. The total cost you obtain will define a distance between the two configurations of dirt, and is usually called the <a href="https://en.wikipedia.org/wiki/Earth_mover%27s_distance">earth mover’s distance</a>, which is just an instance of the general Wasserstein metric.</p>
 <p>More formally, we start with two sets of points <span class="math inline">\(x = (x_1, x_2, \ldots,
@@ -658,36 +661,36 @@ W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
 </ul>
 <p>The first one can be precomputed once for all subsequent distances, so it is invariable in the number of documents we have to process. The second one only operates on <span class="math inline">\(\lvert T \rvert\)</span> topics instead of the full vocabulary: the resulting optimisation problem is much smaller! This is great for performance, as it should be easy now to compute all pairwise distances in a large set of documents.</p>
 <p>Another interesting insight is that topics are represented as collections of words (we can keep the top 20 as a visual representations), and documents as collections of topics with weights. Both of these representations are highly interpretable for a human being who wants to understand what’s going on. I think this is one of the strongest aspects of these approaches: both the various representations and the algorithms are fully interpretable. Compared to a deep learning approach, we can make sense of every intermediate step, from the representations of topics to the weights in the optimisation algorithm to compute higher-level distances.</p>
-<p><img src="/images/hott_fig1.jpg" /><span><label for="sn-2" class="margin-toggle">⊕</label><input type="checkbox" id="sn-2" class="margin-toggle" /><span class="marginnote"> Representation of two documents in topic space, along with how the distance was computed between them. Everything is interpretable: from the documents as collections of topics, to the matchings between topics determining the overall distance between the books <span class="citation" data-cites="yurochkin2019_hierar_optim_trans_docum_repres">(Yurochkin et al. <a href="#ref-yurochkin2019_hierar_optim_trans_docum_repres">2019</a>)</span>.<br />
+<p><img src="/images/hott_fig1.jpg" /><span><label for="sn-1" class="margin-toggle">⊕</label><input type="checkbox" id="sn-1" class="margin-toggle" /><span class="marginnote"> Representation of two documents in topic space, along with how the distance was computed between them. Everything is interpretable: from the documents as collections of topics, to the matchings between topics determining the overall distance between the books <span class="citation" data-cites="yurochkin2019_hierar_optim_trans_docum_repres">(Yurochkin et al. <a href="#ref-yurochkin2019_hierar_optim_trans_docum_repres" role="doc-biblioref">2019</a>)</span>.<br />
 <br />
 </span></span></p>
 <h2 id="experiments">Experiments</h2>
-<p>The paper is very complete regarding experiments, providing a full evaluation of the method on one particular application: document clustering. They use <a href="https://scikit-learn.org/stable/modules/decomposition.html#latentdirichletallocation">Latent Dirichlet Allocation</a> to compute topics and GloVe for pretrained word embeddings <span class="citation" data-cites="pennington2014_glove">(Pennington, Socher, and Manning <a href="#ref-pennington2014_glove">2014</a>)</span>, and <a href="https://www.gurobi.com/">Gurobi</a> to solve the optimisation problems. Their code is available <a href="https://github.com/IBM/HOTT">on GitHub</a>.</p>
+<p>The paper is very complete regarding experiments, providing a full evaluation of the method on one particular application: document clustering. They use <a href="https://scikit-learn.org/stable/modules/decomposition.html#latentdirichletallocation">Latent Dirichlet Allocation</a> to compute topics and GloVe for pretrained word embeddings <span class="citation" data-cites="pennington2014_glove">(Pennington, Socher, and Manning <a href="#ref-pennington2014_glove" role="doc-biblioref">2014</a>)</span>, and <a href="https://www.gurobi.com/">Gurobi</a> to solve the optimisation problems. Their code is available <a href="https://github.com/IBM/HOTT">on GitHub</a>.</p>
 <p>If you want the details, I encourage you to read the full paper, they tested the methods on a wide variety of datasets, with datasets containing very short documents (like Twitter), and long documents with a large vocabulary (books). With a simple <span class="math inline">\(k\)</span>-NN classification, they establish that HOTT performs best on average, especially on large vocabularies (books, the “gutenberg” dataset). It also has a much better computational performance than alternative methods based on regularisation of the optimal transport problem directly on words. So the hierarchical nature of the approach allows to gain considerably in performance, along with improvements in interpretability.</p>
-<p>What’s really interesting in the paper is the sensitivity analysis: they ran experiments with different word embeddings methods (word2vec, <span class="citation" data-cites="mikolovDistributedRepresentationsWords2013">(Mikolov et al. <a href="#ref-mikolovDistributedRepresentationsWords2013">2013</a>)</span>), and with different parameters for the topic modelling (topic truncation, number of topics, etc). All of these reveal that changes in hyperparameters do not impact the performance of HOTT significantly. This is extremely important in a field like NLP where most of the times small variations in approach lead to drastically different results.</p>
+<p>What’s really interesting in the paper is the sensitivity analysis: they ran experiments with different word embeddings methods (word2vec, <span class="citation" data-cites="mikolovDistributedRepresentationsWords2013">(Mikolov et al. <a href="#ref-mikolovDistributedRepresentationsWords2013" role="doc-biblioref">2013</a>)</span>), and with different parameters for the topic modelling (topic truncation, number of topics, etc). All of these reveal that changes in hyperparameters do not impact the performance of HOTT significantly. This is extremely important in a field like NLP where most of the times small variations in approach lead to drastically different results.</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>All in all, this paper present a very interesting approach to compute distance between natural-language documents. It is no secret that I like methods with strong theoretical background (in this case optimisation and optimal transport), guaranteeing a stability and benefiting from decades of research in a well-established domain.</p>
 <p>Most importantly, this paper allows for future exploration in document representation with <em>interpretability</em> in mind. This is often added as an afterthought in academic research but is one of the most important topics for the industry, as a system must be understood by end users, often not trained in ML, before being deployed. The notion of topic, and distances as weights, can be understood easily by anyone without significant background in ML or in maths.</p>
 <p>Finally, I feel like they did not stop at a simple theoretical argument, but carefully checked on real-world datasets, measuring sensitivity to all the arbitrary choices they had to take. Again, from an industry perspective, this allows to implement the new approach quickly and easily, being confident that it won’t break unexpectedly without extensive testing.</p>
-<h2 id="references" class="unnumbered">References</h2>
-<div id="refs" class="references">
+<h2 class="unnumbered" id="references">References</h2>
+<div id="refs" class="references hanging-indent" role="doc-bibliography">
 <div id="ref-mikolovDistributedRepresentationsWords2013">
-<p>Mikolov, Tomas, Ilya Sutskever, Kai Chen, Greg S Corrado, and Jeff Dean. 2013. “Distributed Representations of Words and Phrases and Their Compositionality.” In <em>Advances in Neural Information Processing Systems 26</em>, 3111–9. <a href="http://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf" class="uri">http://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf</a>.</p>
+<p>Mikolov, Tomas, Ilya Sutskever, Kai Chen, Greg S Corrado, and Jeff Dean. 2013. “Distributed Representations of Words and Phrases and Their Compositionality.” In <em>Advances in Neural Information Processing Systems 26</em>, 3111–9. <a href="http://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf">http://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf</a>.</p>
 </div>
 <div id="ref-pennington2014_glove">
-<p>Pennington, Jeffrey, Richard Socher, and Christopher Manning. 2014. “Glove: Global Vectors for Word Representation.” In <em>Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing (EMNLP)</em>, 1532–43. Doha, Qatar: Association for Computational Linguistics. <a href="https://doi.org/10.3115/v1/D14-1162" class="uri">https://doi.org/10.3115/v1/D14-1162</a>.</p>
+<p>Pennington, Jeffrey, Richard Socher, and Christopher Manning. 2014. “Glove: Global Vectors for Word Representation.” In <em>Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing (EMNLP)</em>, 1532–43. Doha, Qatar: Association for Computational Linguistics. <a href="https://doi.org/10.3115/v1/D14-1162">https://doi.org/10.3115/v1/D14-1162</a>.</p>
 </div>
 <div id="ref-peyreComputationalOptimalTransport2019">
-<p>Peyré, Gabriel, and Marco Cuturi. 2019. “Computational Optimal Transport.” <em>Foundations and Trends in Machine Learning</em> 11 (5-6): 355–206. <a href="https://doi.org/10.1561/2200000073" class="uri">https://doi.org/10.1561/2200000073</a>.</p>
+<p>Peyré, Gabriel, and Marco Cuturi. 2019. “Computational Optimal Transport.” <em>Foundations and Trends in Machine Learning</em> 11 (5-6): 355–206. <a href="https://doi.org/10.1561/2200000073">https://doi.org/10.1561/2200000073</a>.</p>
 </div>
 <div id="ref-santambrogioOptimalTransportApplied2015">
-<p>Santambrogio, Filippo. 2015. <em>Optimal Transport for Applied Mathematicians</em>. Vol. 87. Progress in Nonlinear Differential Equations and Their Applications. Cham: Springer International Publishing. <a href="https://doi.org/10.1007/978-3-319-20828-2" class="uri">https://doi.org/10.1007/978-3-319-20828-2</a>.</p>
+<p>Santambrogio, Filippo. 2015. <em>Optimal Transport for Applied Mathematicians</em>. Vol. 87. Progress in Nonlinear Differential Equations and Their Applications. Cham: Springer International Publishing. <a href="https://doi.org/10.1007/978-3-319-20828-2">https://doi.org/10.1007/978-3-319-20828-2</a>.</p>
 </div>
 <div id="ref-villaniOptimalTransportOld2009">
 <p>Villani, Cédric. 2009. <em>Optimal Transport: Old and New</em>. Grundlehren Der Mathematischen Wissenschaften 338. Berlin: Springer.</p>
 </div>
 <div id="ref-yurochkin2019_hierar_optim_trans_docum_repres">
-<p>Yurochkin, Mikhail, Sebastian Claici, Edward Chien, Farzaneh Mirzazadeh, and Justin M Solomon. 2019. “Hierarchical Optimal Transport for Document Representation.” In <em>Advances in Neural Information Processing Systems 32</em>, 1599–1609. <a href="http://papers.nips.cc/paper/8438-hierarchical-optimal-transport-for-document-representation.pdf" class="uri">http://papers.nips.cc/paper/8438-hierarchical-optimal-transport-for-document-representation.pdf</a>.</p>
+<p>Yurochkin, Mikhail, Sebastian Claici, Edward Chien, Farzaneh Mirzazadeh, and Justin M Solomon. 2019. “Hierarchical Optimal Transport for Document Representation.” In <em>Advances in Neural Information Processing Systems 32</em>, 1599–1609. <a href="http://papers.nips.cc/paper/8438-hierarchical-optimal-transport-for-document-representation.pdf">http://papers.nips.cc/paper/8438-hierarchical-optimal-transport-for-document-representation.pdf</a>.</p>
 </div>
 </div>
     </section>
@@ -734,22 +737,22 @@ W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
 <p>I find this mildly fascinating that such a straightforward definition of a random matrix can exhibit such non-random properties in their spectrum.</p>
 <h3 id="simulation">Simulation</h3>
 <p>I ran a quick simulation, thanks to <a href="https://julialang.org/">Julia</a>’s great ecosystem for linear algebra and statistical distributions:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode julia"><code class="sourceCode julia"><a class="sourceLine" id="cb1-1" title="1">using LinearAlgebra</a>
-<a class="sourceLine" id="cb1-2" title="2">using UnicodePlots</a>
-<a class="sourceLine" id="cb1-3" title="3"></a>
-<a class="sourceLine" id="cb1-4" title="4"><span class="kw">function</span> ginibre(n)</a>
-<a class="sourceLine" id="cb1-5" title="5">    <span class="kw">return</span> randn((n, n)) * sqrt(<span class="fl">1</span>/<span class="fl">2</span>n) + im * randn((n, n)) * sqrt(<span class="fl">1</span>/<span class="fl">2</span>n)</a>
-<a class="sourceLine" id="cb1-6" title="6"><span class="kw">end</span></a>
-<a class="sourceLine" id="cb1-7" title="7"></a>
-<a class="sourceLine" id="cb1-8" title="8">v = eigvals(ginibre(<span class="fl">2000</span>))</a>
-<a class="sourceLine" id="cb1-9" title="9"></a>
-<a class="sourceLine" id="cb1-10" title="10">scatterplot(real(v), imag(v), xlim=[-<span class="fl">1.5</span>,<span class="fl">1.5</span>], ylim=[-<span class="fl">1.5</span>,<span class="fl">1.5</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">using</span> LinearAlgebra</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="kw">using</span> UnicodePlots</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="kw">function</span> ginibre(n)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>    <span class="kw">return</span> randn((n<span class="op">,</span> n)) <span class="op">*</span> sqrt(<span class="fl">1</span><span class="op">/</span><span class="fl">2</span>n) <span class="op">+</span> <span class="cn">im</span> <span class="op">*</span> randn((n<span class="op">,</span> n)) <span class="op">*</span> sqrt(<span class="fl">1</span><span class="op">/</span><span class="fl">2</span>n)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="kw">end</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>v <span class="op">=</span> eigvals(ginibre(<span class="fl">2000</span>))</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>scatterplot(real(v)<span class="op">,</span> imag(v)<span class="op">,</span> xlim<span class="op">=</span>[<span class="op">-</span><span class="fl">1.5</span><span class="op">,</span><span class="fl">1.5</span>]<span class="op">,</span> ylim<span class="op">=</span>[<span class="op">-</span><span class="fl">1.5</span><span class="op">,</span><span class="fl">1.5</span>])</span></code></pre></div>
 <p>I like using <code>UnicodePlots</code> for this kind of quick-and-dirty plots, directly in the terminal. Here is the output:</p>
 <p><img src="../images/ginibre.png" /></p>
 <h3 id="references">References</h3>
 <ol>
-<li><span id="ref-1"></span>Hall, Brian C. 2019. “Eigenvalues of Random Matrices in the General Linear Group in the Large-<span class="math inline">\(N\)</span> Limit.” <em>Notices of the American Mathematical Society</em> 66, no. 4 (Spring): 568-569. <a href="https://www.ams.org/journals/notices/201904/201904FullIssue.pdf" class="uri">https://www.ams.org/journals/notices/201904/201904FullIssue.pdf</a></li>
-<li><span id="ref-2"></span>Ginibre, Jean. “Statistical ensembles of complex, quaternion, and real matrices.” Journal of Mathematical Physics 6.3 (1965): 440-449. <a href="https://doi.org/10.1063/1.1704292" class="uri">https://doi.org/10.1063/1.1704292</a></li>
+<li><span id="ref-1"></span>Hall, Brian C. 2019. “Eigenvalues of Random Matrices in the General Linear Group in the Large-<span class="math inline">\(N\)</span> Limit.” <em>Notices of the American Mathematical Society</em> 66, no. 4 (Spring): 568-569. <a href="https://www.ams.org/journals/notices/201904/201904FullIssue.pdf">https://www.ams.org/journals/notices/201904/201904FullIssue.pdf</a></li>
+<li><span id="ref-2"></span>Ginibre, Jean. “Statistical ensembles of complex, quaternion, and real matrices.” Journal of Mathematical Physics 6.3 (1965): 440-449. <a href="https://doi.org/10.1063/1.1704292">https://doi.org/10.1063/1.1704292</a></li>
 </ol>
     </section>
 </article>
@@ -766,19 +769,20 @@ W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
         
     </section>
     <section>
-        <h2>Table of Contents</h2><ul>
+        <div id="toc"><h2>Table of Contents</h2><ul>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#the-axioms">The Axioms</a></li>
-<li><a href="#addition">Addition</a><ul>
+<li><a href="#addition">Addition</a>
+<ul>
 <li><a href="#commutativity">Commutativity</a></li>
 <li><a href="#associativity">Associativity</a></li>
 <li><a href="#identity-element">Identity element</a></li>
 </ul></li>
 <li><a href="#going-further">Going further</a></li>
 <li><a href="#references">References</a></li>
-</ul>
+</ul></div>
 <h2 id="introduction">Introduction</h2>
-<p>I have recently bought the book <em>Category Theory</em> from Steve Awodey <span class="citation" data-cites="awodeyCategoryTheory2010">(Awodey <a href="#ref-awodeyCategoryTheory2010">2010</a>)</span> is awesome, but probably the topic for another post), and a particular passage excited my curiosity:</p>
+<p>I have recently bought the book <em>Category Theory</em> from Steve Awodey <span class="citation" data-cites="awodeyCategoryTheory2010">(Awodey <a href="#ref-awodeyCategoryTheory2010" role="doc-biblioref">2010</a>)</span> is awesome, but probably the topic for another post), and a particular passage excited my curiosity:</p>
 <blockquote>
 <p>Let us begin by distinguishing between the following things: i. categorical foundations for mathematics, ii. mathematical foundations for category theory.</p>
 <p>As for the first point, one sometimes hears it said that category theory can be used to provide “foundations for mathematics,” as an alternative to set theory. That is in fact the case, but it is not what we are doing here. In set theory, one often begins with existential axioms such as “there is an infinite set” and derives further sets by axioms like “every set has a powerset,” thus building up a universe of mathematical objects (namely sets), which in principle suffice for “all of mathematics.”</p>
@@ -786,7 +790,7 @@ W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
 <p>This statement is interesting because one often considers category theory as pretty “fundamental”, in the sense that it has no issue with considering what I call “dangerous” notions, such as the category <span class="math inline">\(\mathbf{Set}\)</span> of all sets, and even the category <span class="math inline">\(\mathbf{Cat}\)</span> of all categories. Surely a theory this general, that can afford to study such objects, should provide suitable foundations for mathematics? Awodey addresses these issues very explicitly in the section following the quote above, and finds a good way of avoiding circular definitions.</p>
 <p>Now, I remember some basics from my undergrad studies about foundations of mathematics. I was told that if you could define arithmetic, you basically had everything else “for free” (as Kronecker famously said, “natural numbers were created by God, everything else is the work of men”). I was also told that two sets of axioms existed, the <a href="https://en.wikipedia.org/wiki/Peano_axioms">Peano axioms</a> and the <a href="https://en.wikipedia.org/wiki/Zermelo%E2%80%93Fraenkel_set_theory">Zermelo-Fraenkel</a> axioms. Also, I should steer clear of the axiom of choice if I could, because one can do <a href="https://en.wikipedia.org/wiki/Banach%E2%80%93Tarski_paradox">strange things</a> with it, and it is equivalent to many <a href="https://en.wikipedia.org/wiki/Zorn%27s_lemma">different statements</a>. Finally (and this I knew mainly from <em>Logicomix</em>, I must admit), it is <a href="https://en.wikipedia.org/wiki/G%C3%B6del%27s_incompleteness_theorems">impossible</a> for a set of axioms to be both complete and consistent.</p>
 <p>Given all this, I realised that my knowledge of foundational mathematics was pretty deficient. I do not believe that it is a very important topic that everyone should know about, even though Gödel’s incompleteness theorem is very interesting from a logical and philosophical standpoint. However, I wanted to go deeper on this subject.</p>
-<p>In this post, I will try to share my path through Peano’s axioms <span class="citation" data-cites="gowersPrincetonCompanionMathematics2010">(Gowers, Barrow-Green, and Leader <a href="#ref-gowersPrincetonCompanionMathematics2010">2010</a>)</span>, because they are very simple, and it is easy to uncover basic algebraic structure from them.</p>
+<p>In this post, I will try to share my path through Peano’s axioms <span class="citation" data-cites="gowersPrincetonCompanionMathematics2010">(Gowers, Barrow-Green, and Leader <a href="#ref-gowersPrincetonCompanionMathematics2010" role="doc-biblioref">2010</a>)</span>, because they are very simple, and it is easy to uncover basic algebraic structure from them.</p>
 <h2 id="the-axioms">The Axioms</h2>
 <p>The purpose of the axioms is to define a collection of objects that we will call the <em>natural numbers</em>. Here, we place ourselves in the context of <a href="https://en.wikipedia.org/wiki/First-order_logic">first-order logic</a>. Logic is not the main topic here, so I will just assume that I have access to some quantifiers, to some predicates, to some variables, and, most importantly, to a relation <span class="math inline">\(=\)</span> which is reflexive, symmetric, transitive, and closed over the natural numbers.</p>
 <p>Without further digressions, let us define two symbols <span class="math inline">\(0\)</span> and <span class="math inline">\(s\)</span> (called <em>successor</em>) such that:</p>
@@ -827,14 +831,27 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
 <div class="proof">
 <p>First, we prove that every natural number commutes with <span class="math inline">\(0\)</span>.</p>
 <ul>
-<li><span class="math inline">\(0+0 = 0+0\)</span>.</li>
-<li><p>For every natural number <span class="math inline">\(a\)</span> such that <span class="math inline">\(0+a = a+0\)</span>, we have:</p></li>
+<li><p><span class="math inline">\(0+0 = 0+0\)</span>.</p></li>
+<li><p>For every natural number <span class="math inline">\(a\)</span> such that <span class="math inline">\(0+a = a+0\)</span>, we have:</p>
+<span class="math display">\[\begin{align}
+ 0 + s(a) &amp;= s(0+a)\\
+ &amp;= s(a+0)\\
+ &amp;= s(a)\\
+ &amp;= s(a) + 0.
+\end{align}
+\]</span></li>
 </ul>
 <p>By Axiom 5, every natural number commutes with <span class="math inline">\(0\)</span>.</p>
 <p>We can now prove the main proposition:</p>
 <ul>
-<li><span class="math inline">\(\forall a,\quad a+0=0+a\)</span>.</li>
-<li><p>For all <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> such that <span class="math inline">\(a+b=b+a\)</span>,</p></li>
+<li><p><span class="math inline">\(\forall a,\quad a+0=0+a\)</span>.</p></li>
+<li><p>For all <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> such that <span class="math inline">\(a+b=b+a\)</span>,</p>
+<span class="math display">\[\begin{align}
+ a + s(b) &amp;= s(a+b)\\
+ &amp;= s(b+a)\\
+ &amp;= s(b) + a.     
+\end{align}
+\]</span></li>
 </ul>
 <p>We used the opposite of the second rule for <span class="math inline">\(+\)</span>, namely <span class="math inline">\(\forall a,
 \forall b,\quad s(a) + b = s(a+b)\)</span>. This can easily be proved by another induction.</p>
@@ -857,12 +874,12 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
 <h2 id="going-further">Going further</h2>
 <p>We have imbued our newly created set of natural numbers with a significant algebraic structure. From there, similar arguments will create more structure, notably by introducing another operation <span class="math inline">\(\times\)</span>, and an order <span class="math inline">\(\leq\)</span>.</p>
 <p>It is now a matter of conventional mathematics to construct the integers <span class="math inline">\(\mathbb{Z}\)</span> and the rationals <span class="math inline">\(\mathbb{Q}\)</span> (using equivalence classes), and eventually the real numbers <span class="math inline">\(\mathbb{R}\)</span>.</p>
-<p>It is remarkable how very few (and very simple, as far as you would consider the induction axiom “simple”) axioms are enough to build an entire theory of mathematics. This sort of things makes me agree with Eugene Wigner <span class="citation" data-cites="wignerUnreasonableEffectivenessMathematics1990">(Wigner <a href="#ref-wignerUnreasonableEffectivenessMathematics1990">1990</a>)</span> when he says that “mathematics is the science of skillful operations with concepts and rules invented just for this purpose”. We drew some arbitrary rules out of thin air, and derived countless properties and theorems from them, basically for our own enjoyment. (As Wigner would say, it is <em>incredible</em> that any of these fanciful inventions coming out of nowhere turned out to be even remotely useful.) Mathematics is done mainly for the mathematician’s own pleasure!</p>
+<p>It is remarkable how very few (and very simple, as far as you would consider the induction axiom “simple”) axioms are enough to build an entire theory of mathematics. This sort of things makes me agree with Eugene Wigner <span class="citation" data-cites="wignerUnreasonableEffectivenessMathematics1990">(Wigner <a href="#ref-wignerUnreasonableEffectivenessMathematics1990" role="doc-biblioref">1990</a>)</span> when he says that “mathematics is the science of skillful operations with concepts and rules invented just for this purpose”. We drew some arbitrary rules out of thin air, and derived countless properties and theorems from them, basically for our own enjoyment. (As Wigner would say, it is <em>incredible</em> that any of these fanciful inventions coming out of nowhere turned out to be even remotely useful.) Mathematics is done mainly for the mathematician’s own pleasure!</p>
 <blockquote>
-<p>Mathematics cannot be defined without acknowledging its most obvious feature: namely, that it is interesting — M. Polanyi <span class="citation" data-cites="wignerUnreasonableEffectivenessMathematics1990">(Wigner <a href="#ref-wignerUnreasonableEffectivenessMathematics1990">1990</a>)</span></p>
+<p>Mathematics cannot be defined without acknowledging its most obvious feature: namely, that it is interesting — M. Polanyi <span class="citation" data-cites="wignerUnreasonableEffectivenessMathematics1990">(Wigner <a href="#ref-wignerUnreasonableEffectivenessMathematics1990" role="doc-biblioref">1990</a>)</span></p>
 </blockquote>
-<h2 id="references" class="unnumbered">References</h2>
-<div id="refs" class="references">
+<h2 class="unnumbered" id="references">References</h2>
+<div id="refs" class="references hanging-indent" role="doc-bibliography">
 <div id="ref-awodeyCategoryTheory2010">
 <p>Awodey, Steve. 2010. <em>Category Theory</em>. 2nd ed. Oxford Logic Guides 52. Oxford ; New York: Oxford University Press.</p>
 </div>
@@ -870,7 +887,7 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
 <p>Gowers, Timothy, June Barrow-Green, and Imre Leader. 2010. <em>The Princeton Companion to Mathematics</em>. Princeton University Press.</p>
 </div>
 <div id="ref-wignerUnreasonableEffectivenessMathematics1990">
-<p>Wigner, Eugene P. 1990. “The Unreasonable Effectiveness of Mathematics in the Natural Sciences.” In <em>Mathematics and Science</em>, by Ronald E Mickens, 291–306. WORLD SCIENTIFIC. <a href="https://doi.org/10.1142/9789814503488_0018" class="uri">https://doi.org/10.1142/9789814503488_0018</a>.</p>
+<p>Wigner, Eugene P. 1990. “The Unreasonable Effectiveness of Mathematics in the Natural Sciences.” In <em>Mathematics and Science</em>, by Ronald E Mickens, 291–306. WORLD SCIENTIFIC. <a href="https://doi.org/10.1142/9789814503488_0018">https://doi.org/10.1142/9789814503488_0018</a>.</p>
 </div>
 </div>
     </section>
@@ -904,20 +921,36 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
 <p>A <em>Markov Decision Process</em> is a tuple <span class="math inline">\((\mathcal{S}, \mathcal{A},
 \mathcal{R}, p)\)</span> where:</p>
 <ul>
-<li><span class="math inline">\(\mathcal{S}\)</span> is a set of <em>states</em>,</li>
-<li><span class="math inline">\(\mathcal{A}\)</span> is an application mapping each state <span class="math inline">\(s \in
- \mathcal{S}\)</span> to a set <span class="math inline">\(\mathcal{A}(s)\)</span> of possible <em>actions</em> for this state. In this post, we will often simplify by using <span class="math inline">\(\mathcal{A}\)</span> as a set, assuming that all actions are possible for each state,</li>
-<li><span class="math inline">\(\mathcal{R} \subset \mathbb{R}\)</span> is a set of <em>rewards</em>,</li>
+<li><p><span class="math inline">\(\mathcal{S}\)</span> is a set of <em>states</em>,</p></li>
+<li><p><span class="math inline">\(\mathcal{A}\)</span> is an application mapping each state <span class="math inline">\(s \in
+ \mathcal{S}\)</span> to a set <span class="math inline">\(\mathcal{A}(s)\)</span> of possible <em>actions</em> for this state. In this post, we will often simplify by using <span class="math inline">\(\mathcal{A}\)</span> as a set, assuming that all actions are possible for each state,</p></li>
+<li><p><span class="math inline">\(\mathcal{R} \subset \mathbb{R}\)</span> is a set of <em>rewards</em>,</p></li>
 <li><p>and <span class="math inline">\(p\)</span> is a function representing the <em>dynamics</em> of the MDP:</p>
+<span class="math display">\[\begin{align}
+ p &amp;: \mathcal{S} \times \mathcal{R} \times \mathcal{S} \times \mathcal{A} \mapsto [0,1] \\
+ p(s', r \;|\; s, a) &amp;:= \mathbb{P}(S_t=s', R_t=r \;|\; S_{t-1}=s, A_{t-1}=a),
+\end{align}
+\]</span>
 <p>such that <span class="math display">\[ \forall s \in \mathcal{S}, \forall a \in \mathcal{A},\quad \sum_{s', r} p(s', r \;|\; s, a) = 1. \]</span></p></li>
 </ul>
 </div>
 <p>The function <span class="math inline">\(p\)</span> represents the probability of transitioning to the state <span class="math inline">\(s'\)</span> and getting a reward <span class="math inline">\(r\)</span> when the agent is at state <span class="math inline">\(s\)</span> and chooses action <span class="math inline">\(a\)</span>.</p>
 <p>We will also use occasionally the <em>state-transition probabilities</em>:</p>
-
+<span class="math display">\[\begin{align}
+ p &amp;: \mathcal{S} \times \mathcal{S} \times \mathcal{A} \mapsto [0,1] \\
+p(s' \;|\; s, a) &amp;:= \mathbb{P}(S_t=s' \;|\; S_{t-1}=s, A_{t-1}=a) \\
+&amp;= \sum_r p(s', r \;|\; s, a).
+\end{align}
+\]</span>
 <h3 id="rewarding-the-agent">Rewarding the agent</h3>
 <div class="definition">
 <p>The <em>expected reward</em> of a state-action pair is the function</p>
+<span class="math display">\[\begin{align}
+r &amp;: \mathcal{S} \times \mathcal{A} \mapsto \mathbb{R} \\
+r(s,a) &amp;:= \mathbb{E}[R_t \;|\; S_{t-1}=s, A_{t-1}=a] \\
+&amp;= \sum_r r \sum_{s'} p(s', r \;|\; s, a).
+\end{align}
+\]</span>
 </div>
 <div class="definition">
 <p>The <em>discounted return</em> is the sum of all future rewards, with a multiplicative factor to give more weights to more immediate rewards: <span class="math display">\[ G_t := \sum_{k=t+1}^T \gamma^{k-t-1} R_k, \]</span> where <span class="math inline">\(T\)</span> can be infinite or <span class="math inline">\(\gamma\)</span> can be 1, but not both.</p>
@@ -927,14 +960,33 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
 <p>A <em>policy</em> is a way for the agent to choose the next action to perform.</p>
 <div class="definition">
 <p>A <em>policy</em> is a function <span class="math inline">\(\pi\)</span> defined as</p>
+<span class="math display">\[\begin{align}
+\pi &amp;: \mathcal{A} \times \mathcal{S} \mapsto [0,1] \\
+\pi(a \;|\; s) &amp;:= \mathbb{P}(A_t=a \;|\; S_t=s).
+\end{align}
+\]</span>
 </div>
 <p>In order to compare policies, we need to associate values to them.</p>
 <div class="definition">
 <p>The <em>state-value function</em> of a policy <span class="math inline">\(\pi\)</span> is</p>
+<span class="math display">\[\begin{align}
+v_{\pi} &amp;: \mathcal{S} \mapsto \mathbb{R} \\
+v_{\pi}(s) &amp;:= \text{expected return when starting in $s$ and following $\pi$} \\
+v_{\pi}(s) &amp;:= \mathbb{E}_{\pi}\left[ G_t \;|\; S_t=s\right] \\
+v_{\pi}(s) &amp;= \mathbb{E}_{\pi}\left[ \sum_{k=0}^{\infty} \gamma^k R_{t+k+1} \;|\; S_t=s\right]
+\end{align}
+\]</span>
 </div>
 <p>We can also compute the value starting from a state <span class="math inline">\(s\)</span> by also taking into account the action taken <span class="math inline">\(a\)</span>.</p>
 <div class="definition">
 <p>The <em>action-value function</em> of a policy <span class="math inline">\(\pi\)</span> is</p>
+<span class="math display">\[\begin{align}
+q_{\pi} &amp;: \mathcal{S} \times \mathcal{A} \mapsto \mathbb{R} \\
+q_{\pi}(s,a) &amp;:= \text{expected return when starting from $s$, taking action $a$, and following $\pi$} \\
+q_{\pi}(s,a) &amp;:= \mathbb{E}_{\pi}\left[ G_t \;|\; S_t=s, A_t=a \right] \\
+q_{\pi}(s,a) &amp;= \mathbb{E}_{\pi}\left[ \sum_{k=0}^{\infty} \gamma^k R_{t+k+1} \;|\; S_t=s, A_t=a\right]
+\end{align}
+\]</span>
 </div>
 <h3 id="the-quest-for-the-optimal-policy">The quest for the optimal policy</h3>
 <h2 id="references">References</h2>
@@ -956,14 +1008,15 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
         
     </section>
     <section>
-        <h2>Table of Contents</h2><ul>
-<li><a href="#the-apl-family-of-languages">The APL family of languages</a><ul>
+        <div id="toc"><h2>Table of Contents</h2><ul>
+<li><a href="#the-apl-family-of-languages">The APL family of languages</a>
+<ul>
 <li><a href="#why-apl">Why APL?</a></li>
 <li><a href="#implementations">Implementations</a></li>
 </ul></li>
 <li><a href="#the-ising-model-in-apl">The Ising model in APL</a></li>
 <li><a href="#conclusion">Conclusion</a></li>
-</ul>
+</ul></div>
 <h2 id="the-apl-family-of-languages">The APL family of languages</h2>
 <h3 id="why-apl">Why APL?</h3>
 <p>I recently got interested in <a href="https://en.wikipedia.org/wiki/APL_(programming_language)">APL</a>, an <em>array-based</em> programming language. In APL (and derivatives), we try to reason about programs as series of transformations of multi-dimensional arrays. This is exactly the kind of style I like in Haskell and other functional languages, where I also try to use higher-order functions (map, fold, etc) on lists or arrays. A developer only needs to understand these abstractions once, instead of deconstructing each loop or each recursive function encountered in a program.</p>
@@ -1036,7 +1089,7 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
 </code></pre>
 <ul>
 <li>We draw a random lattice of size ⍺ with <code>L ⍺</code>.</li>
-<li>We apply to it our update function, with $<em>β</em>$=10, ⍵ times (using the <code>⍣</code> function, which applies a function <span class="math inline">\(n\)</span> times.</li>
+<li>We apply to it our update function, with $β$=10, ⍵ times (using the <code>⍣</code> function, which applies a function <span class="math inline">\(n\)</span> times.</li>
 <li>Finally, we display -1 as a space and 1 as a domino ⌹.</li>
 </ul>
 <p>Final output, with a <span class="math inline">\(80\times 80\)</span> random lattice, after 50000 update steps:</p>

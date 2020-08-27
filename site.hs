@@ -172,12 +172,19 @@ customPandocCompiler withTOC =
       newExtensions = defaultExtensions `mappend` customExtensions
       writerOptions = defaultHakyllWriterOptions
         { writerExtensions = newExtensions
-        , writerHTMLMathMethod = KaTeX ""
+        , writerHTMLMathMethod = MathJax ""
         }
+      -- below copied from https://www.gwern.net/hakyll.hs
+      -- below copied from https://github.com/jaspervdj/hakyll/blob/e8ed369edaae1808dffcc22d1c8fb1df7880e065/web/site.hs#L73 because god knows I don't know what this type bullshit is either:
+      -- "When did it get so hard to compile a string to a Pandoc template?"
+      tocTemplate =
+        either error id $ either (error . show) id $
+        runPure $ runWithDefaultPartials $
+        compileTemplate "" "<div id=\"toc\"><h1>Table of Contents</h1>$toc$</div>\n$body$"
       writerOptionsWithTOC = writerOptions
         { writerTableOfContents = True
         , writerTOCDepth = 2
-        , writerTemplate = Just "<h1>Table of Contents</h1>$toc$\n$body$"
+        , writerTemplate = Just tocTemplate--"<h1>Table of Contents</h1>$toc$\n$body$"
         }
       readerOptions = defaultHakyllReaderOptions
   in do

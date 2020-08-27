@@ -5,12 +5,19 @@
 
 packages:
 - completed:
-    hackage: pandoc-sidenote-0.19.0.0@sha256:f5a5fdab1900da7b26ca673d14302b0a27b56024ca811babcacab79ba9614e90,1196
+    size: 4871
+    url: https://github.com/jez/pandoc-sidenote/archive/7aacfa4b20a44562de48725dea812c5de2c5aeac.tar.gz
+    cabal-file:
+      size: 1578
+      sha256: 27753af099fd14469ec326713c5437ff8dcf9307c9711ab8d319a7ae9678a862
+    name: pandoc-sidenote
+    version: 0.20.0.0
+    sha256: 280c0ef67602128f0e8f9f184868f14a71c3938bebf8644c55e6988413db7e9f
     pantry-tree:
-      size: 273
-      sha256: 0d23026f86da13ca57aaa0041bfe719cf7acbeddbadbbe1bb8e265316dcfce49
+      size: 575
+      sha256: ace183ff53f1fe2987fc3ae77f38fa8c5ee1e656fe3bed0941691150bc1771ab
   original:
-    hackage: pandoc-sidenote-0.19.0.0@sha256:f5a5fdab1900da7b26ca673d14302b0a27b56024ca811babcacab79ba9614e90,1196
+    url: https://github.com/jez/pandoc-sidenote/archive/7aacfa4b20a44562de48725dea812c5de2c5aeac.tar.gz
 - completed:
     hackage: monad-gen-0.3.0.1@sha256:a2569465cfbd468d3350ef25de56b3362580e77537224313aab1210f40804a3b,821
     pantry-tree:
@@ -18,9 +25,16 @@ packages:
       sha256: a825dc8dcc3ee27dbbc1b71f6853703790ed320249b8f8510bb36d726664e795
   original:
     hackage: monad-gen-0.3.0.1@sha256:a2569465cfbd468d3350ef25de56b3362580e77537224313aab1210f40804a3b,821
+- completed:
+    hackage: hakyll-4.13.4.0@sha256:d97cb1b1cf7b901ce049e6e0aa5b1ac702cf52d2e475f5d3fe2de3694bb7dc7b,8867
+    pantry-tree:
+      size: 7841
+      sha256: e31b612480429149bd2c042dd49cdb1a5eb9c807d4acce4a971a6da3d6f5db81
+  original:
+    hackage: hakyll-4.13.4.0@sha256:d97cb1b1cf7b901ce049e6e0aa5b1ac702cf52d2e475f5d3fe2de3694bb7dc7b,8867
 snapshots:
 - completed:
-    size: 506303
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/12/18.yaml
-    sha256: 44c58c3e2bfc57455cb54ce3860847aaf69d9ee11baad238d7d0a82b7034a474
-  original: lts-12.18
+    size: 532381
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/16/11.yaml
+    sha256: 1f43c4ad661a114a4f9dd4580988f30da1208d844c097714f5867c52a02e0aa1
+  original: lts-16.11

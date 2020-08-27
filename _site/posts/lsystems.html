@@ -16,14 +16,18 @@
     <link rel="alternate" type="application/rss+xml" title="Dimitri Lozeve's blog" href="../rss.xml" /> 
 
     <!-- KaTeX CSS styles -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 
     <!-- The loading of KaTeX is deferred to speed up page rendering -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js" integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
 
     <!-- To automatically render math in text elements, include the auto-render extension: -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
- 
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+
+<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+<!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+
   </head>
   <body>
     <article>
@@ -44,7 +48,6 @@
       </header>
       
 
-      
     </article>
 
     <article>
@@ -54,13 +57,15 @@
         
     </section>
     <section>
-        <h2>Table of Contents</h2><ul>
-<li><a href="#what-is-an-l-system">What is an L-system?</a><ul>
+        <div id="toc"><h2>Table of Contents</h2><ul>
+<li><a href="#what-is-an-l-system">What is an L-system?</a>
+<ul>
 <li><a href="#a-few-examples-to-get-started">A few examples to get started</a></li>
 <li><a href="#definition">Definition</a></li>
 <li><a href="#drawing-instructions-and-representation">Drawing instructions and representation</a></li>
 </ul></li>
-<li><a href="#implementation-details">Implementation details</a><ul>
+<li><a href="#implementation-details">Implementation details</a>
+<ul>
 <li><a href="#the-lsystem-data-type">The <code>LSystem</code> data type</a></li>
 <li><a href="#iterating-and-representing">Iterating and representing</a></li>
 <li><a href="#drawing">Drawing</a></li>
@@ -69,9 +74,9 @@
 <li><a href="#variations-on-l-systems">Variations on L-systems</a></li>
 <li><a href="#usage-notes">Usage notes</a></li>
 <li><a href="#references">References</a></li>
-</ul>
+</ul></div>
 <p>L-systems are a formal way to make interesting visualisations. You can use them to model a wide variety of objects: space-filling curves, fractals, biological systems, tilings, etc.</p>
-<p>See the Github repo: <a href="https://github.com/dlozeve/lsystems" class="uri">https://github.com/dlozeve/lsystems</a></p>
+<p>See the Github repo: <a href="https://github.com/dlozeve/lsystems">https://github.com/dlozeve/lsystems</a></p>
 <h2 id="what-is-an-l-system">What is an L-system?</h2>
 <h3 id="a-few-examples-to-get-started">A few examples to get started</h3>
 <p><img src="../images/lsystems/dragon.png" /></p>
@@ -108,21 +113,21 @@ R). \]</span></p>
 <h2 id="implementation-details">Implementation details</h2>
 <h3 id="the-lsystem-data-type">The <code>LSystem</code> data type</h3>
 <p>The mathematical definition above translate almost immediately in a Haskell data type:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb1-1" title="1"><span class="co">-- | L-system data type</span></a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="kw">data</span> <span class="dt">LSystem</span> a <span class="fu">=</span> <span class="dt">LSystem</span></a>
-<a class="sourceLine" id="cb1-3" title="3">  {<span class="ot"> name ::</span> <span class="dt">String</span></a>
-<a class="sourceLine" id="cb1-4" title="4">  ,<span class="ot"> alphabet ::</span> [a] <span class="co">-- ^ variables and constants used by the system</span></a>
-<a class="sourceLine" id="cb1-5" title="5">  ,<span class="ot"> axiom ::</span> [a] <span class="co">-- ^ initial state of the system</span></a>
-<a class="sourceLine" id="cb1-6" title="6">  ,<span class="ot"> rules ::</span> [(a, [a])] <span class="co">-- ^ production rules defining how each</span></a>
-<a class="sourceLine" id="cb1-7" title="7">            <span class="co">-- variable can be replaced by a sequence of</span></a>
-<a class="sourceLine" id="cb1-8" title="8">            <span class="co">-- variables and constants</span></a>
-<a class="sourceLine" id="cb1-9" title="9">  ,<span class="ot"> angle ::</span> <span class="dt">Float</span> <span class="co">-- ^ angle used for the representation</span></a>
-<a class="sourceLine" id="cb1-10" title="10">  ,<span class="ot"> distance ::</span> <span class="dt">Float</span> <span class="co">-- ^ distance of each segment in the representation</span></a>
-<a class="sourceLine" id="cb1-11" title="11">  ,<span class="ot"> representation ::</span> [(a, <span class="dt">Instruction</span>)] <span class="co">-- ^ representation rules</span></a>
-<a class="sourceLine" id="cb1-12" title="12">                     <span class="co">-- defining how each variable</span></a>
-<a class="sourceLine" id="cb1-13" title="13">                     <span class="co">-- and constant should be</span></a>
-<a class="sourceLine" id="cb1-14" title="14">                     <span class="co">-- represented</span></a>
-<a class="sourceLine" id="cb1-15" title="15">  } <span class="kw">deriving</span> (<span class="dt">Eq</span>, <span class="dt">Show</span>, <span class="dt">Generic</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="co">-- | L-system data type</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="kw">data</span> <span class="dt">LSystem</span> a <span class="ot">=</span> <span class="dt">LSystem</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>  {<span class="ot"> name ::</span> <span class="dt">String</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>  ,<span class="ot"> alphabet ::</span> [a] <span class="co">-- ^ variables and constants used by the system</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>  ,<span class="ot"> axiom ::</span> [a] <span class="co">-- ^ initial state of the system</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>  ,<span class="ot"> rules ::</span> [(a, [a])] <span class="co">-- ^ production rules defining how each</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>   <span class="co">-- variable can be replaced by a sequence of</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>   <span class="co">-- variables and constants</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>  ,<span class="ot"> angle ::</span> <span class="dt">Float</span> <span class="co">-- ^ angle used for the representation</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>  ,<span class="ot"> distance ::</span> <span class="dt">Float</span> <span class="co">-- ^ distance of each segment in the representation</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>  ,<span class="ot"> representation ::</span> [(a, <span class="dt">Instruction</span>)] <span class="co">-- ^ representation rules</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>      <span class="co">-- defining how each variable</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a>      <span class="co">-- and constant should be</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>      <span class="co">-- represented</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a>  } <span class="kw">deriving</span> (<span class="dt">Eq</span>, <span class="dt">Show</span>, <span class="dt">Generic</span>)</span></code></pre></div>
 <p>Here, <code>a</code> is the type of the literal in the alphabet. For all practical purposes, it will almost always be <code>Char</code>.</p>
 <p><code>Instruction</code> is just a sum type over all possible instructions listed above.</p>
 <h3 id="iterating-and-representing">Iterating and representing</h3>
@@ -133,23 +138,23 @@ R). \]</span></p>
 <h2 id="common-file-format-for-l-systems">Common file format for L-systems</h2>
 <p>In order to define new L-systems quickly and easily, it is necessary to encode them in some form. We chose to represent them as JSON values.</p>
 <p>Here is an example for the <a href="https://en.wikipedia.org/wiki/Gosper_curve">Gosper curve</a>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb2-1" title="1"><span class="fu">{</span></a>
-<a class="sourceLine" id="cb2-2" title="2">  <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;gosper&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb2-3" title="3">  <span class="dt">&quot;alphabet&quot;</span><span class="fu">:</span> <span class="st">&quot;AB+-&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb2-4" title="4">  <span class="dt">&quot;axiom&quot;</span><span class="fu">:</span> <span class="st">&quot;A&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb2-5" title="5">  <span class="dt">&quot;rules&quot;</span><span class="fu">:</span> <span class="ot">[</span></a>
-<a class="sourceLine" id="cb2-6" title="6">    <span class="ot">[</span><span class="st">&quot;A&quot;</span><span class="ot">,</span> <span class="st">&quot;A-B--B+A++AA+B-&quot;</span><span class="ot">],</span></a>
-<a class="sourceLine" id="cb2-7" title="7">    <span class="ot">[</span><span class="st">&quot;B&quot;</span><span class="ot">,</span> <span class="st">&quot;+A-BB--B-A++A+B&quot;</span><span class="ot">]</span></a>
-<a class="sourceLine" id="cb2-8" title="8">  <span class="ot">]</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb2-9" title="9">  <span class="dt">&quot;angle&quot;</span><span class="fu">:</span> <span class="fl">60.0</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb2-10" title="10">  <span class="dt">&quot;distance&quot;</span><span class="fu">:</span> <span class="fl">10.0</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb2-11" title="11">  <span class="dt">&quot;representation&quot;</span><span class="fu">:</span> <span class="ot">[</span></a>
-<a class="sourceLine" id="cb2-12" title="12">    <span class="ot">[</span><span class="st">&quot;A&quot;</span><span class="ot">,</span> <span class="st">&quot;Forward&quot;</span><span class="ot">],</span></a>
-<a class="sourceLine" id="cb2-13" title="13">    <span class="ot">[</span><span class="st">&quot;B&quot;</span><span class="ot">,</span> <span class="st">&quot;Forward&quot;</span><span class="ot">],</span></a>
-<a class="sourceLine" id="cb2-14" title="14">    <span class="ot">[</span><span class="st">&quot;+&quot;</span><span class="ot">,</span> <span class="st">&quot;TurnRight&quot;</span><span class="ot">],</span></a>
-<a class="sourceLine" id="cb2-15" title="15">    <span class="ot">[</span><span class="st">&quot;-&quot;</span><span class="ot">,</span> <span class="st">&quot;TurnLeft&quot;</span><span class="ot">]</span></a>
-<a class="sourceLine" id="cb2-16" title="16">  <span class="ot">]</span></a>
-<a class="sourceLine" id="cb2-17" title="17"><span class="fu">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="fu">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>  <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;gosper&quot;</span><span class="fu">,</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>  <span class="dt">&quot;alphabet&quot;</span><span class="fu">:</span> <span class="st">&quot;AB+-&quot;</span><span class="fu">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>  <span class="dt">&quot;axiom&quot;</span><span class="fu">:</span> <span class="st">&quot;A&quot;</span><span class="fu">,</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>  <span class="dt">&quot;rules&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>    <span class="ot">[</span><span class="st">&quot;A&quot;</span><span class="ot">,</span> <span class="st">&quot;A-B--B+A++AA+B-&quot;</span><span class="ot">],</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>    <span class="ot">[</span><span class="st">&quot;B&quot;</span><span class="ot">,</span> <span class="st">&quot;+A-BB--B-A++A+B&quot;</span><span class="ot">]</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>  <span class="dt">&quot;angle&quot;</span><span class="fu">:</span> <span class="fl">60.0</span><span class="fu">,</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a>  <span class="dt">&quot;distance&quot;</span><span class="fu">:</span> <span class="fl">10.0</span><span class="fu">,</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a>  <span class="dt">&quot;representation&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a>    <span class="ot">[</span><span class="st">&quot;A&quot;</span><span class="ot">,</span> <span class="st">&quot;Forward&quot;</span><span class="ot">],</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a>    <span class="ot">[</span><span class="st">&quot;B&quot;</span><span class="ot">,</span> <span class="st">&quot;Forward&quot;</span><span class="ot">],</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true"></a>    <span class="ot">[</span><span class="st">&quot;+&quot;</span><span class="ot">,</span> <span class="st">&quot;TurnRight&quot;</span><span class="ot">],</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true"></a>    <span class="ot">[</span><span class="st">&quot;-&quot;</span><span class="ot">,</span> <span class="st">&quot;TurnLeft&quot;</span><span class="ot">]</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true"></a>  <span class="ot">]</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true"></a><span class="fu">}</span></span></code></pre></div>
 <p>Using this format, it is easy to define new L-systems (along with how they should be represented). This is translated nearly automatically to the <code>LSystem</code> data type using <a href="https://hackage.haskell.org/package/aeson">Aeson</a>.</p>
 <h2 id="variations-on-l-systems">Variations on L-systems</h2>
 <p>We can widen the possibilities of L-systems in various ways. L-systems are in effect deterministic context-free grammars.</p>
@@ -183,9 +188,9 @@ Available options:
 <p><img src="../images/lsystems/levyC.png" /></p>
 <h2 id="references">References</h2>
 <ol>
-<li>Prusinkiewicz, Przemyslaw; Lindenmayer, Aristid (1990). <em>The Algorithmic Beauty of Plants.</em> Springer-Verlag. ISBN 978-0-387-97297-8. <a href="http://algorithmicbotany.org/papers/#abop" class="uri">http://algorithmicbotany.org/papers/#abop</a></li>
-<li>Weisstein, Eric W. “Lindenmayer System.” From MathWorld–A Wolfram Web Resource. <a href="http://mathworld.wolfram.com/LindenmayerSystem.html" class="uri">http://mathworld.wolfram.com/LindenmayerSystem.html</a></li>
-<li>Corte, Leo. “L-systems and Penrose P3 in Inkscape.” <em>The Brick in the Sky.</em> <a href="https://thebrickinthesky.wordpress.com/2013/03/17/l-systems-and-penrose-p3-in-inkscape/" class="uri">https://thebrickinthesky.wordpress.com/2013/03/17/l-systems-and-penrose-p3-in-inkscape/</a></li>
+<li>Prusinkiewicz, Przemyslaw; Lindenmayer, Aristid (1990). <em>The Algorithmic Beauty of Plants.</em> Springer-Verlag. ISBN 978-0-387-97297-8. <a href="http://algorithmicbotany.org/papers/#abop">http://algorithmicbotany.org/papers/#abop</a></li>
+<li>Weisstein, Eric W. “Lindenmayer System.” From MathWorld–A Wolfram Web Resource. <a href="http://mathworld.wolfram.com/LindenmayerSystem.html">http://mathworld.wolfram.com/LindenmayerSystem.html</a></li>
+<li>Corte, Leo. “L-systems and Penrose P3 in Inkscape.” <em>The Brick in the Sky.</em> <a href="https://thebrickinthesky.wordpress.com/2013/03/17/l-systems-and-penrose-p3-in-inkscape/">https://thebrickinthesky.wordpress.com/2013/03/17/l-systems-and-penrose-p3-in-inkscape/</a></li>
 </ol>
     </section>
 </article>
