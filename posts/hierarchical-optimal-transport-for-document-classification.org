@@ -77,7 +77,7 @@ More formally, we start with two sets of points $x = (x_1, x_2, \ldots,
 W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
 \]
 \[
-\text{\small subject to } \sum_j P_{i,j} = p_i \text{ \small and } \sum_i P_{i,j} = q_j,
+\text{subject to } \sum_j P_{i,j} = p_i \text{  and } \sum_i P_{i,j} = q_j,
 \]
 where $C_{i,j} = d(x_i, x_j)$ are the costs computed from the original distance between points, and $P_{i,j}$ represent the amount we are moving from pile $i$ to pile $j$.
 
