@@ -7,130 +7,131 @@ title: "Curriculum Vitæ"
 
 * Work experience
 
-*** [[https://www.mindsay.com/][Mindsay]]: R&D Data Scientist and Engineering Manager
-    October 2018--present
+** [[https://www.mindsay.com/][Mindsay]]: R&D Data Scientist and Engineering Manager
+   October 2018--present
 
-    - Natural Language Processing and Reinforcement Learning for Chatbots
-    - Management of the R&D team (3 data scientists) and of all research projects
-    - Entirely responsible with the CTO for the patents strategy in Europe and abroad
-    - Attended a 6-day training programme for young managers ([[https://ignition-program.com/formations/spineup-mars-2020][SpineUp]] by Ignition Program)
+   - Natural Language Processing and Reinforcement Learning for Chatbots
+   - Management of the R&D team (3 data scientists) and of all research projects
+   - Entirely responsible with the CTO for the patents strategy in Europe and abroad
+   - Attended a 6-day training programme for young managers ([[https://ignition-program.com/formations/spineup-mars-2020][SpineUp]] by Ignition Program)
 
-***  [[http://www.sysnav.fr/][Sysnav]]: Real-time geolocalization algorithm on an embedded device
-    March--August 2017
+**  [[http://www.sysnav.fr/][Sysnav]]: Real-time geolocalization algorithm on an embedded device
+   March--August 2017
 
-    - Mathematical modelling of the human walk
-    - Step detection using artificial intelligence on inertial sensors data
-    - Statistical methods for trajectory reconstruction
-    - /Award:/ [[http://www.sysnav.fr/dimitri-lozeve-etudiant-sysnav-obtient-le-prix-du-meilleur-stage-de-recherche-2017-de-lecole-polytechnique/][Best Research Internship 2017, from École polytechnique]]
-    - [[./files/sysnav_internship.pdf][Outline of the confidential report (PDF, in French)]] ([[./files/sysnav_internship.pdf.minisig][sig]]) and [[https://dlozeve.github.io/stage3a/][slides]]
+   - Mathematical modelling of the human walk
+   - Step detection using artificial intelligence on inertial sensors data
+   - Statistical methods for trajectory reconstruction
+   - /Award:/ [[http://www.sysnav.fr/dimitri-lozeve-etudiant-sysnav-obtient-le-prix-du-meilleur-stage-de-recherche-2017-de-lecole-polytechnique/][Best Research Internship 2017, from École polytechnique]]
+   - [[./files/sysnav_internship.pdf][Outline of the confidential report (PDF, in French)]] ([[./files/sysnav_internship.pdf.minisig][sig]]) and [[https://dlozeve.github.io/stage3a/][slides]]
 
-*** [[https://www.natixis.com/][Natixis]] London Branch, Global Infrastructure and Projects: Intern Analyst
-    June--August 2016
+** [[https://www.natixis.com/][Natixis]] London Branch, Global Infrastructure and Projects: Intern Analyst
+   June--August 2016
 
-    Origination and execution of project finance transactions:
-    offshore windfarms, hydroelectric dams, and a biomass power plant
-    now under construction in northeastern England. Long-term
-    projections of energy and financial time series data.
+   Origination and execution of project finance transactions:
+   offshore windfarms, hydroelectric dams, and a biomass power plant
+   now under construction in northeastern England. Long-term
+   projections of energy and financial time series data.
 
-*** French Engineering Corps: Army officer
-    2014--2015
+** French Engineering Corps: Army officer
+   2014--2015
 
-    Operation Sangaris: Military intervention in the Central African
-    Republic.
+   Operation Sangaris: Military intervention in the Central African
+   Republic.
 
-    - Instructor for new recruits for 4 months (around 30 soldiers)
-    - Security Officer during the building of a Bailey bridge in Bangui
-    - Participation in an intelligence gathering mission in the Northeastern part of the country
-    - /French Republic Distinctions:/ Overseas Medal, National Defence Medal
+   - Instructor for new recruits for 4 months (around 30 soldiers)
+   - Security Officer during the building of a Bailey bridge in Bangui
+   - Participation in an intelligence gathering mission in the Northeastern part of the country
+   - /French Republic Distinctions:/ Overseas Medal, National Defence Medal
 * Education
 
-*** University of Oxford: [[https://www.ox.ac.uk/admissions/graduate/courses/msc-statistical-science][MSc in Statistical Science]]
-    2017--2018
+** University of Oxford: [[https://www.ox.ac.uk/admissions/graduate/courses/msc-statistical-science][MSc in Statistical Science]]
+   2017--2018
 
-    - Applied and computational statistics, statistical machine learning and statistical inference
+   - Applied and computational statistics, statistical machine learning and statistical inference
 
-*** [[https://www.polytechnique.edu/][École polytechnique]]
-    2014--2017
+** [[https://www.polytechnique.edu/][École polytechnique]]
+   2014--2017
 
-    - Majors in Majors in Applied Mathematics, Operations Research, Data Science, and Computer Science
-    - /Distinctions:/ Outstanding Investment, Outstanding Leadership
+   - Majors in Majors in Applied Mathematics, Operations Research, Data Science, and Computer Science
+   - /Distinctions:/ Outstanding Investment, Outstanding Leadership
 
-*** Lycée Privé Sainte-Geneviève, Versailles: Preparatory classes to French /Grandes Écoles/
-    2012--2014
+** Lycée Privé Sainte-Geneviève, Versailles: Preparatory classes to French /Grandes Écoles/
+   2012--2014
 
-    - Majors in Mathematics and Physics
+   - Majors in Mathematics and Physics
 
 * Scientific projects
-*** Topological Data Analysis of time-dependent networks
-    2018
 
-    - Master's thesis, joint work with Oxford's Department of Statistics and Mathematical Institute, with Prof. Heather Harrington (Oxford), Prof. Mason Porter (UCLA), and Prof. Renaud Lambiotte (Oxford)
-    - Application of the recent advances in Topological Data Analysis (TDA) and Persistent Homology to periodicity detection in temporal networks
-    - [[./files/tdanetworks.pdf][Dissertation (PDF)]] ([[./files/tdanetworks.pdf.minisig][sig]])
+** Topological Data Analysis of time-dependent networks
+   2018
 
-*** Research work on Community Detection in Social Networks
-    2016--2017
+   - Master's thesis, joint work with Oxford's Department of Statistics and Mathematical Institute, with Prof. Heather Harrington (Oxford), Prof. Mason Porter (UCLA), and Prof. Renaud Lambiotte (Oxford)
+   - Application of the recent advances in Topological Data Analysis (TDA) and Persistent Homology to periodicity detection in temporal networks
+   - [[./files/tdanetworks.pdf][Dissertation (PDF)]] ([[./files/tdanetworks.pdf.minisig][sig]])
 
-    - Research project with the Microsoft-INRIA joint center, with Prof. Laurent Massoulié
-    - Comparison of the performance of state-of-the-art algorithms (theory and implementations)
-    - Application to large-scale, real-world social networks
-    - [[./files/communitydetection.pdf][Dissertation (PDF, in French)]] ([[./files/communitydetection.pdf.minisig][sig]]) and [[https://dlozeve.github.io/reveal_CommunityDetection/][slides]]
+** Research work on Community Detection in Social Networks
+   2016--2017
 
-*** SERB X-CubeSat II program: a nano-satellite dedicated to Sun-Earth relationship
-    2015--2016
+   - Research project with the Microsoft-INRIA joint center, with Prof. Laurent Massoulié
+   - Comparison of the performance of state-of-the-art algorithms (theory and implementations)
+   - Application to large-scale, real-world social networks
+   - [[./files/communitydetection.pdf][Dissertation (PDF, in French)]] ([[./files/communitydetection.pdf.minisig][sig]]) and [[https://dlozeve.github.io/reveal_CommunityDetection/][slides]]
 
-    - Solar Irradiance and Earth Radiation Budget: Payload preliminary design
-    - Co-authored [[http://dx.doi.org/10.1117/12.2222660][SPIE Proceedings article]] on the project’s technical specifications
-    - [[./files/serb.pdf][Dissertation (PDF, in French)]] ([[./files/serb.pdf.minisig][sig]])
+** SERB X-CubeSat II program: a nano-satellite dedicated to Sun-Earth relationship
+   2015--2016
 
-*** Research work on Markov Chains and Queuing Theory
-    2013--2014
+   - Solar Irradiance and Earth Radiation Budget: Payload preliminary design
+   - Co-authored [[http://dx.doi.org/10.1117/12.2222660][SPIE Proceedings article]] on the project’s technical specifications
+   - [[./files/serb.pdf][Dissertation (PDF, in French)]] ([[./files/serb.pdf.minisig][sig]])
 
-    - Study on the convergence of queues through algebra and numerical simulations
-    - [[./files/filesdattente.pdf][Dissertation (PDF, in French)]] ([[./files/filesdattente.pdf.minisig][sig]])
+** Research work on Markov Chains and Queuing Theory
+   2013--2014
+
+   - Study on the convergence of queues through algebra and numerical simulations
+   - [[./files/filesdattente.pdf][Dissertation (PDF, in French)]] ([[./files/filesdattente.pdf.minisig][sig]])
 
 * Languages and skills
 
-*** Computer science
+** Computer science
 
-    *Python:*
+   *Python:*
 
-    - Numerical computing: [[http://www.numpy.org/][Numpy]], [[https://www.scipy.org/][Scipy]]
-    - Data analysis: [[https://pandas.pydata.org/][Pandas]]
-    - Machine Learning: [[http://scikit-learn.org/][Scikit-Learn]]
-    - Deep Learning: [[https://www.tensorflow.org/][TensorFlow]], [[http://pytorch.org/][PyTorch]]
-    - Network analysis: [[https://networkx.github.io/][NetworkX]], [[https://graph-tool.skewed.de/][graph-tool]]
-    - Research projects and hackathons: [[https://github.com/dlozeve/community-detection][community detection]] and [[https://github.com/dlozeve/DocAssist][DocAssist]]
+   - Numerical computing: [[http://www.numpy.org/][Numpy]], [[https://www.scipy.org/][Scipy]]
+   - Data analysis: [[https://pandas.pydata.org/][Pandas]]
+   - Machine Learning: [[http://scikit-learn.org/][Scikit-Learn]]
+   - Deep Learning: [[https://www.tensorflow.org/][TensorFlow]], [[http://pytorch.org/][PyTorch]]
+   - Network analysis: [[https://networkx.github.io/][NetworkX]], [[https://graph-tool.skewed.de/][graph-tool]]
+   - Research projects and hackathons: [[https://github.com/dlozeve/community-detection][community detection]] and [[https://github.com/dlozeve/DocAssist][DocAssist]]
 
-    *Julia:*
+   *Julia:*
 
-    - Numerical computing, machine learning
-    - Optimisation and Operations Research: [[https://github.com/JuliaOpt/JuMP.jl][JuMP]]
-    - Projects: [[https://github.com/dlozeve/GardenOptim][Garden optimisation]] using Markov Chain Monte Carlo and integer programming
+   - Numerical computing, machine learning
+   - Optimisation and Operations Research: [[https://github.com/JuliaOpt/JuMP.jl][JuMP]]
+   - Projects: [[https://github.com/dlozeve/GardenOptim][Garden optimisation]] using Markov Chain Monte Carlo and integer programming
      
-    *R:*
+   *R:*
 
-    - Statistical modelling and inference (generalised linear models, bayesian analysis)
-    - Data analysis: [[https://www.tidyverse.org/][Tidyverse]]
-    - Network analysis: [[http://igraph.org/][igraph]]
+   - Statistical modelling and inference (generalised linear models, bayesian analysis)
+   - Data analysis: [[https://www.tidyverse.org/][Tidyverse]]
+   - Network analysis: [[http://igraph.org/][igraph]]
 
-    *C, Java:* Embedded and [[https://github.com/dlozeve/Satrap][network]] programming, [[https://github.com/dlozeve/topological-persistence][scientific computing]]
+   *C, Java:* Embedded and [[https://github.com/dlozeve/Satrap][network]] programming, [[https://github.com/dlozeve/topological-persistence][scientific computing]]
 
-    *SQL:* Basics
+   *SQL:* Basics
 
-    *Haskell, Lisp (Scheme):* Hobby projects ([[https://github.com/dlozeve/orbit][N-body simulation]], [[https://github.com/dlozeve/Civilisation-hs][SAT solver]], [[https://github.com/dlozeve/aoc2017][Advent of Code 2017]])
+   *Haskell, Lisp (Scheme):* Hobby projects ([[https://github.com/dlozeve/orbit][N-body simulation]], [[https://github.com/dlozeve/Civilisation-hs][SAT solver]], [[https://github.com/dlozeve/aoc2017][Advent of Code 2017]])
 
-    *Software:* Git, GNU/Linux, LaTeX, [[https://aws.amazon.com/][Amazon AWS]], [[https://www.mongodb.com/][MongoDB]], [[https://www.wolfram.com/mathematica/][Wolfram Mathematica]], Microsoft Office
+   *Software:* Git, GNU/Linux, LaTeX, [[https://aws.amazon.com/][Amazon AWS]], [[https://www.mongodb.com/][MongoDB]], [[https://www.wolfram.com/mathematica/][Wolfram Mathematica]], Microsoft Office
 
-    See also [[./skills.html][a complete list of my skills in Statistics, Data Science and Machine Learning]].
+   See also [[./skills.html][a complete list of my skills in Statistics, Data Science and Machine Learning]].
 
-*** Languages
+** Languages
 
-    - French
-    - English
+   - French
+   - English
 
-*** Sports
+** Sports
 
-    *Fencing:* vice-president of the 2016 [[http://x-systra.com/][X-SYSTRA International Fencing Challenge]]; 29th in the 2016 sabre French Student Championships
+   *Fencing:* vice-president of the 2016 [[http://x-systra.com/][X-SYSTRA International Fencing Challenge]]; 29th in the 2016 sabre French Student Championships
 
-    *Scuba-diving:* CMAS ★ ★ ★, 170+ dives
+   *Scuba-diving:* CMAS ★ ★ ★, 170+ dives
