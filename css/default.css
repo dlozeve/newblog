@@ -1,8 +1,5 @@
 body {
     background: #fafafa;
-    counter-reset: theorem;
-    counter-reset: definition;
-    counter-reset: sidenote-counter; /* Hack, otherwise we break Tufte CSS */
 }
 
 header {
@@ -61,7 +58,6 @@ blockquote {
 }
 
 .proposition, .theorem {
-    counter-increment: theorem;
     font-style: italic;
 }
 
@@ -76,20 +72,19 @@ blockquote {
 }
 
 .theorem:before {
-    content: "Theorem " counter(theorem) ".";
+    content: "Theorem.";
     font-weight: bold;
     font-style: normal;
 }
 
 .proposition:before {
-    content: "Proposition " counter(theorem) ".";
+    content: "Proposition.";
     font-weight: bold;
     font-style: normal;
 }
 
 .definition:before {
-    counter-increment: definition;
-    content: "Definition " counter(definition) ".";
+    content: "Definition.";
     font-weight: bold;
     font-style: normal;
 }
