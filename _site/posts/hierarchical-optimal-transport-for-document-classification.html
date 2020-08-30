@@ -15,19 +15,9 @@
     <!-- RSS feed -->
     <link rel="alternate" type="application/rss+xml" title="Dimitri Lozeve's blog" href="../rss.xml" /> 
 
-    <!-- KaTeX CSS styles -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
-
-    <!-- The loading of KaTeX is deferred to speed up page rendering -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
-
-    <!-- To automatically render math in text elements, include the auto-render extension: -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
-
-
-<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
-<!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
-
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   </head>
   <body>
     <article>
@@ -81,7 +71,7 @@
       x_n)\)</span>, and <span class="math inline">\(y = (y_1, y_2, \ldots, y_n)\)</span>, along with probability distributions <span class="math inline">\(p \in \Delta^n\)</span>, <span class="math inline">\(q \in \Delta^m\)</span> over <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> (<span class="math inline">\(\Delta^n\)</span> is the probability simplex of dimension <span class="math inline">\(n\)</span>, i.e. the set of vectors of size <span class="math inline">\(n\)</span> summing to 1). We can then define the Wasserstein distance as <span class="math display">\[
 W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
 \]</span> <span class="math display">\[
-\text{\small subject to } \sum_j P_{i,j} = p_i \text{ \small and } \sum_i P_{i,j} = q_j,
+\text{subject to } \sum_j P_{i,j} = p_i \text{  and } \sum_i P_{i,j} = q_j,
 \]</span> where <span class="math inline">\(C_{i,j} = d(x_i, x_j)\)</span> are the costs computed from the original distance between points, and <span class="math inline">\(P_{i,j}\)</span> represent the amount we are moving from pile <span class="math inline">\(i\)</span> to pile <span class="math inline">\(j\)</span>.</p>
 <p>Now, how can this be applied to a natural language setting? Once we have word embeddings, we can consider that the vocabulary forms a metric space (we can compute a distance, for instance the euclidean or the <a href="https://en.wikipedia.org/wiki/Cosine_similarity">cosine distance</a>, between two word embeddings). The key is to define documents as <em>distributions</em> over words.</p>
 <p>Given a vocabulary <span class="math inline">\(V \subset \mathbb{R}^n\)</span> and a corpus <span class="math inline">\(D = (d^1, d^2, \ldots, d^{\lvert D \rvert})\)</span>, we represent a document as <span class="math inline">\(d^i \in \Delta^{l_i}\)</span> where <span class="math inline">\(l_i\)</span> is the number of unique words in <span class="math inline">\(d^i\)</span>, and <span class="math inline">\(d^i_j\)</span> is the proportion of word <span class="math inline">\(v_j\)</span> in the document <span class="math inline">\(d^i\)</span>. The word mover’s distance (WMD) is then defined simply as <span class="math display">\[ \operatorname{WMD}(d^1, d^2) = W_1(d^1, d^2). \]</span></p>

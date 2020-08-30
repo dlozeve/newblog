@@ -164,7 +164,7 @@ myReadPandocBiblio ropt csl biblio item = do
 
   return $ fmap (const pandoc') item
 
--- Pandoc compiler with KaTeX and bibliography support --------------------
+-- Pandoc compiler with maths, TOC, sidenots, and bibliography support --------------------
 customPandocCompiler :: Bool -> Compiler (Item String)
 customPandocCompiler withTOC =
   let customExtensions = extensionsFromList [Ext_latex_macros]
