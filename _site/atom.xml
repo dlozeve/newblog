@@ -15,12 +15,8 @@
     <id>https://www.lozeve.com/posts/dyalog-apl-competition-2020-phase-2.html</id>
     <published>2020-08-02T00:00:00Z</published>
     <updated>2020-08-02T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<article>
-    <section class="header">
-        
-    </section>
-    <section>
-        <div id="toc"><h2>Table of Contents</h2><ul>
+    <summary type="html"><![CDATA[<section>
+  <div id="toc"><h2>Table of Contents</h2><ul>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#problem-1-take-a-dive">Problem 1 – Take a Dive</a></li>
 <li><a href="#problem-2-another-step-in-the-proper-direction">Problem 2 – Another Step in the Proper Direction</a></li>
@@ -227,8 +223,7 @@
 <span id="cb20-15"><a href="#cb20-15" aria-hidden="true"></a>∇</span></code></pre></div>
 <div class="sourceCode" id="cb21"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a> :EndNamespace</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true"></a>:EndNamespace</span></code></pre></div>
-    </section>
-</article>
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -237,12 +232,8 @@
     <id>https://www.lozeve.com/posts/dyalog-apl-competition-2020-phase-1.html</id>
     <published>2020-08-02T00:00:00Z</published>
     <updated>2020-08-02T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<article>
-    <section class="header">
-        
-    </section>
-    <section>
-        <div id="toc"><h2>Table of Contents</h2><ul>
+    <summary type="html"><![CDATA[<section>
+  <div id="toc"><h2>Table of Contents</h2><ul>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#lets-split">1. Let’s Split!</a></li>
 <li><a href="#character-building">2. Character Building</a></li>
@@ -395,8 +386,7 @@
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true"></a>      ┴──────────────┴──────────────┴──────────────┴──────────────┘│</span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true"></a>      ─────────────────────────────────────────────────────────────┘</span></code></pre></div>
 <p>Next, we clean this up with Ravel (<code>,</code>) and we can Mix to obtain the final result.</p>
-    </section>
-</article>
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -405,12 +395,8 @@
     <id>https://www.lozeve.com/posts/operations-research-references.html</id>
     <published>2020-05-27T00:00:00Z</published>
     <updated>2020-05-27T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<article>
-    <section class="header">
-        
-    </section>
-    <section>
-        <div id="toc"><h2>Table of Contents</h2><ul>
+    <summary type="html"><![CDATA[<section>
+  <div id="toc"><h2>Table of Contents</h2><ul>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#why-is-it-hard-to-approach">Why is it hard to approach?</a></li>
 <li><a href="#where-to-start">Where to start</a>
@@ -524,8 +510,7 @@
 <p>Williams, H. Paul. 2013. <em>Model Building in Mathematical Programming</em>. Chichester, West Sussex: Wiley. <a href="https://www.wiley.com/en-fr/Model+Building+in+Mathematical+Programming,+5th+Edition-p-9781118443330">https://www.wiley.com/en-fr/Model+Building+in+Mathematical+Programming,+5th+Edition-p-9781118443330</a>.</p>
 </div>
 </div>
-    </section>
-</article>
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -534,12 +519,8 @@
     <id>https://www.lozeve.com/posts/iclr-2020-notes.html</id>
     <published>2020-05-05T00:00:00Z</published>
     <updated>2020-05-05T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<article>
-    <section class="header">
-        
-    </section>
-    <section>
-        <div id="toc"><h2>Table of Contents</h2><ul>
+    <summary type="html"><![CDATA[<section>
+  <div id="toc"><h2>Table of Contents</h2><ul>
 <li><a href="#the-format-of-the-virtual-conference">The Format of the Virtual Conference</a></li>
 <li><a href="#speakers">Speakers</a>
 <ul>
@@ -596,8 +577,7 @@
 <p>Cognitive science is fascinating, and I believe that collaboration between ML practitioners and cognitive scientists will greatly help advance both fields. I only watched <a href="https://baicsworkshop.github.io/program/baics_45.html">Leslie Kaelbling’s presentation</a>, which echoes a lot of things from her talk at the main conference. It complements it nicely, with more focus on intelligence, especially <em>embodied</em> intelligence. I think she has the right approach to relationships between AI and natural science, explicitly listing the things from her work that would be helpful to natural scientists, and things she wish she knew about natural intelligences. It raises many fascinating questions on ourselves, what we build, and what we understand. I felt it was very motivational!</p>
 <h3 id="integration-of-deep-neural-models-and-differential-equations"><a href="https://iclr.cc/virtual_2020/workshops_5.html">Integration of Deep Neural Models and Differential Equations</a></h3>
 <p>I didn’t attend this workshop, but I think I will watch the presentations if I can find the time. I have found the intersection of differential equations and ML very interesting, ever since the famous <a href="https://papers.nips.cc/paper/7892-neural-ordinary-differential-equations">NeurIPS best paper</a> on Neural ODEs. I think that such improvements to ML theory from other fields in mathematics would be extremely beneficial to a better understanding of the systems we build.</p>
-    </section>
-</article>
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -606,12 +586,8 @@
     <id>https://www.lozeve.com/posts/hierarchical-optimal-transport-for-document-classification.html</id>
     <published>2020-04-05T00:00:00Z</published>
     <updated>2020-04-05T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<article>
-    <section class="header">
-        
-    </section>
-    <section>
-        <div id="toc"><h2>Table of Contents</h2><ul>
+    <summary type="html"><![CDATA[<section>
+  <div id="toc"><h2>Table of Contents</h2><ul>
 <li><a href="#introduction-and-motivation">Introduction and motivation</a></li>
 <li><a href="#background-optimal-transport">Background: optimal transport</a></li>
 <li><a href="#hierarchical-optimal-transport">Hierarchical optimal transport</a></li>
@@ -697,8 +673,7 @@ W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
 <p>Yurochkin, Mikhail, Sebastian Claici, Edward Chien, Farzaneh Mirzazadeh, and Justin M Solomon. 2019. “Hierarchical Optimal Transport for Document Representation.” In <em>Advances in Neural Information Processing Systems 32</em>, 1599–1609. <a href="http://papers.nips.cc/paper/8438-hierarchical-optimal-transport-for-document-representation.pdf">http://papers.nips.cc/paper/8438-hierarchical-optimal-transport-for-document-representation.pdf</a>.</p>
 </div>
 </div>
-    </section>
-</article>
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -707,19 +682,14 @@ W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
     <id>https://www.lozeve.com/posts/self-learning-chatbots-destygo.html</id>
     <published>2019-04-06T00:00:00Z</published>
     <updated>2019-04-06T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<article>
-    <section class="header">
-        
-    </section>
-    <section>
-        <p>Last week I made a presentation at the <a href="https://www.meetup.com/Paris-NLP/">Paris NLP Meetup</a>, on how we implemented self-learning chatbots in production at Mindsay.</p>
+    <summary type="html"><![CDATA[<section>
+  <p>Last week I made a presentation at the <a href="https://www.meetup.com/Paris-NLP/">Paris NLP Meetup</a>, on how we implemented self-learning chatbots in production at Mindsay.</p>
 <p>It was fascinating to other people interested in NLP about the technologies and models we deploy at work! It’s always nice to have some feedback about our work, and preparing this talk forced me to take a step back about what we do and rethink it in new interesting ways.</p>
 <p>Also check out the <a href="https://nlpparis.wordpress.com/2019/03/29/paris-nlp-season-3-meetup-4-at-meilleursagents/">other presentations</a>, one about diachronic (i.e. time-dependent) word embeddings and the other about the different models and the use of Knowledge Bases for Information Retrieval. (This might even give us new ideas to explore…)</p>
 <p>If you’re interested about exciting applications at the confluence of Reinforcement Learning and NLP, the slides are available <a href="https://drive.google.com/file/d/1aS1NpPxRzsQCsAqoQIVZrdf8R1Y2VKrT/view">here</a>. It includes basic RL theory, how we transposed it to the specific case of conversational agents, the technical and mathematical challenges in implementing self-learning chatbots, and of course plenty of references for further reading if we piqued your interest!</p>
 <p><strong><strong>Update:</strong></strong> The videos are now available on the <a href="https://nlpparis.wordpress.com/2019/03/29/paris-nlp-season-3-meetup-4-at-meilleursagents/">NLP Meetup website</a>.</p>
 <p><strong><strong>Update 2:</strong></strong> Destygo changed its name to <a href="https://www.mindsay.com/">Mindsay</a>!</p>
-    </section>
-</article>
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -728,12 +698,8 @@ W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
     <id>https://www.lozeve.com/posts/ginibre-ensemble.html</id>
     <published>2019-03-20T00:00:00Z</published>
     <updated>2019-03-20T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<article>
-    <section class="header">
-        
-    </section>
-    <section>
-        <h3 id="ginibre-ensemble-and-its-properties">Ginibre ensemble and its properties</h3>
+    <summary type="html"><![CDATA[<section>
+  <h3 id="ginibre-ensemble-and-its-properties">Ginibre ensemble and its properties</h3>
 <p>The <em>Ginibre ensemble</em> is a set of random matrices with the entries chosen independently. Each entry of a <span class="math inline">\(n \times n\)</span> matrix is a complex number, with both the real and imaginary part sampled from a normal distribution of mean zero and variance <span class="math inline">\(1/2n\)</span>.</p>
 <p>Random matrices distributions are very complex and are a very active subject of research. I stumbled on this example while reading an article in <em>Notices of the AMS</em> by Brian C. Hall <a href="#ref-1">(1)</a>.</p>
 <p>Now what is interesting about these random matrices is the distribution of their <span class="math inline">\(n\)</span> eigenvalues in the complex plane.</p>
@@ -758,8 +724,7 @@ W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
 <li><span id="ref-1"></span>Hall, Brian C. 2019. “Eigenvalues of Random Matrices in the General Linear Group in the Large-<span class="math inline">\(N\)</span> Limit.” <em>Notices of the American Mathematical Society</em> 66, no. 4 (Spring): 568-569. <a href="https://www.ams.org/journals/notices/201904/201904FullIssue.pdf">https://www.ams.org/journals/notices/201904/201904FullIssue.pdf</a></li>
 <li><span id="ref-2"></span>Ginibre, Jean. “Statistical ensembles of complex, quaternion, and real matrices.” Journal of Mathematical Physics 6.3 (1965): 440-449. <a href="https://doi.org/10.1063/1.1704292">https://doi.org/10.1063/1.1704292</a></li>
 </ol>
-    </section>
-</article>
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -768,12 +733,8 @@ W_1(p, q) = \min_{P \in \mathbb{R}_+^{n\times m}} \sum_{i,j} C_{i,j} P_{i,j}
     <id>https://www.lozeve.com/posts/peano.html</id>
     <published>2019-03-18T00:00:00Z</published>
     <updated>2019-03-18T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<article>
-    <section class="header">
-        
-    </section>
-    <section>
-        <div id="toc"><h2>Table of Contents</h2><ul>
+    <summary type="html"><![CDATA[<section>
+  <div id="toc"><h2>Table of Contents</h2><ul>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#the-axioms">The Axioms</a></li>
 <li><a href="#addition">Addition</a>
@@ -894,8 +855,7 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
 <p>Wigner, Eugene P. 1990. “The Unreasonable Effectiveness of Mathematics in the Natural Sciences.” In <em>Mathematics and Science</em>, by Ronald E Mickens, 291–306. WORLD SCIENTIFIC. <a href="https://doi.org/10.1142/9789814503488_0018">https://doi.org/10.1142/9789814503488_0018</a>.</p>
 </div>
 </div>
-    </section>
-</article>
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -904,12 +864,8 @@ then <span class="math inline">\(\varphi(n)\)</span> is true for every natural n
     <id>https://www.lozeve.com/posts/reinforcement-learning-1.html</id>
     <published>2018-11-21T00:00:00Z</published>
     <updated>2018-11-21T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<article>
-    <section class="header">
-        
-    </section>
-    <section>
-        <h2 id="introduction">Introduction</h2>
+    <summary type="html"><![CDATA[<section>
+  <h2 id="introduction">Introduction</h2>
 <p>In this series of blog posts, I intend to write my notes as I go through Richard S. Sutton’s excellent <em>Reinforcement Learning: An Introduction</em> <a href="#ref-1">(1)</a>.</p>
 <p>I will try to formalise the maths behind it a little bit, mainly because I would like to use it as a useful personal reference to the main concepts in RL. I will probably add a few remarks about a possible implementation as I go on.</p>
 <h2 id="relationship-between-agent-and-environment">Relationship between agent and environment</h2>
@@ -997,8 +953,7 @@ q_{\pi}(s,a) &amp;= \mathbb{E}_{\pi}\left[ \sum_{k=0}^{\infty} \gamma^k R_{t+k+1
 <ol>
 <li><span id="ref-1"></span>R. S. Sutton and A. G. Barto, Reinforcement learning: an introduction, Second edition. Cambridge, MA: The MIT Press, 2018.</li>
 </ol>
-    </section>
-</article>
+</section>
 ]]></summary>
 </entry>
 <entry>
@@ -1007,12 +962,8 @@ q_{\pi}(s,a) &amp;= \mathbb{E}_{\pi}\left[ \sum_{k=0}^{\infty} \gamma^k R_{t+k+1
     <id>https://www.lozeve.com/posts/ising-apl.html</id>
     <published>2018-03-05T00:00:00Z</published>
     <updated>2018-03-05T00:00:00Z</updated>
-    <summary type="html"><![CDATA[<article>
-    <section class="header">
-        
-    </section>
-    <section>
-        <div id="toc"><h2>Table of Contents</h2><ul>
+    <summary type="html"><![CDATA[<section>
+  <div id="toc"><h2>Table of Contents</h2><ul>
 <li><a href="#the-apl-family-of-languages">The APL family of languages</a>
 <ul>
 <li><a href="#why-apl">Why APL?</a></li>
@@ -1210,8 +1161,7 @@ q_{\pi}(s,a) &amp;= \mathbb{E}_{\pi}\left[ \sum_{k=0}^{\infty} \gamma^k R_{t+k+1
 <p>The algorithm is very fast (I think it can be optimized by the interpreter because there is no branching), and is easy to reason about. The whole program fits in a few lines, and you clearly see what each function and each line does. It could probably be optimized further (I don’t know every APL function yet…), and also could probably be golfed to a few lines (at the cost of readability?).</p>
 <p>It took me some time to write this, but Dyalog’s tools make it really easy to insert symbols and to look up what they do. Next time, I will look into some ASCII-based APL descendants. J seems to have a <a href="http://code.jsoftware.com/wiki/NuVoc">good documentation</a> and a tradition of <em>tacit definitions</em>, similar to the point-free style in Haskell. Overall, J seems well-suited to modern functional programming, while APL is still under the influence of its early days when it was more procedural. Another interesting area is K, Q, and their database engine kdb+, which seems to be extremely performant and actually used in production.</p>
 <p>Still, Unicode symbols make the code much more readable, mainly because there is a one-to-one link between symbols and functions, which cannot be maintained with only a few ASCII characters.</p>
-    </section>
-</article>
+</section>
 ]]></summary>
 </entry>
 
