@@ -7,8 +7,15 @@ title: "Curriculum Vitæ"
 
 * Work experience
 
+**  [[http://www.sysnav.fr/][Sysnav]]: Research Engineer and Project Manager
+   September 2020--present
+
+   - Development of medical endpoints for neuromuscular disease
+     diagnosis using inertial sensors data
+   - Work with physicians and pharmaceutical companies
+
 ** [[https://www.mindsay.com/][Mindsay]]: R&D Data Scientist and Engineering Manager
-   October 2018--present
+   October 2018--September 2020
 
    - Natural Language Processing and Reinforcement Learning for Chatbots
    - Management of the R&D team (3 data scientists) and of all research projects
