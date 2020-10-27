@@ -1,0 +1,28 @@
+on: [push]
+name: build
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-haskell@v1.1
+        with:
+          enable-stack: true
+          stack-no-global: true
+          stack-version: 'latest'
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.stack
+            .stack-work
+          key: ${{ hashFiles('stack.yaml') }}-${{ hashFiles('stack.yaml.lock') }}-${{ hashFiles('newblog.cabal') }}
+      - run: stack build
+      - run: stack exec site build
+      - uses: netlify/actions/cli@master
+        if: github.ref == 'refs/heads/master'
+        with:
+          args: deploy --dir=_site --prod
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
