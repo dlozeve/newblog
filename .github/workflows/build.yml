@@ -1,15 +1,20 @@
 on: [push]
 name: build
 jobs:
-  runhaskell:
-    name: Hello World
-    runs-on: ubuntu-latest # or macOS-latest, or windows-latest
+  build:
+    name: Build
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-haskell@v1.1
         with:
-          # cabal-version: 'latest'. Omitted, but defalts to 'latest'
           enable-stack: true
           stack-version: 'latest'
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.stack
+            .stack-work
+          key: ${{ hashFiles('stack.yaml') }}-${{ hashFiles('stack.yaml.lock') }}-${{ hashFiles('newblog.cabal') }}
       - run: stack build
       - run: stack exec site build
