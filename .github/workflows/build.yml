@@ -18,3 +18,10 @@ jobs:
           key: ${{ hashFiles('stack.yaml') }}-${{ hashFiles('stack.yaml.lock') }}-${{ hashFiles('newblog.cabal') }}
       - run: stack build
       - run: stack exec site build
+      - uses: netlify/actions/cli@master
+        if: github.ref == 'refs/heads/master'
+        with:
+          args: deploy --dir=_site --prod
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
