@@ -9,6 +9,7 @@ jobs:
       - uses: actions/setup-haskell@v1.1
         with:
           enable-stack: true
+          stack-no-global: true
           stack-version: 'latest'
       - uses: actions/cache@v2
         with:
