@@ -1,0 +1,231 @@
+---
+title: "Quaternions: what are they good for?"
+date: 2020-11-09
+toc: false
+---
+
+* A bit of history
+
+Quaternions come from the quest to find more numbers. A bunch of
+mathematicians from the 19th century were so impressed by the
+unreasonable effectiveness of complex numbers that they wondered
+whether the trick could be extended to other structures, notably other
+$n$-tuples of real numbers.
+
+As it turns out, this only works for some values of $n$, namely 2, 4,
+and 8. There are profound reasons for this, with connections to
+various areas of mathematics.[fn:: {-} If you want to learn more about
+the historical background of hypercomplex numbers and their
+properties, I cannot recommend Stillwell's /Mathematics and Its
+History/ enough citep:stillwell2010_mathem_its_histor.]
+
+Here is a quick recap, in case you'd like a quick overview of all the
+stuff that could reasonably be considered "numbers".
+
+/Complex numbers/ are of the form $z = a + ib$, with $a$ and $b$ real
+numbers, and $i$ (the /imaginary unit/ defined such that $i^2 =
+-1$. They form a /field/, and have all the nice properties that we can
+expect of well-behaved numbers, such as:
+- Associativity: $(xy)z = x(yz)$
+- Commutativity: $xy = yx$
+for all complex numbers $x$, $y$, and $z$.
+
+/Quaternions/ are an extension of complex numbers, but in /four/
+dimensions instead of just two. They are of the form $\mathbf{q} = a +
+ib + jc + kd$, where $i$, $j$, and $k$ the imaginary units. They
+follow a bunch of rules, which are $i^2 = j^2 = k^2 = ijk = -1$, and
+\[ ij = -ji = k,\quad jk = -kj = i,\quad \text{and } ki = -ik = j. \]
+
+One thing we can notice straightaway: quaternions are /not
+commutative!/ That is, in general, $\mathbf{q_1} \mathbf{q_2} \neq
+\mathbf{q_2} \mathbf{q_1}$. However, like the complex numbers, they
+are associative.
+
+Finally, /octonions/ are the last members of the club. They can be
+described with 8 real components. Their imaginary units behave
+similarly to quaternions imaginary units, with more complicated
+rules. And furthermore, they are neither commutative nor even
+associative! (At this point, one wonders whether they deserve the
+title of number at all.)
+
+And /that's it!/ There is something really strange happening here: we
+can define something looking like numbers only for dimensions 2, 4,
+and 8. Not for 3, not for 6, and not for 17. Moreover, we're losing
+important properties along the way. Starting from the full, complete,
+/perfect/ structure of the complex numbers[fn:complex], we gradually
+lose the things that make working with numbers easy and intuitive.
+
+[fn:complex] Yes, as many authors have pointed out, complex numbers
+are actually the most "complete" numbers. They have all the
+interesting properties, and fill in the gaps where so-called "real"
+numbers are failing. You can define any polynomial you want with
+complex coefficients, they will always have the correct number of
+roots in the complex numbers.
+
+
+* Why are quaternions interesting?
+
+So we can build these kinds of 4- or 8-dimensional numbers. That is
+fascinating in a way, even if only to answer the more philosophical
+question of what numbers are, and what their properties mean. But as
+it turns out, quaternions also have direct applications, notably in
+Physics.
+
+Indeed, quaternions are extremely useful for representing /rotations/.
+There are many different ways to represent rotations:
+- [[https://en.wikipedia.org/wiki/Euler_angles][Euler angles]] are arguably the most intuitive: it's just three angles
+  representing yaw, pitch, and roll.
+- [[https://en.wikipedia.org/wiki/Rotation_matrix][Rotation matrices]] are the most natural from a mathematical point of
+  view. Rotations are invertible linear transformation in 3D space,
+  after all, so they should be represented by matrices in
+  $\mathrm{GL}_3(\mathbb{R})$.
+
+However, both of these representations suffer from serious
+drawbacks. Euler angles are nice for intuitively understanding what's
+going on, and for visualisation. However, even simple operations like
+applying a rotation to a vector, or composing two rotations, quickly
+lead to a lot of messy and unnatural computations. As soon as
+rotations become larger that $\pi$, you get positions that are
+ill-defined (and you have to implement a lot of wraparound in
+$[-\pi,\pi]$ or $[0,2\pi]$).
+
+Rotation matrices are more straightforward. Composing two rotations
+and rotating a vector is matrix-matrix or matrix-vector
+multiplication. However, a $3\times 3$ matrix contains 9 scalar elements, just
+to represent an object that is intrinsically 3-dimensional. Because of
+this, computations can become costly, or even unstable in
+floating-point representations.
+
+The quaternion is therefore an elegant compromise in space
+requirements (4 elements) and ease of computations. It is moreover
+easy and numerically stable to get rotation matrices from quaternions
+and vice-versa.
+
+From a numerical stability point of view, it is easier to deal with
+computation errors in the case of quaternions: a renormalized
+quaternion is always a valid rotation, while it is difficult to
+correct a matrix that is not orthogonal any more due to rounding
+errors.
+
+* Unit quaternions and rotations
+
+Rotations are represented by unit quaternions, i.e. quaternions of
+norm 1:[fn:proofs]
+
+\[ \mathbf{q} = \exp\left((u_x i + u_y j + u_z k) \frac{\theta}{2}\right). \]
+
+[fn:proofs] {-} For a complete derivation of quaternion properties and
+rotation representation, see
+cite:sola2017_quater_kinem_error_state_kalman_filter.
+
+
+This represents a rotation of angle $\theta$ around the vector
+$\mathbf{u} = [u_x\; u_y\; u_z]^T$. The unit quaternion $\mathbf{q}$
+can also be written as
+
+\[ \mathbf{q} = \cos\left(\frac{\theta}{2}\right) + \mathbf{u}\sin\left(\frac{\theta}{2}\right). \]
+
+Composition of rotations is simply the quaternion multiplication. To
+orient a vector $\mathbf{x}$ by applying a rotation, we conjugate it
+by our quaternion $\mathbf{q}$:
+
+\[ \mathbf{x'} = \mathbf{q} \mathbf{x} \mathbf{q'}, \]
+
+where all products are quaternion multiplications, and the vectors
+$\mathbf{x}$ and $\mathbf{x'}$ are represented as /pure quaternions/,
+i.e. quaternions whose real part is zero:
+
+\[ \mathbf{x} = x_1 i + x_2 j + x_3 k. \]
+
+The fact that quaternions are not commutative also corresponds
+directly to the fact that rotations themselves are not commutative.
+
+* Quaternion conventions
+
+People are using various quaternions conventions, depending on their
+choice of multiplication formula ($ij = -k$ or $ij = k$) and on their
+choice of representation (real part first or real part last). The case
+$ij = k$ and real part first used in this article is called the
+/Hamilton convention/, whereas the convention where $ij = -k$ and the
+real part is last is called the /JPL convention/.[fn:conventions]
+
+[fn:conventions] As the name suggest, the JPL convention is used
+mostly by NASA's [[https://www.jpl.nasa.gov/][Jet Propulsion Laboratory]], and by extension in
+aerospace applications. The Hamilton convention in more frequent in
+robotics and in the state estimation literature, such as Kalman
+filtering citep:sola2017_quater_kinem_error_state_kalman_filter.
+
+
+As always, it is important to clearly define ahead of time what
+convention is used in your projects, especially if you're getting
+inspirations from books and articles. Check if they are all using the
+same conventions, or hard-to-debug issues may arise!
+
+[[https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation#Alternative_conventions][Wikipedia]] and especially
+cite:sola2017_quater_kinem_error_state_kalman_filter contain a very
+useful reference of the various possible conventions, and where they
+are used.
+
+* Applications
+
+Quaternions are often the best choice whenever rotation or attitude
+representations are required. This includes robotics, aerospace
+engineering, 3D graphics, video games, and so on.
+
+They are of particular use in optimal control or state estimation
+scenarios: they are often the representation of choice for the
+attitude of an object in a [[https://en.wikipedia.org/wiki/Kalman_filter][Kalman filter]] for instance.[fn:kalman]
+
+[fn:kalman] {-} For a nice introduction to Kalman filters, see [[https://www.bzarg.com/p/how-a-kalman-filter-works-in-pictures/][this
+blog post]] or the introductory article by
+cite:welchIntroductionKalmanFilter2006.
+
+
+* Software and libraries
+
+When working with quaternions, it may be tiresome to reimplement all
+the basic functions you might need (composition, conjugation,
+conversions to and from rotation matrices and [[https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles][Euler angles]], and so
+on).[fn:algos] Thankfully, quaternions are a very standard part of engineers
+toolboxes, so many libraries were written for a variety of scientific
+programming languages.
+
+[fn:algos] {-} For an overview of efficient floating-point algorithms
+for manipulating quaternions, see
+cite:joldes2020_algor_manip_quater_float_point_arith.
+
+
+For [[https://julialang.org/][Julia]] (easily the best programming language for this kind of
+application in my opinion):
+- [[https://github.com/JuliaGeometry/Quaternions.jl][Quaternions.jl]], for basic quaternion representation and
+  manipulation,
+- [[https://github.com/JuliaGeometry/Rotations.jl][Rotations.jl]], for representing rotations and operating on them more
+  generally,
+- [[https://github.com/JuliaGeometry/CoordinateTransformations.jl][CoordinateTransformations.jl]], for a general framework not limited to
+  rotations.
+
+In Python:
+- [[https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.transform.Rotation.html][scipy.spatial.transform.Rotation]], which has the benefit of being
+  included in SciPy directly,
+- [[https://quaternion.readthedocs.io/en/latest/][numpy-quaternion]], for a more feature-complete implementation.
+
+And if you have to work in Matlab, unfortunately the functionality is
+locked away in the Robotics System Toolbox, or in the Aerospace
+Toolbox. Use open source software if you can!
+
+* The structure of the group of unit quaternions
+
+As it turns out, quaternions are even more interesting than
+expected. Not satisfied with representing rotations efficiently, they
+also have the structure of a [[https://en.wikipedia.org/wiki/Lie_group][Lie group]]. A Lie group is a structure
+that combines the properties of a group and of a differentiable
+manifold, thus allowing to compute derivatives, and solve differential
+equations, of functions taking quaternion values.[fn::{-} Rotation
+matrices also have a Lie group structure.]
+
+This is obviously extremely interesting when studying dynamical
+systems, as these are often modelled as systems of differential
+equations. Having a way to define rigorously derivatives and
+uncertainties on quaternions is a very significant result.
+
+* References
