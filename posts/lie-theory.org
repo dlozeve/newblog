@@ -1,0 +1,11 @@
+---
+title: "Learning some Lie theory for fun and profit "
+date: 2020-11-10
+toc: false
+---
+
+[fn::{-} The phrase "for fun and profit" seems to be a pretty old
+expression: according to the answers to [[https://english.stackexchange.com/q/25205][this StackExchange question]],
+it might date back to Horace's [[https://en.wikipedia.org/wiki/Ars_Poetica_(Horace)][/Ars Poetica/]] ("prodesse et
+delectare"). I like the idea that books (and ideas!) should be both
+instructive and enjoyable...]
