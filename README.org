@@ -1,3 +1,1 @@
 * Personal blog
-
-[[https://app.netlify.com/sites/jolly-visvesvaraya-be2270/deploys][file:https://api.netlify.com/api/v1/badges/69ba87f1-7020-450d-9c01-ca39b0511b1e/deploy-status.svg]]

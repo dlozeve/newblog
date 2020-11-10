@@ -4,3 +4,9 @@ _cache/
 bib/auto/
 */ltximg/
 _site/
+
+# Netlify CLI and related
+.netlify/
+package.json
+yarn.lock
+node_modules/
