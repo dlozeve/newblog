@@ -53,7 +53,34 @@ same thing over and over, we can basically do it /once/ and recall the
 general result whenever it is needed, as one would define a function
 and call it later in a piece of software.
 
-* Important structure
+In this case, Lie theory provides a general framework for manipulating
+objects that we want to /combine/ and on which we'd like to compute
+/derivatives/. Differentiability is an essentially linear property, in
+the sense that it works best in vector spaces. Indeed, think of what
+you do to with a derivative: you want to /add/ it to other stuff to
+represent increase rates or uncertainties.
+
+Once you can differentiate, a whole new world
+opens[fn:differentiability]: optimization becomes easier (because you
+can use gradient descent), you can have random variables, and so on.
+
+[fn:differentiability] This is why a lot of programming languages now
+try to make differentiability a [[https://en.wikipedia.org/wiki/Differentiable_programming][first-class concept]]. The ability to
+differentiate arbitrary programs is a huge bonus for all kinds of
+operations common in scientific computing. Pioneering advances were
+made in deep learning libraries, such as TensorFlow and PyTorch; but
+recent advances are even more exciting. [[https://github.com/google/jax][JAX]] is basically a
+differentiable Numpy, and Julia has always made differentiable
+programming a priority, via projects such as [[https://www.juliadiff.org/][JuliaDiff]] and [[https://fluxml.ai/Zygote.jl/][Zygote]].
+
+
+In the case of quaternions, we can define explicitly a differentiation
+operator, and prove that it has all the nice properties that we come
+to expect from derivatives. Wouldn't it be nice if we could have all
+of this automatically? Lie theory gives us the general framework in
+which we can imbue non-"linear" objects with differentiability.
+
+* The structure of a Lie group
 
 Continuing on the example of rotations, what common properties can we
 identify?
@@ -84,5 +111,25 @@ definition is more complex, we can loosely imagine it as a surface (in
 higher dimension) on which we can compute derivatives at every
 point. This means that there is a tangent hyperplane at each point,
 which is a nice vector space where our derivatives will live.
+
+And /that's all!/ What we have defined so far is a /Lie
+group/[fn:lie], i.e. a group that is also a differentiable
+manifold. To take the example of rotation matrices:
+- We can combine them (i.e. by matrix multiplication): they form a
+  group.
+- if we have a function $R : \mathbb{R} \rightarrow
+  \mathrm{GL}_3(\mathbb{R})$ defining a trajectory (e.g. the
+  successive attitudes of a object in space), we can find derivatives
+  of this trajectory! They would represent instantaneous orientation
+  change, or angular velocities.
+
+[fn:lie] {-} Lie theory is named after [[https://en.wikipedia.org/wiki/Sophus_Lie][Sophus Lie]], a Norwegian
+mathematician. As such, "Lie" is pronounced /lee/. Lie was inspired by
+[[https://en.wikipedia.org/wiki/%C3%89variste_Galois][Galois']] work on algebraic equations, and wanted to establish a similar
+general theory for differential equations.
+
+* Interesting properties of Lie groups
+
+* Applications
 
 * References
