@@ -9,3 +9,80 @@ expression: according to the answers to [[https://english.stackexchange.com/q/25
 it might date back to Horace's [[https://en.wikipedia.org/wiki/Ars_Poetica_(Horace)][/Ars Poetica/]] ("prodesse et
 delectare"). I like the idea that books (and ideas!) should be both
 instructive and enjoyable...]
+
+While exploring [[./quaternions.html][quaternions]] and the theory behind them, I noticed an
+interesting pattern: in the exposition of
+cite:sola2017_quater_kinem_error_state_kalman_filter, quaternions and
+rotations matrices had exactly the same properties, and the derivation
+of these properties was rigorously identical (bar some minor notation
+changes).
+
+This is expected because in this specific case, these are just two
+representations of the same underlying object: rotations. However,
+from a purely mathematical and abstract point of view, it cannot be a
+coincidence that you can imbue two different types of objects with
+exactly the same properties.
+
+Indeed, this is not a coincidence: the important structure that is
+common to the set of rotation matrices and to the set of quaternions
+is that of a /Lie group/.
+
+* Why would that be interesting?
+
+From a mathematical point of view, seeing a common structure like this
+should raise alarm signals in our heads. Is there a deeper concept at
+play here? If we can find that two objects are two examples of the
+same abstract structure, maybe we'll also be able to identify that
+structure elsewhere, maybe where it's less obvious. And then, if we
+prove interesting theorems on the abstract structure, we'll
+essentially get the same theorems on every example of this structure,
+and /for free!/ (i.e. without any additional work!)[fn:structure]
+
+[fn:structure]{-} When you push that idea to its extremes, you get
+[[https://en.wikipedia.org/wiki/Category_theory][category theory]], which is just the study of (abstract) structure. This
+in a fun rabbit hole to get into, and if you're interested, I
+recommend the amazing [[https://www.math3ma.com/][math3ma]] blog, or
+cite:riehlCategoryTheoryContext2017 for a complete and approachable
+treatment. cite:fongSevenSketchesCompositionality2018 gives an
+interesting perspective on why category theory is interesting in the
+real world.
+
+
+We can think of it as a kind of factorization: instead of doing the
+same thing over and over, we can basically do it /once/ and recall the
+general result whenever it is needed, as one would define a function
+and call it later in a piece of software.
+
+* Important structure
+
+Continuing on the example of rotations, what common properties can we
+identify?
+
+1. Quaternions and rotation matrices can be multiplied together (to
+   compose rotations), have an identity element, along with nice
+   properties.
+2. Quaternions and rotation matrices can be differentiated, and we can
+   map them with usual vectors.
+
+These two group of properties actually correspond to common
+mathematical structures: a /group/ and a /differentiable manifold/.
+
+You're probably already familiar with [[https://en.wikipedia.org/wiki/Group_(mathematics)][groups]], but let's recall the
+basic properties:
+- It's a set $G$ equipped with a binary operation $\cdot$.
+- The group is closed under the operation: for any element $x,y$ in G,
+  $x \cdot y$ is always in $G$.
+- The operation is associative: $x \cdot (y \cdot z) = (x \cdot y)
+  \cdot z$.
+- There is a special element $e$ of $G$ (called the /identity
+  element/), such that $x \cdot e = e \cdot x$ for all $x \in G$.
+- For every element $x$ of $G$, there is a unique element of $G$
+  denoted $x^{-1}$ such that $x \cdot x^{-1} = x^{-1} \cdot x = e$.
+
+A [[https://en.wikipedia.org/wiki/Differentiable_manifold][differentiable manifold]] is a more complex beast. Although the
+definition is more complex, we can loosely imagine it as a surface (in
+higher dimension) on which we can compute derivatives at every
+point. This means that there is a tangent hyperplane at each point,
+which is a nice vector space where our derivatives will live.
+
+* References
