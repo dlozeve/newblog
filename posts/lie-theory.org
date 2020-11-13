@@ -112,12 +112,27 @@ higher dimension) on which we can compute derivatives at every
 point. This means that there is a tangent hyperplane at each point,
 which is a nice vector space where our derivatives will live.
 
-And /that's all!/ What we have defined so far is a /Lie
+You can think of the manifold as a tablecloth that has a weird shape,
+all kinds of curvatures, but no edges or spikes. The idea here is that
+we can define an /atlas/, i.e. a local approximation of the manifold
+as a plane. The name is telling: they're called atlases because they
+play the exact same role as maps. The Earth is not flat, it is a
+sphere with all kinds of deformations (mountains, canyons, oceans),
+but we can have maps that represent a small area with a very good
+precision. Similarly, atlases are the vector spaces that provide the
+best linear approximation of a small region around a point on the
+manifold.
+
+So we know what a group and a differential manifold are. As it turns
+out, that's all we need to know! What we have defined so far is a /Lie
 group/[fn:lie], i.e. a group that is also a differentiable
-manifold. To take the example of rotation matrices:
+manifold. The tangent vector space at the identity element is called
+the /Lie algebra/.
+
+To take the example of rotation matrices:
 - We can combine them (i.e. by matrix multiplication): they form a
   group.
-- if we have a function $R : \mathbb{R} \rightarrow
+- If we have a function $R : \mathbb{R} \rightarrow
   \mathrm{GL}_3(\mathbb{R})$ defining a trajectory (e.g. the
   successive attitudes of a object in space), we can find derivatives
   of this trajectory! They would represent instantaneous orientation
@@ -130,6 +145,41 @@ general theory for differential equations.
 
 * Interesting properties of Lie groups
 
+For a complete overview of Lie theory, there are a lot of interesting
+material that you can find online.[fn:princeton_companion] I
+especially recommend the tutorial by
+cite:sola2018_micro_lie_theor_state_estim_robot: just enough maths to
+understand what is going on, but without losing track of the
+applications. There is also a [[https://www.youtube.com/watch?v=QR1p0Rabuww][video tutorial]] for the [[https://www.iros2020.org/][IROS2020]]
+conference[fn::More specifically for the workshop on [[https://sites.google.com/view/iros2020-geometric-methods/][Bringing
+geometric methods to robot learning, optimization and control]].]. For a
+more complete treatment, cite:stillwell2008_naive_lie_theor is
+great.[fn::{-} John Stillwell is one of the best textbook writers. All
+his books are extremely clear and a pleasure to read. You generally
+read a book because you're interested in learning the topic; you begin
+learning a topic just because Stillwell wrote a book on it.]
+
+[fn:princeton_companion] {-} There is also a chapter on Lie theory in
+the amazing /Princeton Companion to Mathematics/
+[[citep:gowersPrincetonCompanionMathematics2010][::, §II.48]].
+
+
+The Lie group is a set of elements. At every element, there is a
+tangent vector space. The tangent vector space at the identity is
+called the Lie algebra, and as we will see, it plays a special role.
+
+TODO
+
 * Applications
+
+Lie theory is useful because it gives strong theoretical guarantees
+whenever we need to linearize something. If you have a system evolving
+on a complex geometric structure (for example, the space of rotations,
+which is definitely not linear), but you need to use a linear
+operation (if you need uncertainties, or you have differential
+equations), you have to approximate somehow.
+
+Using the Lie structure of the underlying space, you immediately get a
+principled way of defining derivatives, random variables, and so on.
 
 * References
