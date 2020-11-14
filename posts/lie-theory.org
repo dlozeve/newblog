@@ -1,6 +1,6 @@
 ---
 title: "Learning some Lie theory for fun and profit "
-date: 2020-11-10
+date: 2020-11-14
 toc: false
 ---
 
