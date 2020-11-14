@@ -223,6 +223,8 @@ manifold, thus allowing to compute derivatives, and solve differential
 equations, of functions taking quaternion values.[fn::{-} Rotation
 matrices also have a Lie group structure.]
 
+[fn::{-} Update: I wrote a detailed post on [[./lie-theory.html][Lie theory]]!]
+
 This is obviously extremely interesting when studying dynamical
 systems, as these are often modelled as systems of differential
 equations. Having a way to define rigorously derivatives and
