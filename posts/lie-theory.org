@@ -1,0 +1,245 @@
+---
+title: "Learning some Lie theory for fun and profit "
+date: 2020-11-14
+toc: false
+---
+
+[fn::{-} The phrase "for fun and profit" seems to be a pretty old
+expression: according to the answers to [[https://english.stackexchange.com/q/25205][this StackExchange question]],
+it might date back to Horace's [[https://en.wikipedia.org/wiki/Ars_Poetica_(Horace)][/Ars Poetica/]] ("prodesse et
+delectare"). I like the idea that books (and ideas!) should be both
+instructive and enjoyable...]
+
+While exploring [[./quaternions.html][quaternions]] and the theory behind them, I noticed an
+interesting pattern: in the exposition of
+cite:sola2017_quater_kinem_error_state_kalman_filter, quaternions and
+rotations matrices had exactly the same properties, and the derivation
+of these properties was rigorously identical (bar some minor notation
+changes).
+
+This is expected because in this specific case, these are just two
+representations of the same underlying object: rotations. However,
+from a purely mathematical and abstract point of view, it cannot be a
+coincidence that you can imbue two different types of objects with
+exactly the same properties.
+
+Indeed, this is not a coincidence: the important structure that is
+common to the set of rotation matrices and to the set of quaternions
+is that of a /Lie group/.
+
+In this post, I want to explain why I find Lie theory interesting,
+both in its theoretical aspects (for fun) and in its potential for
+real-world application (for profit). I will also give a minimal set of
+references that I used to get started.
+
+* Why would that be interesting?
+
+From a mathematical point of view, seeing a common structure in
+different objects, such as quaternions and rotation matrices, should
+raise alarm signals in our heads. Is there a deeper concept at play
+here? If we can find that two objects are two examples of the same
+abstract structure, maybe we'll also be able to identify that
+structure elsewhere, maybe where it's less obvious. And then, if we
+prove interesting theorems on the abstract structure, we'll
+essentially get the same theorems on every example of this structure,
+and /for free!/ (i.e. without any additional work!)[fn:structure]
+
+[fn:structure]{-} When you push that idea to its extremes, you get
+[[https://en.wikipedia.org/wiki/Category_theory][category theory]], which is just the study of (abstract) structure. This
+in a fun rabbit hole to get into, and if you're interested, I
+recommend the amazing [[https://www.math3ma.com/][math3ma]] blog, or
+cite:riehlCategoryTheoryContext2017 for a complete and approachable
+treatment.
+
+
+We can think of it as a kind of factorization: instead of doing the
+same thing over and over, we can basically do it /once/ and recall the
+general result whenever it is needed, as one would define a function
+and call it later in a piece of software.
+
+In this case, Lie theory provides a general framework for manipulating
+objects that we want to /combine/ and on which we'd like to compute
+/derivatives/. Differentiability is an essentially linear property, in
+the sense that it works best in vector spaces. Indeed, think of what
+you do to with a derivative: you want to /add/ it to other stuff to
+represent increase rates or uncertainties. (And of course, the
+differential operator itself is linear.)
+
+Once you can differentiate, a whole new world
+opens[fn:differentiability]: optimization becomes easier (because you
+can use gradient descent), you can have random variables, and so on.
+
+[fn:differentiability] This is why a lot of programming languages now
+try to make differentiability a [[https://en.wikipedia.org/wiki/Differentiable_programming][first-class concept]]. The ability to
+differentiate arbitrary programs is a huge bonus for all kinds of
+operations common in scientific computing. Pioneering advances were
+made in deep learning libraries, such as TensorFlow and PyTorch; but
+recent advances are even more exciting. [[https://github.com/google/jax][JAX]] is basically a
+differentiable Numpy, and Julia has always made differentiable
+programming a priority, via projects such as [[https://www.juliadiff.org/][JuliaDiff]] and [[https://fluxml.ai/Zygote.jl/][Zygote]].
+
+
+In the case of quaternions, we can define explicitly a differentiation
+operator, and prove that it has all the nice properties that we come
+to expect from derivatives. Wouldn't it be nice if we could have all
+of this automatically? Lie theory gives us the general framework in
+which we can imbue non-"linear" objects with differentiability.
+
+* The structure of a Lie group
+
+Continuing on the example of rotations, what common properties can we
+identify?
+
+1. Quaternions and rotation matrices can be multiplied together (to
+   compose rotations), have an identity element, along with nice
+   properties.
+2. Quaternions and rotation matrices can be differentiated, and we can
+   map them to and from usual vectors in $\mathbb{R}^m$.
+
+These two group of properties actually correspond to common
+mathematical structures: a /group/ and a /differentiable manifold/.
+
+You're probably already familiar with [[https://en.wikipedia.org/wiki/Group_(mathematics)][groups]], but let's recall the
+basic properties:
+- It's a set $G$ equipped with a binary operation $\cdot$.
+- The group is closed under the operation: for any element $x,y$ in G,
+  $x \cdot y$ is always in $G$.
+- The operation is associative: $x \cdot (y \cdot z) = (x \cdot y)
+  \cdot z$.
+- There is a special element $e$ of $G$ (called the /identity
+  element/), such that $x \cdot e = e \cdot x$ for all $x \in G$.
+- For every element $x$ of $G$, there is a unique element of $G$
+  denoted $x^{-1}$ such that $x \cdot x^{-1} = x^{-1} \cdot x = e$.
+
+A [[https://en.wikipedia.org/wiki/Differentiable_manifold][differentiable manifold]] is a more complex
+beast.[fn:differential_geometry] Although the definition is more
+complex, we can loosely imagine it as a surface (in higher dimension)
+on which we can compute derivatives at every point. This means that
+there is a tangent hyperplane at each point, which is a nice vector
+space where our derivatives will live.
+
+You can think of the manifold as a tablecloth that has a weird shape,
+all kinds of curvatures, but no edges or spikes. The idea here is that
+we can define an /atlas/, i.e. a local approximation of the manifold
+as a plane. The name is telling: they're called atlases because they
+play the exact same role as geographical maps. The Earth is not flat,
+it is a sphere with all kinds of deformations (mountains, canyons,
+oceans), but we can have planar maps that represent a small area with
+a very good precision. Similarly, atlases are the vector spaces that
+provide the best linear approximation of a small region around a point
+on the manifold.
+
+So we know what a group and a differential manifold are. As it turns
+out, that's all we need to know! What we have defined so far is a /Lie
+group/[fn:lie], i.e. a group that is also a differentiable
+manifold. The tangent vector space at the identity element is called
+the /Lie algebra/.
+
+To take the example of rotation matrices:
+- We can combine them (i.e. by matrix multiplication): they form a
+  group.
+- If we have a function $R : \mathbb{R} \rightarrow
+  \mathrm{GL}_3(\mathbb{R})$ defining a trajectory (e.g. the
+  successive attitudes of a object in space), we can find derivatives
+  of this trajectory! They would represent instantaneous orientation
+  change, or angular velocities.
+
+[fn:differential_geometry] {-} For a more complete introduction to
+differential geometry and differentiable manifolds, see
+cite:lafontaine2015_introd_differ_manif. It introduces manifolds,
+differential topology, Lie groups, and more advanced topics, all with
+little prerequisites (basics of differential calculus).
+
+[fn:lie] {-} Lie theory is named after [[https://en.wikipedia.org/wiki/Sophus_Lie][Sophus Lie]], a Norwegian
+mathematician. As such, "Lie" is pronounced /lee/. Lie was inspired by
+[[https://en.wikipedia.org/wiki/%C3%89variste_Galois][Galois']] work on algebraic equations, and wanted to establish a similar
+general theory for differential equations.
+
+* Interesting properties of Lie groups
+
+For a complete overview of Lie theory, there are a lot of interesting
+material that you can find online.[fn:princeton_companion] I
+especially recommend the tutorial by
+cite:sola2018_micro_lie_theor_state_estim_robot: just enough maths to
+understand what is going on, but without losing track of the
+applications. There is also a [[https://www.youtube.com/watch?v=QR1p0Rabuww][video tutorial]] made for the [[https://www.iros2020.org/][IROS2020]]
+conference[fn:workshop]. For a more complete treatment,
+cite:stillwell2008_naive_lie_theor is great[fn:stillwell].
+
+Because of the group structure, the manifold is similar at every
+point: in particular, all the tangent spaces look alike. This is why
+the /Lie algebra/, the tangent space at the identity, is so
+important. All tangent spaces are vector spaces isomorphic to the Lie
+algebra, therefore studying the Lie algebra is sufficient to derive
+all the interesting aspects of the Lie group.
+
+Lie algebras are always vector spaces. Even though their definition
+may be quite complex (e.g. skew-symmetric matrices in the case of the
+group of rotation matrices[fn:skewsymmetric]), we can always find an
+isomorphism of vector spaces between the Lie algebra and
+$\mathbb{R}^m$ (in the case of finite-dimensional Lie groups). This is
+really nice for many applications: for instance, the usual probability
+distributions on $\mathbb{R}^m$ translate directly to the Lie algebra.
+
+The final aspect I'll mention is the existence of /exponential maps/,
+allowing transferring elements of the Lie algebra to the Lie
+group. The operator $\exp$ will wrap an element of the Lie algebra
+(i.e. a tangent vector) to its corresponding element of the Lie group
+by wrapping along a geodesic of the manifold. There is also a
+logarithmic map providing the inverse operation.
+
+[fn::{-} The Lie group (in blue) with its associated Lie algebra
+(red). We can see how each element of the Lie algebra is wrapped on
+the manifold via the exponential map. Figure from
+cite:sola2018_micro_lie_theor_state_estim_robot.]
+#+ATTR_HTML: :width 500px
+[[../images/lie_exponential.svg]] 
+
+If all this piqued your interest, you can read a very short (only 14
+pages!) overview of Lie theory in
+cite:sola2018_micro_lie_theor_state_estim_robot. They also expand on
+applications to estimation and robotics (as the title suggests), so
+they focus on deriving Jacobians and other essential tools for any Lie
+group. They also give very detailed examples of common Lie groups
+(complex numbers, rotation matrices, quaternions, translations).
+
+[fn:princeton_companion] {-} There is also a chapter on Lie theory in
+the amazing /Princeton Companion to Mathematics/
+[[citep:gowersPrincetonCompanionMathematics2010][::, §II.48]].
+
+[fn:workshop] More specifically for the workshop on [[https://sites.google.com/view/iros2020-geometric-methods/][Bringing geometric
+methods to robot learning, optimization and control]].
+
+[fn:stillwell] I really like John Stillwell as a textbook author. All
+his books are extremely clear and a pleasure to read.
+
+[fn:skewsymmetric] {-} [[https://en.wikipedia.org/wiki/Skew-symmetric_matrix][Skew-symmetric matrices]] are matrices $A$ such
+that $A^\top = -A$:
+\[ [\boldsymbol\omega]_\times = \begin{bmatrix}
+0 & -\omega_x & \omega_y \\
+\omega_x & 0 & -\omega_z \\
+-\omega_y & \omega_z & 0
+\end{bmatrix}. \]
+
+* Conclusion
+
+Lie theory is useful because it gives strong theoretical guarantees
+whenever we need to linearize something. If you have a system evolving
+on a complex geometric structure (for example, the space of rotations,
+which is definitely not linear), but you need to use a linear
+operation (if you need uncertainties, or you have differential
+equations), you have to approximate somehow. Using the Lie structure
+of the underlying space, you immediately get a principled way of
+defining derivatives, random variables, and so on.
+
+Therefore, for estimation problems, Lie theory provides a strong
+backdrop to define state spaces, in which all the usual manipulations
+are possible. It has thus seen a spike of interest in the robotics
+literature, with applications to estimation, optimal control, general
+optimization, and many other fields.
+
+I hope that this quick introduction has motivated you to learn more
+about Lie theory, as it is a fascinating topic with a lot of
+potential!
+
+* References
