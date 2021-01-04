@@ -54,17 +54,11 @@ main = hakyll $ do
       >>= loadAndApplyTemplate "templates/default.html" postCtx
       >>= relativizeUrls
 
-  match "projects/*" $ do
-    route $ setExtension "html"
-    compile $ customPandocCompiler False
-      >>= loadAndApplyTemplate "templates/project.html" postCtx
-      >>= loadAndApplyTemplate "templates/default.html" postCtx
-      >>= relativizeUrls
-
   match (fromList ["contact.org", "cv.org", "skills.org", "projects.org"]) $ do
     route $ setExtension "html"
     compile $ customPandocCompiler False
       >>= return . fmap demoteHeaders
+      >>= loadAndApplyTemplate "templates/post.html"    postCtx
       >>= loadAndApplyTemplate "templates/default.html" defaultContext
       >>= relativizeUrls
 
@@ -78,19 +72,6 @@ main = hakyll $ do
             defaultContext
       makeItem ""
         >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
-        >>= loadAndApplyTemplate "templates/default.html" archiveCtx
-        >>= relativizeUrls
-
-  create ["projects.html"] $ do
-    route idRoute
-    compile $ do
-      posts <- recentFirst =<< loadAll "projects/*"
-      let archiveCtx =
-            listField "projects" postCtx (return posts) `mappend`
-            constField "title" "Projects"               `mappend`
-            defaultContext
-      makeItem ""
-        >>= loadAndApplyTemplate "templates/projects.html" archiveCtx
         >>= loadAndApplyTemplate "templates/default.html" archiveCtx
         >>= relativizeUrls
 

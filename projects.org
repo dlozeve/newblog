@@ -1,0 +1,91 @@
+---
+title: Projects
+---
+
+* Academic projects
+
+ [fn::{-} [[./images/communities.png]]]
+
+** Master's thesis: [[https://github.com/dlozeve/tda-networks][Topological Data Analysis of time-dependent networks]]
+
+Application of the recent advances in Topological Data Analysis (TDA)
+and Persistent Homology to periodicity detection in temporal
+networks. [[./files/tdanetworks.pdf][Master's thesis dissertation]].
+
+** [[https://github.com/dlozeve/community-detection][Community detection]]
+
+Community detection algorithms and applications to a large social
+network obtained from Prestashop data. [[https://dlozeve.github.io/reveal_CommunityDetection/#/][Slides (in French)]].
+
+* Personal projects
+
+** [[https://github.com/dlozeve/ising-model][Ising model simulation]]
+
+ [fn::{-} [[./images/ising.gif]]]
+
+Monte Carlo simulation of the [[https://en.wikipedia.org/wiki/Ising_model][Ising model]] using
+Metropolis-Hastings. [[./posts/ising-model.html][Associated blog post.]] (Clojure)
+
+** [[https://github.com/dlozeve/lsystems][L-systems]]
+
+Generate and draw L-systems. (Haskell)
+
+** [[https://github.com/dlozeve/reaction-diffusion][Reaction-diffusion system]]
+
+ [fn::{-} [[./images/reactiondiffusion.png]]]
+
+[[https://en.wikipedia.org/wiki/Reaction%E2%80%93diffusion_system][Reaction-Diffusion system]] simulation using the Gray-Scott
+model. ([[https://www.dyalog.com/][Dyalog APL]])
+
+** [[https://github.com/dlozeve/GardenOptim][GardenOptim]]
+
+Optimization of a vegetable garden: optimal allocation of plant
+species on a non-rectangular garden subdivided in individual cells,
+with constraints from an affinity matrix between neighboring
+species. Uses mixed integer quadratic programming and Markov chain
+Monte Carlo.
+
+** [[https://github.com/dlozeve/Satrap][Satrap]]
+
+Simple ARP spoofer, allowing for interception and modification of all
+communications between two targets. It sends ARP packets to perform a
+man-in-the-middle attack. (C)
+
+** [[https://github.com/dlozeve/orbit][Orbit]]
+
+[[https://en.wikipedia.org/wiki/N-body_simulation][N-body]] simulator. (Haskell)
+
+** [[https://github.com/dlozeve/Civilisation-hs][Civilisation]]
+
+[[https://en.wikipedia.org/wiki/Boolean_satisfiability_problem][SAT solver]], using the [[https://en.wikipedia.org/wiki/DPLL_algorithm][Davis-Putnam-Logemann-Loveland]] (DPLL)
+algorithm. (Haskell)
+
+** [[https://dlozeve.github.io/ww2-bombings][WWII bombing visualization]]
+
+Every allied bombing during WWII, mapped over the whole world. The
+data has been released by the U.S. Department of Defense [[https://data.world/datamil/world-war-ii-thor-data][here]].
+
+** [[https://dlozeve.github.io/adsb][ADS-B data visualization]]
+
+Visualization of plane trajectories over Northeastern France. The data
+was gathered using a Software Defined Radio to listen to aircrafts.
+
+* Challenges and competitions
+
+- [[https://www.dyalogaplcompetition.com/][2020 APL Problem Solving Competition]]
+  - My submission [[https://github.com/dlozeve/apl-competition-2020][on GitHub]]
+  - Accompanying blog posts with explanations: [[./posts/dyalog-apl-competition-2020-phase-1.html][Phase I]] and [[./posts/dyalog-apl-competition-2020-phase-2.html][Phase II]]
+- 2018 APL Problem Solving Competition
+  - My submission [[https://github.com/dlozeve/apl-competition-2018][on GitHub]]
+  - Nominated as a [[https://www.dyalog.com/nnews/128/456/Winners-Announced-for-the-2018-APL-Programming-Contest.htm][Phase I winner]]
+- [[https://adventofcode.com/][Advent of code]]
+  - [[https://github.com/dlozeve/aoc2020][2020]] (50 ★) (Racket, C, Dyalog APL)
+  - [[https://github.com/dlozeve/aoc2019][2019]] (Racket, Common Lisp, Dyalog APL)
+  - [[https://github.com/dlozeve/aoc2018][2018]] (Scheme, Dyalog APL)
+  - [[https://github.com/dlozeve/aoc2017][2017]] (Haskell, Scheme)
+- [[https://github.com/dlozeve/DocAssist][DocAssist]]: hackathon project made during [[http://oxfordhack.com/][OxfordHack]] 2017
+  - Automate record and diagnosis tracking for medical practitioners
+  - Automatically extract meaningful data from conversations with
+    patients
+  - Automatic speech recognition, entity extraction, recommendation
+    system, and knowledge extraction
