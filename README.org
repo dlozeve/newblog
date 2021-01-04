@@ -1,1 +1,16 @@
 * Personal blog
+
+** Setup
+
+#+begin_src sh
+  yarn add netlify-cli
+  netlify login  # login to Netlify
+  netlify link  # link the directory to the site
+#+end_src
+
+** Deploy
+
+#+begin_src sh
+  # deploy, omit "--prod" if you want to preview
+  netlify deploy --dir=_site --prod
+#+end_src

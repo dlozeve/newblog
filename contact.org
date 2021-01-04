@@ -2,12 +2,17 @@
 title: Contact
 ---
 
-- *[[https://jedisct1.github.io/minisign/][minisign]] public key* :: RWQ6uexORp8f7USHA7nX9lFfltaCA9x6aBV06MvgiGjUt6BVf6McyD26
-- *E-mail*              :: dimitri+web [at] lozeve [dot] com
-- *GitHub*              :: [[https://github.com/dlozeve/][dlozeve]]
-- *LinkedIn*            :: [[https://www.linkedin.com/in/dimitrilozeve][Dimitri Lozeve]]
-- *StackOverflow*       :: [[https://stackoverflow.com/story/dimitrilozeve][dimitrilozeve]]
-- *Twitter*             :: [[https://twitter.com/DimitriLozeve][DimitriLozeve]]
+- *E-mail:* [myfirstname]@[mylastname].com
+
+- *GitHub:* [[https://github.com/dlozeve/][github.com/dlozeve]]
+
+- *LinkedIn:* [[https://www.linkedin.com/in/dimitrilozeve][/in/dimitrilozeve]]
+
+- *Twitter:* [[https://twitter.com/DimitriLozeve][DimitriLozeve]]
+
+# - *StackOverflow:* [[https://stackoverflow.com/story/dimitrilozeve][dimitrilozeve]]
+
+- *[[https://jedisct1.github.io/minisign/][minisign]] public key:* RWQ6uexORp8f7USHA7nX9lFfltaCA9x6aBV06MvgiGjUt6BVf6McyD26
 
 
 

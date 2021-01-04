@@ -126,7 +126,7 @@ title: "Curriculum Vitæ"
 
    *SQL:* Basics
 
-   *Haskell, Lisp (Scheme):* Hobby projects ([[https://github.com/dlozeve/orbit][N-body simulation]], [[https://github.com/dlozeve/Civilisation-hs][SAT solver]], [[https://github.com/dlozeve/aoc2017][Advent of Code 2017]])
+   *Haskell, Lisp (Scheme, Racket):* Hobby projects ([[https://github.com/dlozeve/orbit][N-body simulation]], [[https://github.com/dlozeve/Civilisation-hs][SAT solver]], [[https://github.com/dlozeve/aoc2017][Advent of Code 2017]], [[https://github.com/dlozeve/aoc2018][Advent of Code 2018]], [[https://github.com/dlozeve/aoc2019][Advent of Code 2019]], [[https://github.com/dlozeve/aoc2020][Advent of Code 2020]])
 
    *Software:* Git, GNU/Linux, LaTeX, [[https://aws.amazon.com/][Amazon AWS]], [[https://www.mongodb.com/][MongoDB]], [[https://www.wolfram.com/mathematica/][Wolfram Mathematica]], Microsoft Office
 

@@ -1,5 +1,6 @@
 ---
 title: "Skills in Statistics, Data Science and Machine Learning"
+date: 2018-06-30
 ---
 
 
