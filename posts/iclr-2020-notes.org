@@ -1,6 +1,7 @@
 ---
 title: "ICLR 2020 Notes: Speakers and Workshops"
 date: 2020-05-05
+tags: conference, machine learning, reinforcement learning, nlp
 toc: true
 ---
 

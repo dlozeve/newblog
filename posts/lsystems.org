@@ -2,7 +2,7 @@
 title: Generating and representing L-systems
 author: Dimitri Lozeve
 date: 2018-01-18
-tags: lsystems visualization algorithms haskell
+tags: visualization, haskell
 toc: true
 ---
 

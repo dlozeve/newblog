@@ -1,6 +1,7 @@
 ---
 title: "Quick Notes on Reinforcement Learning"
 date: 2018-11-21
+tags: machine learning, reinforcement learning
 ---
 
 * Introduction

@@ -1,6 +1,7 @@
 ---
 title: "Online Analysis of Medical Time Series"
 date: 2020-11-17
+tags: paper, statistics, medical, time series
 toc: false
 ---
 

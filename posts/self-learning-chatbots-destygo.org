@@ -1,6 +1,7 @@
 ---
 title: "Mindsay: Towards Self-Learning Chatbots"
 date: 2019-04-06
+tags: chatbots, nlp, machine learning, reinforcement learning
 ---
 
 Last week I made a presentation at the [[https://www.meetup.com/Paris-NLP/][Paris NLP Meetup]], on how we

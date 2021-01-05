@@ -2,6 +2,7 @@
 title: "Dyalog APL Problem Solving Competition 2020 — Phase II"
 subtitle: "Annotated Solutions"
 date: 2020-08-02
+tags: programming, apl
 toc: true
 ---
 

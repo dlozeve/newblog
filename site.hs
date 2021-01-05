@@ -42,6 +42,22 @@ main = hakyll $ do
 
   match "csl/*" $ compile cslCompiler
 
+  tags <- buildTags "posts/*" (fromCapture "tags/*.html")
+
+  tagsRules tags $ \tag pattern -> do
+    let title = "Posts tagged \"" ++ tag ++ "\""
+    route idRoute
+    compile $ do
+        posts <- recentFirst =<< loadAll pattern
+        let ctx = constField "title" title
+                  <> listField "posts" (postCtxWithTags tags) (return posts)
+                  <> defaultContext
+
+        makeItem ""
+            >>= loadAndApplyTemplate "templates/tag.html" ctx
+            >>= loadAndApplyTemplate "templates/default.html" ctx
+            >>= relativizeUrls
+
   match "posts/*" $ do
     route $ setExtension "html"
     compile $ do
@@ -49,9 +65,9 @@ main = hakyll $ do
       toc <- getMetadataField underlying "toc"
       customPandocCompiler (toc == Just "yes" || toc == Just "true")
       >>= return . fmap demoteHeaders
-      >>= loadAndApplyTemplate "templates/post.html"    postCtx
+      >>= loadAndApplyTemplate "templates/post.html" (postCtxWithTags tags)
       >>= saveSnapshot "content"
-      >>= loadAndApplyTemplate "templates/default.html" postCtx
+      >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
       >>= relativizeUrls
 
   match (fromList ["contact.org", "cv.org", "skills.org", "projects.org"]) $ do
@@ -113,6 +129,9 @@ postCtx :: Context String
 postCtx =
   dateField "date" "%B %e, %Y" `mappend`
   defaultContext
+
+postCtxWithTags :: Tags -> Context String
+postCtxWithTags tags = tagsField "tags" tags <> postCtx
 
 feedCtx :: Context String
 feedCtx = postCtx <> bodyField "description"

@@ -2,6 +2,7 @@
 title: Ising model simulation in APL
 date: 2018-03-05
 tags: ising simulation montecarlo apl
+tags: apl, statistics, visualization
 toc: true
 ---
 

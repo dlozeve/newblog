@@ -1,6 +1,7 @@
 ---
 title: "Learning some Lie theory for fun and profit "
 date: 2020-11-14
+tags: maths, linear algebra, dynamical systems
 toc: false
 ---
 
