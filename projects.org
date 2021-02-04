@@ -83,6 +83,13 @@ was gathered using a Software Defined Radio to listen to aircrafts.
   - [[https://github.com/dlozeve/aoc2019][2019]] (Racket, Common Lisp, Dyalog APL)
   - [[https://github.com/dlozeve/aoc2018][2018]] (Scheme, Dyalog APL)
   - [[https://github.com/dlozeve/aoc2017][2017]] (Haskell, Scheme)
+- [[http://www.boundvariable.org/task.shtml][2006 ICFP Programming Contest]]: "The Cult of the Bound Variable"
+  (partial)
+  - Implementation of a [[https://github.com/dlozeve/bound-variable][virtual machine]] in C for a simple 32-bit
+    architecture with 14 instructions, with register, heap, array
+    allocation and deallocation, and character-based input and output
+- [[https://challenge.synacor.com/][Synacor Challenge]] (partial)
+  - Implementation of the [[https://github.com/dlozeve/synacor][virtual machine]] in C
 - [[https://github.com/dlozeve/DocAssist][DocAssist]]: hackathon project made during [[http://oxfordhack.com/][OxfordHack]] 2017
   - Automate record and diagnosis tracking for medical practitioners
   - Automatically extract meaningful data from conversations with
