@@ -213,7 +213,7 @@ to start!) If you'd rather use Python, you can use Google's [[https://developers
 or [[https://github.com/coin-or/pulp][PuLP]] for linear programming.
 
 [fn:jump] {-}
-#+ATTR_HTML: :width 250px
+#+ATTR_HTML: :width 250px :style background-color: #cccccc;
 [[file:/images/or_references/jump.svg]]
 
 

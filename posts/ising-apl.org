@@ -136,7 +136,7 @@ Ising←{' ⌹'[1+1=({10 U ⍵}⍣⍵)L ⍺]}
 Final output, with a $80\times 80$ random lattice, after 50000 update
 steps:
 
-#+BEGIN_SRC apl
+#+BEGIN_SRC default
       80ising.Ising 50000
    ⌹⌹⌹⌹ ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹       ⌹⌹⌹⌹⌹      ⌹⌹⌹⌹       ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹          
    ⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹     ⌹⌹⌹⌹⌹        ⌹⌹⌹⌹⌹      ⌹⌹⌹⌹⌹⌹ ⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹⌹           
