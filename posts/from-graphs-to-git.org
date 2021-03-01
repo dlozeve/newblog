@@ -1,0 +1,295 @@
+---
+title: "From graphs to Git"
+date: 2021-03-01
+tags: git
+toc: true
+---
+
+* Introduction
+
+This is an introduction to Git from a graph theory point of view. In
+my view, most introductions to Git focus on the actual commands or on
+Git internals. In my day-to-day work, I realized that I consistently
+rely on an internal model of the repository as a directed acyclic
+graph. This is not something very original, many people have said the
+same thing, to the point that it is a running joke (TODO: insert links
+here). However, I have not seen a comprehensive introduction to Git
+from this point of view.
+
+How to actually use the command line is not the topic of this article,
+you can refer to the man pages or the excellent [[https://git-scm.com/book/en/v2][/Pro Git/]] book. I will
+reference the relevant Git commands as margin notes.
+
+My target audience is basically myself a few years ago: background in
+maths and computer science, but no direct experience of large-scale
+codebases in Git. I also assume that we are curious about the internal
+model of Git: if you only want a quick fix for your latest mistake but
+don't care about understanding what's going on, this post is not for
+you.
+
+This post is also highly opinionated about what I consider important
+when working on production codebases in a professional setting. Of
+course, this is highly coloured by my personal experience, and your
+needs may vary. If there is something essential that you think is
+missing here, please don't hesitate to [[../contact.html][contact me]]!
+
+* Concepts: understanding the graph
+
+** Repository
+
+The basic object in Git is the /commit/. It is constituted of three
+things: a set of parent commits (at least one, except for the initial
+commit), a diff representing changes (some lines are removed, some are
+added), and a commit message. It also has a name[fn:hash], so that we
+can refer to it if needed.
+
+[fn:hash] Actually, each commit gets a SHA-1 hash that identifies it
+uniquely. The hash is computed from the parents, the messages, and the
+diff.
+
+
+A /repository/ is fundamentally just a directed acyclic graph
+(DAG)[fn:graph], where nodes are commits and links are parent-child
+relationships. A DAG means that two essential properties are verified
+at all time by the graph:
+- it is /oriented/, and the direction always go from parent to child,
+- it is /acyclic/, otherwise a commit could end up being an ancestor
+  of itself.
+As you can see, these make perfect sense in the context of a
+version-tracking system.
+
+[fn:graph] {-} You can visualize the graph of a repo, or just a subset
+of it, using [[https://git-scm.com/docs/git-log][=git log=]].
+
+
+Here is an example of a repo:
+[[file:/images/git-graphs/repo.svg]]
+
+In this representation, each commit points to its children, and they
+were organized from left to right as in a timeline. The /initial
+commit/ is the first one, the root of the graph, on the far left.
+
+Note that a commit can have multiple children, and multiple parents
+(we'll come back to these specific commits later).
+
+The entirety of Git operations can be understood in terms of
+manipulations of the graph. In the following sections, we'll list the
+different actions we can take to modify the graph.
+
+** Naming things: branches and tags
+
+Some commits can be annotated: they can have a named label attached to
+them, that reference a specific commit.
+
+For instance, =HEAD= references the current commit: your current
+position in the graph[fn:checkout]. This is just a convenient name for
+the current commit.[fn::Much like how =.= is a shorthand for the
+current directory when you're navigating the filesystem.]
+
+[fn:checkout] {-} Move around the graph (i.e. move the =HEAD=
+pointer), using [[https://git-scm.com/docs/git-checkout][=git checkout=]]. You can give it commit hashes, branch
+names, tag names, or relative positions like =HEAD~3= for the
+great-grandparent of the current commit.
+
+
+/Branches/ are other labels like this. Each of them has a
+name and acts a simple pointer to a commit. Once again, this is simply
+an alias, in order to have meaningful names when navigating the graph.
+
+[[file:/images/git-graphs/repo_labels.svg]]
+
+In this example, we have three branches: =master=, =feature=, and
+=bugfix=[fn::Do not name your real branches like this! Find a
+meaningful name describing what changes you are making.].
+
+/Tags/[fn:branch-tag] are another kind of label, once again pointing to a particular
+commit. The main difference with branches is that branches may move
+(you can change the commit they point to if you want), whereas tags
+are fixed forever.
+
+[fn:branch-tag] {-} Create branches and tags with the
+appropriately-named [[https://git-scm.com/docs/git-branch][=git branch=]] and [[https://git-scm.com/docs/git-tag][=git tag=]].
+
+
+** Making changes: creating new commits
+
+When you make some changes in your files, you will then record them in
+the repo by committing them[fn:commit]. The action creates a new
+commit, whose parent will be the current commit. For instance, in the
+previous case where you were on =master=, the new repo after
+committing will be (the new commit is in green):
+
+[fn:commit] {-} To the surprise of absolutely no one, this is done
+with [[https://git-scm.com/docs/git-commit][=git commit=]].
+
+
+[[file:/images/git-graphs/repo_labels_commit.svg]]
+
+Two significant things happened here:
+- Your position on the graph changed: =HEAD= points to the new commit
+  you just created.
+- More importantly: =master= moved as well. This is the main property
+  of branches: instead of being "dumb" labels pointing to commits,
+  they will automatically move when you add new commits on top of
+  them. (Note that this won't be the case with tags, which always
+  point to the same commit no matter what.)
+
+If you can add commits, you can also remove them (if they don't have
+any children, obviously). However, very often it is better to add a
+commit that will /revert/[fn:revert] the changes of another commit
+(i.e. apply the opposite changes). This way, you keep track of what's
+been done to the repository structure, and you do not lose the
+reverted changes (should you need to re-apply them in the future).
+
+[fn:revert] {-} Create a revert commit with [[https://git-scm.com/docs/git-revert][=git revert=]], and remove a
+commit with [[https://git-scm.com/docs/git-reset][=git reset=]] *(destructive!)*.
+
+
+** Merging
+
+There is a special type of commits: /merge commits/, which have more
+than one parent (for example, the fifth commit from the left in the
+graph above).[fn:merge:{-} As can be expected, the command is [[https://git-scm.com/docs/git-merge][=git
+merge=]].]
+
+At this point, we need to talk about /conflicts/. Until now, every
+action was simple: we can move around, add names, and add some
+changes. But now we are trying to reconcile two different versions
+into a single one. These two versions can be incompatible, and in this
+case the merge commit will have to choose which lines of each version
+to keep. If however, there is no conflict, the merge commit will be
+empty: it will have two parents, but will not contain any changes
+itself.
+
+** Moving commits: rebasing and squashing
+
+Until now, all the actions we've seen were append-only. We were only
+adding stuff, and it would be easy to just remove a node from the
+graph, and to move the various labels accordingly, to return to the
+previous state.
+
+But sometimes, we want to do more complex manipulation of the graph:
+moving a commit and all its descendants to another location in the
+graph. This is called a /rebase/.[fn:rebase:{-} That you can perform
+with [[https://git-scm.com/docs/git-rebase][=git rebase=]] *(destructive!)*.]
+
+[[file:/images/git-graphs/repo_labels_rebase.svg]]
+
+In this case, we moved the branch =feature= from its old position (in
+red) to a new one on top of =master= (in green).
+
+When I say "move the branch =feature=", I actually mean something
+slightly different than before. Here, we don't just move the label
+=feature=, but also the entire chain of commits starting from the one
+pointed by =feature= up to the common ancestor of =feature= and its
+base branch (here =master=).
+
+In practice, what we have done is deleted three commits, and added
+three brand new commits. Git actually helps us here by creating
+commits with the exact same changes. Sometimes, it is not possible to
+apply the same changes exactly because the original version is not the
+same. For instance, if one of the commits changed a line that no
+longer exist in the new base, there will be a conflict. When rebasing,
+you may have to manually resolve these conflicts, similarly to a
+merge.
+
+It is often interesting to rebase before merging, because then we can
+avoid merge commits entirely. Since =feature= has been rebased on top
+of =master=, when merging =feature= onto =master=, we can just
+/fast-forward/ =master=, in effect just moving the =master= label
+where =feature= is:[fn:fastforward]
+
+[fn:fastforward] {-} You can control whether or not =git merge= does a
+fast-forward with the =--ff-only= and =--no-ff= flags.
+
+
+[[file:/images/git-graphs/repo_labels_ff.svg]]
+
+Another manipulation that we can do on the graph is /squashing/,
+i.e. lumping several commits together in a single one.[fn:squash:{-}
+Use [[https://git-scm.com/docs/git-squash][=git squash=]] *(destructive!)*.]
+
+[[file:/images/git-graphs/repo_labels_squash.svg]]
+
+Here, the three commits of the =feature= branch have been condensed
+into a single one. No conflict can happen, but we lose the history of
+the changes. Squashing may be useful to clean up a complex history.
+
+Squashing and rebasing, taken together, can be extremely powerful
+tools to entirely rewrite the history of a repo. With them, you can
+reorder commits, squash them together, moving them elsewhere, and so
+on. However, these commands are also extremely dangerous: since you
+overwrite the history, there is a lot of potential for conflicts and
+general mistakes. By contrast, merges are very safe: even if there are
+conflicts and you have messed them up, you can always remove the merge
+commit and go back to the previous state. But when you rebase a set of
+commits and mess up the conflict resolution, there is no going back:
+the history has been lost forever, and you generally cannot recover
+the original state of the repository.
+
+* Remotes: sharing your work with others
+
+You can use Git as a simple version tracking system for your own
+projects, on your own computer. But most of the time, Git is used to
+collaborate with other people. For this reason, Git has an elaborate
+system for sharing changes with others. The good news is: everything
+is still represented in the graph! There is nothing fundamentally
+different to understand.
+
+When two different people work on the same project, each will have a
+version of the repository locally. Let's say that Alice and Bob are
+both working on our project.
+
+Alice has made a significant improvement to the project, and has
+created several commits, that are tracked in the =feature= branch she
+has created locally. The graph above (after rebasing) represents
+Alice's repository. Bob, meanwhile, has the same repository but
+without the =feature= branch. How can they share their work? Alice can
+send the commits from =feature= to the common ancestor of =master= and
+=feature= to Bob. Bob will see this branch as part of a /remote/
+graph, that will be superimposed on his graph: [fn:remote]
+
+[fn:remote] {-} You can add, remove, rename, and generally manage
+remotes with [[https://git-scm.com/docs/git-remote][=git remote=]]. To transfer data between you and a remote,
+use [[https://git-scm.com/docs/git-fetch][=git fetch=]], [[https://git-scm.com/docs/git-pull][=git pull=]] (which fetches and merges in your local
+branch automatically), and [[https://git-scm.com/docs/git-push][=git push=]].
+
+
+[[file:/images/git-graphs/repo_labels_bob.svg]]
+
+The branch name he just got from Alice is prefixed by the name of the
+remote, in this case =alice=. These are just ordinary commits, and an
+ordinary branch (i.e. just a label on a specific commit).
+
+Now Bob can see Alice's work, and has some idea to improve on it. So
+he wants to make a new commit on top of Alice's changes. But the
+=alice/feature= branch is here to track the state of Alice's
+repository, so he just creates a new branch just for him named
+=feature=, where he add a commit:
+
+[[file:/images/git-graphs/repo_labels_bob2.svg]]
+
+Similarly, Alice can now retrieve Bob's work, and will have a new
+branch =bob/feature= with the additional commit. If she wants, she can
+now incorporate the new commit to her own branch =feature=, making her
+branches =feature= and =bob/feature= identical:
+
+[[file:/images/git-graphs/repo_labels_alice.svg]]
+
+As you can see, sharing work in Git is just a matter of having
+additional branches that represent the graph of other people. Some
+branches are shared among different people, and in this case you will
+have several branches, each prefixed with the name of the
+remote. Everything is still represented simply in a single graph.
+
+* Additional concepts
+
+Unfortunately, some things are not captured in the graph
+directly. Most notably, the [[https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository][staging area]] used for selecting changes
+for committing, [[https://git-scm.com/book/en/v2/Git-Tools-Stashing-and-Cleaning][stashing]], and [[https://git-scm.com/book/en/v2/Git-Tools-Submodules][submodules]] greatly extend the
+capabilities of Git beyond simple graph manipulations. You can read
+about all of these in /Pro Git/.
+
+* Internals
+
+* References

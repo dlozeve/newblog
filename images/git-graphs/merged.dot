@@ -1,0 +1,4 @@
+digraph merged {
+    node[group=merged];
+    m2 -> r1 -> r2 -> m5;
+}

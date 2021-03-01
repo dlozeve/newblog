@@ -1,0 +1,4 @@
+digraph bugfix {
+    node[group=bugfix];
+    b1 -> b2;
+}
