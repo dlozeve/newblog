@@ -231,13 +231,13 @@
 <!-- f4 -->
 <g id="node18" class="node">
 <title>f4</title>
-<ellipse fill="#ff0000" stroke="#ff0000" cx="473.4" cy="-53.5" rx="5.4" ry="5.4"/>
+<ellipse fill="#00ffff" stroke="#00ffff" cx="473.4" cy="-53.5" rx="5.4" ry="5.4"/>
 </g>
 <!-- f3&#45;&gt;f4 -->
 <g id="edge18" class="edge">
 <title>f3&#45;&gt;f4</title>
-<path fill="none" stroke="#ff0000" d="M432.3386,-55.2548C439.645,-54.9425 452.4437,-54.3956 461.8149,-53.9951"/>
-<polygon fill="#ff0000" stroke="#ff0000" points="462.0005,-56.0892 467.9053,-53.7348 461.8211,-51.893 462.0005,-56.0892"/>
+<path fill="none" stroke="#00ffff" d="M432.3386,-55.2548C439.645,-54.9425 452.4437,-54.3956 461.8149,-53.9951"/>
+<polygon fill="#00ffff" stroke="#00ffff" points="462.0005,-56.0892 467.9053,-53.7348 461.8211,-51.893 462.0005,-56.0892"/>
 </g>
 <!-- feature -->
 <g id="node24" class="node">

@@ -115,13 +115,13 @@
 <!-- bobf1 -->
 <g id="node19" class="node">
 <title>bobf1</title>
-<ellipse fill="#00ff00" stroke="#00ff00" cx="333" cy="-11.5" rx="5.4" ry="5.4"/>
+<ellipse fill="#00ffff" stroke="#00ffff" cx="333" cy="-11.5" rx="5.4" ry="5.4"/>
 </g>
 <!-- m7&#45;&gt;bobf1 -->
 <g id="edge22" class="edge">
 <title>m7&#45;&gt;bobf1</title>
-<path fill="none" stroke="#00ff00" d="M288.4573,-111.4356C295.6672,-95.2595 318.2505,-44.5919 328.2055,-22.257"/>
-<polygon fill="#00ff00" stroke="#00ff00" points="330.1305,-23.0961 330.6551,-16.7609 326.2943,-21.3862 330.1305,-23.0961"/>
+<path fill="none" stroke="#00ffff" d="M288.4573,-111.4356C295.6672,-95.2595 318.2505,-44.5919 328.2055,-22.257"/>
+<polygon fill="#00ffff" stroke="#00ffff" points="330.1305,-23.0961 330.6551,-16.7609 326.2943,-21.3862 330.1305,-23.0961"/>
 </g>
 <!-- m9 -->
 <g id="node9" class="node">
@@ -231,13 +231,13 @@
 <!-- f4 -->
 <g id="node18" class="node">
 <title>f4</title>
-<ellipse fill="#ffffff" stroke="#ffffff" cx="473.4" cy="-53.5" rx="5.4" ry="5.4"/>
+<ellipse fill="#00ffff" stroke="#00ffff" cx="473.4" cy="-53.5" rx="5.4" ry="5.4"/>
 </g>
 <!-- f3&#45;&gt;f4 -->
 <g id="edge18" class="edge">
 <title>f3&#45;&gt;f4</title>
-<path fill="none" stroke="#ffffff" d="M432.3386,-55.2548C439.645,-54.9425 452.4437,-54.3956 461.8149,-53.9951"/>
-<polygon fill="#ffffff" stroke="#ffffff" points="462.0005,-56.0892 467.9053,-53.7348 461.8211,-51.893 462.0005,-56.0892"/>
+<path fill="none" stroke="#00ffff" d="M432.3386,-55.2548C439.645,-54.9425 452.4437,-54.3956 461.8149,-53.9951"/>
+<polygon fill="#00ffff" stroke="#00ffff" points="462.0005,-56.0892 467.9053,-53.7348 461.8211,-51.893 462.0005,-56.0892"/>
 </g>
 <!-- feature -->
 <g id="node25" class="node">
@@ -253,35 +253,35 @@
 <!-- bobf2 -->
 <g id="node20" class="node">
 <title>bobf2</title>
-<ellipse fill="#00ff00" stroke="#00ff00" cx="379.8" cy="-11.5" rx="5.4" ry="5.4"/>
+<ellipse fill="#00ffff" stroke="#00ffff" cx="379.8" cy="-11.5" rx="5.4" ry="5.4"/>
 </g>
 <!-- bobf1&#45;&gt;bobf2 -->
 <g id="edge19" class="edge">
 <title>bobf1&#45;&gt;bobf2</title>
-<path fill="none" stroke="#00ff00" d="M338.7386,-11.5C346.045,-11.5 358.8437,-11.5 368.2149,-11.5"/>
-<polygon fill="#00ff00" stroke="#00ff00" points="368.3054,-13.6001 374.3053,-11.5 368.3053,-9.4001 368.3054,-13.6001"/>
+<path fill="none" stroke="#00ffff" d="M338.7386,-11.5C346.045,-11.5 358.8437,-11.5 368.2149,-11.5"/>
+<polygon fill="#00ffff" stroke="#00ffff" points="368.3054,-13.6001 374.3053,-11.5 368.3053,-9.4001 368.3054,-13.6001"/>
 </g>
 <!-- bobf3 -->
 <g id="node21" class="node">
 <title>bobf3</title>
-<ellipse fill="#00ff00" stroke="#00ff00" cx="426.6" cy="-11.5" rx="5.4" ry="5.4"/>
+<ellipse fill="#00ffff" stroke="#00ffff" cx="426.6" cy="-11.5" rx="5.4" ry="5.4"/>
 </g>
 <!-- bobf2&#45;&gt;bobf3 -->
 <g id="edge20" class="edge">
 <title>bobf2&#45;&gt;bobf3</title>
-<path fill="none" stroke="#00ff00" d="M385.5386,-11.5C392.845,-11.5 405.6437,-11.5 415.0149,-11.5"/>
-<polygon fill="#00ff00" stroke="#00ff00" points="415.1054,-13.6001 421.1053,-11.5 415.1053,-9.4001 415.1054,-13.6001"/>
+<path fill="none" stroke="#00ffff" d="M385.5386,-11.5C392.845,-11.5 405.6437,-11.5 415.0149,-11.5"/>
+<polygon fill="#00ffff" stroke="#00ffff" points="415.1054,-13.6001 421.1053,-11.5 415.1053,-9.4001 415.1054,-13.6001"/>
 </g>
 <!-- bobf4 -->
 <g id="node22" class="node">
 <title>bobf4</title>
-<ellipse fill="#00ff00" stroke="#00ff00" cx="473.4" cy="-11.5" rx="5.4" ry="5.4"/>
+<ellipse fill="#00ffff" stroke="#00ffff" cx="473.4" cy="-11.5" rx="5.4" ry="5.4"/>
 </g>
 <!-- bobf3&#45;&gt;bobf4 -->
 <g id="edge21" class="edge">
 <title>bobf3&#45;&gt;bobf4</title>
-<path fill="none" stroke="#00ff00" d="M432.3386,-11.5C439.645,-11.5 452.4437,-11.5 461.8149,-11.5"/>
-<polygon fill="#00ff00" stroke="#00ff00" points="461.9054,-13.6001 467.9053,-11.5 461.9053,-9.4001 461.9054,-13.6001"/>
+<path fill="none" stroke="#00ffff" d="M432.3386,-11.5C439.645,-11.5 452.4437,-11.5 461.8149,-11.5"/>
+<polygon fill="#00ffff" stroke="#00ffff" points="461.9054,-13.6001 467.9053,-11.5 461.9053,-9.4001 461.9054,-13.6001"/>
 </g>
 <!-- bob/feature -->
 <g id="node24" class="node">

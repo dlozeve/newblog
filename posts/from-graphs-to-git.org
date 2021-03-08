@@ -1,7 +1,7 @@
 ---
 title: "From graphs to Git"
-date: 2021-03-01
-tags: git
+date: 2021-03-08
+tags: git, graphs
 toc: true
 ---
 
@@ -11,21 +11,24 @@ This is an introduction to Git from a graph theory point of view. In
 my view, most introductions to Git focus on the actual commands or on
 Git internals. In my day-to-day work, I realized that I consistently
 rely on an internal model of the repository as a directed acyclic
-graph. This is not something very original, many people have said the
-same thing, to the point that it is a running joke (TODO: insert links
-here). However, I have not seen a comprehensive introduction to Git
-from this point of view.
+graph. I also tend to use this point of view when explaining my
+workflow to other people, with some success. This is definitely not
+original, many people have said the same thing, to the point that it
+is a [[https://xkcd.com/1597/][running joke]]. However, I have not seen a comprehensive
+introduction to Git from this point of view, without clutter from the
+Git command line itself.
 
 How to actually use the command line is not the topic of this article,
-you can refer to the man pages or the excellent [[https://git-scm.com/book/en/v2][/Pro Git/]] book. I will
-reference the relevant Git commands as margin notes.
+you can refer to the man pages or the excellent [[https://git-scm.com/book/en/v2][/Pro Git/]] book[fn::See
+"Further reading" below.]. I will reference the relevant Git commands
+as margin notes.
 
 My target audience is basically myself a few years ago: background in
-maths and computer science, but no direct experience of large-scale
-codebases in Git. I also assume that we are curious about the internal
-model of Git: if you only want a quick fix for your latest mistake but
-don't care about understanding what's going on, this post is not for
-you.
+maths and/or computer science, but no direct experience of large-scale
+codebases in Git. I also assume that you are curious about the
+internal model of Git and the related data structures: if you only
+want a quick fix for your latest mistake but don't care about
+understanding what's going on, this post is probably not for you.
 
 This post is also highly opinionated about what I consider important
 when working on production codebases in a professional setting. Of
@@ -43,7 +46,7 @@ commit), a diff representing changes (some lines are removed, some are
 added), and a commit message. It also has a name[fn:hash], so that we
 can refer to it if needed.
 
-[fn:hash] Actually, each commit gets a SHA-1 hash that identifies it
+[fn:hash] Actually, each commit gets a [[https://en.wikipedia.org/wiki/SHA-1][SHA-1]] hash that identifies it
 uniquely. The hash is computed from the parents, the messages, and the
 diff.
 
@@ -63,11 +66,18 @@ of it, using [[https://git-scm.com/docs/git-log][=git log=]].
 
 
 Here is an example of a repo:
+
 [[file:/images/git-graphs/repo.svg]]
 
-In this representation, each commit points to its children, and they
-were organized from left to right as in a timeline. The /initial
-commit/ is the first one, the root of the graph, on the far left.
+In this representation, each commit points to its
+children[fn:parent-child], and they were organized from left to right
+as in a timeline. The /initial commit/ is the first one, the root of
+the graph, on the far left.
+
+[fn:parent-child] In the actual implementation, the edges are the
+other way around: each commit points to its parents. But I feel like
+it is clearer to visualize the graph ordered with time.
+
 
 Note that a commit can have multiple children, and multiple parents
 (we'll come back to these specific commits later).
@@ -100,7 +110,9 @@ an alias, in order to have meaningful names when navigating the graph.
 
 In this example, we have three branches: =master=, =feature=, and
 =bugfix=[fn::Do not name your real branches like this! Find a
-meaningful name describing what changes you are making.].
+meaningful name describing what changes you are making.]. Note that
+there is nothing special about the names: we can use any name we want,
+and the =master= branch is not special in any way.
 
 /Tags/[fn:branch-tag] are another kind of label, once again pointing to a particular
 commit. The main difference with branches is that branches may move
@@ -152,14 +164,18 @@ than one parent (for example, the fifth commit from the left in the
 graph above).[fn:merge:{-} As can be expected, the command is [[https://git-scm.com/docs/git-merge][=git
 merge=]].]
 
-At this point, we need to talk about /conflicts/. Until now, every
-action was simple: we can move around, add names, and add some
-changes. But now we are trying to reconcile two different versions
-into a single one. These two versions can be incompatible, and in this
-case the merge commit will have to choose which lines of each version
-to keep. If however, there is no conflict, the merge commit will be
-empty: it will have two parents, but will not contain any changes
-itself.
+At this point, we need to talk about /conflicts/.[fn:merge-conflicts]
+Until now, every action was simple: we can move around, add names, and
+add some changes. But now we are trying to reconcile two different
+versions into a single one. These two versions can be incompatible,
+and in this case the merge commit will have to choose which lines of
+each version to keep. If however, there is no conflict, the merge
+commit will be empty: it will have two parents, but will not contain
+any changes itself.
+
+[fn:merge-conflicts] {-} See /Pro Git/'s [[https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging][chapter on merging and basic
+conflict resolution]] for the details on managing conflicts in practice.
+
 
 ** Moving commits: rebasing and squashing
 
@@ -265,7 +281,7 @@ Now Bob can see Alice's work, and has some idea to improve on it. So
 he wants to make a new commit on top of Alice's changes. But the
 =alice/feature= branch is here to track the state of Alice's
 repository, so he just creates a new branch just for him named
-=feature=, where he add a commit:
+=feature=, where he adds a commit:
 
 [[file:/images/git-graphs/repo_labels_bob2.svg]]
 
@@ -291,5 +307,62 @@ capabilities of Git beyond simple graph manipulations. You can read
 about all of these in /Pro Git/.
 
 * Internals
+
+*Note:* This section is /not/ needed to use Git every day, or even to
+understand the concepts behind it. However, it can quickly show you
+
+Let's dive a little bit into Git's internal representations to better
+understand the concepts. The entire Git repository is contained in a
+=.git= folder.
+
+Inside the =.git= folder, you will find a simple text file called
+=HEAD=, which contains a reference to a location in the graph. For
+instance, it could contain =ref: refs/heads/master=. As you can see,
+=HEAD= really is just a pointer, to somewhere called
+=refs/heads/master=. Let's look into the =refs= directory to
+investigate:
+#+begin_src sh
+  $ cat refs/heads/master
+  f19bdc9bf9668363a7be1bb63ff5b9d6bfa965dd
+#+end_src
+
+This is just a pointer to a specific commit! You can also see that all
+the other branches are represented the exact same way.[fn:head:You
+must have noticed that our graphs above were slightly misleading:
+=HEAD= does not point directly to a commit, but to a branch, which
+itself points to a commit. If you make =HEAD= point to a commit
+directly, this is called a [[https://git-scm.com/docs/git-checkout#_detached_head]["detached HEAD"]] state.]
+
+Remotes and tags are similar: they are in =refs/remotes= and
+=refs/tags=.
+
+Commits are stored in the =objects= directory, in subfolders named
+after the first two characters of their hashes. So the commit above is
+located at =objects/f1/9bdc9bf9668363a7be1bb63ff5b9d6bfa965dd=. They
+are usually in a binary format (for efficiency reasons) called
+[[https://git-scm.com/book/en/v2/Git-Internals-Packfiles][packfiles]]. But if you inspect it (with [[https://git-scm.com/docs/git-show][=git show=]]), you will see the
+entire contents (parents, message, diff).
+
+* Further reading
+
+To know more about Git, specifically how to use it in practice, I
+recommend going through the excellent [[https://git-scm.com/book/en/v2][/Pro Git/]] book, which covers
+everything there is to know about the various Git commands and
+workflows.
+
+The [[https://git-scm.com/docs][Git man pages]] (also available via =man= on your system) have a
+reputation of being hard to read, but once you have understood the
+concepts behind repos, commits, branches, and remotes, they provide an
+invaluable resource to exploit all the power of the command line
+interface and the various commands and options.[fn:magit:Of course,
+you could also use the awesome [[https://magit.vc/][Magit]] in Emacs, which will greatly
+facilitate your interactions with Git with the additional benefit of
+helping you discover Git's capabilities.]
+
+Finally, if you are interested in the implementation details of Git,
+you can follow [[https://wyag.thb.lt/][Write yourself a Git]] and implement Git yourself! (This
+is surprisingly quite straightforward, and you will end up with a much
+better understanding of what's going on.) The [[https://www.aosabook.org/en/git.html][chapter on Git]] in
+cite:brown2012_volum_ii is also excellent.
 
 * References

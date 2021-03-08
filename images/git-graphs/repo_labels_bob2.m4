@@ -10,8 +10,8 @@ digraph repo_labels {
     m9 -> b1;
     include(`feature.dot')
     m7 -> f1;
-    node[color=red];
-    edge[color=red];
+    node[color=cyan];
+    edge[color=cyan];
     f3 -> f4;
 
     node[color=green];
