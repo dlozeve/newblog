@@ -19,16 +19,12 @@ network obtained from Prestashop data. [[https://dlozeve.github.io/reveal_Commun
 
 * Personal projects
 
-** [[https://github.com/dlozeve/ising-model][Ising model simulation]]
+** [[https://github.com/dlozeve/ShaderTool][ShaderTool]]
 
- [fn::{-} [[./images/ising.gif]]]
-
-Monte Carlo simulation of the [[https://en.wikipedia.org/wiki/Ising_model][Ising model]] using
-Metropolis-Hastings. [[./posts/ising-model.html][Associated blog post.]] (Clojure)
-
-** [[https://github.com/dlozeve/lsystems][L-systems]]
-
-Generate and draw L-systems. (Haskell)
+Live tool for developing OpenGL shaders
+interactively. High-performance GPU rendering, live reloading,
+screenshots, FPS tracking. (C)
+[[https://dlozeve.github.io/ShaderTool/][Documentation.]]
 
 ** [[https://github.com/dlozeve/reaction-diffusion][Reaction-diffusion system]]
 
@@ -44,6 +40,17 @@ species on a non-rectangular garden subdivided in individual cells,
 with constraints from an affinity matrix between neighboring
 species. Uses mixed integer quadratic programming and Markov chain
 Monte Carlo.
+
+** [[https://github.com/dlozeve/ising-model][Ising model simulation]]
+
+ [fn::{-} [[./images/ising.gif]]]
+
+Monte Carlo simulation of the [[https://en.wikipedia.org/wiki/Ising_model][Ising model]] using
+Metropolis-Hastings. [[./posts/ising-model.html][Associated blog post.]] (Clojure)
+
+** [[https://github.com/dlozeve/lsystems][L-systems]]
+
+Generate and draw L-systems. (Haskell)
 
 ** [[https://github.com/dlozeve/Satrap][Satrap]]
 
