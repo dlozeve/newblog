@@ -23,19 +23,6 @@ you can refer to the man pages or the excellent [[https://git-scm.com/book/en/v2
 "Further reading" below.]. I will reference the relevant Git commands
 as margin notes.
 
-My target audience is basically myself a few years ago: background in
-maths and/or computer science, but no direct experience of large-scale
-codebases in Git. I also assume that you are curious about the
-internal model of Git and the related data structures: if you only
-want a quick fix for your latest mistake but don't care about
-understanding what's going on, this post is probably not for you.
-
-This post is also highly opinionated about what I consider important
-when working on production codebases in a professional setting. Of
-course, this is highly coloured by my personal experience, and your
-needs may vary. If there is something essential that you think is
-missing here, please don't hesitate to [[../contact.html][contact me]]!
-
 * Concepts: understanding the graph
 
 ** Repository
