@@ -297,6 +297,8 @@ about all of these in /Pro Git/.
 
 *Note:* This section is /not/ needed to use Git every day, or even to
 understand the concepts behind it. However, it can quickly show you
+that the explanations above are not pure abstractions, and are
+actually represented directly this way.
 
 Let's dive a little bit into Git's internal representations to better
 understand the concepts. The entire Git repository is contained in a
