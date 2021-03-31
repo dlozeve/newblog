@@ -106,8 +106,8 @@ commit. The main difference with branches is that branches may move
 (you can change the commit they point to if you want), whereas tags
 are fixed forever.
 
-[fn:branch-tag] {-} Create branches and tags with the
-appropriately-named [[https://git-scm.com/docs/git-branch][=git branch=]] and [[https://git-scm.com/docs/git-tag][=git tag=]].
+[fn:branch-tag] {-} Create branches and tags with the appropriately
+named [[https://git-scm.com/docs/git-branch][=git branch=]] and [[https://git-scm.com/docs/git-tag][=git tag=]].
 
 
 ** Making changes: creating new commits
@@ -134,8 +134,8 @@ Two significant things happened here:
   point to the same commit no matter what.)
 
 If you can add commits, you can also remove them (if they don't have
-any children, obviously). However, very often it is better to add a
-commit that will /revert/[fn:revert] the changes of another commit
+any children, obviously). However, it is often better to add a commit
+that will /revert/[fn:revert] the changes of another commit
 (i.e. apply the opposite changes). This way, you keep track of what's
 been done to the repository structure, and you do not lose the
 reverted changes (should you need to re-apply them in the future).
@@ -171,8 +171,8 @@ adding stuff, and it would be easy to just remove a node from the
 graph, and to move the various labels accordingly, to return to the
 previous state.
 
-But sometimes, we want to do more complex manipulation of the graph:
-moving a commit and all its descendants to another location in the
+Sometimes we want to do more complex manipulation of the graph: moving
+a commit and all its descendants to another location in the
 graph. This is called a /rebase/.[fn:rebase:{-} That you can perform
 with [[https://git-scm.com/docs/git-rebase][=git rebase=]] *(destructive!)*.]
 
@@ -189,8 +189,8 @@ base branch (here =master=).
 
 In practice, what we have done is deleted three commits, and added
 three brand new commits. Git actually helps us here by creating
-commits with the exact same changes. Sometimes, it is not possible to
-apply the same changes exactly because the original version is not the
+commits with the same changes. Sometimes, it is not possible to apply
+the same changes exactly because the original version is not the
 same. For instance, if one of the commits changed a line that no
 longer exist in the new base, there will be a conflict. When rebasing,
 you may have to manually resolve these conflicts, similarly to a
@@ -223,12 +223,12 @@ tools to entirely rewrite the history of a repo. With them, you can
 reorder commits, squash them together, moving them elsewhere, and so
 on. However, these commands are also extremely dangerous: since you
 overwrite the history, there is a lot of potential for conflicts and
-general mistakes. By contrast, merges are very safe: even if there are
-conflicts and you have messed them up, you can always remove the merge
-commit and go back to the previous state. But when you rebase a set of
-commits and mess up the conflict resolution, there is no going back:
-the history has been lost forever, and you generally cannot recover
-the original state of the repository.
+general mistakes. By contrast, merges are completely safe: even if
+there are conflicts and you have messed them up, you can always remove
+the merge commit and go back to the previous state. But when you
+rebase a set of commits and mess up the conflict resolution, there is
+no going back: the history has been lost forever, and you generally
+cannot recover the original state of the repository.
 
 * Remotes: sharing your work with others
 
@@ -316,11 +316,11 @@ investigate:
 #+end_src
 
 This is just a pointer to a specific commit! You can also see that all
-the other branches are represented the exact same way.[fn:head:You
-must have noticed that our graphs above were slightly misleading:
-=HEAD= does not point directly to a commit, but to a branch, which
-itself points to a commit. If you make =HEAD= point to a commit
-directly, this is called a [[https://git-scm.com/docs/git-checkout#_detached_head]["detached HEAD"]] state.]
+the other branches are represented the same way.[fn:head:You must have
+noticed that our graphs above were slightly misleading: =HEAD= does
+not point directly to a commit, but to a branch, which itself points
+to a commit. If you make =HEAD= point to a commit directly, this is
+called a [[https://git-scm.com/docs/git-checkout#_detached_head]["detached HEAD"]] state.]
 
 Remotes and tags are similar: they are in =refs/remotes= and
 =refs/tags=.
