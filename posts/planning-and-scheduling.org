@@ -1,0 +1,298 @@
+---
+title: "Planning and scheduling for project management"
+date: 2021-04-13
+tags: optimization, operations research
+toc: true
+---
+
+Every project, no matter its size, requires some kind of organization
+and planning. Whether you're thinking about what you need to do when
+you wake up (shower, make breakfast, brush your teeth) or planning a
+new space programme, you will need to think about the tasks, in what
+order to do them, and how long it will take. This is called
+/scheduling/.
+
+Planning projects requires balancing dependencies between tasks,
+resource allocation, and complex constraints in order to find a
+complete and feasible schedule. How much of this can be made rigorous?
+What is the limit of automation in this scenario?
+
+In this post, I want to explore the problem of planning and scheduling
+in the specific context of project management. The goal is to set up
+the problem of project planning rigorously, and investigate what
+techniques we can apply to have a better understanding of our projects
+and reach our objectives faster.
+
+* General project management workflow
+
+When starting a new project[fn:influence], I generally follow a rough
+workflow that goes like this:
+1. Define the global constraints of the project: functional
+   specification, deadlines, overall resources available, etc.
+2. Subdivide the projects into tasks and subtasks. Low-level tasks
+   should be self-contained and doable by few people (ideally only
+   one). Tasks can then be grouped together for better visualising
+   what is happening at various scales. This gives us a global
+   hierarchy of tasks, culminating in the overall project.
+3. Specify the dependencies between tasks, ideally with an explicit
+   deliverable for each dependency relationship.
+4. Estimate the work required for each task.
+5. Affect a resource to each task, deriving task durations
+   accordingly. For instance, if Bob will be working part-time on this
+   task (because he has other things to do at the same time), the task
+   will take longer to complete than the nominal amount of work that
+   it requires.
+6. Find an order in which to execute all the tasks, respecting
+   workforce and time constraints (Bob cannot spend 50% of this time
+   on three tasks simultaneously). This is called a /schedule/.
+7. Iterate on the order until a minimal completion date is
+   found. Generally, the objective is to complete the project as soon
+   as possible, but there may be additional requirements (overall
+   deadline, lateness penalties, maximal resource utilization).
+
+Given this process, a natural question would be to ask: how can we
+simplify it? What can we automate? The obvious task is the scheduling
+part (steps 6 and 7): this step does not require any human
+decision-making, and for which it will be difficult and tiresome to
+achieve optimality. Most [[https://en.wikipedia.org/wiki/Project_management_software][project management software]] (e.g. [[https://en.wikipedia.org/wiki/Microsoft_Project][Microsoft
+Project]]) focus on this part.
+
+However, in practice, resource allocation is also extremely time
+consuming. Most importantly, it will constrain the final schedule: a
+bad allocation can push back the final completion date by a wide
+margin. Therefore, it makes sense to want to take into account both
+resource allocation and task ordering at the same time when looking
+for an optimal schedule.
+
+Going even further, we could look into subdividing tasks further:
+maybe splitting a task in two, allowing a small lag between the
+completion of the first half and the start of the second half, could
+improve the overall objective. By allowing [[https://en.wikipedia.org/wiki/Preemption_(computing)][preemption]], we could
+optimize further our schedule.
+
+To understand all of this, we'll need to formalize our problem a
+little bit. This will allow us to position it in the overall schema of
+problems studied in the operations research literature, and use their
+conclusions to choose the best approach as a trade-off between manual
+and automatic scheduling.
+
+[fn:influence] The definition of a project here is highly subjective,
+and has been strongly influenced by what I've read (see the
+references) and how I actually do things at work. In particular, most
+of the model and concepts can be found in Microsoft Project.
+
+* The project scheduling problem
+
+A /project/ is simply a set of tasks[fn:tasks]. Each
+task is a specific action with a certain amount of work that needs to
+be done. More importantly, a task can /depend/ on other tasks: for
+instance, I can't send the satellite in the space if you haven't built
+it yet.
+
+Other /constraints/ may also be present: there are nearly always
+deadlines (my satellite needs to be up and running on 2024-05-12), and
+sometimes other kind of temporal constraints (for legal reasons, I
+can't start building my death ray before 2023-01-01). Most
+importantly, there are constraints on resource usage (I need either
+Alice or Bob to work on these tasks, so I will be able to work on at
+most two of them at the same time).
+
+Finally, the /objective/ is to finish the project (i.e. complete all
+the tasks) as early as possible. This is called the /makespan/.
+
+You may have noticed a nice pattern here: objective, constraints? We
+have a great optimization problem! As it turns out, [[https://en.wikipedia.org/wiki/Schedule#In_operations_research][scheduling]] is an
+entire branch of operations research[fn:operations-research]. In the
+literature, this kind of problem is referred to as
+/resource-constrained project scheduling/, or as /project scheduling
+with workforce constraints/.
+
+[fn:tasks] A task is often called a /job/ or an /activity/ in project
+scheduling. I will use these terms interchangeably.
+
+[fn:operations-research] See my previous blog post on [[./operations-research-references.html][operations
+research]].
+
+* Classification of scheduling problems
+
+There is a lot of room to modify the problem to other settings.
+cite:brucker1999_resour_const_projec_sched propose an interesting
+classification scheme for project scheduling. In this system, any
+problem can be represented by a triplet $\alpha|\beta|\gamma$, where
+$\alpha$ is the resource environment, $\beta$ are the activity
+characteristics, and $\gamma$ is the objective function.
+
+The /resource environment/ $\alpha$ describes the available quantity
+of each type of resources. Resource can be renewable, like people, who
+supply a fixed quantity of work in each time period, or non-renewable,
+like raw materials.
+
+The /activity characteristics/ $\beta$ describe how tasks are
+constrained: how the dependencies are specified (with a graph, or with
+temporal constraints between the starts and ends of different tasks),
+whether there are global constraints like deadlines, and whether
+processing times are constant for all tasks, can vary, or even can be
+stochastic.
+
+Finally, the /objective/ $\gamma$ can be one of several
+possibilities. The most common are the makespan which seeks to
+minimize the total duration of the project, and resource-levelling
+which seeks to minimize some measure of variation of resource
+utilization.
+
+Some important problems ($\mathrm{PS}$ means "project scheduling"
+without any restrictions on resources):
+- $\mathrm{PS} \;|\; \mathrm{prec} \;|\; C_{\max}$: the "simple"
+  project scheduling setup, which corresponds to the practical
+  application that interests us here. Although this is the base
+  problem, it is still quite challenging. Removing the resource
+  constraints renders the problem much easier from a computational
+  point of view [[citep:pinedo2009_plann_sched_manuf_servic][::,
+  chapter 4]].
+- $\mathrm{PS} \;|\; \mathrm{temp} \;|\; C_{\max}$: when you add time
+  lag constraints (e.g. two tasks that must start within two days of
+  each other), the problem becomes much more difficult.
+- $\mathrm{PS} \;|\; \mathrm{temp} \;| \sum c_{k} f\left(r_{k}(S,
+  t)\right)$: this is the resource-levelling problem: you want to
+  minimize the costs of using an amount $r_k(S, t)$ of each resource
+  $k$, when each unit of resource costs $c_k$.
+
+* Algorithms for project scheduling
+
+** Without workforce constraints
+
+First, we need a way to represent a project. We can use the so-called
+/job-on-node/ format[fn:job-on-arc]. The nodes represent the tasks in
+the precedence graph, and arcs represent the dependency relationships
+between tasks.
+
+This representation leads to a natural algorithm for project
+scheduling in the absence of any resource constraints. The [[https://en.wikipedia.org/wiki/Critical_path_method][critical
+path method]] (CPM) consists in finding a chain of dependent tasks in
+the job-on-node graph that are /critical/: their completion time is
+fixed by their dependencies.
+
+It consists of two procedures, one to determine the earliest possible
+completion time of each task (forward procedure), and one to determine
+the latest possible completion time of each task that does not
+increase total project duration (backward procedure). The tasks for
+which these two times are equal form the /critical
+path/[fn:critical-path]. Non-critical tasks have a certain amount of
+/slack/: it is possible to schedule them freely between the two
+extremities without affecting the makespan.
+
+An extension of the critical path method is the [[https://en.wikipedia.org/wiki/Program_evaluation_and_review_technique][program evaluation and
+review technique]] (PERT). We still consider we have unlimited
+resources, but the processing time of each task is allowed to be a
+random variable instead of a fixed quantity. The algorithm must be
+amended correspondingly to take into account pessimistic and
+optimistic estimates of each task duration.
+
+These techniques have been widely employed in various
+industries[fn:applications], and show that the project scheduling
+problem without workforce constraints can be solved extremely
+efficiently. See cite:pinedo2009_plann_sched_manuf_servic for more
+details on these algorithms and some examples.
+
+[fn:job-on-arc] There is also a /job-on-arc/ format that is apparently
+widely used, but less practical in most applications.
+
+[fn:critical-path] Note that the critical path is not necessarily
+unique, and several critical paths may be overlapping.
+
+[fn:applications] Wikipedia tells us that [[https://en.wikipedia.org/wiki/Critical_path_method#History][CPM]] and [[https://en.wikipedia.org/wiki/Program_evaluation_and_review_technique#History][PERT]] were partly
+developed by the US Navy, and applied to several large-scale projects,
+like skyscraper buildings, aerospace and military projects, the
+Manhattan project, etc.
+
+** With workforce constraints
+
+With resource constraints, the problem becomes much harder to
+solve. It is not possible to formulate this problem as a linear
+program: workforce constraints are intrinsically combinatorial in
+nature, so the problem is formulated as an integer
+program[fn:integer-program].
+
+The problem is modelled with 0-1 variables $x_{jt}$ which take the
+value 1 if job $j$ is completed exactly at time $t$, and 0
+otherwise. The objective is to minimize the makespan, i.e. the
+completion time of a dummy job that depends on all other jobs. There
+are three constraints:
+- if job $j$ is a dependency of job $k$, the completion time of job
+  $k$ is larger than the completion time of job $j$ plus the duration
+  of job $k$,
+- at any given time, we do not exceed the total amount of resources
+  available for each type of resources,
+- all jobs are completed at the end of the project.
+
+This problem quickly becomes challenging from a computational point of
+view when the number of tasks increase. Variations on the [[https://en.wikipedia.org/wiki/Branch_and_bound][branch and
+bound]] method have been developed to solve the resource-constrained
+project scheduling problem efficiently, and in practice most
+applications rely on heuristics to approximate the full
+problem. However, even special cases may be extremely challenging to
+solve. The project scheduling problem is a generalization of the [[https://en.wikipedia.org/wiki/Job_shop_scheduling][job
+shop scheduling problem]], which is itself a generalization of the
+[[https://en.wikipedia.org/wiki/Travelling_salesman_problem][travelling salesman problem]]: all of these are therefore NP-hard.
+
+See cite:brucker1999_resour_const_projec_sched for a short survey of
+algorithms and heuristics, and extensions to the harder problems
+(multi-mode case, time-cost trade-offs, other objective
+functions). cite:pinedo2016_sched contains a much more extensive
+discussion of all kinds of scheduling problems, algorithms, and
+implementation considerations.
+
+[fn:integer-program] The full integer program can be found in
+[[cite:pinedo2009_plann_sched_manuf_servic][::, section 4.6]].
+
+** Further reading
+
+cite:brucker1999_resour_const_projec_sched is a great survey of the
+algorithms available for project scheduling. For longer books,
+cite:pinedo2016_sched, cite:brucker2007_sched_algor,
+cite:conway2003_theor_sched, and cite:leung2004_handb_sched are good
+references for the theoretical aspects, and
+cite:pinedo2009_plann_sched_manuf_servic and
+cite:błażewicz2001_sched_comput_manuf_proces for applications.
+
+cite:atabakhsh1991_survey_const_based_sched_system,
+cite:noronha1991_knowl_based_approac_sched_probl, and
+cite:smith1992_knowl_based_produc_manag_approac_resul_prosp contain
+algorithms that use methods from artificial intelligence to complement
+the traditional operations research approach.
+
+* Automating project management
+
+Let us review our workflow from the beginning. Even for the general
+case of project scheduling with workforce and temporal constraints,
+algorithms exist that are able to automate the entire scheduling
+problem (except maybe for the largest projects). Additional
+manipulations can easily be encoded with these two types of
+constraints.
+
+Most tools today seem to rely on a variant of CPM or
+PERT[fn:ms-project]. As a result, you still have to manually allocate
+resources, which can be really time-consuming on large projects:
+ensuring that each resource is not over-allocated, and finding which
+task to reschedule while minimizing the impact on the overall project
+duration is not obvious at all.
+
+As a result, a tool that would allow me to choose the level of control
+I want in resource allocation would be ideal. I could explicitly set
+the resources used by some tasks, and add some global limits on which
+resources are available for the overall project, and the algorithm
+would do the rest.
+
+We could then focus on automating further, allowing preemption of
+tasks, time-cost trade-offs, etc. Finding the right abstractions and
+selecting the best algorithm for each case would be a challenging
+project, but I think it would be extremely interesting!
+
+[fn:ms-project] This seems to be the case for [[https://en.wikipedia.org/wiki/Microsoft_Project#Features][Microsoft Project]] at
+least. However, I should note that it is an /enormous/ piece of
+software, and I barely scratched the surface of its capabilities. In
+particular, it can do much more that project scheduling: there are
+options for [[https://en.wikipedia.org/wiki/Resource_management][resource levelling]] and budgeting, along with a lot of
+visualization and reporting features ([[https://en.wikipedia.org/wiki/Gantt_chart][Gantt charts]]).
+
+* References
