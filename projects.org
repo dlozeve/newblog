@@ -19,6 +19,13 @@ network obtained from Prestashop data. [[https://dlozeve.github.io/reveal_Commun
 
 * Personal projects
 
+** [[https://github.com/dlozeve/uniplot][Uniplot]]
+
+Plotting tool for displaying CSV data directly in your
+terminal. Uniplot uses Unicode Braille characters and ANSI control
+codes to display line plots as text. It can be used as part of a
+standard Unix pipeline. ([[https://cons.io/][Gerbil Scheme]])
+
 ** [[https://github.com/dlozeve/ShaderTool][ShaderTool]]
 
 Live tool for developing OpenGL shaders
