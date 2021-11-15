@@ -3,7 +3,7 @@
 ** Setup
 
 #+begin_src sh
-  yarn add netlify-cli
+  npm install netlify-cli -g
   netlify login  # login to Netlify
   netlify link  # link the directory to the site
 #+end_src
