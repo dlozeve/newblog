@@ -3,8 +3,6 @@
 import qualified Data.Map as Map
 import           Data.Monoid (mappend)
 
-import qualified Text.CSL                 as CSL
-import           Text.CSL.Pandoc          (processCites)
 import           Text.Pandoc
 import           Text.Pandoc.Options
 import           Text.Pandoc.Highlighting
@@ -136,35 +134,7 @@ postCtxWithTags tags = tagsField "tags" tags <> postCtx
 feedCtx :: Context String
 feedCtx = postCtx <> bodyField "description"
 
--- Add links to references ------------------------------------------  
--- Source: https://github.com/jaspervdj/hakyll/issues/471#issuecomment-244540329
-addLinkCitations (Pandoc meta a) =
-  let prevMap = unMeta meta
-      newMap = Map.insert "link-citations" (MetaBool True) prevMap
-      newMeta = Meta newMap
-  in  Pandoc newMeta a
-
-myReadPandocBiblio :: ReaderOptions
-                   -> Item CSL
-                   -> Item Biblio
-                   -> (Item String)
-                   -> Compiler (Item Pandoc)
-myReadPandocBiblio ropt csl biblio item = do
-  -- Parse CSL file, if given
-  provider <- compilerProvider <$> compilerAsk
-  style <- unsafeCompiler $
-           CSL.readCSLFile Nothing . (resourceFilePath provider) . itemIdentifier $ csl
-
-  -- We need to know the citation keys, add then *before* actually parsing the
-  -- actual page. If we don't do this, pandoc won't even consider them
-  -- citations!
-  let Biblio refs = itemBody biblio
-  pandoc <- itemBody <$> readPandocWith ropt item
-  let pandoc' = processCites style refs (addLinkCitations pandoc)
-
-  return $ fmap (const pandoc') item
-
--- Pandoc compiler with maths, TOC, sidenots, and bibliography support --------------------
+-- Pandoc compiler with maths, TOC, sidenotes, and bibliography support --------------------
 customPandocCompiler :: Bool -> Compiler (Item String)
 customPandocCompiler withTOC =
   let customExtensions = extensionsFromList [Ext_latex_macros]
@@ -191,7 +161,7 @@ customPandocCompiler withTOC =
     csl <- load $ fromFilePath "csl/chicago-author-date.csl"
     bib <- load $ fromFilePath "bib/bibliography.bib"
     writePandocWith (if withTOC then writerOptionsWithTOC else writerOptions) <$>
-     (getResourceBody >>= myReadPandocBiblio readerOptions csl bib >>= traverse (return . usingSideNotes))
+     (getResourceBody >>= readPandocBiblio readerOptions csl bib >>= traverse (return . usingSideNotes))
 
 type FeedRenderer = FeedConfiguration
     -> Context String

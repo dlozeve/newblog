@@ -17,7 +17,7 @@
 #
 # resolver: ./custom-snapshot.yaml
 # resolver: https://example.com/snapshots/2018-01-01.yaml
-resolver: lts-16.11
+resolver: lts-19.0
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.
@@ -38,11 +38,9 @@ packages:
 # using the same syntax as the packages field.
 # (e.g., acme-missiles-0.3)
 extra-deps:
-  - github: jez/pandoc-sidenote
-    commit: 7aacfa4b20a44562de48725dea812c5de2c5aeac
-  #- pandoc-sidenote-0.19.0.0@sha256:f5a5fdab1900da7b26ca673d14302b0a27b56024ca811babcacab79ba9614e90,1196
-  - monad-gen-0.3.0.1@sha256:a2569465cfbd468d3350ef25de56b3362580e77537224313aab1210f40804a3b,821
-  - hakyll-4.13.4.0@sha256:d97cb1b1cf7b901ce049e6e0aa5b1ac702cf52d2e475f5d3fe2de3694bb7dc7b,8867
+  - git: https://github.com/jez/pandoc-sidenote.git
+    commit: c9dfcadfcff475e6e26626af379b8b6d3f38d187
+#  - monad-gen-0.3.0.1@sha256:a2569465cfbd468d3350ef25de56b3362580e77537224313aab1210f40804a3b,821
 
 # Override default flag values for local packages and extra-deps
 # flags: {}

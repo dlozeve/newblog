@@ -68,7 +68,7 @@ particular, it is one of the best presentations of dynamic programming
 that I have ever read. The explanation of the simplex algorithm is
 also excellent.)
 
-[fn:wentzel] {-}
+[fn:wentzel] {-}  
 #+ATTR_HTML: :width 200px
 [[file:/images/or_references/wentzel.jpg]]
 
@@ -102,7 +102,7 @@ great resource to build a "mental map" of the field, avoiding getting
 lost in the jungle of linear, stochastic, mixed integer, quadratic,
 and other network problems.
 
-[fn:williams] {-}
+[fn:williams] {-}  
 #+ATTR_HTML: :width 200px
 [[file:/images/or_references/williams.jpg]]
 
@@ -153,7 +153,7 @@ the list (because it is very recent) but is also excellent, with
 examples in Julia covering nearly every kind of optimization
 algorithms.
 
-[fn:kochenderfer] {-}
+[fn:kochenderfer] {-}  
 #+ATTR_HTML: :width 200px
 [[file:/images/or_references/kochenderfer.jpg]]
 
@@ -212,7 +212,7 @@ packages. (Even if you don't know Julia, this is a great and easy way
 to start!) If you'd rather use Python, you can use Google's [[https://developers.google.com/optimization/introduction/python][OR-Tools]]
 or [[https://github.com/coin-or/pulp][PuLP]] for linear programming.
 
-[fn:jump] {-}
+[fn:jump] {-}  
 #+ATTR_HTML: :width 250px :style background-color: #cccccc;
 [[file:/images/or_references/jump.svg]]
 
