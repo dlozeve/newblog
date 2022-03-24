@@ -1,12 +1,18 @@
 ---
 title: "The Dawning of the Age of Stochasticity"
-date: 2022-03-12
+date: 2022-03-24
 tags: maths, foundations, paper, statistics, probability
 toc: false
 ---
 
+#+begin_quote
+Mumford, David. 2000. “The Dawning of the Age of Stochasticity.”
+/Atti Della Accademia Nazionale Dei Lincei. Classe Di Scienze Fisiche,
+Matematiche E Naturali. Rendiconti Lincei. Matematica E Applicazioni/
+11: 107–25. http://eudml.org/doc/289648.
+#+end_quote
 
-This article [@mumford2000_dawnin_age_stoch] is an interesting call
+This article [cite:@mumford2000_dawnin_age_stoch] is an interesting call
 for a new set of foundations of mathematics on probability and
 statistics. It argues that logic has had its time, and now we should
 make random variables a first-class concept, as they would make for
@@ -17,11 +23,11 @@ better foundations.
 [fn::{-} This is probably the best definition of mathematics I have
 seen. Before that, the most satisfying definition was "mathematics is
 what mathematicians do". It also raises an interesting question: what
-would the study of non-reproducible mental objects be?]
+would the study of /non-reproducible/ mental objects be?]
 
 #+begin_quote
 The study of mental objects with reproducible properties is called mathematics.
-[@davis2012_mathem_exper_study_edition]
+[cite:@davis2012_mathem_exper_study_edition]
 #+end_quote
 
 What are the categories of reproducible mental objects? Mumford
@@ -37,10 +43,16 @@ be based. People are constantly weighing likelihoods, evaluating
 plausibility, and sampling from posterior distributions to refine
 estimates.
 
-He then makes a quick historical overview of the principal notions of
-probability, which mostly mirror the detailed historical perspective
-in @hacking2006_emerg_probab. There is also a short summary of the
-work into the foundations of mathematics.
+As such, random variables are rooted in our inspection of our own
+mental processes, in the self-conscious analysis of our minds. Compare
+to areas of mathematics arising from our experience with the physical
+world, through our perception of space (geometry), of forces and
+accelerations (analysis), or through composition of actions (algebra).
+
+The paper then proceeds to do a quick historical overview of the
+principal notions of probability, which mostly mirror the detailed
+historical perspective in [cite:@hacking2006_emerg_probab]. There is
+also a short summary of the work into the foundations of mathematics.
 
 Mumford also claims that although there were many advances in the
 foundation of probability (e.g. Galton, Gibbs for statistical physics,
@@ -57,42 +69,66 @@ would be the strongest argument in favour of bayesianism.)
 
 * What is a "random variable"?
 
+Random variables are difficult to define. They are the core concept of
+any course in probability of statistics, but their full, rigorous
+definition relies on advanced measure theory, often unapproachable to
+beginners. Nevertheless, practitioners tend to be productive with
+basic introductions to probability and statistics, even without
+being able to formulate the explicit definition.
+
 Here, Mumford discusses the various definitions we can apply to the
 notion of random variable, from an intuitive and a formal point of
 view. The conclusion is essentially that a random variable is a
 complex entity that do not easily accept a satisfying definition,
-except from a purely formal and axiomatic point of view. (Similar to
-the notion of "set", "collection", or "category".)
+except from a purely formal and axiomatic point of view.
 
-* Putting random variables in the foundations
+This situation is very similar to the one for the notion of
+"set". Everybody can manipulate them on an intuitive level and grasp
+the basic properties, but the specific axioms are hard to grasp, and
+no definition is fully satisfying, as the debates on the foundations
+of mathematics can attest.
 
-The usual way of defining random variables is : predicate logic → sets
-→ natural numbers → real numbers → measures → random
-variables. Instead, we could put random variables at the foundations,
-and define everything else in terms of that.
+* Putting random variables into the foundations
+
+The usual way of defining random variables is:
+1. predicate logic,
+2. sets,
+3. natural numbers,
+4. real numbers,
+5. measures,
+6. random variables.
+
+Instead, we could put random variables at the foundations, and define
+everything else in terms of that.
 
 There is no complete formulation of such a foundation, nor is it clear
 that it is possible. However, to make his case, Mumford presents two
-developments. One is from Jaynes, who has a complete formalism of
-Bayesian probability from a notion of "plausibility". With a few
-axioms, we can obtain an isomorphism between a vague notion of
+developments. One is from [[https://en.wikipedia.org/wiki/Edwin_Thompson_Jaynes][E. T. Jaynes]], who has a complete formalism
+of Bayesian probability from a notion of "plausibility". With a few
+axioms, we can obtain an isomorphism between an intuitive notion of
 plausibility and a true probability function.
 
 The other example is a proof that the continuum hypothesis is false,
-using a probabilistic argument, due to Christopher Freiling.
+using a probabilistic argument, due to Christopher Freiling. This
+proof starts from a notion of random variable that is incompatible
+with the usual definition in terms of measure theory. However, this
+leads Mumford to question whether a foundation of mathematics based on
+such a notion could get us rid of "one of the meaningless conundrums
+of set theory".
 
 * Stochastic methods have invaded classical mathematics
 
-I think this is by far the most convincing argument to give a greater
-importance to probability and statistics methods in the foundations of
-mathematics: there tend to be everywhere, and extremely productive. A
-prime example is obviously graph theory, where the "probabilistic
-method" has had a deep impact, thanks notably to Erdős. (See
-@alon2016_probab_method and [[https://www.college-de-france.fr/site/timothy-gowers/index.htm][Timothy Gowers' lessons at the Collège de
-France]] on the probabilistic method for combinatorics and number
+This is probably the most convincing argument to give a greater
+importance to probability and statistical methods in the foundations
+of mathematics: there tend to be everywhere, and extremely
+productive. A prime example is obviously graph theory, where the
+"probabilistic method" has had a deep impact, thanks notably to
+Erdős. (See [cite:@alon2016_probab_method] and [[https://www.college-de-france.fr/site/timothy-gowers/index.htm][Timothy Gowers' lessons
+at the Collège de France]][fn::In French, but see also [[https://www.youtube.com/c/TimothyGowers0][his YouTube
+channel]].] on the probabilistic method for combinatorics and number
 theory.) Probabilistic methods also have a huge importance in the
-analysis of Partial differential equations, chaos theory, and
-mathematical physics in general.
+analysis of differential equations, chaos theory, and mathematical
+physics in general.
 
 * Thinking as Bayesian inference
 
@@ -103,6 +139,9 @@ illustrates this very well with an example from Judea Pearl, which
 uses graphical models to represent thought processes. There is also a
 link with formal definitions of induction, such as PAC learning, which
 is very present in machine learning.
+
+I'll conclude this post by quoting directly the last paragraph of the
+article:
 
 #+begin_quote
 My overall conclusion is that I believe stochastic methods will
