@@ -1,6 +1,6 @@
 ---
 title: "High reliability organizations"
-date: 2022-06-01
+date: 2022-06-03
 tags: management, social science
 toc: false
 ---
@@ -21,11 +21,14 @@ shuttles. They share several characteristics: an unforgiving
 environment, vast potential for error, and dramatic scales in the case
 of a failure.
 
-[cite/t:@weick1999_organ] use the concept of "mindfulness", a kind of
-"enriched awareness" (which I interpret as "awareness with explicit
-processes"), consisting of the five elements listed below. This
-mindfulness leads to the capacity to discover and manage unexpected
-events, which in turn leads to reliability.
+The paper identifies five processes common to HROs, that they group
+into the concept of /mindfulness/ (a kind of "enriched
+awareness"). Mindfulness is about allocating and conserving attention
+of the group. It includes both being consciously aware of the
+situation and /acting/ on this understanding.
+
+This mindfulness leads to the capacity to discover and manage
+unexpected events, which in turn leads to reliability.
 
 * Characteristics of a high reliability organization
 
@@ -33,38 +36,53 @@ An HRO is an organization with the following five attributes.
 
 ** Preoccupation with failure
 
-There are many possible failures, most of them extremely
-rare. Consequently, HROs study all forms of failure and near misses
-with extreme carefulness and attention to detail. They also study the
-/absence/ of failure: why it didn't fail, and the possibility that no
-flaws were identified because we weren't attentive enough to potential
-flaws. HROs encourage reporting all mistakes and anomalies by anyone.
+Failures in HROs are extremely rare. To make it easier to learn from
+them, the organization has to broaden the data set by expanding the
+definition of failure and studying all types of anomalies and near
+misses. Additionally, the analysis is much richer, and always
+considers the reliability of the entire system, even for localized
+failures.
+
+HROS also study the /absence/ of failure: why it didn't fail, and the
+possibility that no flaws were identified because there wasn't enough
+attention to potential flaws.
+
+To further increase the number of data point to study, HROs encourage
+reporting all mistakes and anomalies by anyone. Contrary to most
+organizations, members are rewarded for reporting potential failures,
+even if their analysis is wrong or if they are responsible for
+them. This creates an atmosphere of "psychological safety" essential
+for transparency and honesty in anomaly reporting.
 
 ** Reluctance to simplify interpretations
 
 HROs avoid having a single interpretation for a given event. They
 encourage generating multiple, complex, contradicting interpretations
-for every phenomenon. People are encouraged to have different views,
-different backgrounds (important for [[id:cdfc701f-7b6e-40ec-be94-db64a74aef0d][Hiring]]), and are re-trained
-often. To resolve the contradictions and the oppositions of views,
-interpersonal and human skills are highly valued, possibly more than
-technical skills.
+for every phenomenon. These varied interpretations enlarge the number
+of concurrent precautions. Redundancy is implemented not only via
+duplication, but via skepticism of existing systems.
+
+People are encouraged to have different views, different backgrounds,
+and are re-trained often. To resolve the contradictions and the
+oppositions of views, interpersonal and human skills are highly
+valued, possibly more than technical skills.
 
 ** Sensitivity to operations
 
-HROs rely a lot on "situational awareness". Basically, we have to
-check that there is no emergent phenomena (cf [[id:cabacd0d-2d40-450d-bbba-85c3539ff939][Complex systems]] and
-[[id:65e2d955-ab29-432f-9f48-30605e3f688f][Compositionality]]): all outputs should always be explained by the known
-inputs. Otherwise, there might be other forces at work that need to be
-identified and dealt with. A small group of people may be dedicated to
-this awareness at all times.
+HROs rely a lot on "situational awareness". They are ensuring that no
+[[https://en.wikipedia.org/wiki/Emergence][emergent phenomena]] emerge in the system: all outputs should always be
+explained by the known inputs. Otherwise, there might be other forces
+at work that need to be identified and dealt with. A small group of
+people may be dedicated to this awareness at all times.
 
 ** Commitments to resilience
 
 HROs train people to be experts at combining all processes and events
 to improve their reactions and their improvisation skills. Everyone
-should be an expert at managing surprise. This can include rapid
-formation of ad hoc teams to improvise solutions to novel problems.
+should be an expert at anticipating potential adverse events, and
+managing surprise. When events get outside normal operational
+boundaries, organizations members self-organize into small dedicated
+teams to improvise solutions to novel problems.
 
 ** Underspecification of structures
 
@@ -97,11 +115,12 @@ An interesting discussion is around the (alleged) trade-off between
 reliability and performance. It is assumed that HROs put the focus on
 reliability at the cost of throughput. As a consequence, it may not
 make sense for ordinary organizations to put as much emphasis on
-safety and reliability, as it may cost money.
+safety and reliability, as the cost to the business may be
+prohibitive.
 
 However, investments in safety can also be viewed as investments in
-learning. HROs view safety and reliability as a process of search and
-learning (constant search for anomalies, learning the interactions
+/learning/. HROs view safety and reliability as a process of search
+and learning (constant search for anomalies, learning the interactions
 between the parts of a complex system, ensuring we can link outputs to
 known inputs). As such, investments in safety encourage collective
 knowledge production and dissemination.
@@ -116,8 +135,8 @@ of the catastrophic consequences of any failure, but non-HROs can
 adopt the same practice to boost efficiency and learning to gain
 competitive advantage.
 
-Additional lessons that can be learned from HROs (implicit in previous
-discussion):
+Additional lessons that can be learned from HROs (implicit in the
+previous discussion):
 1. The expectation of surprise is an organizational resource because
    it promotes real-time attentiveness and discovery.
 2. Anomalous events should be treated as outcomes rather than
