@@ -64,7 +64,7 @@ E5 D7 05 D7 7D 9C C9 F5 70 0B 17 7B EF 18 83 46 79 0D 49 59
 
 We can parse it easily with the [[https://docs.julialang.org/en/v1/stdlib/DelimitedFiles/][DelimitedFiles]] module from Julia's
 standard library.
-[fn::{-} [[file:/images/ponderthis_202103_grid.svg]]]
+[fn::{-} [[file:../images/ponderthis_202103_grid.svg]]]
 
 #+begin_src julia
 using DelimitedFiles
@@ -146,7 +146,7 @@ indices = Tuple.(findall(value.(x) .> 0))
 indices = sort([(a-1, b-1) for (a, b) = indices])
 #+end_src
 
-[fn::{-} [[file:/images/ponderthis_202103_explore.svg]]]
+[fn::{-} [[file:../images/ponderthis_202103_explore.svg]]]
 
 The resulting objective value is 1424, and the explored indices are
 

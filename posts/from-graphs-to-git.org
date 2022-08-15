@@ -54,7 +54,7 @@ of it, using [[https://git-scm.com/docs/git-log][=git log=]].
 
 Here is an example of a repo:
 
-[[file:/images/git-graphs/repo.svg]]
+[[file:../images/git-graphs/repo.svg]]
 
 In this representation, each commit points to its
 children[fn:parent-child], and they were organized from left to right
@@ -93,7 +93,7 @@ great-grandparent of the current commit.
 name and acts a simple pointer to a commit. Once again, this is simply
 an alias, in order to have meaningful names when navigating the graph.
 
-[[file:/images/git-graphs/repo_labels.svg]]
+[[file:../images/git-graphs/repo_labels.svg]]
 
 In this example, we have three branches: =master=, =feature=, and
 =bugfix=[fn::Do not name your real branches like this! Find a
@@ -122,7 +122,7 @@ committing will be (the new commit is in green):
 with [[https://git-scm.com/docs/git-commit][=git commit=]].
 
 
-[[file:/images/git-graphs/repo_labels_commit.svg]]
+[[file:../images/git-graphs/repo_labels_commit.svg]]
 
 Two significant things happened here:
 - Your position on the graph changed: =HEAD= points to the new commit
@@ -176,7 +176,7 @@ a commit and all its descendants to another location in the
 graph. This is called a /rebase/.[fn:rebase:{-} That you can perform
 with [[https://git-scm.com/docs/git-rebase][=git rebase=]] *(destructive!)*.]
 
-[[file:/images/git-graphs/repo_labels_rebase.svg]]
+[[file:../images/git-graphs/repo_labels_rebase.svg]]
 
 In this case, we moved the branch =feature= from its old position (in
 red) to a new one on top of =master= (in green).
@@ -206,13 +206,13 @@ where =feature= is:[fn:fastforward]
 fast-forward with the =--ff-only= and =--no-ff= flags.
 
 
-[[file:/images/git-graphs/repo_labels_ff.svg]]
+[[file:../images/git-graphs/repo_labels_ff.svg]]
 
 Another manipulation that we can do on the graph is /squashing/,
 i.e. lumping several commits together in a single one.[fn:squash:{-}
 Use [[https://git-scm.com/docs/git-squash][=git squash=]] *(destructive!)*.]
 
-[[file:/images/git-graphs/repo_labels_squash.svg]]
+[[file:../images/git-graphs/repo_labels_squash.svg]]
 
 Here, the three commits of the =feature= branch have been condensed
 into a single one. No conflict can happen, but we lose the history of
@@ -258,7 +258,7 @@ use [[https://git-scm.com/docs/git-fetch][=git fetch=]], [[https://git-scm.com/d
 branch automatically), and [[https://git-scm.com/docs/git-push][=git push=]].
 
 
-[[file:/images/git-graphs/repo_labels_bob.svg]]
+[[file:../images/git-graphs/repo_labels_bob.svg]]
 
 The branch name he just got from Alice is prefixed by the name of the
 remote, in this case =alice=. These are just ordinary commits, and an
@@ -270,14 +270,14 @@ he wants to make a new commit on top of Alice's changes. But the
 repository, so he just creates a new branch just for him named
 =feature=, where he adds a commit:
 
-[[file:/images/git-graphs/repo_labels_bob2.svg]]
+[[file:../images/git-graphs/repo_labels_bob2.svg]]
 
 Similarly, Alice can now retrieve Bob's work, and will have a new
 branch =bob/feature= with the additional commit. If she wants, she can
 now incorporate the new commit to her own branch =feature=, making her
 branches =feature= and =bob/feature= identical:
 
-[[file:/images/git-graphs/repo_labels_alice.svg]]
+[[file:../images/git-graphs/repo_labels_alice.svg]]
 
 As you can see, sharing work in Git is just a matter of having
 additional branches that represent the graph of other people. Some

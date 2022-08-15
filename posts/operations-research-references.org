@@ -70,7 +70,7 @@ also excellent.)
 
 [fn:wentzel] {-}  
 #+ATTR_HTML: :width 200px
-[[file:/images/or_references/wentzel.jpg]]
+[[file:../images/or_references/wentzel.jpg]]
 
 [fn:mir] {-} Mir also published [[https://mirtitles.org/2011/06/03/physics-for-everyone/][/Physics for Everyone/]] by Lev Landau
 and Alexander Kitaigorodsky, a three-volume introduction to physics
@@ -104,7 +104,7 @@ and other network problems.
 
 [fn:williams] {-}  
 #+ATTR_HTML: :width 200px
-[[file:/images/or_references/williams.jpg]]
+[[file:../images/or_references/williams.jpg]]
 
 
 Another interesting resource is the freely available [[https://docs.mosek.com/modeling-cookbook/index.html][MOSEK Modeling
@@ -155,7 +155,7 @@ algorithms.
 
 [fn:kochenderfer] {-}  
 #+ATTR_HTML: :width 200px
-[[file:/images/or_references/kochenderfer.jpg]]
+[[file:../images/or_references/kochenderfer.jpg]]
 
 
 ** Online courses
@@ -214,7 +214,7 @@ or [[https://github.com/coin-or/pulp][PuLP]] for linear programming.
 
 [fn:jump] {-}  
 #+ATTR_HTML: :width 250px :style background-color: #cccccc;
-[[file:/images/or_references/jump.svg]]
+[[file:../images/or_references/jump.svg]]
 
 
 Regarding solvers, there is a [[http://www.juliaopt.org/JuMP.jl/stable/installation/#Getting-Solvers-1][list of solvers]] on JuMP's documentation,
