@@ -10,13 +10,14 @@ title: "Curriculum Vitæ"
 **  [[http://www.sysnav.fr/][Sysnav]]: Research Engineer and Project Manager
    September 2020--present
 
-   - Development and validation of clinical endpoints for
+   - Development and validation of clinical outcome measures for
      neuromuscular disease diagnosis using inertial sensors data
    - Work with physicians and pharmaceutical companies
-   - Management of a team of 6 research engineers on algorithm
-     development, modelling, and statistical analysis
-   - Led the development of a platform to manage, process, and display
-     large volumes of patients data in the context of clinical trials
+   - Management of a team of 9 research engineers and data scientists
+     on algorithm development, modelling, statistical analysis, and
+     distributed computing
+   - Led the development of a clinical trial management system to
+     manage, process, and display large volumes of patient data
 
 ** [[https://www.mindsay.com/][Mindsay]]: R&D Data Scientist and Engineering Manager
    October 2018--September 2020
