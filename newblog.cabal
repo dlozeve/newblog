@@ -1,4 +1,4 @@
-cabal-version:      2.4
+cabal-version:      3.8
 name:               newblog
 version:            0.1.0.0
 author:             Dimitri Lozeve
@@ -9,6 +9,6 @@ executable site
                   , containers
                   , pandoc
                   , pandoc-sidenote
-                  , hakyll
+                  , hakyll >= 4
   ghc-options:      -threaded
   default-language: Haskell2010
