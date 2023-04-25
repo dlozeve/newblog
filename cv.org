@@ -7,17 +7,18 @@ title: "Curriculum Vitæ"
 
 * Work experience
 
-**  [[http://www.sysnav.fr/][Sysnav]]: Research Engineer and Project Manager
+**  [[http://www.sysnav.fr/][Sysnav]]: Engineering Manager, Healthcare Algorithms Development
    September 2020--present
 
    - Development and validation of clinical outcome measures for
-     neuromuscular disease diagnosis using inertial sensors data
+     neuromuscular diseases using inertial sensors data
    - Work with physicians and pharmaceutical companies
    - Management of a team of 9 research engineers and data scientists
      on algorithm development, modelling, statistical analysis, and
      distributed computing
-   - Led the development of a clinical trial management system to
-     manage, process, and display large volumes of patient data
+   - Project Manager for the development of a clinical trial
+     management system to manage, process, and display large volumes
+     of patient data
 
 ** [[https://www.mindsay.com/][Mindsay]]: R&D Data Scientist and Engineering Manager
    October 2018--September 2020
