@@ -7,8 +7,15 @@ title: "Curriculum Vitæ"
 
 * Work experience
 
-**  [[http://www.sysnav.fr/][Sysnav]]: Engineering Manager, Healthcare Algorithms Development
-   September 2020--present
+** [[https://www.doctrine.fr][Doctrine]]: Engineering Manager
+   November 2023--present
+
+   Reinventing the way legal professionals work by offering
+   productivity tools that simplify the analysis and drafting of
+   private legal documents.
+
+** [[http://www.sysnav.fr/][Sysnav]]: Engineering Manager, Healthcare Algorithms Development
+   September 2020--October 2023
 
    - Development and validation of clinical outcome measures for
      neuromuscular diseases using inertial sensors data
