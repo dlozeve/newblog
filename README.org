@@ -2,15 +2,17 @@
 
 ** Setup
 
+Uses [[https://developers.cloudflare.com/pages/get-started/direct-upload/][Cloudflare Pages direct upload]].
+
 #+begin_src sh
-  npm install netlify-cli -g
-  netlify login  # login to Netlify
-  netlify link  # link the directory to the site
+npm install
+npx wrangler login
+npx wrangler pages project create
 #+end_src
 
-** Deploy
+** Build and deploy
 
 #+begin_src sh
-  # deploy, omit "--prod" if you want to preview
-  netlify deploy --dir=_site --prod
+cabal run site build
+npx wrangler pages project deploy _site
 #+end_src
