@@ -1,18 +1,21 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes"
+    />
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
-    <meta name="description" content="Dimitri Lozeve's blog: $title$">
+    <meta name="description" content="Dimitri Lozeve's blog: $title$" />
     $if(keywords)$
-    <meta name="keywords" content="$for(keywords)$$keywords$$sep$, $endfor$">
+    <meta name="keywords" content="$for(keywords)$$keywords$$sep$, $endfor$" />
     $endif$
     <title>Dimitri Lozeve - $title$</title>
     <link rel="stylesheet" href="/css/tufte.css" />
@@ -21,11 +24,19 @@
     <link rel="stylesheet" href="/css/syntax.css" />
 
     <!-- RSS feed -->
-    <link rel="alternate" type="application/rss+xml" title="Dimitri Lozeve's blog" href="/rss.xml" /> 
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Dimitri Lozeve's blog"
+      href="/rss.xml"
+    />
 
     <!-- MathJax -->
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+    ></script>
   </head>
   <body>
     <article>
@@ -33,31 +44,25 @@
         <nav>
           <a href="/">Home</a>
           <a href="/archive.html">Posts</a>
-  	  <a href="/projects.html">Projects</a>
-	  <a href="/cv.html">CV</a>
-  	  <a href="/contact.html">Contact</a>
+          <a href="/projects.html">Projects</a>
+          <a href="/cv.html">CV</a>
+          <a href="/contact.html">Contact</a>
         </nav>
 
         $if(title)$
-          <h1 class="title">$title$</h1>
-          $if(subtitle)$
-            <p class="subtitle">$subtitle$</p>
-          $endif$
-          $if(date)$
-            <p class="byline">$date$$if(author)$ &ndash; $author$$endif$</p>
-          $else$
-            $if(author)$
-              <p class="byline">$author$</p>
-            $endif$
-          $endif$
-	  $if(tags)$
-	    <p class="byline">Tags: $tags$</p>
-	  $endif$
-        $endif$
+        <h1 class="title">$title$</h1>
+        $if(subtitle)$
+        <p class="subtitle">$subtitle$</p>
+        $endif$ $if(date)$
+        <p class="byline">$date$$if(author)$ &ndash; $author$$endif$</p>
+        $else$ $if(author)$
+        <p class="byline">$author$</p>
+        $endif$ $endif$ $if(tags)$
+        <p class="byline">Tags: $tags$</p>
+        $endif$ $endif$
       </header>
 
       $body$
-
     </article>
 
     <footer>
