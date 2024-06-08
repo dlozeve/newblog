@@ -14,5 +14,5 @@ npx wrangler pages project create
 
 #+begin_src sh
 cabal run site build
-npx wrangler pages project deploy _site
+npx wrangler pages deploy _site
 #+end_src
