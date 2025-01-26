@@ -106,6 +106,7 @@ was gathered using a Software Defined Radio to listen to aircrafts.
   - My submission [[https://github.com/dlozeve/apl-competition-2018][on GitHub]]
   - Nominated as a [[https://www.dyalog.com/nnews/128/456/Winners-Announced-for-the-2018-APL-Programming-Contest.htm][Phase I winner]]
 - [[https://adventofcode.com/][Advent of code]]
+  - [[https://git.sr.ht/~dlozeve/advent-of-code/tree/main/item/2024][2024]] (BQN)
   - [[https://github.com/dlozeve/aoc2023][2023]] (BQN)
   - [[https://github.com/dlozeve/aoc2022][2022]] (mostly BQN)
   - [[https://github.com/dlozeve/aoc2021][2021]] (mostly Chicken Scheme)
