@@ -13,11 +13,16 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
+    <title>Dimitri Lozeve - $title$</title>
+    <meta property="og:title" content="Dimitri Lozeve - $title$" />
+    <meta property="og:url" content="https://lozeve.com$url$" />
     <meta name="description" content="Dimitri Lozeve's blog: $title$" />
+    <meta name="og:description" content="Dimitri Lozeve's blog: $title$" />
     $if(keywords)$
     <meta name="keywords" content="$for(keywords)$$keywords$$sep$, $endfor$" />
     $endif$
-    <title>Dimitri Lozeve - $title$</title>
+    <meta name="fediverse:creator" content="@dlzv@mathstodon.xyz" />
+
     <link rel="stylesheet" href="/css/tufte.css" />
     <link rel="stylesheet" href="/css/pandoc.css" />
     <link rel="stylesheet" href="/css/default.css" />
@@ -29,6 +34,12 @@
       type="application/rss+xml"
       title="Dimitri Lozeve's blog"
       href="/rss.xml"
+    />
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      title="Dimitri Lozeve's blog"
+      href="/atom.xml"
     />
 
     <!-- MathJax -->
