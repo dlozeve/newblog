@@ -18,7 +18,7 @@ main = hakyll $ do
     route idRoute
     compile copyFileCompiler
 
-  match "favicon.ico" $ do
+  match (fromList ["favicon.ico", "favicon.svg", "favicon-96x96.png", "web-app-manifest-192x192.png", "web-app-manifest-512x512.png", "apple-touch-icon.png", "site.webmanifest"]) $ do
     route idRoute
     compile copyFileCompiler
 
