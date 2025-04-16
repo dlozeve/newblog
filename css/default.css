@@ -1,35 +1,32 @@
-body {
-    background-color: #1c1c1c/* #1d2228 */;
-    color: #eeeeee;
-}
-
-header {
-    margin: 1em 0 2em 0;
-}
 header nav {
-    width: 87.5%;
+  width: 87.5%;
+  max-width: 1400px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding: 2rem 0 0 0;
 }
+
+header nav div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
 header nav a {
-    display: inline-block;
-    font-size: 1.4rem;
-    font-weight: bold;
-    font-variant-caps: small-caps;
-    margin: 0 0.5rem;
-    padding: 0 0;
-}
-header nav a:first-child { margin-left: 0; }
-header nav a:last-child { margin-right: 0; }
-
-footer {
-    margin-top: 3rem;
-    padding: .5rem 0;
-    border-top: 0.1rem solid #000;
-    color: #555;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-decoration-line: none;
 }
 
-article .header {
-    font-style: italic;
-    color: #555;
+header nav a:hover {
+  text-decoration-line: underline;
+}
+
+blockquote {
+  border-left: 2px solid #808080;
+  padding-left: 1rem;
 }
 
 /* .sourceCode { */
@@ -40,62 +37,66 @@ article .header {
 /*     background: #eee; */
 /* } */
 
-blockquote {
-    border-left: 2px solid #808080;
-    padding-left: 1rem;
+.definition,
+.proposition,
+.theorem {
+  width: 55%;
+  display: block;
+  border-left: 2px solid #808080;
+  padding-left: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
-.definition, .proposition, .theorem {
-    width: 55%;
-    display: block;
-    border-left: 2px solid #808080;
-    padding-left: 1rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+.proposition,
+.theorem {
+  font-style: italic;
 }
 
-.proposition, .theorem {
-    font-style: italic;
+.definition p:first-child,
+.proposition p:first-child,
+.theorem p:first-child,
+.proof p:first-child {
+  display: inline;
 }
 
-.definition p:first-child, .proposition p:first-child, .theorem p:first-child, .proof p:first-child {
-    display: inline;
-}
-
-.definition p, .proposition p, .theorem p, .proof p {
-    margin-top: 0.4rem;
-    margin-bottom: 0.4rem;
-    padding-left: 1rem;
+.definition p,
+.proposition p,
+.theorem p,
+.proof p {
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
+  padding-left: 1rem;
 }
 
 .theorem:before {
-    content: "Theorem.";
-    font-weight: bold;
-    font-style: normal;
+  content: "Theorem.";
+  font-weight: bold;
+  font-style: normal;
 }
 
 .proposition:before {
-    content: "Proposition.";
-    font-weight: bold;
-    font-style: normal;
+  content: "Proposition.";
+  font-weight: bold;
+  font-style: normal;
 }
 
 .definition:before {
-    content: "Definition.";
-    font-weight: bold;
-    font-style: normal;
+  content: "Definition.";
+  font-weight: bold;
+  font-style: normal;
 }
 
 .proof {
-    width: 55%;
+  width: 55%;
 }
 
 .proof:before {
-    content: "Proof.";
-    font-style: italic;
+  content: "Proof.";
+  font-style: italic;
 }
 
 .proof:after {
-    content: "\220E";
-    float: right;
+  content: "\220E";
+  float: right;
 }
