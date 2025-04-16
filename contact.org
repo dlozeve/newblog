@@ -8,6 +8,6 @@ title: Contact
 
 - *LinkedIn:* [[https://www.linkedin.com/in/dimitrilozeve][/in/dimitrilozeve]]
 
-- *Twitter:* [[https://twitter.com/DimitriLozeve][DimitriLozeve]]
+- *Mastodon:* [[https://mathstodon.xyz/@dlzv][@dlzv@mathstodon.xyz]]
 
 # - *StackOverflow:* [[https://stackoverflow.com/story/dimitrilozeve][dimitrilozeve]]
