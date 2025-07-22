@@ -26,9 +26,27 @@
 
     <link rel="stylesheet" href="/css/fonts.css" />
     <link rel="stylesheet" href="/css/tufte.css" />
-    <link rel="stylesheet" href="/css/pandoc.css" />
-    <link rel="stylesheet" href="/css/default.css" />
-    <link rel="stylesheet" href="/css/syntax.css" />
+    <link
+      rel="preload"
+      href="/css/pandoc.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="/css/pandoc.css" /></noscript>
+    <link
+      rel="preload"
+      href="/css/default.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="/css/default.css" /></noscript>
+    <link
+      rel="preload"
+      href="/css/syntax.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="/css/syntax.css" /></noscript>
 
     <!-- RSS feed -->
     <link
