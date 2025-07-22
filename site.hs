@@ -30,7 +30,7 @@ main = hakyll $ do
     route idRoute
     compile compressCssCompiler
 
-  match "css/et-book/**" $ do
+  match "css/fonts/**" $ do
     route idRoute
     compile copyFileCompiler
 
