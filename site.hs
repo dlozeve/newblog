@@ -168,7 +168,7 @@ customPandocCompiler withTOC =
           }
       readerOptions = defaultHakyllReaderOptions
    in do
-        csl <- load $ fromFilePath "csl/chicago-author-date.csl"
+        csl <- load $ fromFilePath "bib/chicago-author-date.csl"
         bib <- load $ fromFilePath "bib/bibliography.bib"
         writePandocWith (if withTOC then writerOptionsWithTOC else writerOptions)
           <$> (getResourceBody >>= readPandocBiblio readerOptions csl bib >>= traverse (return . usingSideNotes))
