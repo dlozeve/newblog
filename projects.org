@@ -24,7 +24,10 @@ network obtained from Prestashop data. [[https://dlozeve.github.io/reveal_Commun
 - [[https://github.com/dlozeve/bqn-graphics][bqn-graphics]]: A collection of graphics-related tools for BQN
   (generate [[https://netpbm.sourceforge.net/doc/pnm.html][PNM]] images, convert between RGB and HSV, various
   colormaps).
-- [[https://github.com/dlozeve/bqn-npy][bqn-npy]]: Serialize and deserialize arrays in BQN to the Numpy [[https://numpy.org/doc/stable/reference/generated/numpy.lib.format.html][NPY format]].
+- [[https://github.com/dlozeve/bqn-npy][bqn-npy]]: Serialize and deserialize arrays in BQN to the Numpy [[https://numpy.org/doc/stable/reference/generated/numpy.lib.format.html][NPY
+  format]].
+- [[https://github.com/dlozeve/bqn-safetensors][bqn-safetensors]]: Read and write arrays stored in the [[https://github.com/huggingface/safetensors][safetensors]]
+  format.
 - [[https://github.com/dlozeve/bqn-curl][bqn-curl]]: BQN HTTP library, from [[https://curl.se/libcurl/][libcurl]] FFI bindings.
 
 ** [[https://github.com/dlozeve/sncf-bot][SNCF Bot]]
