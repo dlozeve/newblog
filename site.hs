@@ -34,9 +34,9 @@ main = hakyll $ do
     route idRoute
     compile copyFileCompiler
 
-  match "bib/*" $ compile biblioCompiler
+  match "bib/*.bib" $ compile biblioCompiler
 
-  match "csl/*" $ compile cslCompiler
+  match "bib/*.csl" $ compile cslCompiler
 
   tags <- buildTags "posts/*" (fromCapture "tags/*.html")
 
