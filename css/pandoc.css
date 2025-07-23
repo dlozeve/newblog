@@ -56,6 +56,9 @@ pre:not(.sourceCode) {
   width: 55%;
   font-size: 0.9rem;
   overflow-x: auto;
+  /* Always on a dark background */
+  background-color: #151515;
+  color: #ddd;
 }
 
 div.sourceCode code,
