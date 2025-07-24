@@ -7,9 +7,7 @@ import Hakyll
 import Hakyll.Core.Compiler.Internal (compilerAsk, compilerProvider)
 import Hakyll.Core.Provider (resourceFilePath)
 import Text.Pandoc
-import Text.Pandoc.Highlighting
-import Text.Pandoc.Options
-import Text.Pandoc.SideNote
+import Text.Pandoc.SideNote ( usingSideNotes )
 
 --------------------------------------------------------------------------------
 main :: IO ()
