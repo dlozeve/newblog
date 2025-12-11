@@ -13,11 +13,11 @@ when viewed as functions.
 
 The immediate reaction is "this is nonsense", and the title may be
 viewed as either misleading or deliberately provocative in order to
-gather interest. Indeed, most functions inside neural networks and
-particularly Transformers are not injective. One thinks immediately of
-activation functions, normalization layers, and so on,
-counter-examples abound. So how can an entire language model be
-injective?
+gather interest. Indeed, most functions inside neural
+networks[fn:swiglu] and particularly Transformers are not
+injective. One thinks immediately of activation functions,
+normalization layers, and so on, counter-examples abound. So how can
+an entire language model be injective?
 
 At a higher level, injectivity seems like an even taller order. From
 the user's point of view, plenty of input prompts will lead to the
@@ -28,6 +28,9 @@ So, let's actually go through the paper to understand the claim more
 precisely!
 
 [fn:paper] Quick link: [[https://arxiv.org/abs/2510.15511][ArXiv:2510.15511]].
+
+[fn:swiglu] {-} [[../images/language-models-are-injective/swiglu.png]] The
+SwiGLU activation function. It is clearly not injective.
 
 [fn:twitter] Indeed, the public discourse around this paper was
 dismal, with thousands of users on X/Twitter posting ChatGPT
@@ -43,7 +46,7 @@ text. This is what makes the result seem counter-intuitive at first.
 I think one of the main contribution of the paper is to slightly
 change the context: they see language models as functions from a
 /prompt/ (i.e. a finite sequence of discrete tokens) to /activations/
-on the output layers (vectors).
+on the output layers (vectors).[fn:map]
 
 Formally, we have a finite vocabulary $\mathcal{V}$, and context
 length $K$. From a sequence of tokens $s \in \mathcal{V}^{\leq K}$ and
@@ -51,6 +54,10 @@ parameters $\mathbf{\theta}$, the language model gives us /last-token
 representations/ $\mathbf{r}(s, \mathbf{\theta}) \in \mathbb{R}^d$.
 
 The central claim of the paper is that /this/ function is injective.
+
+[fn:map] {-} [[../images/language-models-are-injective/map.png]] The
+function we are studying: from prompt space (sequence of tokens) to
+latent space (vector of activations).
 
 * Why is injectivity important?
 
@@ -240,8 +247,81 @@ overview of activation functions used in LLMs.
 
 * Practical application
 
+Proving a theorem might not be enough, as there are plenty of things
+that are ignored in the mathematical formulation (e.g. floating-point
+precision). Moreover, real-world LLMs are very complex systems with
+thousands of building blocks. For instance, activation functions are
+part of a very active research domain and change frequently, so there
+is no guarantee that all activation functions found in the wild follow
+the requirements of the theorem.
+
+The first practical test is to check for collisions: two input prompts
+that lead to the same activation vector. If we can exhibit two
+sequences of tokens like this, we will have broken the injectivity.
+
+For large vocabularies, the input space is too big to be checked
+exhaustively, so they can't check everything. Instead they start with
+a dataset of real-world prompts and find the ones that are the closest
+in the output. They append all the possible sequences of tokens to
+these prompts. Therefore the test is "exhaustive" starting from
+"prefix" prompts that were already very close.
+
+What they find is that all input pairs are very far from a collision
+threshold of $10^{-6}$ (probably chosen to account for floating-point
+error). As this check is not truly exhaustive and the thresholds have
+been fixed somewhat arbitrarily, it's not very significant, but it
+acts as a nice "sanity check" for the theory.
+
+[[../images/language-models-are-injective/collisions.png]]
+[fn::{-} Distance between final layer and intermediate layer outputs
+for the "exhaustive" check on input prompts. All are significantly
+above the collision threshold as defined in the paper.]
+
+The second practical experiments is to exploit the injectivity result
+to build an algorithm to invert a language model. Starting from the
+last-layer activations, they build a simple gradient-guided search
+that reconstruct the input sequence of tokens. The results are
+impressive: they get 100% token-level accuracy on all prompts, and in
+a remarkably quick process. The following results are for the GPT-2
+Small model:
+
+| Method      | Mean Time (s)    | Accuracy |
+|-------------+------------------+----------|
+| HardPrompts | 6132.59 ± 104.61 | 0.00     |
+| BruteForce  | 3889.61 ± 691.17 | *1.00*   |
+| SipIt       | *28.01 ± 35.87*  | *1.00*   |
 
 
 * Conclusion: rebuilding our intuition
+
+** Expressivity and regularization
+
+Transformers (and neural networks in general) are very useful because
+they generalize very well. The class of learned functions needs to be
+very large to be as expressive as possible, but still constrained to
+avoid overfitting. The regularization built into our language models
+can be understood as properties of the functions they
+represent. Analytic functions are a class of very smooth, very regular
+functions, that have a lot of nice property, so it is no accident that
+they are very good targets of a machine learning algorithm.
+
+** Curse of dimensionality
+
+The main result of the paper does not seem so unintuitive if its
+hypotheses are laid out clearly. What we have is a function with
+inputs on a /discrete space/ (finite sequences on a finite
+vocabulary), and outputs in /continuous, high-dimension/ vector
+space. Since the output space is so much larger, it would actually be
+very surprising that a non-pathological function makes several inputs
+"collapse" into a single high-dimension vector!
+
+Moreover, there is an instance of the /curse of dimensionality/: if
+you draw two vectors with random directions in a high-dimension space,
+they will very probably be orthogonal
+[cite:@vershynin2018_high_dimen_probab sec. 3.3.3]. High dimensions
+tend to "push everything to the edges" and so collisions become
+increasingly unlikely. So another way to see this result is that it is
+unintuitive only because probability on high-dimension vector spaces
+is in itself quite unintuitive!
 
 * References
