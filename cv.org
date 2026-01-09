@@ -113,46 +113,29 @@ title: "Curriculum Vitæ"
 
 * Languages and skills
 
-** Computer science
+** Technical skills
 
-   *Python:*
+- Backend development: Python, Rust
+- Frontend development: TypeScript, React
+- Data analysis: Python, R
+- Cloud (AWS)
+- High-performance distributed computing
 
-   - Numerical computing: [[http://www.numpy.org/][Numpy]], [[https://www.scipy.org/][Scipy]]
-   - Data analysis: [[https://pandas.pydata.org/][Pandas]]
-   - Machine Learning: [[http://scikit-learn.org/][Scikit-Learn]]
-   - Deep Learning: [[https://www.tensorflow.org/][TensorFlow]], [[http://pytorch.org/][PyTorch]]
-   - Network analysis: [[https://networkx.github.io/][NetworkX]], [[https://graph-tool.skewed.de/][graph-tool]]
-   - Research projects and hackathons: [[https://github.com/dlozeve/community-detection][community detection]] and [[https://github.com/dlozeve/DocAssist][DocAssist]]
+** Scientific skills
 
-   *Julia:*
-
-   - Numerical computing, machine learning
-   - Optimisation and Operations Research: [[https://github.com/JuliaOpt/JuMP.jl][JuMP]]
-   - Projects: [[https://github.com/dlozeve/GardenOptim][Garden optimisation]] using Markov Chain Monte Carlo and integer programming
-     
-   *R:*
-
-   - Statistical modelling and inference (generalised linear models, bayesian analysis)
-   - Data analysis: [[https://www.tidyverse.org/][Tidyverse]]
-   - Network analysis: [[http://igraph.org/][igraph]]
-
-   *C, Java:* Embedded and [[https://github.com/dlozeve/Satrap][network]] programming, [[https://github.com/dlozeve/topological-persistence][scientific computing]]
-
-   *SQL:* Basics
-
-   *Haskell, Lisp (Scheme, Racket):* Hobby projects ([[https://github.com/dlozeve/orbit][N-body simulation]], [[https://github.com/dlozeve/Civilisation-hs][SAT solver]], [[https://github.com/dlozeve/aoc2017][Advent of Code 2017]], [[https://github.com/dlozeve/aoc2018][Advent of Code 2018]], [[https://github.com/dlozeve/aoc2019][Advent of Code 2019]], [[https://github.com/dlozeve/aoc2020][Advent of Code 2020]])
-
-   *Software:* Git, GNU/Linux, LaTeX, [[https://aws.amazon.com/][Amazon AWS]], [[https://www.mongodb.com/][MongoDB]], [[https://www.wolfram.com/mathematica/][Wolfram Mathematica]], Microsoft Office
-
-   See also [[./skills.html][a complete list of my skills in Statistics, Data Science and Machine Learning]].
+- Statistics and classical machine learning, time series analysis
+- Optimization algorithms, operations research, optimal control
+- Graph and network analysis
+- Natural language processing and LLMs
+- Reinforcement learning
 
 ** Languages
 
-   - French
-   - English
+- French (native language)
+- English (fluent)
 
 ** Sports
 
-   *Fencing:* vice-president of the 2016 [[http://x-systra.com/][X-SYSTRA International Fencing Challenge]]; 29th in the 2016 sabre French Student Championships
+*Fencing:* vice-president of the 2016 [[http://x-systra.com/][X-SYSTRA International Fencing Challenge]]; 29th in the 2016 sabre French Student Championships
 
-   *Scuba-diving:* CMAS ★ ★ ★, 170+ dives
+*Scuba-diving:* CMAS ★ ★ ★, 200+ dives
