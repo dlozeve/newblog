@@ -1,0 +1,93 @@
+---
+title: "The Bulgarian Solitaire"
+date: 2026-02-01
+tags: paper, maths
+toc: false
+---
+
+Imagine you are the director of a unit in a large company. You have 5
+teams, with various number of people in each team. A new important
+project has come up, and you would like to set up a new team to tackle
+it. The problem is: you don't have any budget to hire new people!
+
+What can you do? Well, you could take one person from each existing
+team, and build a new team with these 5 people.
+
+It works well for a while, but of course soon enough, a new project
+comes up, and you still don't have any additional budget! It worked
+the first time, so you reshuffle the teams once more in the same
+way. One of the existing team had only one person left, so they go to
+the newly created team and their existing team just disappears.
+
+Now the CEO is getting concerned with your unconventional management
+practices. She summons you to her office and ask you: What would
+happen if you do this repeatedly for every new project? How many teams
+will you end up with, with how many people in each one of them?
+
+* The Bulgarian Solitaire
+
+Instead of this (admittedly far-fetched) management scenario, you can
+do the same process with playing cards. You have $n$ cards divided
+arbitrarily into several piles. At each step, you remove one card from
+each pile and collect them in a new pile next to the existing ones. If
+you repeat this operation, how many piles of cards will you get? With
+how many cards in each of them? This problem is called the /Bulgarian
+Solitaire/.
+
+With $n$ cards, the Bulgarian Solitaire is an example of a discrete
+dynamical system on partitions of $n$. A /partition/ is an unordered
+sequences of numbers that sum to $n$. For instance, $(4,3,2,1)$ and
+$(8,3,2,2)$ are partitions of 15. At each step, the Bulgarian
+Solitaire will transform a partition like $(8,3,2,2)$ into a new one,
+in this case $(7,2,1,1,4)$ (the new pile is at the end, but we don't
+care about the order so we can also write it as $(7,4,2,1,1)$).
+
+What we are trying to understand is in fact a standard question in
+dynamical systems: where is the system going? Are there stable states,
+cycles? What are they?
+
+Now, if you try the Bulgarian Solitaire with 15 cards, for every
+possible starting position, you will end up with 4 piles of size 1,
+2, 3, and 4. It turns out that this pattern can be observed
+consistently:
+
+#+begin_theorem
+When the number of cards $n = k(k+1)/2$ is triangular[fn:triangular],
+the Bulgarian Solitaire will converge into piles of size 1, 2, ..., $k$.
+#+end_theorem
+
+[fn:triangular] [[https://en.wikipedia.org/wiki/Triangular_number][Triangular numbers]] get their names from the fact that
+they can be arranged in a triangle. (OEIS: [[https://oeis.org/A000217][A000217]]) (Image from
+[[https://commons.wikimedia.org/wiki/File:First_six_triangular_numbers.svg][Wikimedia]], CC-BY-SA.)
+#+ATTR_HTML: :style background-color: #ffffff;
+[[../images/bulgarian-solitaire/First_six_triangular_numbers.svg]]
+#+begin_comment
+                        n = 10
+            n = 6         •
+ n = 3        •          • •
+   •         • •        • • •
+  • •       • • •      • • • •
+
+                    n = 21
+   n = 15             •
+     •               • •
+    • •             • • •
+   • • •           • • • •
+  • • • •         • • • • •
+ • • • • •       • • • • • •
+#+end_comment
+
+* Visualizing the Bulgarian Solitaire process
+
+As a first example, let's take $n=10$ cards, in piles of 4, 3, and 3
+cards. We take one card on top of each pile (in orange), and we make a
+new pile of size 3:
+#+ATTR_HTML: :width 300px
+[[../images/bulgarian-solitaire/cards.svg]]
+
+Visualizing cards like this is not very practical, but as it turns
+out, mathematicians have already devised a nice way to visualize
+partitions: [[https://en.wikipedia.org/wiki/Young_tableau#Diagrams][Young diagrams]]. They represent a partition as rows of
+boxes. For example, the partition $(4,3,3)$ of the number 10 can be
+visualized as:
+
