@@ -1,8 +1,8 @@
 ---
 title: "The Bulgarian Solitaire"
-date: 2026-02-03
+date: 2026-02-08
 tags: paper, maths
-toc: false
+toc: true
 ---
 
 Imagine you are the director of a unit in a large company. You have 5
@@ -32,7 +32,8 @@ arbitrarily into several piles. At each step, you remove one card from
 each pile and collect them in a new pile next to the existing ones. If
 you repeat this operation, how many piles of cards will you get? With
 how many cards in each of them? This problem is called the /Bulgarian
-Solitaire/.
+Solitaire/. It is described in [[https://arxiv.org/abs/1503.00885][this paper]][fn::Which also describes the
+history of the problem, including why it is called "Bulgarian".].
 
 With $n$ cards, the Bulgarian Solitaire is an example of a discrete
 dynamical system on partitions of $n$. A /partition/ is an unordered
@@ -134,3 +135,200 @@ across all piles!
 So now we just needs to prove that all configurations will end up at
 this minimum of potential energy, i.e. that there is no local minimum
 that prevents the system from reaching this global minimum.
+
+Imagine we are /not/ at this triangular position. Since the total
+number of boxes is triangular, there is necessarily one layer with an
+empty space for a box, and one layer above with an additional box. At
+each step, the boxes will "rotate", and the empty space and the
+additional box will move one space to the right. If the layer with the
+empty space is of size $k$, the layer above it will be of size $k+1$,
+and these numbers are relatively prime. After a certain number of
+steps, the additional box will be directly above the empty space and
+will fall down.
+
+So no configuration that is not fully triangular is stable: after a
+certain number of steps, the potential energy will decrease.
+
+* Simulating the Bulgarian Solitaire
+
+Let's simulate the process (in Python) to visualize the
+convergence. The script will generate all partitions of a given
+integer $n$, and generate the transition graph of the Bulgarian
+Solitaire. If a step of the Bulgarian Solitaire transforms partition
+$p_1$ into partition $p_2$, we will draw an edge between $p_1$ and
+$p_2$.
+
+We'll start by defining helpful type aliases: a partition is a tuple
+of ints, and the graph we will generate is a dictionary from
+partitions to partitions.
+
+#+begin_src python
+type Partition = tuple[int, ...]
+type Graph = dict[Partition, Partition]
+#+end_src
+
+Next, we need a function that enumerates all possible partitions of a
+given integer $n$. It is built recursively: for all possible prefixes
+$0 < k < n$, the partitions we are looking for consist of $k$ followed
+by all partitions of $n-k$.
+
+#+begin_src python
+from collections.abc import Generator
+
+def integer_partition(n: int) -> Generator[Partition]:
+    if n <= 0:
+        return
+
+    def find_partitions_recursive(target: int, current_partition: list[int]):
+        if target == 0:
+            yield current_partition
+            return
+
+        max_val = current_partition[-1] if current_partition else target
+        for i in range(min(target, max_val), 0, -1):
+            current_partition.append(i)
+            yield from find_partitions_recursive(target - i, current_partition)
+            # Backtrack
+            current_partition.pop()
+
+    yield from map(tuple, find_partitions_recursive(n, []))
+#+end_src
+
+The ~step~ function is the Bulgarian Solitaire itself:
+
+#+begin_src python
+def step(partition: Partition) -> Partition:
+    next = [len(partition)] + [k - 1 for k in partition if k > 1]
+    return tuple(sorted(next, reverse=True))
+#+end_src
+
+We can now compute the transition graph:
+
+#+begin_src python
+def compute_graph(n: int) -> Graph:
+    return {partition: step(partition) for partition in integer_partition(n)}
+#+end_src
+
+Now for display, we generate some Graphviz code. The colors are
+adapted for viewing directly in the terminal.
+
+#+begin_src python
+def print_graphviz(graph: Graph) -> None:
+    print("""digraph {
+    bgcolor="transparent";
+    node [shape="rect", fontcolor="white", color="white"];
+    edge [fontcolor="white", color="white"];
+    """)
+    for k, v in graph.items():
+        print(f'    "{k}" -> "{v}";')
+    print("}")
+#+end_src
+
+To finish, let's add a command-line interface:
+
+#+begin_src python
+import argparse
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("n", type=int)
+    args = parser.parse_args()
+
+    graph = compute_graph(args.n)
+    print_graphviz(graph)
+
+
+if __name__ == "__main__":
+    main()
+#+end_src
+
+The script can then be called directly:
+#+begin_src sh
+# Save the graphviz file
+python bulgarian_solitaire.py 10 > graph10.dot
+# Generate a PNG graph
+python bulgarian_solitaire.py 10 | dot -Tpng > graph_10.png
+# Display the image directly in the terminal (if it supports image display)
+python bulgarian_solitaire.py 12 | dot -Tpng | viu -
+#+end_src
+
+Here is the output for $n=6$:
+#+ATTR_HTML: :style background-color: #151515;
+[[../images/bulgarian-solitaire/graph_6.svg]]
+
+And for $n=10$:
+#+ATTR_HTML: :style background-color: #151515;
+[[../images/bulgarian-solitaire/graph_10.svg]]
+
+As we can see, all partitions indeed converge to the triangular
+configurations $(3,2,1)$ and $(4,3,2,1)$.
+
+Now what happens when the number $n$ is not triangular?
+
+For $n=7$:
+#+ATTR_HTML: :style background-color: #151515;
+[[../images/bulgarian-solitaire/graph_7.svg]]
+
+The dynamical system converges to a cycle between $(4,2,1)$,
+$(3,3,1)$, $(3,2,2)$, and $(3,2,1,1)$. When we look at this cycle, we
+realize that it is the triangular configuration $(3,2,1)$, plus an
+additional box cycling above.
+
+For $n=8$:
+#+ATTR_HTML: :style background-color: #151515;
+[[../images/bulgarian-solitaire/graph_8.svg]]
+
+Here we get two connected components in the graph. And here again, we
+get the triangular partition but with two additional blocks cycling
+above.
+
+This property can be proved (Theorem 2 in the paper), and the number
+of connected components can be computed exactly for all $n$.
+
+* Conclusion
+
+The Bulgarian Solitaire is a nice example of a discrete dynamical
+system. The proof is particularly interesting because it relies on
+visualization and a physical intuition about the "potential energy" of
+the system, which translates directly into the formal proof.
+
+[[https://arxiv.org/abs/1503.00885][The paper]] also mentions generalizations. I am interested in particular
+in the /stochastic/ Bulgarian Solitaire. Instead of taking one card
+from each pile at each step, we take one card with probability
+$0<p<1$. The dynamical system becomes a Markov chain, and it would be
+interesting to study (even experimentally) its convergence properties.
+
+* Bonus: [[https://mlochbaum.github.io/BQN/][BQN]] implementation of the simulator
+
+Compute one step of the Bulgarian Solitaire:
+#+begin_src txt
+Step←∨≠∾(0⊸≠⊸/¯1⊸+)
+#+end_src
+
+Generate all partitions of a given integer. Conveniently, this was
+already available in [[https://mlochbaum.github.io/bqncrate/?q=integer%20partitions][BQNcrate]]!
+#+begin_src txt
+Partitions←{∾⊢´∾⟜(<-⟜↕∘≠{𝕨∾¨∾(-𝕨⌊≠𝕩)↑𝕩}¨⊢)⍟𝕩⋈⋈⋈↕0}
+#+end_src
+
+Compute the graph:
+#+begin_src txt
+ComputeGraph←{>(⊢⋈Step)¨Partitions𝕩}
+#+end_src
+
+Print the graphviz code:
+#+begin_src txt
+EdgeToGraphviz←{∾⟜(""";"∾@+10)5↓∾""" -> """⊸∾¨•Fmt¨𝕩}
+graphvizheader←"bgcolor=""transparent"";
+node [shape=""rect"",fontcolor=""white"",color=""white""];
+edge [fontcolor=""white"",color=""white""];"
+ToGraphviz←{"digraph {"∾graphvizheader∾(∾EdgeToGraphviz¨<˘𝕩)∾"}"}
+
+n←•ParseFloat⊑•args
+•Out ToGraphviz ComputeGraph n
+#+end_src
+
+Run with:
+#+begin_src sh
+bqn bulgarian_solitaire.bqn 6 | dot -Tpng > graph_6.png
+#+end_src
