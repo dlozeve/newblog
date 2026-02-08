@@ -6,7 +6,7 @@ toc: true
 ---
 
 Imagine you are the director of a unit in a large company. You have 5
-teams, with various number of people in each team. A new important
+teams, with various numbers of people in each team. An important new
 project has come up, and you would like to set up a new team to tackle
 it. The problem is: you don't have any budget to hire new people!
 
@@ -20,7 +20,7 @@ way. One of the existing team had only one person left, so they go to
 the newly created team and their existing team just disappears.
 
 Now the CEO is getting concerned with your unconventional management
-practices. She summons you to her office and ask you: What would
+practices. She summons you to her office and asks you: What would
 happen if you do this repeatedly for every new project? How many teams
 will you end up with, with how many people in each one of them?
 
@@ -37,7 +37,7 @@ history of the problem, including why it is called "Bulgarian".].
 
 With $n$ cards, the Bulgarian Solitaire is an example of a discrete
 dynamical system on partitions of $n$. A /partition/ is an unordered
-sequences of numbers that sum to $n$. For instance, $(4,3,2,1)$ and
+sequence of numbers that sum to $n$. For instance, $(4,3,2,1)$ and
 $(8,3,2,2)$ are partitions of 15. At each step, the Bulgarian
 Solitaire will transform a partition like $(8,3,2,2)$ into a new one,
 in this case $(7,2,1,1,4)$ (the new pile is at the end, but we don't
@@ -50,8 +50,8 @@ cycles? What are they?
 * Visualizing the Bulgarian Solitaire process
 
 As a first example, let's take $n=10$ cards, in piles of 4, 3, and 3
-cards. We take one card on top of each pile (in orange), and we make a
-new pile of size 3:
+cards. We take one card from the top of each pile (in orange), and we
+make a new pile of size 3:
 #+ATTR_HTML: :width 300px
 [[../images/bulgarian-solitaire/cards.svg]]
 
@@ -73,19 +73,18 @@ A step in the Bulgarian Solitaire will look like this:
 [[../images/bulgarian-solitaire/step.drawio.png]]
 
 We take one card from each pile (highlighted in orange in the diagram
-below), and create a new pile from them. Then we reorder the piles so
+above), and create a new pile from them. Then we reorder the piles so
 that they are sorted by decreasing size.
 
 * Convergence of the Bulgarian Solitaire
 
 Now, if you try the Bulgarian Solitaire with 15 cards, for every
-possible starting position, you will end up with 4 piles of size 1,
-2, 3, and 4. It turns out that this pattern can be observed
-consistently:
+possible starting position, you will end up with 4 piles of size 1, 2,
+3, and 4. It turns out that this pattern can be observed consistently:
 
 #+begin_theorem
 When the number of cards $n = k(k+1)/2$ is triangular[fn:triangular],
-the Bulgarian Solitaire will converge into piles of size 1, 2, ..., $k$.
+the Bulgarian Solitaire will converge to piles of size 1, 2, ..., $k$.
 #+end_theorem
 
 [fn:triangular] [[https://en.wikipedia.org/wiki/Triangular_number][Triangular numbers]] are the sums of consecutive
@@ -120,7 +119,7 @@ When we do a step in the Bulgarian Solitaire, we move around the boxes:
 
 [[../images/bulgarian-solitaire/young_fall.drawio.png]]
 
-And sometimes we can see that a box (in grey here) is above an empty
+Sometimes we can see that a box (in grey here) is above an empty
 space, and therefore it falls down. This corresponds to cases when
 there is a need to reorder the piles so that they remain in order of
 decreasing size.
@@ -132,7 +131,7 @@ falls down). And the lowest possible potential energy is reached when
 the configuration is fully triangular, when boxes are spread evenly
 across all piles!
 
-So now we just needs to prove that all configurations will end up at
+So now we just need to prove that all configurations will end up at
 this minimum of potential energy, i.e. that there is no local minimum
 that prevents the system from reaching this global minimum.
 
@@ -147,7 +146,8 @@ steps, the additional box will be directly above the empty space and
 will fall down.
 
 So no configuration that is not fully triangular is stable: after a
-certain number of steps, the potential energy will decrease.
+certain number of steps, the potential energy will decrease. The
+detailed proof can be found in section 2 of [[https://arxiv.org/abs/1503.00885][the paper]].
 
 * Simulating the Bulgarian Solitaire
 
@@ -169,8 +169,8 @@ type Graph = dict[Partition, Partition]
 
 Next, we need a function that enumerates all possible partitions of a
 given integer $n$. It is built recursively: for all possible prefixes
-$0 < k < n$, the partitions we are looking for consist of $k$ followed
-by all partitions of $n-k$.
+$0 < k \leq n$, the partitions we are looking for consist of $k$
+followed by all partitions of $n-k$.
 
 #+begin_src python
 from collections.abc import Generator
@@ -209,7 +209,7 @@ def compute_graph(n: int) -> Graph:
     return {partition: step(partition) for partition in integer_partition(n)}
 #+end_src
 
-Now for display, we generate some Graphviz code. The colors are
+Now for display, we generate some [[https://graphviz.org/][Graphviz]] code. The colors are
 adapted for viewing directly in the terminal.
 
 #+begin_src python
@@ -279,7 +279,7 @@ For $n=8$:
 [[../images/bulgarian-solitaire/graph_8.svg]]
 
 Here we get two connected components in the graph. And here again, we
-get the triangular partition but with two additional blocks cycling
+get the triangular partition but with two additional boxes cycling
 above.
 
 This property can be proved (Theorem 2 in the paper), and the number
@@ -289,14 +289,15 @@ of connected components can be computed exactly for all $n$.
 
 The Bulgarian Solitaire is a nice example of a discrete dynamical
 system. The proof is particularly interesting because it relies on
-visualization and a physical intuition about the "potential energy" of
+visualization and physical intuition about the "potential energy" of
 the system, which translates directly into the formal proof.
 
 [[https://arxiv.org/abs/1503.00885][The paper]] also mentions generalizations. I am interested in particular
 in the /stochastic/ Bulgarian Solitaire. Instead of taking one card
-from each pile at each step, we take one card with probability
-$0<p<1$. The dynamical system becomes a Markov chain, and it would be
-interesting to study (even experimentally) its convergence properties.
+from each pile at each step, we take one card from each pile
+independently with probability $0<p<1$. The dynamical system becomes a
+Markov chain, and it would be interesting to study (even
+experimentally) its convergence properties.
 
 * Bonus: [[https://mlochbaum.github.io/BQN/][BQN]] implementation of the simulator
 
