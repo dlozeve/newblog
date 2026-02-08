@@ -1,7 +1,7 @@
 ---
 title: "The Bulgarian Solitaire"
 date: 2026-02-08
-tags: paper, maths
+tags: paper, maths, dynamical systems
 toc: false
 ---
 
