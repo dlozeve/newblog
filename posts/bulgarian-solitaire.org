@@ -2,7 +2,7 @@
 title: "The Bulgarian Solitaire"
 date: 2026-02-08
 tags: paper, maths
-toc: true
+toc: false
 ---
 
 Imagine you are the director of a unit in a large company. You have 5
@@ -301,23 +301,27 @@ experimentally) its convergence properties.
 
 * Bonus: [[https://mlochbaum.github.io/BQN/][BQN]] implementation of the simulator
 
-Compute one step of the Bulgarian Solitaire:
+First, the ~Step~ function computes one step of the Bulgarian
+Solitaire. It removes 1 from each pile (~¯1⊸+~), removes the piles
+that became empty (~0⊸≠~), adds a pile of the original size (~≠∾~), and
+sorts the piles for consistency (~∨~).
 #+begin_src txt
 Step←∨≠∾(0⊸≠⊸/¯1⊸+)
 #+end_src
 
-Generate all partitions of a given integer. Conveniently, this was
-already available in [[https://mlochbaum.github.io/bqncrate/?q=integer%20partitions][BQNcrate]]!
+The ~Partitions~ function generates all partitions of a given
+integer. Conveniently, this was already available in [[https://mlochbaum.github.io/bqncrate/?q=integer%20partitions][BQNcrate]]!
 #+begin_src txt
 Partitions←{∾⊢´∾⟜(<-⟜↕∘≠{𝕨∾¨∾(-𝕨⌊≠𝕩)↑𝕩}¨⊢)⍟𝕩⋈⋈⋈↕0}
 #+end_src
 
-Compute the graph:
+We can now compute the graph, by first computing all partitions of the
+input, then building the edges by calling ~Step~ on each partition.
 #+begin_src txt
 ComputeGraph←{>(⊢⋈Step)¨Partitions𝕩}
 #+end_src
 
-Print the graphviz code:
+We now generate and print the graphviz code:
 #+begin_src txt
 EdgeToGraphviz←{∾⟜(""";"∾@+10)5↓∾""" -> """⊸∾¨•Fmt¨𝕩}
 graphvizheader←"bgcolor=""transparent"";
@@ -329,7 +333,7 @@ n←•ParseFloat⊑•args
 •Out ToGraphviz ComputeGraph n
 #+end_src
 
-Run with:
+Similarly to the Python version, we can run the script with:
 #+begin_src sh
 bqn bulgarian_solitaire.bqn 6 | dot -Tpng > graph_6.png
 #+end_src
