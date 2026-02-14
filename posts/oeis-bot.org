@@ -1,0 +1,137 @@
+---
+title: "A Mastodon bot for interesting integer sequences"
+date: 2026-02-14
+tags: maths, programming, project, mastodon
+toc: false
+---
+
+A few days ago I stumbled into the [[https://oeis.org/][OEIS]] again via their [[https://oeis.org/OEIS_pics.html][pictures
+page]]. Looking at some of the pages there gave me an idea for a new,
+small project, so I gave it a shot.
+
+* What is the OEIS?
+
+The Online Encyclopedia of Integer Sequences, or "OEIS" for short, is
+a collaborative project whose objective is to collect all sequences of
+integers into a comprehensive repository. It is useful to all
+mathematicians (professional or amateur!) who stumble into a sequence
+and wish to identify it: they can type a few terms into the search
+bar, and the OEIS will return all sequences that match.
+
+The OEIS was started by Neil J. A. Sloane, after publishing a few
+books collecting many important sequences. Many people had interesting
+sequences they wanted to contribute, and sent letters to Sloane with
+suggestions. The collection began to be so large that Sloane started
+an online version, which became the OEIS[fn::The full history can be
+found [[https://oeisf.org/#HISTORY][here]].].
+
+Each sequence in the database has a unique identifier like [[https://oeis.org/A000108][A000108]]. An
+entry includes a description, the known terms of the sequence, and a
+lot of additional data: explicit formulas when they exist, comments
+and bibliographical references, programs to compute the sequence, and
+other related sequences in the database. The [[https://oeis.org/demo1.html][demo]] is a good place to
+start for how to use the database.
+
+Like most people, I have no real need of the OEIS on a day-to-day
+basis. However I still find it fascinating. Many sequences are
+well-known: the prime numbers ([[https://oeis.org/A000040][A000040]]), the Fibonacci numbers
+([[https://oeis.org/A000045][A000045]]), etc. Others I have encountered elsewhere in popular
+mathematics, like the Busy Beaver problem ([[https://oeis.org/A060843][A060843]]), whose 5th term
+has been [[https://www.quantamagazine.org/amateur-mathematicians-find-fifth-busy-beaver-turing-machine-20240702/][computed recently]]. And others I have discovered directly on
+the OEIS, like the "peaceable coexisting armies of queens" ([[https://oeis.org/A250000][A250000]],
+look at the ASCII chess boards in the examples!).
+
+What I like about these sequences is that they are often at the
+intersection of many domains in mathematics. Some of these sequences
+have very deep connections to many areas, and let you discover new
+interesting concepts and ideas. Moreover the relationships between
+sequences is often interesting as well, and let you continue the
+exploration.
+
+* The idea
+
+The only problem is that the OEIS is more a search engine, and
+therefore most sequences are not very discoverable. Contributors and
+editors add keywords to the sequences, some are [[https://oeis.org/search?q=keyword%3Anice&language=english&go=Search][nice]], some have a nice
+[[https://oeis.org/search?q=keyword%3Alook&language=english&go=Search][graph]] (click on "graph" under the sequence itself!), and the wiki
+lists some [[https://oeis.org/wiki/Index_to_OEIS:_Section_Cor#core][important sequences]]. But other than this it is not easy to
+discover interesting sequences randomly.
+
+So I got the idea of implementing a bot that would share a random
+sequence regularly, so I could read the full OEIS page if the
+description seemed interesting. Since I am mostly on [[https://mathstodon.xyz/@dlzv][Mastodon]], I
+wanted to implement this as a Mastodon bot so that others could follow
+it if they want.
+
+* The implementation
+
+The general idea is as follows:
+1. Pick a random sequence ID out of the nearly 400,000 sequences
+   currently in the database.
+2. Retrieve the metadata for this sequence (its name, the first few
+   terms, keywords and comments).
+3. Format this as a Mastodon post and post it.
+
+It is a very simple process (basically a GET request to the OEIS
+followed by a POST request to a Mastodon instance). Mastodon servers
+have a public API that is very easy to use and very well documented: I
+only needed the [[https://docs.joinmastodon.org/methods/statuses/#create][statuses]] endpoint. It requires a token that can be
+generated easily from the account settings, by creating an application
+with the =write:statuses= scope.
+
+The OEIS API has a [[https://oeis.org/wiki/JSON_Format][JSON output format]]. I wanted to parse this
+correctly. Looking at the [[https://oeis.org/eishelp2.html][documentation]] of the format, I realized that
+many sequences should be excluded because they are duplicates,
+unimportant, or too obscure[fn::Specifically, I excluded sequences
+tagged with =dead=, =dumb=, =dupe=, =less=, =obsc=, =probation=, or
+=uned=.]. So I added a step in the process above to make sure that the
+sequence picked at random was sufficiently interesting. Given the
+number of available sequences, there should be more than enough
+interesting ones!
+
+I implemented it in Rust[fn::Mostly because I am comfortable with it,
+it has a very good ecosystem, and it can be deployed as a single
+binary.]. Claude Code was fairly helpful to build all this, especially
+for the serde types to deserialize the OEIS internal format. All in
+all, I had a fully functional program in under an hour, for something
+that would have taken me at least a few hours if I had done everything
+"manually" (and which would not have been particularly interesting or
+fun to do). I am reasonably happy with the overall quality of the
+code, that you can find [[https://github.com/dlozeve/oeis_bot][on GitHub]].
+
+The final program is deployed on my VPS, I just copied the executable
+and set up a [[https://github.com/dlozeve/oeis_bot/blob/main/oeis-bot.timer][systemd timer]] to call it every 4 hours. The token for
+Mastodon is given as an environment variable in the [[https://github.com/dlozeve/oeis_bot/blob/main/oeis-bot.service][service file]].
+
+* The result
+
+I created an account on [[https://mathstodon.xyz/][Mathstodon]], the instance I use for my [[https://mathstodon.xyz/@dlzv][personal
+account]]. As this is my first bot, I wasn't sure about the process, but
+the administrators of the instance were happy to allow the bot as long
+as it is clearly identified as such and does not spam too much. I also
+made it clear that the bot is not operated officially by the
+OEIS. Should they decide to join Mastodon, I would be happy to cede
+them the account if they wish.
+
+If you want to follow it, the account is [[https://mathstodon.xyz/@OEISbot][@OEISbot]]!
+
+#+begin_export html
+<blockquote lang="en" cite="https://mathstodon.xyz/@OEISbot/116069813960351345" data-source="fediverse">
+  <p>OEIS sequence A177263<br />Triangle read by rows: T(n,k) is the number of permutations of {1,2,...,n} having k as the last entry in the first block (1&lt;=k&lt;=n).</p><p>1, 0, 2, 1, 1, 4, 4, 5, 5, 10, 18, 22, 23, 23, 34, 96, 114, 118, 119, 119, 154, 600, 696, 714, 718, 719, 719, 874, 4320, 4920, 5016, 5034, 5038, 5039, 5039, 5914, 35280, 39600, 40200, 40296, 40314, 40318, 40319, 40319, 46234, 322560, 357840, 362160, 362760, 362856, 362874, 362878, 362879, 362879, 409114</p><p><a href="https://oeis.org/A177263" target="_blank" rel="nofollow noopener" translate="no"><span class="invisible">https://</span><span class="">oeis.org/A177263</span><span class="invisible"></span></a></p>
+  <footer>
+     — OEIS bot (@OEISbot) <a href="https://mathstodon.xyz/@OEISbot/116069813960351345"><time datetime="2026-02-14T16:00:07.743Z">2/14/2026, 5:00:07 PM</time></a>
+  </footer>
+</blockquote>
+#+end_export
+
+#+begin_export html
+<blockquote lang="en" cite="https://mathstodon.xyz/@OEISbot/116067926081324392" data-source="fediverse">
+  <p>OEIS sequence A071904<br />Odd composite numbers.</p><p>9, 15, 21, 25, 27, 33, 35, 39, 45, 49, 51, 55, 57, 63, 65, 69, 75, 77, 81, 85, 87, 91, 93, 95, 99, 105, 111, 115, 117, 119, 121, 123, 125, 129, 133, 135, 141, 143, 145, 147, 153, 155, 159, 161, 165, 169, 171, 175, 177, 183, 185, 187, 189, 195, 201, 203, 205</p><p><a href="https://oeis.org/A71904" target="_blank" rel="nofollow noopener" translate="no"><span class="invisible">https://</span><span class="">oeis.org/A71904</span><span class="invisible"></span></a></p>
+  <footer>
+     — OEIS bot (@OEISbot) <a href="https://mathstodon.xyz/@OEISbot/116067926081324392"><time datetime="2026-02-14T08:00:00.996Z">2/14/2026, 9:00:00 AM</time></a>
+  </footer>
+</blockquote>
+#+end_export
+
+For now only a few sequences have been posted, but I'm excited to see
+what interesting sequences come up!
