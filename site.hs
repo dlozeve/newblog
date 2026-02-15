@@ -3,11 +3,16 @@
 
 import qualified Data.Map as Map
 import Data.Monoid (mappend)
+import qualified Data.Text as T
 import Hakyll
 import Hakyll.Core.Compiler.Internal (compilerAsk, compilerProvider)
 import Hakyll.Core.Provider (resourceFilePath)
+import System.Directory (doesFileExist)
+import System.FilePath (normalise, takeBaseName, takeDirectory, takeExtension, (</>))
 import Text.Pandoc
-import Text.Pandoc.SideNote ( usingSideNotes )
+import Text.Pandoc.Shared (stringify)
+import Text.Pandoc.SideNote (usingSideNotes)
+import Text.Pandoc.Walk (walkM)
 
 --------------------------------------------------------------------------------
 main :: IO ()
@@ -169,7 +174,50 @@ customPandocCompiler withTOC =
         csl <- load $ fromFilePath "bib/chicago-author-date.csl"
         bib <- load $ fromFilePath "bib/bibliography.bib"
         writePandocWith (if withTOC then writerOptionsWithTOC else writerOptions)
-          <$> (getResourceBody >>= readPandocBiblio readerOptions csl bib >>= traverse (return . usingSideNotes))
+          <$> ( getResourceBody
+                  >>= readPandocBiblio readerOptions csl bib
+                  >>= traverse (return . usingSideNotes)
+                  >>= traverse darkModeImages
+              )
+
+-- | Replace images with <picture> elements when a "-dark" variant exists on disk.
+-- e.g. images/foo.png will use images/foo-dark.png for dark mode if that file exists.
+-- Resolves relative paths (like ../images/foo.png) from the source file's directory.
+darkModeImages :: Pandoc -> Compiler Pandoc
+darkModeImages doc = do
+  srcPath <- getResourceFilePath
+  let srcDir = takeDirectory srcPath
+  walkM (processInline srcDir) doc
+  where
+    processInline srcDir img@(Image _attr inlines (url, _title))
+      | not ("http" `T.isPrefixOf` url) = do
+          let urlStr = T.unpack url
+              -- Resolve relative to the source file's directory
+              resolved = normalise (srcDir </> urlStr)
+              dir = takeDirectory resolved
+              base = takeBaseName resolved
+              ext = takeExtension resolved
+              darkPath = dir </> base ++ "-dark" ++ ext
+              -- Build the dark URL with the same relativity as the original
+              urlDir = takeDirectory urlStr
+              urlBase = takeBaseName urlStr
+              urlExt = takeExtension urlStr
+              darkUrl = urlDir </> urlBase ++ "-dark" ++ urlExt
+              alt = T.unpack (stringify inlines)
+          darkExists <- unsafeCompiler $ doesFileExist darkPath
+          if darkExists
+            then
+              return $
+                RawInline "html" $
+                  T.pack $
+                    concat
+                      [ "<picture>",
+                        "<source srcset=\"", darkUrl, "\" media=\"(prefers-color-scheme: dark)\">",
+                        "<img src=\"", urlStr, "\" alt=\"", alt, "\">",
+                        "</picture>"
+                      ]
+            else return img
+    processInline _ x = return x
 
 type FeedRenderer =
   FeedConfiguration ->

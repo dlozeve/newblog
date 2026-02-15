@@ -61,16 +61,16 @@ partitions: [[https://en.wikipedia.org/wiki/Young_tableau#Diagrams][Young diagra
 boxes. For example, the partition $(6,5,3,1)$ of the number 15 can be
 visualized as:
 
-[[../images/bulgarian-solitaire/young.drawio.png]]
+[[../images/bulgarian-solitaire/young.png]]
 
 In our cases, we can rotate the Young diagram by 90° so that it looks
 more like piles of cards:
 
-[[../images/bulgarian-solitaire/young_rotated.drawio.png]]
+[[../images/bulgarian-solitaire/young_rotated.png]]
 
 A step in the Bulgarian Solitaire will look like this:
 
-[[../images/bulgarian-solitaire/step.drawio.png]]
+[[../images/bulgarian-solitaire/step.png]]
 
 We take one card from each pile (highlighted in orange in the diagram
 above), and create a new pile from them. Then we reorder the piles so
@@ -91,7 +91,6 @@ the Bulgarian Solitaire will converge to piles of size 1, 2, ..., $k$.
 integers: 1, 1+2, 1+2+3, etc. They get their names from the fact that
 they can be arranged in a triangle. (OEIS: [[https://oeis.org/A000217][A000217]]) (Image from
 [[https://commons.wikimedia.org/wiki/File:First_six_triangular_numbers.svg][Wikimedia]], CC-BY-SA.)
-#+ATTR_HTML: :style background-color: #ffffff;
 [[../images/bulgarian-solitaire/First_six_triangular_numbers.svg]]
 #+begin_comment
                         n = 10
@@ -113,11 +112,11 @@ How can we prove this?
 
 There is a nice trick: we rotate (again!) our Young diagram by 45°:
 
-[[../images/bulgarian-solitaire/young_rotated_45.drawio.png]]
+[[../images/bulgarian-solitaire/young_rotated_45.png]]
 
 When we do a step in the Bulgarian Solitaire, we move around the boxes:
 
-[[../images/bulgarian-solitaire/young_fall.drawio.png]]
+[[../images/bulgarian-solitaire/young_fall.png]]
 
 Sometimes we can see that a box (in grey here) is above an empty
 space, and therefore it falls down. This corresponds to cases when
