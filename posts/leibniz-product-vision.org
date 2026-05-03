@@ -1,0 +1,205 @@
+---
+title: "Why I built Leibniz: in defense of Gantt charts and project scheduling"
+date: 2026-05-03
+tags: programming, project
+toc: false
+---
+
+In the past few months, I have been working on a new project:
+[[https://getleibniz.com][Leibniz]]. I designed it to improve the way we plan projects. Like most
+side projects, it started because of my own dissatisfaction with the
+existing tools and processes during my work. Here, I want to explain
+the story, the frustrations I encountered, and the vision I
+have.[fn:origin-story]
+
+[fn:origin-story] {-} This is the origin story and the product
+vision. I hope to have more to say about the technical details and the
+juicy algorithms later!
+
+* Project management, the old-school way
+
+In my previous job, I was in charge of project management. The company
+was very old-school in its approach, and although quite small, copied
+most of its processes from large industrial companies like Thales and
+Safran.
+
+This meant that most projects were managed in the following
+manner:
+
+- a project manager designed the entire project from scratch, dividing
+  the project into many /tasks/,
+- she mapped the /dependencies/ between each task,
+- she assigned a /resource/ (usually a job title, like "backend
+  developer" or "research engineer") to each task,
+- she set a /duration/ for each task[fn:project-planning].
+
+[fn:project-planning] This only covers the initial part of project
+planning. But the main difficulty actually arises during project
+execution: adapting activities, dependencies, and schedule to
+external, unforeseen events.
+
+
+
+After that, the project manager set up a meeting with the company's
+top management to present the plan. It got challenged, often in very
+minute details, including time estimates. The goal of the project
+manager at this point was to obtain top management's approval for
+running the project, and above all to negotiate the deadline (she
+wanted to set it as late as possible, because she would be held
+accountable if she missed it), and the resources made available to her
+(i.e. people).
+
+And then the dance started: there was a big meeting with all the other
+project managers (each with their own projects and requirements), and
+they would all haggle over the "resources" (once again, actual people,
+fellow colleagues working right next to them). This often degenerated
+into apothecary-style counting: a typical sentence in these meetings
+was "ok, you can have Bob on week 3 of April, but then I will need 0.5
+Alice on week 4 to compensate". Not only were these arrangements
+nearly meaningless (how can a developer work for 2.5 days on a given
+project then switch to another?), but the vocabulary encouraged
+project managers to think of people as "resources", machines that
+could be subdivided, reallocated, and moved as easily as equipment can
+be repurposed.
+
+But that was not the worst part. The worst part was the tooling we had
+to use.
+
+I managed small projects, mainly software. Think a few months, at most
+a year, and a small team of between 5 and 10 people. Something that
+most startups handle very easily. We could have done it with an agile
+team iterating rapidly, but to fit the process, I had to build a full
+project plan, including the list of tasks with all the metadata, a
+Gantt chart, and so on. It could have been done very easily. But the
+company used [[https://en.wikipedia.org/wiki/Microsoft_Project][Microsoft Project]].
+
+Microsoft Project has... a few issues. The software was basically
+built in the 90s and never touched since. The developers had clearly
+never spoken to an actual user in their entire lives. If it was made
+for anyone, it was for project managers on extremely large projects
+(perhaps for designing and building an entire airplane).[fn:hedge]
+There were thousands of features I would never need, and the basic
+ones were very hard to use.
+
+[fn:hedge] {-} I should note that this is a personal impression based
+on very superficial use. We are talking about a very large piece of
+software in which Microsoft has probably invested /decades/ of work. I
+am sure many people have mastered it and find it invaluable. But it
+was not what I wanted for my simple use cases. And it certainly didn't
+spark joy.
+
+
+- The entire interface is built like an Excel spreadsheet. Each
+  activity on its own line, with ID, name, duration, resources, and
+  dependencies. A project is inherently a graph, and project planning
+  (at least for me) is an inherently visual activity. Yet the only
+  place where you can actually edit the project is a very dense table.
+- Dependencies are represented in the most obscure way possible: each
+  activity has a "dependencies" column where you fill the IDs of the
+  activities on which it depends. Good luck figuring out what it means
+  when you see that your activities depend on 127, 134, and 34. It
+  basically feels like you are looking at the underlying database
+  schema, not at something built for actual users.
+- It is very hard to collaborate on projects. Even though the essence
+  of a project is to organize an entire team, you cannot share it
+  easily other people. If one person has it opened, you have to wait
+  until they close it before being able to open it yourself. And the
+  interface is so dense and unclear that only people who are used to
+  work with it know what to look for, so it's useless to show to
+  individual developers for instance.
+- The scheduling algorithm feels limited: you have hundreds of options
+  to configure different dependency types, but it many cases the
+  program just gives up and settles for highlighting conflicts between
+  activities (generally resource conflicts). Then you have to fix them
+  manually, moving tasks and hardcoding their start date, defeating
+  the entire purpose of a scheduling software.
+
+* Project scheduling is a good abstraction
+
+None of this was great, both in terms of process and tooling. It's
+easy to conclude that we should throw out the whole thing and do
+something else entirely (agile, scrum, whatever you want to call
+it). But underneath the unpleasantness, I still thought that the
+underlying /model/ was interesting. The problem is not the Gantt
+chart; the problem is sticking rigidly to it. The problem is not
+decomposing the project into small tasks and assigning them to people;
+it's treating people as consumable, impersonal resources. The model
+was still useful for helping me structure my thoughts on large and
+ambitious projects, and to /communicate/ the tradeoffs and decisions
+to other people (both the members of my team and my managers).
+
+And to be honest, the maths nerd in me was also quickly fascinated by
+the underlying algorithms for project scheduling[fn::The mathematical
+model of a project, as used in most algorithms, is very clean and
+elegant, with very few concepts. This convinced me that there exists a
+good UX that will help people manipulate it easily.].
+
+So I went looking for a way to leverage that model while challenging
+both the tooling and the process. As a small-scale manager, there
+wasn't much I could do about the process directly, but I could propose
+better tooling and use that as a means to challenge the process
+itself.
+
+* Looking for alternative tooling
+
+Given the 1990s look and feel of Microsoft Project, I naturally
+assumed there would be something better that I could propose to my
+boss. I had already managed to convince him to let me migrate my team
+to Linear, while the rest of the company was still on Jira. Where was
+the Linear to Microsoft Project's Jira?
+
+It turns out it didn't really exist. Most competitors were either as
+bad as Microsoft Project (with fewer features), or were focused on
+some other area I didn't need (mostly CRMs, ERPs, and things like
+that), with project scheduling bolted on the side[fn::Of course I
+can't pretend I looked at [[https://en.wikipedia.org/wiki/Comparison_of_project_management_software][each and every one of them]]...].
+
+Looking into it, the reason everyone gave was that project scheduling
+was a "hard problem" requiring dedicated research teams and
+state-of-the-art algorithms. This piqued my curiosity, and without
+much ambition, just out of curiosity, I looked into the literature on
+project scheduling. I quickly learned that simple algorithms (like the
+[[https://en.wikipedia.org/wiki/Critical_path_method][critical path method]]) cover the most basic use cases very simply. But
+the theory was much richer than I expected: there are hundreds of
+variants of the scheduling problem, and there's a very active research
+community with close ties to the industry. (I wrote about it a bit in
+a [[./planning-and-scheduling.html][previous post]].) I eventually bought a book on project scheduling
+with time windows and resource constraints, had a very basic
+implementation running within a few days in my spare time.
+
+* The algorithm is not the product
+
+As is often the case, the algorithm is not the difficult part. The
+difficult part is the product. What did I want from this software? As
+my own first user, my needs were clear:
+
+- An intuitive user experience. This is table stakes: nobody wants to
+  spend months mastering a project scheduling tool.
+- Easy visualization and manipulation of dependencies. Dependencies
+  are the key part of the model. Everything, from the resource
+  allocations to the final schedule, hinges on them.
+- A collaborative experience from the start. If you can't share it
+  with anyone, the project plan loses 90% of its use.
+- A state-of-the-art scheduling algorithm, that never forces you to
+  adjust manually.
+- A fast, responsive experience. When I change something, I want the
+  changes to be reflected immediately in the schedule.
+
+Above all, I wanted it to be useful to everyone: not only to people
+working with traditional project management processes, but also to
+people who work in more agile, flexible environments. And from small
+projects of a few tasks to enormous undertakings involving thousands.
+
+* Going forward
+
+Over the past months, I have built a tool that answers most of my
+needs. I am my own first user (and apart from a few colleagues, the
+only one). Despite no longer working at the same company, and
+following vastly different processes, I still use it every day.
+
+Project scheduling algorithms are so general that they can be applied
+to many different contexts. In the next few posts I will probably talk
+more about some design choices and some technical decisions I
+made. For spoilers, the key features are [[https://getleibniz.com/][on the website]]! And maybe I
+will also explain the name...
+
