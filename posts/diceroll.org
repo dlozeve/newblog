@@ -1,0 +1,157 @@
+---
+title: "Overengineering Dice Rolling"
+date: 2026-05-13
+tags: programming, project
+toc: false
+---
+
+We have a weekly D&D game with a few of my colleagues. We play at
+lunchtime. A few weeks ago, something terrible happened: our DM forgot
+his dice.
+
+[[../images/diceroll/slack_screenshot_1.png]]
+[fn::{-} Translation from the French: "I didn’t realize, but I didn’t
+bring any of my D&D stuff at all. I have 0 dice, 0 screen"]
+
+There are already thousands of websites and mobile apps for rolling
+dice in role-playing games, but that would be boring. What if I made
+one myself? [fn:story]
+
+The initial idea was very simple. Character sheets and player
+handbooks use "dice expressions" like =6d4 + 4=. This means "roll six
+four-sided dice, add the values, and add 4". This gives you the damage
+you deal to a monster while hitting it with your amazing sword or
+badass magical spell. So we could simply type a dice expression, and
+the tool would simulate the dice rolls, compute the sum, and give you
+the result. Quick and easy.
+
+Dear reader: it ended up doing way more than that. Way too much.
+
+[fn:story] {-} Another tragic event happened in game: my character
+died during combat. And this particular warlock believes in a higher
+power, and the coming of the Great Old One in an apocalypse that will
+consume the world. The warlock's interpretation of his death is that
+fate is rigged, and the dice are probably wrong.
+
+* The first version
+
+Famously, all problems can be solved with regular expressions. So my
+first version was basically this regex:
+~(?<sign>[+-]?)(?:(?<count>\d*)[dD](?<sides>\d+)|(?<num>\d+))~, along
+with some code that went through each capture group and called
+~random_range(1..6)~ if it encountered =d6=.
+
+Then it's just a matter of reading the command-line arguments, parsing
+them with the regex, and printing the result. I did it in Rust because
+I was already familiar with it, and I could quickly whip up a small
+command-line utility like this. And it gave me a single binary that I
+could share with the team.
+
+[[../images/diceroll/slack_screenshot_2.png]]
+
+Great.
+
+But not enough.
+
+* The rabbit hole
+
+Even a cursory glance at the player's handbook will let you know that
+dice expressions can become /much/ more complex than that. And my tool
+would not be a /serious/ tool if it didn't support everything, right?
+So I rewrote the parser to use a proper parser combinator library
+([[https://crates.io/crates/nom][nom]]) instead of a regex, and I happily started to implement necessary
+and not-so-necessary features:
+- adding and subtracting dice expressions: =4d10 - 2d3 + 4=,
+- parenthesized groups and multipliers: =d20 + (2d6+3)*2 + 5=,
+- keep/drop highest/lowest rolls: =2d20kh1= rolls a =d20= with
+  advantage, =4d6dl2= drops the two lowest values,
+- re-rolls: =6d10r= re-rolls 1s until the die stops showing 1,
+- exploding dice, minimum and maximum results, count matching, and so
+  on. All of these modifiers can obviously be combined!
+
+But what about the user experience? Surely our dear users[fn::{-} At
+this stage, "users" means "myself".] will grow tired of the simple CLI
+interface? So I added a REPL, and JSON output for programmatic use,
+and a web server because why not? Someone might want to use it through
+an HTTP API!
+
+At that point it also stopped being just a dice rolling utility. I'm
+quite happy with the =stats= command, which rolls the dice expression
+many times and computes statistics, which is useful to see what you
+can expect from a given combination. What is the standard deviation of
+the damage dealt by your weapon? What chance do you have of hitting
+that goblin with your spell?
+
+* The website
+
+At this point I was actively looking for opportunities to overengineer
+this even more. What useless feature could I possibly add?
+
+Well, I had a nice command-line tool in Rust. Being a serious person
+working on a serious project, I had a clean architecture, with a
+library and binary that called it. So where could I use that library?
+Rust can compile to WebAssembly, why not try that? I could call the
+library from a small website and roll /blazing fast/ dice in WASM
+directly in the browser!
+
+I found a cheap domain name, and shortly after, the result was
+accessible on [[https://diceroll.run/][diceroll.run]].
+
+[[../images/diceroll/diceroll-run.png]]
+
+With the website, I could experiment with a lot of stuff that I wanted
+to explore:
+- the WASM module itself of course, how to build it and use it from JS
+  in the browser,
+- generating a random seed at the start of the session for
+  reproducibility,
+- saving all the state (random seed and input history) in the URL
+  query parameters, for easily sharing a session with other people!
+
+* Coding agents and learning opportunities
+
+Among these vast amounts of overengineering and unnecessary features,
+there was at least a nice outcome: I learned a lot.
+
+As mentioned earlier, the initial version was basically a single
+script generated with an AI agent. After that, as I became more
+invested in the features, I continued iterating with AI. But this was
+mostly for fun and a learning opportunity: I was under no pressure to
+actually deliver any of those features! So I didn't "vibe code", I
+used the agent to iterate on the code, reviewing it line-by-line as I
+would have done if I had written it myself.
+
+This allowed me to iterate rapidly on the features and on the code
+structure. Rust was really helpful as well. I decided on the data
+structures and the libraries, and from there the LLM could generate
+very good code within the constraints of the data models and the
+compiler's checks.
+
+The parser in particular is code that can quickly become a little bit
+boring, even with a parser combinator library. Here the LLM could
+generate a battery of unit tests, and I could very easily check that
+it covered the most important cases, both expected successes and
+expected failures. Without AI assistance I don't think I ever would
+have had the patience to write these tests for a side project! It's in
+this sense that I believe AI agents can lead us to write much better
+code, especially for one-off, unimportant side projects like this.
+
+The only part that was fully AI-generated with (almost) no supervision
+is the website. The HTML, CSS, and the bit of JS wrapping the WASM
+module was fully "vibe coded" in the sense that I didn't read the code
+in detail, I just looked at the output, tried it, and iterated from
+there. Given that most of the logic is in the Rust library, I didn't
+want to spend too much time changing CSS by hand...
+
+With or without AI, small projects like these are a great learning
+opportunity. I could experiment with new (to me) libraries for parser
+combinators, minimal HTTP servers, CLI argument parsing, etc. The AI
+agent is also a great source of learning, studying the code of simple
+examples!
+
+* Use it (if you want)
+
+The code is [[https://github.com/dlozeve/diceroll][on GitHub]] (you can download a pre-built binary in the
+releases), and the website is on [[https://diceroll.run/][diceroll.run]]! As you can imagine, I
+would be /very/ happy to hear about your ideas for new features and
+improvements 😛
