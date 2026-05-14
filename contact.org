@@ -5,6 +5,7 @@ title: Contact
 - *E-mail:* [myfirstname]@[mylastname].com
 
 - *GitHub:* [[https://github.com/dlozeve/][github.com/dlozeve]]
+  - Most of my projects are now on my [[https://git.dimitri.zone/explore/repos][personal git instance]]
 
 - *LinkedIn:* [[https://www.linkedin.com/in/dimitrilozeve][/in/dimitrilozeve]]
 

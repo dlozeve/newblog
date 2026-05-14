@@ -19,6 +19,27 @@ network obtained from Prestashop data. [[https://dlozeve.github.io/reveal_Commun
 
 * Personal projects
 
+** [[https://getleibniz.com/][Leibniz]]
+
+My take on what project scheduling software should be. Read the [[./posts/leibniz-product-vision.html][blog post]].
+
+** [[https://github.com/dlozeve/diceroll][Diceroll]]
+
+Roll some dice from the command line, parsing dice expressions as used
+in many role-playing games:
+
+#+begin_src
+$ diceroll
+>>> 4d6 + 2
+4d6[1,1,4,1] + 2 = 9
+>>> 2d20kh1
+2d20kh1[{1},5] = 5
+>>> 4d6min3
+4d6min3[5,5,3,4] = 17
+#+end_src
+
+Also available at [[https://diceroll.run/][diceroll.run]]. See the [[./posts/diceroll.html][blog post]].
+
 ** [[https://mlochbaum.github.io/BQN/][BQN]] libraries
 
 - [[https://github.com/dlozeve/bqn-graphics][bqn-graphics]]: A collection of graphics-related tools for BQN
