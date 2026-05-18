@@ -20,11 +20,20 @@ p.byline { font-size: 1.2rem; }
 
 /* Simulate Pandoc's table output styles */
 table {
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
+  border-top: 2px solid #111;
+  border-bottom: 2px solid #111;
 }
 th {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #111;
+}
+@media (prefers-color-scheme: dark) {
+  table {
+    border-top: 2px solid #ddd;
+    border-bottom: 2px solid #ddd;
+  }
+  th {
+    border-bottom: 1px solid #ddd;
+  }
 }
 td, th {
   font-size: 1.4rem;
