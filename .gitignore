@@ -6,8 +6,7 @@ bib/auto/
 */ltximg/
 _site/
 
-# Netlify CLI and related
-.netlify/
+.wrangler/
 package.json
 yarn.lock
 node_modules/
