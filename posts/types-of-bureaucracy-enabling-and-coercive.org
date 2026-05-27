@@ -1,0 +1,247 @@
+---
+title: "Two Types of Bureaucracy: Enabling and Coercive"
+date: 2026-05-27
+tags: management, paper
+toc: true
+---
+
+#+begin_quote
+This post is a summary of a paper by
+[cite/t:@adler1996_two_types_bureauc]. It argues that despite the bad
+reputation of "bureaucracy" in organizations, a set of formal
+procedures can be beneficial. Using a comparison with technology, they
+define two types of formalization, /coercive/ and /enabling/, each
+with their characteristics, and analyze the factors that encourage one
+or the other form.
+#+end_quote
+
+* Bureaucracy and workflow formalization
+
+This paper [cite:@adler1996_two_types_bureauc] provides an analysis of
+bureaucracy and formal procedures and processes in organizations. They
+distinguish two kinds of bureaucracies: one is /enabling/, helping
+people master tasks, clarifies responsibilities, and provide guidance,
+the other is /coercive/, enforcing each employee's compliance and
+stifling creativity and motivation.
+
+The focus is on "workflow formalization" (i.e. processes), which they
+define as "written values, procedures, and instructions".
+
+Contrary to the common negative view of bureaucracy, they claim that
+what is important is not the /degree/ of formalization (i.e. more
+formalization is not necessarily bad), but its type (how are your
+values and procedures designed? what kind of bureaucracy do you
+have?).
+
+* Standard views of formalization
+
+** Negative
+
+The basic (negative) intuition about bureaucracy and formalization is
+that they lead to a kind of alienation of the worker, restricting his
+individual autonomy. In this view, work is fundamentally bad, a
+disutility. This is the (neo-)Marxist view of work.
+
+In the human resource management literature, the only possible
+alternative to coercive formalization is the absence of any
+formalization. In their view, formalization can only lead to less
+commitment, more dissatisfaction, and less creativity.[fn:negative]
+
+[fn:negative] Incidentally, I think that this view is still widely
+shared, decades after this paper. A lot of startup founders truly
+believe that any kind of procedure or value formalization will lead to
+decrease in creativity and overall job satisfaction. Conveniently,
+they often forget about the part where work is fundamentally a
+disutility, instead praising extreme work hours...
+
+** Positive
+
+Work can be fulfilling. Being part of an organization can be felt as
+an increase in cooperation, rather than a loss in autonomy.
+
+In general, whenever there is an overlap between the employee's and
+the organization's interest, formalization is welcome, as it can
+improve efficiency.
+
+Formalization can also clarify responsibilities, and hereby reduce
+role conflicts and ambiguity. All of this leads to less alienation, as
+people know what they are supposed to do and why.
+
+Finally, there is evidence of a positive correlation between
+formalization and innovation (both in the product and in
+processes). Fundamentally, well-designed procedures help in capturing
+lessons from previous experiences and help coordination between
+members of an organization.
+
+* Enabling and coercive bureaucracy
+
+Clearly, there has to be something else that we have not taken into
+account. Bureaucracy and formalization cannot be entirely good or
+bad. In real life, people are noted to resent "bad" formalization,
+while "good" rules are welcome. What makes a rule "better" than
+another?
+
+A first hint comes from attempts to find patterns of bureaucracy:
+- /representative bureaucracy/: rules serve the interests of both
+  managers and workers,
+- /punishment-centered bureaucracy/: rules serve to assert right of
+  managers to sanction workers,
+- /mock bureaucracy/: rules are ignored by both parties.
+
+But these categories are not easy to delineate in practice. What we
+need is to find the relevant properties of the rules themselves, not
+the intent behind them (which will always be difficult to assess).
+
+** An analogy with technology
+
+Technology provides a useful comparison. First, a definition of
+technology:
+
+#+begin_quote
+Technology is know-how that has been objectified and thus rendered
+relatively independent of the skill of specific actors.
+#+end_quote
+
+Examples of such objectifications:
+- equipment and software,
+- organization procedures and structures.
+
+There is a debate on the impact of technology, and in particular
+automation. Some view it as fundamentally deskilling and alienating,
+degrading work. Others view technology as enabling and upgrading work,
+augmenting capabilities.
+
+In the specific case of equipment, the important thing is how it was
+designed. Was it intended as a means to deskill workers,
+"fool-proofing" it, in a way that shows that the designers did not
+trust the workers? In this case, the objective was probably to reduce
+reliance on highly-skilled workers. Alternatively, it may have been
+designed to enhance workers' abilities, and increase their skills. The
+user can either be thought of as a source of problems to be eliminated
+or as a source of intelligence to be supported and enhanced.
+
+Similarly to technology, formal procedures can't make work processes
+fool-proof, and they should not be designed to do so. Instead, they
+should aim at enabling employees to be more effective in their
+work. In particular, formalization can help employees deal more
+effectively with unexpected contingencies (which always happen), and
+can codify and diffuse best practices. These unexpected scenarios will
+always happen: instead of forcing workers' behavior in the "happy
+path", leaving them stuck during the unexpected, try to leverage their
+skills and motivations to deal with them.
+
+Coercive formalization will try to force commitment, compliance,
+through a reluctant effort. Enabling formalization will try to
+leverage employees' commitment in order to help them deal with their
+job more effectively, by providing necessary organizational
+experience.
+
+** Features of enabling and coercive formalization
+
+[fn:hro]
+
+*** Repair
+
+In the coercive logic, procedures are used to check that employees
+operate in compliance, not to help them identify or solve
+problems. Deviation from the procedure is always seen as
+wrong. Procedures are seen as a top-down contract.
+
+The enabling logic facilitates response to real-world
+contingencies. Workers perform their own analysis of the process. They
+have the opportunity to challenge it and suggest improvements.
+
+*** Internal transparency
+
+Deskilling equipment has no incentive for a transparent design. Users
+are not supposed to see or understand the inner workings. By contrast,
+when equipment is designed with a usability focus, users are expected
+to face unforeseen situations and deal with them. Therefore, they need
+access and understanding to the inner workings.
+
+Enabling procedures similarly explain the rationale behind the rules,
+and provide users with feedback on their performance.
+
+*** Global transparency
+
+Global transparency is the understanding of the overall organizational
+structure or system. In the coercive logic, global transparency is
+asymmetrical: only managers ought to see everything, and workers
+should only see what they are meant to see. Global transparency is
+seen as a risk and a liability.
+
+In the enabling approach, employees have access to the broader
+organizational structure. The goal is to help them interact creatively
+with their environments, proactively identifying and solving
+problems. This encourages suggestions from all actors, even if the
+payoffs are very small.
+
+*** Flexibility
+
+Coercive procedures are very rigid, and explicitly prohibits any
+deviation. Only the supervisor can authorize a deviation.
+
+Enabling procedures recognize that deviations are risks, but also that
+they are learning opportunities to increase the worker's skills and
+the organization's experience with abnormal situations.
+
+[fn:hro] {-} All of these characteristics of enabling formalization
+closely resembles the structure of [[./high-reliability-organizations.html][High reliability organizations]].
+
+* Implementation of enabling bureaucracy
+
+Employee participation in the design of formal procedures can improve
+morale and performance.
+
+** Typology of organizations
+
+Organization types can be decomposed along two dimensions: type and
+degree of formalization. As it turns out, the degree of formalization
+is relatively unimportant, ensuring that formalization is /enabling/
+is what really matters.
+
+#+caption: A Typology of organizations
+|                    | Enabling formalization | Coercive formalization |
+| Low formalization  | Organic                | Autocratic             |
+| High formalization | Enabling bureaucracy   | Mechanistic            |
+
+This typology is particularly important for innovative,
+knowledge-intensive organizations, where work often involve a mix of
+routine and non-routine tasks. Difficulties might arise if one tries
+to impose a mechanistic, highly formalized management structure for
+the routine parts, while keeping the non-routine parts in a organic
+management style enabling creativity.
+
+In fact, there is no such dichotomy. Both types of tasks can be
+managed in an enabling way. With enabling formal procedures, employees
+can switch easily between routine and non-routine tasks, while keeping
+their motivation and creativity at all stages.
+
+** Factors influencing the emergence of a coercive or an enabling bureaucracy
+
+Factors encouraging the coercive logic:
+
+- /Asymmetries of power in the organization/: Managers can deflect
+  responsibility downwards more easily than subordinates can deflect
+  it upwards. Asymmetry can be counterbalanced with specific
+  institutions (e.g. unions) but only in a limited way.
+- /Absence of reality checks/ (e.g. competition, demanding customers):
+  With no such balances, internal conflicts take precedence over
+  common goals.
+
+Factors encouraging the enabling logic:
+
+- The enabling logic has more /legitimacy/ in the broader culture.
+- Procedures designed with subordinates tend to focus more on
+  /autonomy/ and /consensus/, and thus be more enabling.
+- More intense /competitive pressure/ leads to a need to find more
+  opportunities to improve performance. It this becomes necessary to
+  involve employees in the procedures. Coercive rules, by prohibiting
+  employees to think by themselves and innovate, thus pay a
+  significant opportunity cost.
+- /Automation/ also help enabling forms of bureaucracy. Operators get
+  more non-routine tasks, issues are generally less predictable and
+  more damaging (because most common issues are handled by the
+  automated system), and more learning is necessary.
+
+* References
