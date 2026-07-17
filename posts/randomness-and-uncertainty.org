@@ -40,4 +40,5 @@ normally-distributed random values. $C$ is hardcoded as 0.4 as in the
 article, but could be passed through ~args~ as well (it can be a
 dictionary).
 
+#+ATTR_HTML: :alt Plot of the bistable ODE solution oscillating between -1 and 1 when driven by random noise
 [[../images/randomness_uncertainty.png]]

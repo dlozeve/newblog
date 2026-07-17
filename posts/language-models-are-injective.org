@@ -30,7 +30,7 @@ precisely!
 
 [fn:paper] Quick link: [[https://arxiv.org/abs/2510.15511][ArXiv:2510.15511]].
 
-[fn:swiglu] {-} [[../images/language-models-are-injective/swiglu.png]] The
+[fn:swiglu] {-} @@html:<img src="../images/language-models-are-injective/swiglu.png" alt="Plot of the SwiGLU activation function, a non-injective curve">@@ The
 SwiGLU activation function. It is clearly not injective.
 
 [fn:twitter] Indeed, the public discourse around this paper was
@@ -56,7 +56,7 @@ representations/ $\mathbf{r}(s, \mathbf{\theta}) \in \mathbb{R}^d$.
 
 The central claim of the paper is that /this/ function is injective.
 
-[fn:map] {-} [[../images/language-models-are-injective/map.png]] The
+[fn:map] {-} @@html:<img src="../images/language-models-are-injective/map.png" alt="Diagram of an LLM mapping prompt space to latent space, invertible by SipIt">@@ The
 function we are studying: from prompt space (sequence of tokens) to
 latent space (vector of activations).
 
@@ -273,7 +273,7 @@ error). As this check is not truly exhaustive and the thresholds have
 been fixed somewhat arbitrarily, it's not very significant, but it
 acts as a nice "sanity check" for the theory.
 
-[[../images/language-models-are-injective/collisions.png]]
+@@html:<img src="../images/language-models-are-injective/collisions.png" alt="Swarm and box plots of L2 distances across models and layers, all above the collision threshold">@@
 [fn::{-} Distance between final layer and intermediate layer outputs
 for the "exhaustive" check on input prompts. All are significantly
 above the collision threshold as defined in the paper.]

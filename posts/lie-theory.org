@@ -194,7 +194,7 @@ logarithmic map providing the inverse operation.
 (red). We can see how each element of the Lie algebra is wrapped on
 the manifold via the exponential map. Figure from
 cite:sola2018_micro_lie_theor_state_estim_robot.]
-#+ATTR_HTML: :width 500px :style background-color: #ffffff;
+#+ATTR_HTML: :width 500px :style background-color: #ffffff; :alt Diagram of a blue Lie group manifold and its red Lie algebra tangent space, linked by the exponential map
 [[../images/lie_exponential.svg]] 
 
 If all this piqued your interest, you can read a very short (only 14

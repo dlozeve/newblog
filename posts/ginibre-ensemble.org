@@ -49,6 +49,7 @@ tags: maths, linear algebra, statistics, julia, visualization
    I like using =UnicodePlots= for this kind of quick-and-dirty plots,
    directly in the terminal. Here is the output:
 
+#+ATTR_HTML: :alt Terminal scatterplot of a Ginibre matrix eigenvalues filling the unit disk in the complex plane
    [[../images/ginibre.png]]
 
 ** References

@@ -263,7 +263,7 @@ darkModeImages doc = do
   let srcDir = takeDirectory srcPath
   walkM (processInline srcDir) doc
   where
-    processInline srcDir img@(Image _attr inlines (url, _title))
+    processInline srcDir img@(Image (_, _, kvs) inlines (url, _title))
       | not ("http" `T.isPrefixOf` url) = do
           let urlStr = T.unpack url
               -- Resolve relative to the source file's directory
@@ -277,7 +277,11 @@ darkModeImages doc = do
               urlBase = takeBaseName urlStr
               urlExt = takeExtension urlStr
               darkUrl = urlDir </> urlBase ++ "-dark" ++ urlExt
-              alt = T.unpack (stringify inlines)
+              -- Alt text comes from the image description (inlines) or, when set
+              -- via "#+ATTR_HTML: :alt ...", from the "alt" attribute key.
+              alt = case T.unpack (stringify inlines) of
+                "" -> maybe "" T.unpack (lookup "alt" kvs)
+                s -> s
           darkExists <- unsafeCompiler $ doesFileExist darkPath
           if darkExists
             then

@@ -13,6 +13,7 @@ physics. Physical details are on the Wikipedia page, but what is
 interesting is that it follows a complex probability distribution on a
 lattice, where each site can take the value +1 or -1.
 
+#+ATTR_HTML: :alt Animation of an Ising model lattice of black and white spins evolving under Metropolis-Hastings
 [[../images/ising.gif]]
 
 * Mathematical definition

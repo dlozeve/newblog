@@ -53,7 +53,7 @@ cycles? What are they?
 As a first example, let's take $n=10$ cards, in piles of 4, 3, and 3
 cards. We take one card from the top of each pile (in orange), and we
 make a new pile of size 3:
-#+ATTR_HTML: :width 300px
+#+ATTR_HTML: :width 300px :alt Ten cards in piles of 4, 3, and 3, with the top card of each pile in orange forming a new pile
 [[../images/bulgarian-solitaire/cards.svg]]
 
 Visualizing cards like this is not very practical, but as it turns
@@ -62,15 +62,18 @@ partitions: [[https://en.wikipedia.org/wiki/Young_tableau#Diagrams][Young diagra
 boxes. For example, the partition $(6,5,3,1)$ of the number 15 can be
 visualized as:
 
+#+ATTR_HTML: :alt Young diagram of the partition 6, 5, 3, 1 as left-aligned rows of boxes
 [[../images/bulgarian-solitaire/young.png]]
 
 In our cases, we can rotate the Young diagram by 90° so that it looks
 more like piles of cards:
 
+#+ATTR_HTML: :alt Young diagram rotated 90 degrees so rows of boxes stand as vertical piles of cards
 [[../images/bulgarian-solitaire/young_rotated.png]]
 
 A step in the Bulgarian Solitaire will look like this:
 
+#+ATTR_HTML: :alt One Bulgarian Solitaire step on a Young diagram, top box of each pile in orange forming a new pile
 [[../images/bulgarian-solitaire/step.png]]
 
 We take one card from each pile (highlighted in orange in the diagram
@@ -92,6 +95,7 @@ the Bulgarian Solitaire will converge to piles of size 1, 2, ..., $k$.
 integers: 1, 1+2, 1+2+3, etc. They get their names from the fact that
 they can be arranged in a triangle. (OEIS: [[https://oeis.org/A000217][A000217]]) (Image from
 [[https://commons.wikimedia.org/wiki/File:First_six_triangular_numbers.svg][Wikimedia]], CC-BY-SA.)
+#+ATTR_HTML: :alt Dots arranged in triangles showing the first six triangular numbers 1, 3, 6, 10, 15, 21
 [[../images/bulgarian-solitaire/First_six_triangular_numbers.svg]]
 #+begin_comment
                         n = 10
@@ -113,10 +117,12 @@ How can we prove this?
 
 There is a nice trick: we rotate (again!) our Young diagram by 45°:
 
+#+ATTR_HTML: :alt Young diagram rotated 45 degrees so boxes stack in diagonal layers
 [[../images/bulgarian-solitaire/young_rotated_45.png]]
 
 When we do a step in the Bulgarian Solitaire, we move around the boxes:
 
+#+ATTR_HTML: :alt Bulgarian Solitaire step on a 45-degree Young diagram, a grey box falling into an empty space below
 [[../images/bulgarian-solitaire/young_fall.png]]
 
 Sometimes we can see that a box (in grey here) is above an empty
@@ -253,11 +259,11 @@ python bulgarian_solitaire.py 12 | dot -Tpng | viu -
 #+end_src
 
 Here is the output for $n=6$:
-#+ATTR_HTML: :style background-color: #151515;
+#+ATTR_HTML: :style background-color: #151515; :alt Transition graph of the Bulgarian Solitaire on partitions of 6, all converging to 3, 2, 1
 [[../images/bulgarian-solitaire/graph_6.svg]]
 
 And for $n=10$:
-#+ATTR_HTML: :style background-color: #151515;
+#+ATTR_HTML: :style background-color: #151515; :alt Transition graph of the Bulgarian Solitaire on partitions of 10, all converging to 4, 3, 2, 1
 [[../images/bulgarian-solitaire/graph_10.svg]]
 
 As we can see, all partitions indeed converge to the triangular
@@ -266,7 +272,7 @@ configurations $(3,2,1)$ and $(4,3,2,1)$.
 Now what happens when the number $n$ is not triangular?
 
 For $n=7$:
-#+ATTR_HTML: :style background-color: #151515;
+#+ATTR_HTML: :style background-color: #151515; :alt Transition graph of the Bulgarian Solitaire on partitions of 7, converging to a four-state cycle
 [[../images/bulgarian-solitaire/graph_7.svg]]
 
 The dynamical system converges to a cycle between $(4,2,1)$,
@@ -275,7 +281,7 @@ realize that it is the triangular configuration $(3,2,1)$, plus an
 additional box cycling above.
 
 For $n=8$:
-#+ATTR_HTML: :style background-color: #151515;
+#+ATTR_HTML: :style background-color: #151515; :alt Transition graph of the Bulgarian Solitaire on partitions of 8, with two connected components
 [[../images/bulgarian-solitaire/graph_8.svg]]
 
 Here we get two connected components in the graph. And here again, we

@@ -51,9 +51,12 @@ Here is an example of the algorithm applied to items with random
 durations. We can see that the shortest A durations are near the
 beginning, and the shortest B durations near the end.
 
-#+CAPTION: Gantt chart of a project with random item durations.
-#+ATTR_HTML: :class fullwidth
-[[file:../images/johnsons_rule/gantt.svg]]
+#+begin_export html
+<figure class="fullwidth">
+<img src="../images/johnsons_rule/gantt.svg" alt="Gantt chart of items scheduled on machine A and machine B by Johnson's rule">
+<figcaption>Gantt chart of a project with random item durations.</figcaption>
+</figure>
+#+end_export
 
 This surprisingly simple algorithm was first described by
 [[https://en.wikipedia.org/wiki/Selmer_M._Johnson][Selmer M. Johnson]] at the RAND Corporation, who worked on all sorts of
@@ -95,6 +98,7 @@ I won't reproduce the full proof here, you can find it explained very
 clearly [[https://www.rand.org/content/dam/rand/pubs/papers/2008/P402.pdf][in the original paper]]. It is very short and you will benefit
 from the glorious mathematical typesetting of the 1950s:
 
+#+ATTR_HTML: :alt Typewritten formula for the sum of inactive periods of machine B
 [[file:../images/johnsons_rule/inactive_periods.png]]
 
 The proof starts by computing the exact formula for the sum of
@@ -103,7 +107,7 @@ item orders will lead to different values for this sum, and we can
 show that an order is optimal if it follows the following rule:
 
 #+begin_quote
-Item $j$ precedes item $j+1$ if [fn::{-} In the original: [[../images/johnsons_rule/rule.png]]]
+Item $j$ precedes item $j+1$ if [fn::{-} In the original: @@html:<img src="../images/johnsons_rule/rule.png" alt="Typewritten inequality min(A_j, B_j+1) less than min(A_j+1, B_j)">@@]
 \[
     \min\left(A_j, B_{j+1}\right) < \min\left(A_{j+1}, B_j\right).
 \]
@@ -186,6 +190,7 @@ def compute_schedule(
         )
 #+end_src
 
+#+ATTR_HTML: :alt Worked example from Johnson's paper with a 5-item duration table and optimal sequence
 [[../images/johnsons_rule/example.png]] 
 
 On the example from the paper, we get:

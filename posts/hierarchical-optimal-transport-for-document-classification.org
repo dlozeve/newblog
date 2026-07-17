@@ -157,7 +157,7 @@ to a deep learning approach, we can make sense of every intermediate
 step, from the representations of topics to the weights in the
 optimisation algorithm to compute higher-level distances.
 
-[[file:../images/hott_fig1.jpg]]
+@@html:<img src="../images/hott_fig1.jpg" alt="Two documents represented as collections of topics, with matchings between topics showing how their distance is computed">@@
  [fn::{-} Representation of two documents in topic space, along with
 how the distance was computed between them. Everything is
 interpretable: from the documents as collections of topics, to the

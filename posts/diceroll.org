@@ -10,7 +10,7 @@ We have a weekly D&D game with a few of my colleagues. We play at
 lunchtime. A few weeks ago, something terrible happened: our DM forgot
 his dice.
 
-[[../images/diceroll/slack_screenshot_1.png]]
+@@html:<img src="../images/diceroll/slack_screenshot_1.png" alt="Slack message where the DM says they forgot all their D&D gear, 0 dice and 0 screen">@@
 [fn::{-} Translation from the French: "I didn’t realize, but I didn’t
 bring any of my D&D stuff at all. I have 0 dice, 0 screen"]
 
@@ -48,6 +48,7 @@ I was already familiar with it, and I could quickly whip up a small
 command-line utility like this. And it gave me a single binary that I
 could share with the team.
 
+#+ATTR_HTML: :alt Slack message sharing the diceroll binary with usage examples and reactions
 [[../images/diceroll/slack_screenshot_2.png]]
 
 Great.
@@ -98,6 +99,7 @@ directly in the browser!
 I found a cheap domain name, and shortly after, the result was
 accessible on [[https://diceroll.run/][diceroll.run]].
 
+#+ATTR_HTML: :alt The diceroll.run website showing a REPL of dice expressions with results and dice buttons
 [[../images/diceroll/diceroll-run.png]]
 
 With the website, I could experiment with a lot of stuff that I wanted

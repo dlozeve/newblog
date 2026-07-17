@@ -70,7 +70,7 @@ that I have ever read. The explanation of the simplex algorithm is
 also excellent.)
 
 [fn:wentzel] {-}  
-#+ATTR_HTML: :width 200px
+#+ATTR_HTML: :width 200px :alt Cover of Operations Research by Elena Wentzel, Mir Publishers
 [[file:../images/or_references/wentzel.jpg]]
 
 [fn:mir] {-} Mir also published [[https://mirtitles.org/2011/06/03/physics-for-everyone/][/Physics for Everyone/]] by Lev Landau
@@ -104,7 +104,7 @@ lost in the jungle of linear, stochastic, mixed integer, quadratic,
 and other network problems.
 
 [fn:williams] {-}  
-#+ATTR_HTML: :width 200px
+#+ATTR_HTML: :width 200px :alt Cover of Model Building in Mathematical Programming by H. Paul Williams
 [[file:../images/or_references/williams.jpg]]
 
 
@@ -155,7 +155,7 @@ examples in Julia covering nearly every kind of optimization
 algorithms.
 
 [fn:kochenderfer] {-}  
-#+ATTR_HTML: :width 200px
+#+ATTR_HTML: :width 200px :alt Cover of Algorithms for Optimization by Kochenderfer and Wheeler
 [[file:../images/or_references/kochenderfer.jpg]]
 
 
@@ -214,7 +214,7 @@ to start!) If you'd rather use Python, you can use Google's [[https://developers
 or [[https://github.com/coin-or/pulp][PuLP]] for linear programming.
 
 [fn:jump] {-}  
-#+ATTR_HTML: :width 250px :style background-color: #cccccc;
+#+ATTR_HTML: :width 250px :style background-color: #cccccc; :alt JuMP logo, three colored circles beside the word JuMP
 [[file:../images/or_references/jump.svg]]
 
 
