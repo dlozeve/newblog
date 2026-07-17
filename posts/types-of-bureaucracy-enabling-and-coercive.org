@@ -1,6 +1,7 @@
 ---
 title: "Two Types of Bureaucracy: Enabling and Coercive"
 date: 2026-05-27
+description: "A summary of Adler and Borys's paper distinguishing enabling from coercive bureaucracy, and the features and factors that drive each form of formalization."
 tags: management, paper
 toc: true
 ---

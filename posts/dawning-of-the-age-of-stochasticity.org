@@ -1,6 +1,7 @@
 ---
 title: "The Dawning of the Age of Stochasticity"
 date: 2022-03-24
+description: "Notes on David Mumford's essay arguing that random variables, not logic, should form the foundations of mathematics, and how stochastic methods pervade it."
 tags: maths, foundations, paper, statistics, probability
 toc: false
 ---

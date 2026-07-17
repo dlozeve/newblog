@@ -1,6 +1,7 @@
 ---
 title: "Solving a problem with mathematical programming"
 date: 2021-04-02
+description: "Solving an IBM Ponder This puzzle as a mixed-integer linear program with Julia's JuMP, then exporting the model to run on the NEOS Server with Gurobi."
 tags: optimization, operations research, programming, julia
 toc: false
 ---

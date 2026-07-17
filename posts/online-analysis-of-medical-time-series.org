@@ -1,6 +1,7 @@
 ---
 title: "Online Analysis of Medical Time Series"
 date: 2020-11-17
+description: "An overview of Fried et al.'s review of statistical methods for medical time series, covering robust filtering, online pattern detection, and multivariate techniques."
 tags: paper, statistics, medical, time series
 toc: false
 ---

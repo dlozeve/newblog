@@ -1,6 +1,7 @@
 ---
 title: "Quick Notes on Reinforcement Learning"
 date: 2018-11-21
+description: "Notes on the foundations of reinforcement learning from Sutton and Barto, formalizing Markov decision processes, rewards, policies, and value functions."
 tags: machine learning, reinforcement learning
 ---
 

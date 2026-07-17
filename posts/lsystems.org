@@ -2,6 +2,7 @@
 title: Generating and representing L-systems
 author: Dimitri Lozeve
 date: 2018-01-18
+description: "Generating L-systems, formal rewriting grammars that produce fractals and plant-like figures, with a Haskell implementation rendering them via turtle graphics."
 tags: visualization, haskell
 toc: true
 ---

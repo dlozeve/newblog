@@ -1,6 +1,7 @@
 ---
 title: "Planning and scheduling for project management"
 date: 2021-04-13
+description: "How project planning and scheduling maps to operations research, from the critical path method and PERT to resource-constrained scheduling and its limits."
 tags: optimization, operations research
 toc: true
 ---

@@ -1,6 +1,7 @@
 ---
 title: "ICLR 2020 Notes: Speakers and Workshops"
 date: 2020-05-05
+description: "Notes on the first fully-virtual ICLR machine learning conference, covering its asynchronous format, keynote speakers, and workshops on RL and cognitive science."
 tags: conference, machine learning, reinforcement learning, nlp
 toc: true
 ---

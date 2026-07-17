@@ -2,6 +2,7 @@
 title: "Dyalog APL Problem Solving Competition 2020 — Phase I"
 subtitle: "Annotated Solutions"
 date: 2020-08-02
+description: "Annotated APL solutions to the ten short puzzles of Dyalog's 2020 Problem Solving Competition Phase I, each a one-line function explained step by step."
 tags: programming, apl
 toc: true
 ---

@@ -1,6 +1,7 @@
 ---
 title: "From graphs to Git"
 date: 2021-03-08
+description: "An introduction to Git that models a repository as a directed acyclic graph, explaining commits, branches, merging, rebasing, and remotes visually."
 tags: git, graphs
 toc: true
 ---

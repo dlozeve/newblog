@@ -1,6 +1,7 @@
 ---
 title: "Random matrices from the Ginibre ensemble"
 date: 2019-03-20
+description: "Random matrices from the Ginibre ensemble and the circular law governing their eigenvalues, with a short Julia simulation visualizing the spectrum."
 tags: maths, linear algebra, statistics, julia, visualization
 ---
 

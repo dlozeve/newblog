@@ -1,6 +1,7 @@
 ---
 title: "High reliability organizations"
 date: 2022-06-03
+description: "Notes on high reliability organizations, the five traits that let nuclear plants and air traffic control manage risk, and their relevance to robust AI."
 tags: management, social science
 toc: false
 ---

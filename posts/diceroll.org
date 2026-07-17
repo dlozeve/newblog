@@ -1,6 +1,7 @@
 ---
 title: "Overengineering Dice Rolling"
 date: 2026-05-13
+description: "A simple Dungeons and Dragons dice roller that grew into an over-engineered Rust tool with a parser, statistics, and a WebAssembly website."
 tags: programming, project
 toc: false
 ---

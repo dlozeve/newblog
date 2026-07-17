@@ -2,6 +2,7 @@
 title: Ising model simulation
 author: Dimitri Lozeve
 date: 2018-02-05
+description: "Simulating the Ising model of statistical physics with Markov Chain Monte Carlo and the Metropolis-Hastings algorithm, implemented in Clojure with Quil."
 tags: statistics, visualization, clojure
 toc: true
 ---

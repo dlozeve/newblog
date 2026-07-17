@@ -2,6 +2,7 @@
 title: "Dyalog APL Problem Solving Competition 2020 — Phase II"
 subtitle: "Annotated Solutions"
 date: 2020-08-02
+description: "Annotated APL solutions to the larger Phase II problems of Dyalog's 2020 competition, covering dive scores, bioinformatics, UPC barcodes, and more."
 tags: programming, apl
 toc: true
 ---

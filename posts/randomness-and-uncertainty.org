@@ -1,6 +1,7 @@
 ---
 title: "Randomness and Uncertainty: from random noise to predictable oscillations via differential equations"
 date: 2023-10-20
+description: "Exploring how a differential equation can turn random noise into stable bistable oscillations, replicating Trefethen's experiment in Python with Diffrax."
 tags: diffeq
 toc: false
 ---

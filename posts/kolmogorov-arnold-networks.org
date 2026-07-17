@@ -1,6 +1,7 @@
 ---
 title: "Reading notes: Kolmogorov-Arnold Networks"
 date: 2024-06-08
+description: "Reading notes on Kolmogorov-Arnold Networks, which replace MLP node weights with learnable spline activations on edges, grounded in a representation theorem."
 tags: machine learning, paper
 toc: false
 ---

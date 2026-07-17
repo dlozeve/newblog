@@ -1,6 +1,7 @@
 ---
 title: "Mindsay: Towards Self-Learning Chatbots"
 date: 2019-04-06
+description: "Notes and slides from a Paris NLP Meetup talk on building self-learning chatbots in production at Mindsay, combining reinforcement learning and NLP."
 tags: chatbots, nlp, machine learning, reinforcement learning
 ---
 
