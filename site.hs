@@ -30,10 +30,6 @@ main = hakyll $ do
     route idRoute
     compile copyFileCompiler
 
-  match "_redirects" $ do
-    route idRoute
-    compile copyFileCompiler
-
   match "css/*.css" $ do
     route idRoute
     compile compressCssCompiler
