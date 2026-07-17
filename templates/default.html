@@ -14,14 +14,51 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
-    <title>Dimitri Lozeve - $title$</title>
-    <meta property="og:title" content="Dimitri Lozeve - $title$" />
-    <meta property="og:url" content="https://lozeve.com$url$" />
+    <title>$title$ — Dimitri Lozeve</title>
+    <link rel="canonical" href="$canonical$" />
+    $if(description)$
+    <meta name="description" content="$description$" />
+    $else$
     <meta name="description" content="Dimitri Lozeve's blog: $title$" />
-    <meta name="og:description" content="Dimitri Lozeve's blog: $title$" />
+    $endif$
     $if(keywords)$
     <meta name="keywords" content="$for(keywords)$$keywords$$sep$, $endfor$" />
     $endif$
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content="Dimitri Lozeve" />
+    <meta property="og:type" content="$if(date)$article$else$website$endif$" />
+    <meta property="og:title" content="$title$ — Dimitri Lozeve" />
+    <meta property="og:url" content="$canonical$" />
+    $if(description)$
+    <meta property="og:description" content="$description$" />
+    $else$
+    <meta property="og:description" content="Dimitri Lozeve's blog: $title$" />
+    $endif$
+    <meta
+      property="og:image"
+      content="https://lozeve.com/web-app-manifest-512x512.png"
+    />
+    $if(isodate)$
+    <meta property="article:published_time" content="$isodate$" />
+    $endif$
+    $if(author)$
+    <meta property="article:author" content="$author$" />
+    $endif$
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="$title$ — Dimitri Lozeve" />
+    $if(description)$
+    <meta name="twitter:description" content="$description$" />
+    $else$
+    <meta name="twitter:description" content="Dimitri Lozeve's blog: $title$" />
+    $endif$
+    <meta
+      name="twitter:image"
+      content="https://lozeve.com/web-app-manifest-512x512.png"
+    />
+
     <meta name="fediverse:creator" content="@dlzv@mathstodon.xyz" />
 
     <link rel="stylesheet" href="/css/fonts.css" />
@@ -104,9 +141,12 @@
         $if(subtitle)$
         <p class="subtitle">$subtitle$</p>
         $endif$ $if(date)$
-        <p class="byline">$date$$if(author)$ &ndash; $author$$endif$</p>
+        <p class="byline">
+          <time datetime="$isodate$">$date$</time>$if(author)$ &ndash;
+          <a rel="author" href="/">$author$</a>$endif$
+        </p>
         $else$ $if(author)$
-        <p class="byline">$author$</p>
+        <p class="byline"><a rel="author" href="/">$author$</a></p>
         $endif$ $endif$ $if(tags)$
         <p class="byline">Tags: $tags$</p>
         $endif$ $endif$

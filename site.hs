@@ -1,6 +1,7 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 
+import Data.List (isSuffixOf)
 import qualified Data.Map as Map
 import Data.Monoid (mappend)
 import qualified Data.Text as T
@@ -29,6 +30,10 @@ main = hakyll $ do
     route idRoute
     compile copyFileCompiler
 
+  match "_redirects" $ do
+    route idRoute
+    compile copyFileCompiler
+
   match "css/*.css" $ do
     route idRoute
     compile compressCssCompiler
@@ -51,7 +56,7 @@ main = hakyll $ do
       let ctx =
             constField "title" title
               <> listField "posts" (postCtxWithTags tags) (return posts)
-              <> defaultContext
+              <> baseCtx
 
       makeItem ""
         >>= loadAndApplyTemplate "templates/tag.html" ctx
@@ -77,7 +82,7 @@ main = hakyll $ do
       customPandocCompiler False
         >>= return . fmap demoteHeaders
         >>= loadAndApplyTemplate "templates/post.html" postCtx
-        >>= loadAndApplyTemplate "templates/default.html" defaultContext
+        >>= loadAndApplyTemplate "templates/default.html" baseCtx
         >>= relativizeUrls
 
   create ["archive.html"] $ do
@@ -87,7 +92,7 @@ main = hakyll $ do
       let archiveCtx =
             listField "posts" postCtx (return posts)
               `mappend` constField "title" "Archives"
-              `mappend` defaultContext
+              `mappend` baseCtx
       makeItem ""
         >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
         >>= loadAndApplyTemplate "templates/default.html" archiveCtx
@@ -101,13 +106,29 @@ main = hakyll $ do
     route idRoute
     compile (feedCompiler renderRss)
 
+  create ["sitemap.xml"] $ do
+    route idRoute
+    compile $ do
+      posts <- recentFirst =<< loadAll "posts/*"
+      singlePages <-
+        loadAll
+          (fromList ["index.html", "archive.html", "projects.org", "cv.org", "contact.org"])
+      let sitemapCtx =
+            listField
+              "posts"
+              (dateField "isodate" "%Y-%m-%d" <> canonicalCtx <> defaultContext)
+              (return posts)
+              <> listField "pages" (canonicalCtx <> defaultContext) (return singlePages)
+      makeItem ""
+        >>= loadAndApplyTemplate "templates/sitemap.xml" sitemapCtx
+
   match "index.html" $ do
     route idRoute
     compile $ do
       posts <- fmap (take 10) $ recentFirst =<< loadAll "posts/*"
       let indexCtx =
             listField "posts" postCtx (return posts)
-              `mappend` defaultContext
+              `mappend` baseCtx
       getResourceBody
         >>= applyAsTemplate indexCtx
         >>= loadAndApplyTemplate "templates/default.html" indexCtx
@@ -119,7 +140,7 @@ main = hakyll $ do
     route idRoute
     compile $
       customPandocCompiler False
-        >>= loadAndApplyTemplate "templates/default.html" defaultContext
+        >>= loadAndApplyTemplate "templates/default.html" baseCtx
 
 --------------------------------------------------------------------------------
 feedConfiguration :: FeedConfiguration
@@ -129,13 +150,37 @@ feedConfiguration =
       feedDescription = "Recent posts",
       feedAuthorName = "Dimitri Lozeve",
       feedAuthorEmail = "dimitri+web@lozeve.com",
-      feedRoot = "https://www.lozeve.com"
+      feedRoot = siteRoot
     }
+
+-- | Canonical origin for the site. Non-www is the canonical host.
+siteRoot :: String
+siteRoot = "https://lozeve.com"
+
+-- | Absolute canonical URL for an item, stripping any trailing "index.html".
+canonicalCtx :: Context String
+canonicalCtx = field "canonical" $ \item -> do
+  mbRoute <- getRoute (itemIdentifier item)
+  return $ case mbRoute of
+    Nothing -> siteRoot ++ "/"
+    Just r -> siteRoot ++ "/" ++ stripIndex r
+  where
+    stripIndex r
+      | "index.html" `isSuffixOf` r =
+          take (length r - length ("index.html" :: String)) r
+      | otherwise = r
+
+-- | Default context plus the canonical URL field.
+baseCtx :: Context String
+baseCtx = canonicalCtx <> defaultContext
 
 postCtx :: Context String
 postCtx =
   dateField "date" "%B %e, %Y"
-    `mappend` defaultContext
+    <> dateField "isodate" "%Y-%m-%d"
+    <> constField "author" "Dimitri Lozeve"
+    <> canonicalCtx
+    <> defaultContext
 
 postCtxWithTags :: Tags -> Context String
 postCtxWithTags tags = tagsField "tags" tags <> postCtx

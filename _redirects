@@ -1,0 +1,2 @@
+# Canonicalize the host: redirect www to the non-www apex domain (301).
+https://www.lozeve.com/* https://lozeve.com/:splat 301
