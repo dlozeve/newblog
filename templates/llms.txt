@@ -1,0 +1,14 @@
+# Dimitri Lozeve
+
+> Personal blog of Dimitri Lozeve, covering mathematics, machine learning, statistics, operations research, data science, and programming languages such as APL, BQN, and Haskell.
+
+## Posts
+
+$for(posts)$- [$title$]($canonical$)$if(date)$ - $date$$endif$
+$endfor$
+## Pages
+
+- [Projects](https://lozeve.com/projects.html)
+- [CV](https://lozeve.com/cv.html)
+- [Contact](https://lozeve.com/contact.html)
+- [Archive of all posts](https://lozeve.com/archive.html)

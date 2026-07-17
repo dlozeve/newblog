@@ -118,6 +118,14 @@ main = hakyll $ do
       makeItem ""
         >>= loadAndApplyTemplate "templates/sitemap.xml" sitemapCtx
 
+  create ["llms.txt"] $ do
+    route idRoute
+    compile $ do
+      posts <- recentFirst =<< loadAll "posts/*"
+      let llmsCtx = listField "posts" postCtx (return posts)
+      makeItem ""
+        >>= loadAndApplyTemplate "templates/llms.txt" llmsCtx
+
   match "index.html" $ do
     route idRoute
     compile $ do
