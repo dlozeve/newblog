@@ -128,6 +128,7 @@ main = hakyll $ do
       posts <- fmap (take 10) $ recentFirst =<< loadAll "posts/*"
       let indexCtx =
             listField "posts" postCtx (return posts)
+              `mappend` constField "homepage" "true"
               `mappend` baseCtx
       getResourceBody
         >>= applyAsTemplate indexCtx
@@ -174,6 +175,29 @@ canonicalCtx = field "canonical" $ \item -> do
 baseCtx :: Context String
 baseCtx = canonicalCtx <> defaultContext
 
+-- | Minimal JSON string escaping for values interpolated into JSON-LD.
+escapeJson :: String -> String
+escapeJson = concatMap esc
+  where
+    esc '"' = "\\\""
+    esc '\\' = "\\\\"
+    esc '\n' = "\\n"
+    esc '\r' = "\\r"
+    esc '\t' = "\\t"
+    esc c = [c]
+
+-- | Expose a metadata field, JSON-escaped, under a new name (fails if absent).
+jsonField :: String -> String -> Context String
+jsonField name metaKey = field name $ \item -> do
+  mv <- getMetadataField (itemIdentifier item) metaKey
+  maybe (noResult ("no metadata field " ++ metaKey)) (return . escapeJson) mv
+
+-- | JSON-escaped fields used inside the JSON-LD structured data block.
+jsonCtx :: Context String
+jsonCtx =
+  jsonField "title_json" "title"
+    <> jsonField "description_json" "description"
+
 postCtx :: Context String
 postCtx =
   dateField "date" "%B %e, %Y"
@@ -181,6 +205,7 @@ postCtx =
     <> constField "author" "Dimitri Lozeve"
     <> canonicalCtx
     <> defaultContext
+    <> jsonCtx
 
 postCtxWithTags :: Tags -> Context String
 postCtxWithTags tags = tagsField "tags" tags <> postCtx

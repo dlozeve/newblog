@@ -59,6 +59,64 @@
       content="https://lozeve.com/web-app-manifest-512x512.png"
     />
 
+    <!-- Structured data (JSON-LD) -->
+    $if(isodate)$
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "$title_json$",
+        "url": "$canonical$",
+        "mainEntityOfPage": "$canonical$",
+        "datePublished": "$isodate$",
+        $if(description_json)$"description": "$description_json$",$endif$
+        "image": "https://lozeve.com/web-app-manifest-512x512.png",
+        "inLanguage": "en",
+        "author": {
+          "@type": "Person",
+          "@id": "https://lozeve.com/#person",
+          "name": "$author$",
+          "url": "https://lozeve.com/"
+        },
+        "publisher": {
+          "@type": "Person",
+          "@id": "https://lozeve.com/#person",
+          "name": "Dimitri Lozeve",
+          "url": "https://lozeve.com/"
+        }
+      }
+    </script>
+    $endif$ $if(homepage)$
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://lozeve.com/#person",
+            "name": "Dimitri Lozeve",
+            "url": "https://lozeve.com/",
+            "image": "https://lozeve.com/web-app-manifest-512x512.png",
+            "sameAs": [
+              "https://mathstodon.xyz/@dlzv",
+              "https://www.linkedin.com/in/dimitrilozeve",
+              "https://github.com/dlozeve"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://lozeve.com/#website",
+            "url": "https://lozeve.com/",
+            "name": "Dimitri Lozeve",
+            "description": "Dimitri Lozeve's blog",
+            "inLanguage": "en",
+            "publisher": { "@id": "https://lozeve.com/#person" }
+          }
+        ]
+      }
+    </script>
+    $endif$
+
     <meta name="fediverse:creator" content="@dlzv@mathstodon.xyz" />
 
     <link rel="stylesheet" href="/css/fonts.css" />
