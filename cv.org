@@ -10,9 +10,12 @@ title: "Curriculum Vitæ"
 ** [[https://www.doctrine.fr][Doctrine]]: Engineering Manager
    November 2023--present
 
-   Reinventing the way legal professionals work by offering
-   productivity tools that simplify the analysis and drafting of
-   private legal documents.
+   - Developed [[https://www.doctrine.fr/produit/litigate][Flow Litigate]], a new line of product using AI to
+     accelerate work on litigation, reaching 5M€ ARR in less than 2
+     years
+   - Built and scaled a multidisciplinary squad of 10 people
+   - Participated in product discovery, in close collaboration with
+     the product manager
 
 ** [[http://www.sysnav.fr/][Sysnav]]: Engineering Manager, Healthcare Algorithms Development
    September 2020--October 2023
