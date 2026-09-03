@@ -7,8 +7,13 @@ title: "Curriculum Vitæ"
 
 * Work experience
 
+** [[https://www.doctrine.fr][Doctrine]]: Head of Engineering
+   September 2026--present
+
+   - Leading 5 squads working on legal AI products across 4 countries
+
 ** [[https://www.doctrine.fr][Doctrine]]: Engineering Manager
-   November 2023--present
+   November 2023--September 2026
 
    - Developed [[https://www.doctrine.fr/produit/litigate][Flow Litigate]], a new line of product using AI to
      accelerate work on litigation, reaching 5M€ ARR in less than 2
