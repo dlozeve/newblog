@@ -18,6 +18,14 @@ import Text.Pandoc.Walk (walkM)
 --------------------------------------------------------------------------------
 main :: IO ()
 main = hakyll $ do
+  match "well-known/*" $ do
+    route $ gsubRoute "well-known/" (const ".well-known/")
+    compile copyFileCompiler
+
+  match "_headers" $ do
+    route idRoute
+    compile copyFileCompiler
+
   match "images/**" $ do
     route idRoute
     compile copyFileCompiler
