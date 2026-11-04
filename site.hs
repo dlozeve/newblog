@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 
-import Data.List (isSuffixOf)
+import Data.List (isPrefixOf, isSuffixOf)
 import qualified Data.Map as Map
 import Data.Monoid (mappend)
 import qualified Data.Text as T
@@ -9,8 +9,8 @@ import Hakyll
 import Hakyll.Core.Compiler.Internal (compilerAsk, compilerProvider)
 import Hakyll.Core.Provider (resourceFilePath)
 import System.Directory (doesFileExist)
-import System.FilePath (normalise, takeBaseName, takeDirectory, takeExtension, (</>))
-import Text.Pandoc
+import System.FilePath (joinPath, normalise, splitDirectories, takeBaseName, takeDirectory, takeExtension, (</>))
+import Text.Pandoc hiding (Template)
 import Text.Pandoc.Shared (stringify)
 import Text.Pandoc.SideNote (usingSideNotes)
 import Text.Pandoc.Walk (walkM)
@@ -104,11 +104,11 @@ main = hakyll $ do
 
   create ["atom.xml"] $ do
     route idRoute
-    compile (feedCompiler renderAtom)
+    compile (feedCompiler renderAtomWithTemplates "templates/atom.xml" "templates/atom-item.xml")
 
   create ["rss.xml"] $ do
     route idRoute
-    compile (feedCompiler renderRss)
+    compile (feedCompiler renderRssWithTemplates "templates/rss.xml" "templates/rss-item.xml")
 
   create ["sitemap.xml"] $ do
     route idRoute
@@ -226,8 +226,35 @@ postCtx =
 postCtxWithTags :: Tags -> Context String
 postCtxWithTags tags = tagsField "tags" tags <> postCtx
 
+-- | The full post body with its URLs resolved to absolute URLs, so that the
+-- content renders correctly inside feed readers. Relative URLs are resolved
+-- against the post's own route (e.g. @../images/foo.png@ in @posts/bar.org@
+-- becomes @https://lozeve.com/images/foo.png@).
+feedContent :: Context String
+feedContent = field "content" $ \item -> do
+  mbRoute <- getRoute (itemIdentifier item)
+  let routeDir = maybe "" takeDirectory mbRoute
+  return $ withUrls (toAbsolute routeDir) (itemBody item)
+  where
+    toAbsolute routeDir url
+      | isExternal url = url
+      | any (`isPrefixOf` url) ["#", "mailto:", "data:", "javascript:", "//"] = url
+      | "/" `isPrefixOf` url = siteRoot ++ url
+      | otherwise = siteRoot ++ "/" ++ resolveUrl routeDir url
+
+-- | Resolve a relative URL against a base directory, collapsing "." and "..".
+resolveUrl :: FilePath -> FilePath -> FilePath
+resolveUrl base rel =
+  joinPath $ foldl step [] (splitDirectories base ++ splitDirectories rel)
+  where
+    step acc "." = acc
+    step acc ".." = dropLast acc
+    step acc seg = acc ++ [seg]
+    dropLast [] = []
+    dropLast xs = init xs
+
 feedCtx :: Context String
-feedCtx = postCtx <> bodyField "description"
+feedCtx = postCtx <> feedContent
 
 -- Pandoc compiler with maths, TOC, sidenotes, and bibliography support --------------------
 customPandocCompiler :: Bool -> Compiler (Item String)
@@ -310,13 +337,16 @@ darkModeImages doc = do
     processInline _ x = return x
 
 type FeedRenderer =
+  Template ->
+  Template ->
   FeedConfiguration ->
   Context String ->
   [Item String] ->
   Compiler (Item String)
 
-feedCompiler :: FeedRenderer -> Compiler (Item String)
-feedCompiler renderer =
-  renderer feedConfiguration feedCtx
-    =<< fmap (take 10) . recentFirst
-    =<< loadAllSnapshots "posts/*" "content"
+feedCompiler :: FeedRenderer -> Identifier -> Identifier -> Compiler (Item String)
+feedCompiler renderer feedTemplateId itemTemplateId = do
+  feedTemplate <- itemBody <$> load feedTemplateId
+  itemTemplate <- itemBody <$> load itemTemplateId
+  items <- fmap (take 10) . recentFirst =<< loadAllSnapshots "posts/*" "content"
+  renderer feedTemplate itemTemplate feedConfiguration feedCtx items

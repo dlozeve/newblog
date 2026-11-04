@@ -1,0 +1,8 @@
+<item>
+    <title>$title$</title>
+    <link>$root$$url$</link>
+    <content:encoded><![CDATA[$content$]]></content:encoded>
+    <pubDate>$published$</pubDate>
+    <guid>$root$$url$</guid>
+    <dc:creator>$authorName$</dc:creator>
+</item>
