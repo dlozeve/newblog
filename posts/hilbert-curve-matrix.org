@@ -1,0 +1,113 @@
+---
+title: "The recursive matrix formula for the Hilbert curve"
+date: 2026-11-04
+description: "An explicit recursive matrix formula for the Hilbert curve, explaining how transposing and rotating quadrants mirror its visual construction, with code in Python."
+tags: maths, linear algebra
+toc: false
+---
+
+The [[https://en.wikipedia.org/wiki/Hilbert_curve][Hilbert curve]] is probably the most famous example of a
+[[https://en.wikipedia.org/wiki/Space-filling_curve][space-filling curve]]: a 1-dimensional curve which can reach every point
+in a 2-dimensional region.
+
+#+ATTR_HTML: :alt Animation of the first 7 iterations of the Hilbert curve.
+[[../images/Hilbert_plasma_aligned.gif]]
+
+The Hilbert curve is useful for mapping algorithms, because it
+provides a nice mapping between 1D and 2D, preserving locality: places
+that are close in 2D space will also be close in the 1D coordinates
+along the Hilbert curve. A nice illustration of this can be found [[https://datascienceconfidential.github.io//r/graphics/2026/10/26/space-filling-curves.html][in
+this blog post]], where they map all battles in Great Britain to display
+a simple 2D chart with the date on the \(y\)-axis and the location on
+the \(x\)-axis.
+
+I knew about the recursive construction of the Hilbert curve, and the
+way to construct it via the [[./lsystems.html][L-system formulation]], but the blog post
+also mentions a way to represent the curve as a single matrix,
+containing numbers from 0 to \(n^2-1\) along the path of the curve.
+
+\[
+\begin{bmatrix}
+   0 &  3 &  4 &  5 & 58 & 59 & 60 & 63 \\
+   1 &  2 &  7 &  6 & 57 & 56 & 61 & 62 \\
+  14 & 13 &  8 &  9 & 54 & 55 & 50 & 49 \\
+  15 & 12 & 11 & 10 & 53 & 52 & 51 & 48 \\
+  16 & 17 & 30 & 31 & 32 & 33 & 46 & 47 \\
+  19 & 18 & 29 & 28 & 35 & 34 & 45 & 44 \\
+  20 & 23 & 24 & 27 & 36 & 39 & 40 & 43 \\
+  21 & 22 & 25 & 26 & 37 & 38 & 41 & 42 \\
+\end{bmatrix}
+\]
+
+How can we build this matrix? The Wikipedia page did not explain this
+and I couldn't find an explicit construction anywhere, so I tried to
+derive it directly.
+
+You start with the base case \(2\times2\) matrix:
+
+\[
+H_1=\begin{bmatrix}0&3\\1&2\end{bmatrix},
+\]
+
+and from the \( k\times k \) matrix you can build the next one as
+follows:
+
+\[
+H_{k+1}=\begin{bmatrix}
+H_k^{\top} & R(H_k^{\top})+3\cdot 4^k\\[4pt]
+H_k+4^k & H_k+2\cdot 4^k
+\end{bmatrix}
+\]
+
+where \(R(M)\) is the matrix \(M\) rotated by 180°.
+
+Intuitively, every matrix \(H_k\) starts at the top-left corner, and
+ends at the top-right corner. For \(H_{k+1}\), we follow the general
+structure of the Hilbert curve (as seen in \(H_1\)):
+1. The top-left quadrant needs to start at the top left, but to end at
+   the bottom left. A good candidate is therefore \(H_k^\top\).
+2. The bottom-left quadrant needs to start at the top-left and end at
+   the top-right. This is just \(H_k\).
+3. The bottom-right quadrant is the same: \(H_k\) again.
+4. The top-right quadrant needs to start at the bottom right, and end
+   at the top right. For this we need to transpose \(H_k\) and then
+   rotate it 180°.
+
+All of this can be implemented in a few lines of Python with Numpy:
+#+begin_src python
+import numpy as np
+
+def hilbert(n):
+    H = np.array([[0, 3], [1, 2]])
+    for k in range(1, n):
+        off = 4**k
+        TL = H.T
+        TR = np.rot90(H.T, 2) + 3 * off
+        BL = H + off
+        BR = H + 2 * off
+        H = np.block([[TL, TR], [BL, BR]])
+    return H
+#+end_src
+
+Or in [[https://mlochbaum.github.io/BQN/try.html#code=SGlsYmVydFJlY+KGkHsKICBvZmbihpDDl8uc4omg8J2VqQogIHRs4oaQ4o2J8J2VqQogIHRy4oaQKOKMveKMvuKliuKNifCdlakpKzPDl29mZgogIGJs4oaQ8J2VqStvZmYKICBicuKGkPCdlakrMsOXb2ZmCiAgKHRs4oi+y5h0ciniiL4oYmziiL7LmGJyKQp9CgpoMeKGkFtbMCwzXSxbMSwyXV0KSGlsYmVydOKGkHtIaWxiZXJ0UmVj4o2fKPCdlaktMSloMX0KCkhpbGJlcnQgMw==][BQN]]:
+#+begin_src bqn
+HilbertRec←{
+  off←×˜≠𝕩
+  tl←⍉𝕩
+  tr←(⌽⌾⥊⍉𝕩)+3×off
+  bl←𝕩+off
+  br←𝕩+2×off
+  (tl∾˘tr)∾(bl∾˘br)
+}
+
+h1←[[0,3],[1,2]]
+Hilbert←{HilbertRec⍟(𝕩-1)h1}
+
+Hilbert 3
+#+end_src
+
+I think for most use cases there are better ways than generating the
+full matrix (there are explicit formulas to convert \((x,y)\)
+coordinates to the index \(d\) on the curve and vice-versa), but I
+found this construction interesting as it clearly mirrors the visual
+construction of the Hilbert curve.
