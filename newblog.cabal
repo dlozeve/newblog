@@ -10,8 +10,10 @@ executable site
                   , directory
                   , filepath
                   , pandoc
+                  -- 0.5.4.2 claims `pandoc < 3.14` but actually needs the 3.13 API;
+                  -- pandoc 3.12.1 pairs with pandoc-lua-engine 0.5.4.1.
+                  , pandoc-lua-engine < 0.5.4.2
                   , pandoc-types
-                  , pandoc-sidenote
                   , text
                   , hakyll >= 4
   ghc-options:      -threaded

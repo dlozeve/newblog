@@ -1,6 +1,7 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 
+import Control.Exception (throwIO)
 import Data.List (isPrefixOf, isSuffixOf)
 import qualified Data.Map as Map
 import Data.Monoid (mappend)
@@ -11,8 +12,10 @@ import Hakyll.Core.Provider (resourceFilePath)
 import System.Directory (doesFileExist)
 import System.FilePath (joinPath, normalise, splitDirectories, takeBaseName, takeDirectory, takeExtension, (</>))
 import Text.Pandoc hiding (Template)
+import Text.Pandoc.Class (runIO)
+import Text.Pandoc.Filter (Environment (..), Filter (..), applyFilters)
+import Text.Pandoc.Lua (getEngine)
 import Text.Pandoc.Shared (stringify)
-import Text.Pandoc.SideNote (usingSideNotes)
 import Text.Pandoc.Walk (walkM)
 
 --------------------------------------------------------------------------------
@@ -289,9 +292,27 @@ customPandocCompiler withTOC =
         writePandocWith (if withTOC then writerOptionsWithTOC else writerOptions)
           <$> ( getResourceBody
                   >>= readPandocBiblio readerOptions csl bib
-                  >>= traverse (return . usingSideNotes)
+                  >>= traverse sidenoteCompiler
                   >>= traverse darkModeImages
               )
+
+-- | Path to the vendored pandoc-sidenote Lua filter, relative to the project
+-- root. Downloaded from https://github.com/jez/pandoc-sidenote.
+sidenoteFilterPath :: FilePath
+sidenoteFilterPath = "filters/pandoc-sidenote.lua"
+
+-- | Convert Pandoc footnotes into Tufte-style sidenotes using the
+-- pandoc-sidenote Lua filter.
+sidenoteCompiler :: Pandoc -> Compiler Pandoc
+sidenoteCompiler doc = unsafeCompiler $ do
+  engine <- getEngine
+  let env =
+        Environment
+          { envReaderOptions = defaultHakyllReaderOptions,
+            envWriterOptions = defaultHakyllWriterOptions
+          }
+  runIO (applyFilters engine env [LuaFilter sidenoteFilterPath] ["html"] doc)
+    >>= either throwIO pure
 
 -- | Replace images with <picture> elements when a "-dark" variant exists on disk.
 -- e.g. images/foo.png will use images/foo-dark.png for dark mode if that file exists.
