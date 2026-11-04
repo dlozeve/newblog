@@ -141,9 +141,14 @@ blockquote footer {
   text-align: right;
 }
 
+/* Text column width. Block-based notes (`{^}` / `{^-}`) are emitted as a
+   block-level div.sidenote-wrapper that would otherwise span the full content
+   width, so it needs the same constraint as a paragraph for the floated note
+   to land in the margin like an inline note (see .sidenote/.marginnote below). */
 section > p,
 section > footer,
-section > table {
+section > table,
+section > div.sidenote-wrapper {
   width: 55%;
 }
 
@@ -212,6 +217,33 @@ img {
   line-height: 1.3;
   vertical-align: baseline;
   position: relative;
+}
+
+/* Block-based notes contain real block elements (paragraphs, code blocks,
+   lists, ...), unlike inline notes. The global text-column sizing of those
+   elements would be wrong inside the narrow note, so reset it to the note's
+   own proportions. */
+.sidenote p,
+.marginnote p {
+  font-size: inherit;
+  line-height: inherit;
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+
+.sidenote pre:not(.sourceCode),
+.marginnote pre:not(.sourceCode),
+.sidenote div.sourceCode,
+.marginnote div.sourceCode {
+  width: auto;
+  margin: 0.5rem 0;
+  padding: 0.6rem;
+}
+
+.sidenote pre > code,
+.marginnote pre > code {
+  width: auto;
+  margin-left: 0;
 }
 
 .sidenote-number {
@@ -343,7 +375,8 @@ label.margin-toggle:not(.sidenote-number) {
   hr,
   section > p,
   section > footer,
-  section > table {
+  section > table,
+  section > div.sidenote-wrapper {
     width: 100%;
   }
 
