@@ -1,7 +1,7 @@
 ---
 title: "Topology from the Kuratowski closure"
 date: 2026-11-30
-description: ""
+description: "Defining topology through the Kuratowski closure operator instead of open sets, proving the two definitions equivalent, and expressing continuity in terms of closeness."
 tags: maths, topology
 toc: true
 ---
@@ -13,7 +13,7 @@ its subsets).
 
 #+attr_html: :id def-topology
 #+begin_definition
-$\mathcal{U} \in \mathcal{P}(X)$ is a /topology/ on $X$, and its
+$\mathcal{U} \subseteq \mathcal{P}(X)$ is a /topology/ on $X$, and its
 elements are called /open sets/, if the following holds:
 - /(i)/ :: The empty set $\emptyset$ and the set $X$ are open,
 - /(ii)/ :: $\mathcal{U}$ is closed under arbitrary unions: for any
@@ -28,49 +28,48 @@ The pair $(X, \mathcal{U})$ is called a /topological space/. A set is
 
 This definition makes sense if you already have an intuition of what
 an open set is, but at first it can seem a little arbitrary: why are
-we allowed any arbitrary unions but only /finite/ intersections? And
-can't we define what an open set /is/ instead of giving properties of
-the set of open sets?
+we allowed arbitrary unions but only /finite/ intersections? And can't
+we define what an open set /is/ instead of giving properties of the
+set of open sets?
 
-* Another way to define closeness: the Kuratowski closure operator
+* Another way to define closure: the Kuratowski closure operator
 
 #+attr_html: :id def-closure
 #+begin_definition
 A /Kuratowski closure operator/ is a function $c : \mathcal{P}(X) \to
 \mathcal{P}(X)$ such that:
-- (a) :: It preserves the empty set: $c(\emptyset) = \emptyset$,
-- (b) :: It is /extensive/: for all $A \subseteq X$, $A \subseteq c(A)$,
-- (c) :: It is /idempotent/: for all $A \subseteq X$, $c(A) = c(c(A))$,
-- (d) :: It preserves unions: for all $A, B \subseteq X$, $c(A \cup B) = c(A) \cup c(B)$.
+- /(a)/ :: It preserves the empty set: $c(\emptyset) = \emptyset$,
+- /(b)/ :: It is /extensive/: for all $A \subseteq X$, $A \subseteq c(A)$,
+- /(c)/ :: It is /idempotent/: for all $A \subseteq X$, $c(A) = c(c(A))$,
+- /(d)/ :: It preserves unions: for all $A, B \subseteq X$, $c(A \cup B) = c(A) \cup c(B)$.
 #+end_definition
 
-Informally, $c(A)$ is the set of points that is "close" to $A$. From
+Informally, $c(A)$ is the set of points that are "close" to $A$. From
 such an operator, we can say that a set $A$ is /closed/ if it is left
 unchanged by $c$, i.e. if $c(A) = A$, and /open/ if its complement is
 closed.
 
-An immediate property of this operator is that it is monotonous for
-set inclusion in $X$, which is consistent with our intuition for
-points that are "close" to the original set:
+An immediate property of this operator is that it is monotone with
+respect to inclusion in $X$, which is consistent with our intuition
+for points that are "close" to the original set:
 
 #+attr_html: :id prop-monotone
 #+begin_proposition
-A Kuratowski closure operator $c$ is monotonous with respect to
+A Kuratowski closure operator $c$ is monotone with respect to
 inclusion: for any $A, B \subseteq X$, if $A \subseteq B$, then $c(A)
 \subseteq c(B)$.
 #+end_proposition
 
 #+begin_proof
 Let $A, B \subseteq X$ such that $A \subseteq B$. We have:
-\[
-\begin{align}
+\begin{align*}
 A \cup B &= B \\
 c(A \cup B) &= c(B)
-\end{align}
-\]
-From property (d) of [[def-closure]]:
+\end{align*}
+
+From property /(d)/ of [[def-closure]]:
 \[ c(A) \cup c(B) = c(B)  \]
-and therefore \( c(A) \subseteq c(B) \).
+and therefore $c(A) \subseteq c(B)$.
 #+end_proof
 
 * Equivalence of definitions
@@ -94,36 +93,36 @@ Let us prove all the properties in [[def-closure]].
 
 $c(\emptyset)$ is the intersection of all closed sets that contain the
 empty set; since the empty set itself is closed, $c(\emptyset) =
-\emptyset$, proving (a).
+\emptyset$, proving /(a)/.
 
-For (b), let $A \subseteq X$. $c(A)$ is the intersection of sets that
+For /(b)/, let $A \subseteq X$. $c(A)$ is the intersection of sets that
 are supersets of $A$, so $A \subseteq c(A)$.
 
-For (c):
+For /(c)/:
 \[ c(c(A)) = \bigcap \left\{ F:\; c(A) \subseteq F, \; F \text{ closed} \right\} \]
 But $c(A)$ itself is closed, so the intersection is $c(A)$ itself and $c(c(A)) = c(A)$.
 
-Let us now turn to (d), proving the equality by proving inclusion in both directions.
+Let us now turn to /(d)/, proving the equality by proving inclusion in both directions.
 \[ c(A \cup B) = \bigcap \left\{ F:\; A \cup B \subseteq F, \; F \text{ closed} \right\} \]
 If $F$ is closed and contains $A \cup B$, it contains $A$ and $B$ as well, so $c(A) \subseteq c(A \cup B)$ and $c(B) \subseteq c(A \cup B)$, and
 \[ c(A) \cup c(B) \subseteq c(A \cup B). \]
 
-Conversely, since $A \subseteq c(A)$ and $B \subseteq c(B)$, we have \[ c(A) \cup c(B) \subseteq c(A) \cup c(B). \]
-Both $c(A)$ and $c(B)$ are closed, so by /(iii)/, $c(A) \cup c(B)$ is closed as well.
+Conversely, since $A \subseteq c(A)$ and $B \subseteq c(B)$, we have \[ A \cup B \subseteq c(A) \cup c(B). \]
+Both $c(A)$ and $c(B)$ are closed, so by /(iii)/ with de Morgan's laws, $c(A) \cup c(B)$ is closed as well.
 Hence $c(A \cup B) \subseteq c(A) \cup c(B)$, completing the equality.
 #+end_proof
 
 ** From Kuratowski closure to topology
 
-#+ATTR_HTML: :id prop-topology
+#+attr_html: :id prop-topology
 #+begin_proposition
 If $c: \mathcal{P}(X) \to \mathcal{P}(X)$ is a Kuratowski closure
 operator, it induces a topology on $X$.
 #+end_proposition
 
 #+begin_proof
-For /(i)/, we can see that $c(\emptyset) = \emptyset$ by (a), and by
-(b), $X \subseteq c(X)$ so $c(X) = X$. Therefore both $\emptyset$ and
+For /(i)/, we can see that $c(\emptyset) = \emptyset$ by /(a)/, and by
+/(b)/, $X \subseteq c(X)$ so $c(X) = X$. Therefore both $\emptyset$ and
 $X$ are closed and both are open.
 
 For /(ii)/, let $(F_i)_{i\in I}$ be a collection of closed sets,
@@ -134,39 +133,37 @@ and by [[prop-monotone]],
 \[ \forall j \in I, c\left( \bigcap_{i\in I} F_i \right) \subseteq c(F_j) \]
 thus
 \[ c\left( \bigcap_{i\in I} F_i \right) \subseteq \bigcap_{i\in I} c(F_i) = \bigcap_{i\in I} F_i. \]
-And by (b),
+And by /(b)/,
 \[ \bigcap_{i\in I} F_i \subseteq c\left( \bigcap_{i\in I} F_i \right), \]
 so $\bigcap_{i\in I} F_i = c\left( \bigcap_{i\in I} F_i \right)$ and the intersection of all $(F_i)_{i\in I}$ is closed.
-Therefore any arbitrary intersection of closed sets is closed, and by de Morgan, any arbitrary union of open sets is open.
+Therefore an arbitrary intersection of closed sets is closed, and by de Morgan, an arbitrary union of open sets is open.
 
-Now we turn to /(iii)/. Let $A, B \subseteq X$ closed. By (d),
-\[
+Now we turn to /(iii)/. Let $A, B \subseteq X$ closed. By /(d)/,
 \begin{align*}
 c(A \cup B) &= c(A) \cup c(B) \\
   &= A \cup B.
 \end{align*}
-\]
 So $A \cup B$ is closed, and any finite union of closed sets is closed, which completes the proof.
 #+end_proof
 
 ** Idempotence
 
 Looking at the proof of [[prop-topology]], we notice that we never used
-property (c) of the Kuratowski closure, the one related to
+property /(c)/ of the Kuratowski closure, the one related to
 idempotence. This is because we don't actually need it to prove the
 equivalence between the Kuratowski closure axioms and the topology
 axioms!
 
-It is usually present in the list because it matches nicely our
-intuition about "closeness". Without the idempotence axiom, the
-operator is called a [[https://en.wikipedia.org/wiki/Preclosure_operator][preclosure operator]] or Čech closure operator.
+It is usually present in the list because it matches our intuition
+nicely about "closeness". Without the idempotence axiom, the operator
+is called a [[https://en.wikipedia.org/wiki/Preclosure_operator][preclosure operator]] or Čech closure operator.
 
 So if we start from the open sets definition of a topology
 ([[def-topology]]), the natural closure operator associated with it will
 be idempotent.
 
 On the other hand, we can take a preclosure operator ([[def-closure]]
-without (c) idempotence) and define a valid topology (such a space
+without /(c)/ idempotence) and define a valid topology (such a space
 with a non-idempotent closure operator is called a [[https://en.wikipedia.org/wiki/Pretopological_space][pretopological
 space]]). Of course we can now take this topology and define a new
 closure operator which will be idempotent!
@@ -180,7 +177,7 @@ of continuity be interpreted in terms of closure operators?
 As a reminder, a function is said to be continuous if the preimage of
 any open set is open:
 
-#+ATTR_HTML: :id def-continuity
+#+attr_html: :id def-continuity
 #+begin_definition
 Let $X$ and $Y$ be topological spaces. A function $f: X \to Y$ is
 /continuous/ if for every open set $U$ in $Y$, $f^{-1}(U)$ is open in
@@ -189,7 +186,7 @@ $X$.
 
 We can now express continuity in terms of closure operators:
 
-#+ATTR_HTML: :id prop-continuity
+#+attr_html: :id prop-continuity
 #+begin_proposition
 Let $X$ and $Y$ be topological spaces, with associated closure
 operators $c_X$ and $c_Y$.
@@ -214,7 +211,7 @@ We have
 \[ f(c(f^{-1}(F))) \subseteq c(f(f^{-1}(F))) \subseteq c(F) = F. \]
 Since every element whose image by $f$ is in $F$, must be in the preimage of $F$,
 \[ c(f^{-1}(F)) \subseteq f^{-1}(F), \]
-and by (b), $f^{-1}(F) \subseteq c(f^{-1}(F))$, so
+and by /(b)/, $f^{-1}(F) \subseteq c(f^{-1}(F))$, so
 \[ f^{-1}(F) = c(f^{-1}(F)), \]
-and $F$ is closed. Therefore $f$ is continuous.
+and $f^{-1}(F)$ is closed. Therefore $f$ is continuous.
 #+end_proof
