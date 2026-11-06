@@ -293,8 +293,21 @@ customPandocCompiler withTOC =
           <$> ( getResourceBody
                   >>= readPandocBiblio readerOptions csl bib
                   >>= traverse sidenoteCompiler
+                  >>= traverse numberedEnvsCompiler
                   >>= traverse darkModeImages
               )
+
+-- | Apply a single Lua filter to a Pandoc document.
+applyLuaFilter :: FilePath -> Pandoc -> Compiler Pandoc
+applyLuaFilter path doc = unsafeCompiler $ do
+  engine <- getEngine
+  let env =
+        Environment
+          { envReaderOptions = defaultHakyllReaderOptions,
+            envWriterOptions = defaultHakyllWriterOptions
+          }
+  runIO (applyFilters engine env [LuaFilter path] ["html"] doc)
+    >>= either throwIO pure
 
 -- | Path to the vendored pandoc-sidenote Lua filter, relative to the project
 -- root. Downloaded from https://github.com/jez/pandoc-sidenote.
@@ -304,15 +317,16 @@ sidenoteFilterPath = "filters/pandoc-sidenote.lua"
 -- | Convert Pandoc footnotes into Tufte-style sidenotes using the
 -- pandoc-sidenote Lua filter.
 sidenoteCompiler :: Pandoc -> Compiler Pandoc
-sidenoteCompiler doc = unsafeCompiler $ do
-  engine <- getEngine
-  let env =
-        Environment
-          { envReaderOptions = defaultHakyllReaderOptions,
-            envWriterOptions = defaultHakyllWriterOptions
-          }
-  runIO (applyFilters engine env [LuaFilter sidenoteFilterPath] ["html"] doc)
-    >>= either throwIO pure
+sidenoteCompiler = applyLuaFilter sidenoteFilterPath
+
+-- | Path to the Lua filter that numbers theorem-like environments and resolves
+-- references to them.
+numberedEnvsFilterPath :: FilePath
+numberedEnvsFilterPath = "filters/pandoc-numbered-envs.lua"
+
+-- | Number definitions, propositions, etc. and resolve cross-references.
+numberedEnvsCompiler :: Pandoc -> Compiler Pandoc
+numberedEnvsCompiler = applyLuaFilter numberedEnvsFilterPath
 
 -- | Replace images with <picture> elements when a "-dark" variant exists on disk.
 -- e.g. images/foo.png will use images/foo-dark.png for dark mode if that file exists.
