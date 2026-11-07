@@ -3,8 +3,8 @@ title: "Peano Axioms"
 date: 2019-03-18
 description: "A walk through the Peano axioms, deriving the natural numbers and proving properties of addition to show they form a commutative monoid."
 tags: maths, foundations
-toc: true
 ---
+#+TOC:
 
 * Introduction
 

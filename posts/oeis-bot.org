@@ -3,7 +3,6 @@ title: "A Mastodon bot for interesting integer sequences"
 date: 2026-02-14
 description: "Building a Mastodon bot in Rust that posts a random interesting integer sequence from the OEIS every few hours to make its entries more discoverable."
 tags: maths, programming, project, mastodon
-toc: false
 ---
 
 A few days ago I stumbled into the [[https://oeis.org/][OEIS]] again via their [[https://oeis.org/OEIS_pics.html][pictures

@@ -3,7 +3,6 @@ title: "Learning some Lie theory for fun and profit"
 date: 2020-11-14
 description: "An accessible introduction to Lie theory, explaining Lie groups and algebras through rotations and quaternions, with applications to estimation and robotics."
 tags: maths, linear algebra, dynamical systems
-toc: false
 ---
 
 [fn::{-} The phrase "for fun and profit" seems to be a pretty old

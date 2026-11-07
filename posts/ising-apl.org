@@ -4,8 +4,8 @@ date: 2018-03-05
 description: "A step-by-step implementation of a Metropolis-Hastings Ising model simulation in Dyalog APL, explaining each array-based function in the terse code."
 tags: ising simulation montecarlo apl
 tags: apl, statistics, visualization
-toc: true
 ---
+#+TOC:
 
 * The APL family of languages
 

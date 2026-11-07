@@ -3,7 +3,6 @@ title: "Language models are injective and hence invertible"
 date: 2025-11-25
 description: "How a recent paper proves Transformer language models are injective as functions from prompts to activations, and can be inverted to reconstruct inputs."
 tags: paper, machine learning
-toc: false
 ---
 
 

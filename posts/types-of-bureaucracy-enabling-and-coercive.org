@@ -3,10 +3,8 @@ title: "Two Types of Bureaucracy: Enabling and Coercive"
 date: 2026-05-27
 description: "A summary of Adler and Borys's paper distinguishing enabling from coercive bureaucracy, and the features and factors that drive each form of formalization."
 tags: management, paper
-toc: true
 ---
 
-#+begin_quote
 This post is a summary of a paper by
 [cite/t:@adler1996_two_types_bureauc]. It argues that despite the bad
 reputation of "bureaucracy" in organizations, a set of formal
@@ -14,7 +12,8 @@ procedures can be beneficial. Using a comparison with technology, they
 define two types of formalization, /coercive/ and /enabling/, each
 with their characteristics, and analyze the factors that encourage one
 or the other form.
-#+end_quote
+
+#+TOC:
 
 * Bureaucracy and workflow formalization
 

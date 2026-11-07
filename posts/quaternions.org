@@ -3,7 +3,6 @@ title: "Quaternions: what are they good for?"
 date: 2020-11-09
 description: "What quaternions are and why they are useful for representing rotations, covering their history, conventions, applications, and Lie group structure."
 tags: maths, dynamical systems
-toc: false
 ---
 
 * A bit of history

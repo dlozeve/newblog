@@ -3,7 +3,6 @@ title: "Johnson's Rule: scheduling items in two machines"
 date: 2026-05-19
 description: "Johnson's rule finds the optimal schedule for processing jobs through two machines. An explanation of the method, its intuition, and code in Python and BQN."
 tags: optimization, operations research
-toc: false
 ---
 
 You manage a restaurant that delivers food directly to customers. Each

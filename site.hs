@@ -4,7 +4,7 @@
 import Control.Exception (throwIO)
 import Data.List (isPrefixOf, isSuffixOf)
 import qualified Data.Map as Map
-import Data.Monoid (mappend)
+import Data.Monoid (Any (..), mappend)
 import qualified Data.Text as T
 import Hakyll
 import Hakyll.Core.Compiler.Internal (compilerAsk, compilerProvider)
@@ -16,7 +16,7 @@ import Text.Pandoc.Class (runIO)
 import Text.Pandoc.Filter (Environment (..), Filter (..), applyFilters)
 import Text.Pandoc.Lua (getEngine)
 import Text.Pandoc.Shared (stringify)
-import Text.Pandoc.Walk (walkM)
+import Text.Pandoc.Walk (query, walk, walkM)
 
 --------------------------------------------------------------------------------
 main :: IO ()
@@ -73,10 +73,7 @@ main = hakyll $ do
   match "posts/*" $ do
     route $ setExtension "html"
     compile $
-      do
-        underlying <- getUnderlying
-        toc <- getMetadataField underlying "toc"
-        customPandocCompiler (toc == Just "yes" || toc == Just "true")
+      customPandocCompiler
         >>= return . fmap demoteHeaders
         >>= loadAndApplyTemplate "templates/post.html" (postCtxWithTags tags)
         >>= saveSnapshot "content"
@@ -86,7 +83,7 @@ main = hakyll $ do
   match (fromList ["contact.org", "cv.org", "skills.org", "projects.org"]) $ do
     route $ setExtension "html"
     compile $
-      customPandocCompiler False
+      customPandocCompiler
         >>= return . fmap demoteHeaders
         >>= loadAndApplyTemplate "templates/post.html" postCtx
         >>= loadAndApplyTemplate "templates/default.html" baseCtx
@@ -159,7 +156,7 @@ main = hakyll $ do
   match "404.html" $ do
     route idRoute
     compile $
-      customPandocCompiler False
+      customPandocCompiler
         >>= loadAndApplyTemplate "templates/default.html" baseCtx
 
 --------------------------------------------------------------------------------
@@ -260,8 +257,8 @@ feedCtx :: Context String
 feedCtx = postCtx <> feedContent
 
 -- Pandoc compiler with maths, TOC, sidenotes, and bibliography support --------------------
-customPandocCompiler :: Bool -> Compiler (Item String)
-customPandocCompiler withTOC =
+customPandocCompiler :: Compiler (Item String)
+customPandocCompiler =
   let customExtensions = extensionsFromList [Ext_latex_macros]
       defaultExtensions = writerExtensions defaultHakyllWriterOptions
       newExtensions = defaultExtensions `mappend` customExtensions
@@ -273,29 +270,61 @@ customPandocCompiler withTOC =
       -- below copied from https://www.gwern.net/hakyll.hs
       -- below copied from https://github.com/jaspervdj/hakyll/blob/e8ed369edaae1808dffcc22d1c8fb1df7880e065/web/site.hs#L73 because god knows I don't know what this type bullshit is either:
       -- "When did it get so hard to compile a string to a Pandoc template?"
-      tocTemplate =
+      compileTpl s =
         either error id $
           either (error . show) id $
             runPure $
               runWithDefaultPartials $
-                compileTemplate "" "<div id=\"toc\"><h1>Table of Contents</h1>$toc$</div>\n$body$"
-      writerOptionsWithTOC =
+                compileTemplate "" s
+      tocOnlyTemplate = compileTpl "<div id=\"toc\"><h1>Table of Contents</h1>$toc$</div>"
+      writerOptionsTocOnly =
         writerOptions
           { writerTableOfContents = True,
             writerTOCDepth = 2,
-            writerTemplate = Just tocTemplate -- "<h1>Table of Contents</h1>$toc$\n$body$"
+            writerTemplate = Just tocOnlyTemplate
           }
       readerOptions = defaultHakyllReaderOptions
    in do
         csl <- load $ fromFilePath "bib/chicago-author-date.csl"
         bib <- load $ fromFilePath "bib/bibliography.bib"
-        writePandocWith (if withTOC then writerOptionsWithTOC else writerOptions)
-          <$> ( getResourceBody
-                  >>= readPandocBiblio readerOptions csl bib
-                  >>= traverse sidenoteCompiler
-                  >>= traverse numberedEnvsCompiler
-                  >>= traverse darkModeImages
-              )
+        doc <-
+          getResourceBody
+            >>= readPandocBiblio readerOptions csl bib
+            >>= traverse sidenoteCompiler
+            >>= traverse numberedEnvsCompiler
+            >>= traverse darkModeImages
+        -- A @#+TOC:@ marker places the TOC at that spot in the post, which
+        -- allows e.g. an introductory paragraph before it. Without a marker, no
+        -- table of contents is generated.
+        return $
+          writePandocWith writerOptions $
+            if hasTocMarker (itemBody doc)
+              then insertToc writerOptionsTocOnly doc
+              else doc
+
+-- | The table of contents can be placed explicitly in a post with Org's
+-- @#+TOC:@ keyword (case-insensitive), written where it should appear.
+hasTocMarker :: Pandoc -> Bool
+hasTocMarker = getAny . query (Any . isMarker)
+  where
+    isMarker (RawBlock (Format "org") s) = isTocKeyword s
+    isMarker _ = False
+
+-- | Whether a raw Org block is a @#+TOC:@ keyword. Case-insensitive, and any
+-- trailing arguments (e.g. @#+TOC: headlines 2@) are accepted.
+isTocKeyword :: T.Text -> Bool
+isTocKeyword = T.isPrefixOf "#+TOC:" . T.toUpper . T.stripStart
+
+-- | Replace the TOC marker with the rendered table of contents, computed from
+-- the document's headings with the given writer options.
+insertToc :: WriterOptions -> Item Pandoc -> Item Pandoc
+insertToc tocOptions doc =
+  let tocHtml = T.pack $ itemBody $ writePandocWith tocOptions doc
+   in fmap (walk (replaceWith tocHtml)) doc
+  where
+    replaceWith html (RawBlock (Format "org") s)
+      | isTocKeyword s = RawBlock "html" html
+    replaceWith _ block = block
 
 -- | Apply a single Lua filter to a Pandoc document.
 applyLuaFilter :: FilePath -> Pandoc -> Compiler Pandoc

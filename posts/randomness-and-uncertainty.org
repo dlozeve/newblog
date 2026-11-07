@@ -3,7 +3,6 @@ title: "Randomness and Uncertainty: from random noise to predictable oscillation
 date: 2023-10-20
 description: "Exploring how a differential equation can turn random noise into stable bistable oscillations, replicating Trefethen's experiment in Python with Diffrax."
 tags: diffeq
-toc: false
 ---
 
 This [[https://www.lms.ac.uk/sites/default/files/inline-files/NLMS_505_for%20web.pdf#page=24][article (PDF)]] by Nick Trefethen in the [[https://www.lms.ac.uk/publications/lms-newsletter][/London Mathematical

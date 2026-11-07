@@ -3,7 +3,6 @@ title: "The Bulgarian Solitaire"
 date: 2026-02-08
 description: "A discrete dynamical system on integer partitions that converges to triangular shapes, explained with Young diagrams and simulated in Python and BQN."
 tags: paper, maths, dynamical systems
-toc: false
 ---
 
 Imagine you are the director of a unit in a large company. You have 5

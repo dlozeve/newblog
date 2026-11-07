@@ -3,8 +3,8 @@ title: "Operations Research and Optimization: where to start?"
 date: 2020-05-27
 description: "A guide to getting started in operations research and optimization, with recommended textbooks, online courses, and solvers for modelling and solving problems."
 tags: maths, operations research, optimization, optimal transport
-toc: true
 ---
+#+TOC:
 
 * Introduction
 

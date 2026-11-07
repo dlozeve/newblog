@@ -3,7 +3,6 @@ title: "High reliability organizations"
 date: 2022-06-03
 description: "Notes on high reliability organizations, the five traits that let nuclear plants and air traffic control manage risk, and their relevance to robust AI."
 tags: management, social science
-toc: false
 ---
 
 [cite/t:@dietterich2018_robus_artif_intel_robus_human_organ] is an
@@ -12,6 +11,8 @@ situations require the combined AI and human system to operate as a
 high reliability organization (HRO). Only such an organization can
 have sufficiently strong safety and reliability properties to ensure
 that powerful AI systems will not amplify human mistakes.
+
+#+TOC:
 
 * Reliability and high-reliability organizations
 

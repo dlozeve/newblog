@@ -3,7 +3,6 @@ title: "The recursive matrix formula for the Hilbert curve"
 date: 2026-11-04
 description: "An explicit recursive matrix formula for the Hilbert curve, explaining how transposing and rotating quadrants mirror its visual construction, with code in Python."
 tags: maths, linear algebra
-toc: false
 ---
 
 The [[https://en.wikipedia.org/wiki/Hilbert_curve][Hilbert curve]] [fn:hilbert-curve] is probably the most famous

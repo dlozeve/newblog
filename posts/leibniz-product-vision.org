@@ -3,7 +3,6 @@ title: "Why I built Leibniz: in defense of Gantt charts and project scheduling"
 date: 2026-05-03
 description: "The origin story behind Leibniz, a project scheduling tool, and a defense of Gantt charts done well."
 tags: programming, project
-toc: false
 ---
 
 In the past few months, I have been working on a new project:
