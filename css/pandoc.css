@@ -87,9 +87,11 @@ pre:not(.sourceCode) code {
   }
 }
 
-/* Math formatting */
-.katex {
-  font-size: inherit !important;
+/* Math formatting.
+ * Math is rendered to native MathML at build time; use the vendored STIX Two
+ * Math web font (falls back to the browser's default math font). */
+math {
+  font-family: "STIX Two Math", math;
 }
 
 /* Wrap long URLs in references */

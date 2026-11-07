@@ -265,7 +265,7 @@ customPandocCompiler =
       writerOptions =
         defaultHakyllWriterOptions
           { writerExtensions = newExtensions,
-            writerMathMethod = MathJax ""
+            writerMathMethod = MathML
           }
       -- below copied from https://www.gwern.net/hakyll.hs
       -- below copied from https://github.com/jaspervdj/hakyll/blob/e8ed369edaae1808dffcc22d1c8fb1df7880e065/web/site.hs#L73 because god knows I don't know what this type bullshit is either:

@@ -145,9 +145,11 @@ zero sets:
 Let $\mathcal{U} \subseteq \mathbb{R}^m$ be connected and open,
 and let $f \in C^\omega(\mathcal{U}; \mathbb{R}^n)$.
 If $f \not\equiv \mathbf{0}_n$, then its zero set
+
 \[
 Z(f) := f^{-1}(\{\mathbf{0}_n\}) = \{\mathbf{x} \in \mathcal{U} : f(\mathbf{x}) = \mathbf{0}_n\}
 \]
+
 has Lebesgue measure zero in $\mathbb{R}^m$.
 #+end_proposition
 

@@ -29,3 +29,12 @@
   font-style: italic;
   font-display: swap;
 }
+
+/* Math font for the build-time MathML output (see site.hs).
+ * STIX Two Math, used as published; source and updates:
+ * https://github.com/stipub/stixfonts (currently v2.13b171) */
+@font-face {
+  font-family: "STIX Two Math";
+  src: url("fonts/STIXTwoMath-Regular.woff2") format("woff2");
+  font-display: swap;
+}
