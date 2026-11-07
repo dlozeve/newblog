@@ -62,13 +62,16 @@ inclusion: for any $A, B \subseteq X$, if $A \subseteq B$, then $c(A)
 
 #+begin_proof
 Let $A, B \subseteq X$ such that $A \subseteq B$. We have:
+
 \begin{align*}
 A \cup B &= B \\
 c(A \cup B) &= c(B)
 \end{align*}
 
 From property /(d)/ of [[def-closure]]:
+
 \[ c(A) \cup c(B) = c(B)  \]
+
 and therefore $c(A) \subseteq c(B)$.
 #+end_proof
 
@@ -77,6 +80,7 @@ and therefore $c(A) \subseteq c(B)$.
 ** From topology to Kuratowski closure
 
 If we have a topology for which properties /(i)-(iii)/ of [[def-topology]] hold, we can define an operator $c$ as:
+
 \[ c(A) = \bigcap \left\{ F:\; A \subseteq F, \; F \text{ closed} \right\}. \]
 
 From the definition, it is easy to see that for all $A \subseteq X$,
@@ -100,14 +104,21 @@ are supersets of $A$, so $A \subseteq c(A)$.
 
 For /(c)/:
 \[ c(c(A)) = \bigcap \left\{ F:\; c(A) \subseteq F, \; F \text{ closed} \right\} \]
+
 But $c(A)$ itself is closed, so the intersection is $c(A)$ itself and $c(c(A)) = c(A)$.
 
 Let us now turn to /(d)/, proving the equality by proving inclusion in both directions.
+
 \[ c(A \cup B) = \bigcap \left\{ F:\; A \cup B \subseteq F, \; F \text{ closed} \right\} \]
+
 If $F$ is closed and contains $A \cup B$, it contains $A$ and $B$ as well, so $c(A) \subseteq c(A \cup B)$ and $c(B) \subseteq c(A \cup B)$, and
+
 \[ c(A) \cup c(B) \subseteq c(A \cup B). \]
 
-Conversely, since $A \subseteq c(A)$ and $B \subseteq c(B)$, we have \[ A \cup B \subseteq c(A) \cup c(B). \]
+Conversely, since $A \subseteq c(A)$ and $B \subseteq c(B)$, we have
+
+\[ A \cup B \subseteq c(A) \cup c(B). \]
+
 Both $c(A)$ and $c(B)$ are closed, so by /(iii)/ with de Morgan's laws, $c(A) \cup c(B)$ is closed as well.
 Hence $c(A \cup B) \subseteq c(A) \cup c(B)$, completing the equality.
 #+end_proof
@@ -129,20 +140,26 @@ For /(ii)/, let $(F_i)_{i\in I}$ be a collection of closed sets,
 i.e. for all $i \in I$, $c(F_i) = F_i$.
 Then
 \[ \forall j \in I, \bigcap_{i\in I} F_i \subseteq F_j, \]
+
 and by [[prop-monotone]],
 \[ \forall j \in I, c\left( \bigcap_{i\in I} F_i \right) \subseteq c(F_j) \]
+
 thus
 \[ c\left( \bigcap_{i\in I} F_i \right) \subseteq \bigcap_{i\in I} c(F_i) = \bigcap_{i\in I} F_i. \]
+
 And by /(b)/,
 \[ \bigcap_{i\in I} F_i \subseteq c\left( \bigcap_{i\in I} F_i \right), \]
+
 so $\bigcap_{i\in I} F_i = c\left( \bigcap_{i\in I} F_i \right)$ and the intersection of all $(F_i)_{i\in I}$ is closed.
 Therefore an arbitrary intersection of closed sets is closed, and by de Morgan, an arbitrary union of open sets is open.
 
 Now we turn to /(iii)/. Let $A, B \subseteq X$ closed. By /(d)/,
+
 \begin{align*}
 c(A \cup B) &= c(A) \cup c(B) \\
   &= A \cup B.
 \end{align*}
+
 So $A \cup B$ is closed, and any finite union of closed sets is closed, which completes the proof.
 #+end_proof
 
@@ -192,26 +209,39 @@ Let $X$ and $Y$ be topological spaces, with associated closure
 operators $c_X$ and $c_Y$.
 
 A function $f: X \to Y$ is continuous if, and only if, for all $A
-\subseteq X$, \[ f(c_X(A)) \subseteq c_Y(f(A)). \]
+\subseteq X$,
+
+\[ f(c_X(A)) \subseteq c_Y(f(A)). \]
 #+end_proposition
 
 #+begin_proof
 To simplify the notation, we will denote both $c_X$ and $c_Y$ as $c$.
 
 Assume that $f$ is continuous.
+
 \[ c(f(A)) = \bigcap \left\{ F:\; f(A) \subseteq F, \; F \text{ closed} \right\} \]
+
 Since $f(A) \subseteq c(f(A))$, $A \subseteq f^{-1}(c(f(A)))$.
 Moreover, since $c(f(A))$ is closed and $f$ is continuous, $f^{-1}(c(f(A)))$ is closed. So
+
 \[ c(A) \subseteq f^{-1}(c(f(A))), \]
+
 and by applying $f$ on both sides, 
+
 \[ f(c(A)) \subseteq c(f(A)). \]
 
 Now we show the converse implication. Let $F \subseteq Y$ closed.
 We have
+
 \[ f(c(f^{-1}(F))) \subseteq c(f(f^{-1}(F))) \subseteq c(F) = F. \]
+
 Since every element whose image by $f$ is in $F$, must be in the preimage of $F$,
+
 \[ c(f^{-1}(F)) \subseteq f^{-1}(F), \]
+
 and by /(b)/, $f^{-1}(F) \subseteq c(f^{-1}(F))$, so
+
 \[ f^{-1}(F) = c(f^{-1}(F)), \]
+
 and $f^{-1}(F)$ is closed. Therefore $f$ is continuous.
 #+end_proof
