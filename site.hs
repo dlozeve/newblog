@@ -3,7 +3,7 @@
 
 import Control.Exception (throwIO)
 import Data.Char (isAlphaNum, ord)
-import Data.List (isPrefixOf)
+import Data.List (intercalate, isPrefixOf)
 import qualified Data.Map as Map
 import Data.Monoid (Any (..), mappend)
 import qualified Data.Text as T
@@ -11,7 +11,7 @@ import Hakyll
 import Hakyll.Core.Compiler.Internal (compilerAsk, compilerProvider)
 import Hakyll.Core.Provider (resourceFilePath)
 import System.Directory (doesFileExist)
-import System.FilePath (joinPath, normalise, splitDirectories, takeBaseName, takeDirectory, takeExtension, takeFileName, (</>))
+import System.FilePath (normalise, splitDirectories, takeBaseName, takeDirectory, takeExtension, takeFileName, (</>))
 import Text.Pandoc hiding (Template)
 import Text.Pandoc.Class (runIO)
 import Text.Pandoc.Filter (Environment (..), Filter (..), applyFilters)
@@ -248,14 +248,15 @@ feedContent = field "content" $ \item -> do
   where
     toAbsolute routeDir url
       | isExternal url = url
-      | any (`isPrefixOf` url) ["#", "mailto:", "data:", "javascript:", "//"] = url
+      | hasUrlScheme url = url
+      | "#" `isPrefixOf` url = url
       | "/" `isPrefixOf` url = siteRoot ++ url
       | otherwise = siteRoot ++ "/" ++ resolveUrl routeDir url
 
 -- | Resolve a relative URL against a base directory, collapsing "." and "..".
 resolveUrl :: FilePath -> FilePath -> FilePath
 resolveUrl base rel =
-  joinPath $ foldl step [] (splitDirectories base ++ splitDirectories rel)
+  intercalate "/" $ foldl step [] (splitDirectories base ++ splitDirectories rel)
   where
     step acc "." = acc
     step acc ".." = dropLast acc
