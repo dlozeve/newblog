@@ -2,6 +2,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 import Control.Exception (throwIO)
+import Data.Char (ord)
 import Data.List (isPrefixOf)
 import qualified Data.Map as Map
 import Data.Monoid (Any (..), mappend)
@@ -17,6 +18,7 @@ import Text.Pandoc.Filter (Environment (..), Filter (..), applyFilters)
 import Text.Pandoc.Lua (getEngine)
 import Text.Pandoc.Shared (stringify)
 import Text.Pandoc.Walk (query, walk, walkM)
+import Text.Printf (printf)
 
 --------------------------------------------------------------------------------
 main :: IO ()
@@ -202,7 +204,13 @@ escapeJson = concatMap esc
     esc '\n' = "\\n"
     esc '\r' = "\\r"
     esc '\t' = "\\t"
-    esc c = [c]
+    -- These are safe in JSON but can terminate the surrounding <script> tag.
+    esc '<' = "\\u003c"
+    esc '>' = "\\u003e"
+    esc '&' = "\\u0026"
+    esc c
+      | c < ' ' = printf "\\u%04x" (ord c)
+      | otherwise = [c]
 
 -- | Expose a metadata field, JSON-escaped, under a new name (fails if absent).
 jsonField :: String -> String -> Context String
