@@ -2,7 +2,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 import Control.Exception (throwIO)
-import Data.List (isPrefixOf, isSuffixOf)
+import Data.List (isPrefixOf)
 import qualified Data.Map as Map
 import Data.Monoid (Any (..), mappend)
 import qualified Data.Text as T
@@ -10,7 +10,7 @@ import Hakyll
 import Hakyll.Core.Compiler.Internal (compilerAsk, compilerProvider)
 import Hakyll.Core.Provider (resourceFilePath)
 import System.Directory (doesFileExist)
-import System.FilePath (joinPath, normalise, splitDirectories, takeBaseName, takeDirectory, takeExtension, (</>))
+import System.FilePath (joinPath, normalise, splitDirectories, takeBaseName, takeDirectory, takeExtension, takeFileName, (</>))
 import Text.Pandoc hiding (Template)
 import Text.Pandoc.Class (runIO)
 import Text.Pandoc.Filter (Environment (..), Filter (..), applyFilters)
@@ -180,11 +180,13 @@ canonicalCtx = field "canonical" $ \item -> do
   mbRoute <- getRoute (itemIdentifier item)
   return $ case mbRoute of
     Nothing -> siteRoot ++ "/"
-    Just r -> siteRoot ++ "/" ++ stripIndex r
+    Just r -> siteRoot ++ toUrl (stripIndex r)
   where
     stripIndex r
-      | "index.html" `isSuffixOf` r =
-          take (length r - length ("index.html" :: String)) r
+      | takeFileName r == "index.html" =
+          case takeDirectory r of
+            "." -> ""
+            d -> d ++ "/"
       | otherwise = r
 
 -- | Default context plus the canonical URL field.
