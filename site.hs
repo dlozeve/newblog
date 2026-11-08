@@ -51,7 +51,7 @@ main = hakyll $ do
 
   match "bib/*.csl" $ compile cslCompiler
 
-  tags <- buildTags "posts/*" (fromCapture "tags/*.html")
+  tags <- buildTags "posts/*" (fromCapture "tags/*.html" . slugifyTag)
 
   tagsRules tags $ \tag pattern -> do
     let title = "Posts tagged \"" ++ tag ++ "\""
@@ -173,6 +173,10 @@ feedConfiguration =
 -- | Canonical origin for the site. Non-www is the canonical host.
 siteRoot :: String
 siteRoot = "https://lozeve.com"
+
+-- | Turn a tag name into a URL-safe filename.
+slugifyTag :: String -> String
+slugifyTag = map $ \c -> if c == ' ' then '-' else c
 
 -- | Absolute canonical URL for an item, stripping any trailing "index.html".
 canonicalCtx :: Context String
