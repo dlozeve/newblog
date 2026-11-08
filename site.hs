@@ -51,7 +51,7 @@ main = hakyll $ do
 
   match "bib/*.csl" $ compile cslCompiler
 
-  tags <- buildTags "posts/*" (fromCapture "tags/*.html" . slugifyTag)
+  tags <- buildTags postsPattern (fromCapture "tags/*.html" . slugifyTag)
 
   tagsRules tags $ \tag pattern -> do
     let title = "Posts tagged \"" ++ tag ++ "\""
@@ -68,7 +68,7 @@ main = hakyll $ do
         >>= loadAndApplyTemplate "templates/default.html" ctx
         >>= relativizeUrls
 
-  match "posts/*" $ do
+  match postsPattern $ do
     route $ setExtension "html"
     compile $
       customPandocCompiler
@@ -90,7 +90,7 @@ main = hakyll $ do
   create ["archive.html"] $ do
     route idRoute
     compile $ do
-      posts <- recentFirst =<< loadAll "posts/*"
+      posts <- recentFirst =<< loadAll postsPattern
       let archiveCtx =
             listField "posts" postCtx (return posts)
               <> constField "title" "Archives"
@@ -111,7 +111,7 @@ main = hakyll $ do
   create ["sitemap.xml"] $ do
     route idRoute
     compile $ do
-      posts <- recentFirst =<< loadAll "posts/*"
+      posts <- recentFirst =<< loadAll postsPattern
       singlePages <-
         loadAll
           (fromList ["index.html", "archive.html", "projects.org", "cv.org", "contact.org"])
@@ -131,7 +131,7 @@ main = hakyll $ do
   create ["llms.txt"] $ do
     route idRoute
     compile $ do
-      posts <- recentFirst =<< loadAll "posts/*"
+      posts <- recentFirst =<< loadAll postsPattern
       let llmsCtx =
             listField "posts" postCtx (return posts)
               <> constField "siteRoot" siteRoot
@@ -141,7 +141,7 @@ main = hakyll $ do
   match "index.html" $ do
     route idRoute
     compile $ do
-      posts <- fmap (take 10) $ recentFirst =<< loadAll "posts/*"
+      posts <- fmap (take 10) $ recentFirst =<< loadAll postsPattern
       let indexCtx =
             listField "posts" postCtx (return posts)
               <> constField "homepage" "true"
@@ -177,6 +177,10 @@ siteRoot = "https://lozeve.com"
 -- | Turn a tag name into a URL-safe filename.
 slugifyTag :: String -> String
 slugifyTag = map $ \c -> if c == ' ' then '-' else c
+
+-- | All post sources, recursively, excluding generated LaTeX images.
+postsPattern :: Pattern
+postsPattern = "posts/**" .&&. complement "posts/ltximg/**" .&&. complement "posts/*/ltximg/**"
 
 -- | Absolute canonical URL for an item, stripping any trailing "index.html".
 canonicalCtx :: Context String
@@ -454,5 +458,5 @@ feedCompiler :: FeedRenderer -> Identifier -> Identifier -> Compiler (Item Strin
 feedCompiler renderer feedTemplateId itemTemplateId = do
   feedTemplate <- itemBody <$> load feedTemplateId
   itemTemplate <- itemBody <$> load itemTemplateId
-  items <- fmap (take 10) . recentFirst =<< loadAllSnapshots "posts/*" "content"
+  items <- fmap (take 10) . recentFirst =<< loadAllSnapshots postsPattern "content"
   renderer feedTemplate itemTemplate feedConfiguration feedCtx items
