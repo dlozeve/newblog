@@ -267,18 +267,21 @@ resolveUrl base rel =
 feedCtx :: Context String
 feedCtx = postCtx <> feedContent
 
+-- | Writer options shared by the Pandoc writer and the Lua filters, so that
+-- filters see the same @PANDOC_WRITER_OPTIONS@ as the final rendering.
+pandocWriterOptions :: WriterOptions
+pandocWriterOptions =
+  defaultHakyllWriterOptions
+    { writerExtensions =
+        writerExtensions defaultHakyllWriterOptions
+          <> extensionsFromList [Ext_latex_macros],
+      writerMathMethod = MathML
+    }
+
 -- Pandoc compiler with maths, TOC, sidenotes, and bibliography support --------------------
 customPandocCompiler :: Compiler (Item String)
 customPandocCompiler =
-  let customExtensions = extensionsFromList [Ext_latex_macros]
-      defaultExtensions = writerExtensions defaultHakyllWriterOptions
-      newExtensions = defaultExtensions `mappend` customExtensions
-      writerOptions =
-        defaultHakyllWriterOptions
-          { writerExtensions = newExtensions,
-            writerMathMethod = MathML
-          }
-      -- below copied from https://www.gwern.net/hakyll.hs
+  let -- below copied from https://www.gwern.net/hakyll.hs
       -- below copied from https://github.com/jaspervdj/hakyll/blob/e8ed369edaae1808dffcc22d1c8fb1df7880e065/web/site.hs#L73 because god knows I don't know what this type bullshit is either:
       -- "When did it get so hard to compile a string to a Pandoc template?"
       compileTpl s =
@@ -289,7 +292,7 @@ customPandocCompiler =
                 compileTemplate "" s
       tocOnlyTemplate = compileTpl "<div id=\"toc\"><h1>Table of Contents</h1>$toc$</div>"
       writerOptionsTocOnly =
-        writerOptions
+        pandocWriterOptions
           { writerTableOfContents = True,
             writerTOCDepth = 2,
             writerTemplate = Just tocOnlyTemplate
@@ -308,7 +311,7 @@ customPandocCompiler =
         -- allows e.g. an introductory paragraph before it. Without a marker, no
         -- table of contents is generated.
         return $
-          writePandocWith writerOptions $
+          writePandocWith pandocWriterOptions $
             if hasTocMarker (itemBody doc)
               then insertToc writerOptionsTocOnly doc
               else doc
@@ -344,7 +347,7 @@ applyLuaFilter path doc = unsafeCompiler $ do
   let env =
         Environment
           { envReaderOptions = defaultHakyllReaderOptions,
-            envWriterOptions = defaultHakyllWriterOptions
+            envWriterOptions = pandocWriterOptions
           }
   runIO (applyFilters engine env [LuaFilter path] ["html"] doc)
     >>= either throwIO pure
