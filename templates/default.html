@@ -37,7 +37,7 @@
     $endif$
     <meta
       property="og:image"
-      content="https://lozeve.com/web-app-manifest-512x512.png"
+      content="$siteRoot$/web-app-manifest-512x512.png"
     />
     $if(isodate)$
     <meta property="article:published_time" content="$isodate$" />
@@ -56,7 +56,7 @@
     $endif$
     <meta
       name="twitter:image"
-      content="https://lozeve.com/web-app-manifest-512x512.png"
+      content="$siteRoot$/web-app-manifest-512x512.png"
     />
 
     <!-- Structured data (JSON-LD) -->
@@ -70,19 +70,19 @@
         "mainEntityOfPage": "$canonical$",
         "datePublished": "$isodate$",
         $if(description_json)$"description": "$description_json$",$endif$
-        "image": "https://lozeve.com/web-app-manifest-512x512.png",
+        "image": "$siteRoot$/web-app-manifest-512x512.png",
         "inLanguage": "en",
         "author": {
           "@type": "Person",
-          "@id": "https://lozeve.com/#person",
+          "@id": "$siteRoot$/#person",
           "name": "$author$",
-          "url": "https://lozeve.com/"
+          "url": "$siteRoot$/"
         },
         "publisher": {
           "@type": "Person",
-          "@id": "https://lozeve.com/#person",
+          "@id": "$siteRoot$/#person",
           "name": "Dimitri Lozeve",
-          "url": "https://lozeve.com/"
+          "url": "$siteRoot$/"
         }
       }
     </script>
@@ -93,10 +93,10 @@
         "@graph": [
           {
             "@type": "Person",
-            "@id": "https://lozeve.com/#person",
+            "@id": "$siteRoot$/#person",
             "name": "Dimitri Lozeve",
-            "url": "https://lozeve.com/",
-            "image": "https://lozeve.com/web-app-manifest-512x512.png",
+            "url": "$siteRoot$/",
+            "image": "$siteRoot$/web-app-manifest-512x512.png",
             "sameAs": [
               "https://mathstodon.xyz/@dlzv",
               "https://www.linkedin.com/in/dimitrilozeve",
@@ -105,12 +105,12 @@
           },
           {
             "@type": "WebSite",
-            "@id": "https://lozeve.com/#website",
-            "url": "https://lozeve.com/",
+            "@id": "$siteRoot$/#website",
+            "url": "$siteRoot$/",
             "name": "Dimitri Lozeve",
             "description": "Dimitri Lozeve's blog",
             "inLanguage": "en",
-            "publisher": { "@id": "https://lozeve.com/#person" }
+            "publisher": { "@id": "$siteRoot$/#person" }
           }
         ]
       }

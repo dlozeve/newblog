@@ -136,7 +136,9 @@ main = hakyll $ do
     route idRoute
     compile $ do
       posts <- recentFirst =<< loadAll "posts/*"
-      let llmsCtx = listField "posts" postCtx (return posts)
+      let llmsCtx =
+            listField "posts" postCtx (return posts)
+              <> constField "siteRoot" siteRoot
       makeItem ""
         >>= loadAndApplyTemplate "templates/llms.txt" llmsCtx
 
@@ -193,7 +195,7 @@ canonicalCtx = field "canonical" $ \item -> do
 
 -- | Default context plus the canonical URL field.
 baseCtx :: Context String
-baseCtx = canonicalCtx <> defaultContext
+baseCtx = canonicalCtx <> defaultContext <> constField "siteRoot" siteRoot
 
 -- | Minimal JSON string escaping for values interpolated into JSON-LD.
 escapeJson :: String -> String
@@ -232,6 +234,7 @@ postCtx =
     <> canonicalCtx
     <> defaultContext
     <> jsonCtx
+    <> constField "siteRoot" siteRoot
 
 postCtxWithTags :: Tags -> Context String
 postCtxWithTags tags = tagsField "tags" tags <> postCtx
