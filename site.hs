@@ -128,7 +128,7 @@ main = hakyll $ do
       makeItem ""
         >>= loadAndApplyTemplate "templates/sitemap.xml" sitemapCtx
 
-  create ["robots.txt"] $ do
+  match "robots.txt" $ do
     route idRoute
     compile copyFileCompiler
 
