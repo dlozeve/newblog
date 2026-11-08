@@ -4,16 +4,12 @@
 import Control.Exception (throwIO)
 import Data.Char (isAlphaNum, ord)
 import Data.List (intercalate, isPrefixOf)
-import qualified Data.Map as Map
-import Data.Monoid (Any (..), mappend)
+import Data.Monoid (Any (..))
 import qualified Data.Text as T
 import Hakyll
-import Hakyll.Core.Compiler.Internal (compilerAsk, compilerProvider)
-import Hakyll.Core.Provider (resourceFilePath)
 import System.Directory (doesFileExist)
 import System.FilePath (normalise, splitDirectories, takeBaseName, takeDirectory, takeExtension, takeFileName, (</>))
 import Text.Pandoc hiding (Template)
-import Text.Pandoc.Class (runIO)
 import Text.Pandoc.Filter (Environment (..), Filter (..), applyFilters)
 import Text.Pandoc.Lua (getEngine)
 import Text.Pandoc.Shared (stringify)
@@ -67,7 +63,7 @@ main = hakyll $ do
               <> listField "posts" (postCtxWithTags tags) (return posts)
               <> baseCtx
 
-      makeItem ""
+      makeItem ("" :: String)
         >>= loadAndApplyTemplate "templates/tag.html" ctx
         >>= loadAndApplyTemplate "templates/default.html" ctx
         >>= relativizeUrls
@@ -97,9 +93,9 @@ main = hakyll $ do
       posts <- recentFirst =<< loadAll "posts/*"
       let archiveCtx =
             listField "posts" postCtx (return posts)
-              `mappend` constField "title" "Archives"
-              `mappend` baseCtx
-      makeItem ""
+              <> constField "title" "Archives"
+              <> baseCtx
+      makeItem ("" :: String)
         >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
         >>= loadAndApplyTemplate "templates/default.html" archiveCtx
         >>= relativizeUrls
@@ -125,7 +121,7 @@ main = hakyll $ do
               (dateField "isodate" "%Y-%m-%d" <> canonicalCtx <> defaultContext)
               (return posts)
               <> listField "pages" (canonicalCtx <> defaultContext) (return singlePages)
-      makeItem ""
+      makeItem ("" :: String)
         >>= loadAndApplyTemplate "templates/sitemap.xml" sitemapCtx
 
   match "robots.txt" $ do
@@ -139,7 +135,7 @@ main = hakyll $ do
       let llmsCtx =
             listField "posts" postCtx (return posts)
               <> constField "siteRoot" siteRoot
-      makeItem ""
+      makeItem ("" :: String)
         >>= loadAndApplyTemplate "templates/llms.txt" llmsCtx
 
   match "index.html" $ do
@@ -148,8 +144,8 @@ main = hakyll $ do
       posts <- fmap (take 10) $ recentFirst =<< loadAll "posts/*"
       let indexCtx =
             listField "posts" postCtx (return posts)
-              `mappend` constField "homepage" "true"
-              `mappend` baseCtx
+              <> constField "homepage" "true"
+              <> baseCtx
       getResourceBody
         >>= applyAsTemplate indexCtx
         >>= loadAndApplyTemplate "templates/default.html" indexCtx
