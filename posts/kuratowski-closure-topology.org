@@ -5,33 +5,34 @@ description: "Defining topology through the Kuratowski closure operator instead 
 tags: maths, topology
 ---
 
-The notion of "open set" has a canonical set-theoretic definition
-based on their properties under unions and intersections. But there is
-another way to define "open" and "closed", via an /operator/. This
-definition is equivalent to the usual one, and I find that it matches
-our intuition nicely, both for topological spaces and continuity.
+The notion of open set has a classical set-theoretic definition, by
+its properties under unions and intersections. But there is another
+way to define /open/ and /closed/, via an /operator/. This definition
+is equivalent to the usual one, and I find that it matches our
+intuition nicely, both for topological spaces and continuity.
 
-This alternate definition is due to [[https://en.wikipedia.org/wiki/Kazimierz_Kuratowski][Kazimierz Kuratowski]] (1896--1980),
+This alternative definition is due to [[https://en.wikipedia.org/wiki/Kazimierz_Kuratowski][Kazimierz Kuratowski]] (1896--1980),
 a Polish mathematician [fn:kuratowski] who worked mainly on set
 theory, topology, and graph theory.
 
-[fn:kuratowski] {-}
+[fn:kuratowski] {^-}
 #+ATTR_HTML: :width 200px :alt Photograph of Kazimierz Kuratowski in 1959
 [[file:../images/kuratowski/Kazimierz_Kuratowski.jpg]]
 
 Kazimierz Kuratowski in 1959 (from [[https://en.wikipedia.org/wiki/Kazimierz_Kuratowski][Wikipedia]])
 
+
 #+TOC:
 
 * The classical definition of open sets and topology
 
-Let $X$ be a set and $\mathcal{P}(X)$ its power set (the set of all
-its subsets).
+Let $X$ be a set and $\mathcal{P}(X)$ its power set (the set of all subsets
+of $X$).
 
 #+attr_html: :id def-topology
 #+begin_definition
-$\mathcal{U} \subseteq \mathcal{P}(X)$ is a /topology/ on $X$, and its
-elements are called /open sets/, if the following holds:
+A subset $\mathcal{U} \subseteq \mathcal{P}(X)$ is a /topology/ on $X$,
+and its elements are called /open sets/, if the following hold:
 - /(i)/ :: The empty set $\emptyset$ and the set $X$ are open,
 - /(ii)/ :: $\mathcal{U}$ is closed under arbitrary unions: for any
   collection $(U_i)_{i\in I}$ of open sets, $\bigcup_{i\in I} U_i$ is
@@ -43,7 +44,7 @@ The pair $(X, \mathcal{U})$ is called a /topological space/. A set is
 /closed/ if its complement is open.
 #+end_definition
 
-This definition makes sense if you already have an intuition of what
+This definition makes sense if you already have an intuition for what
 an open set is, but at first it can seem a little arbitrary: why are
 we allowed arbitrary unions but only /finite/ intersections? And can't
 we define what an open set /is/ instead of giving properties of the
@@ -51,8 +52,14 @@ set of open sets?
 
 * Another way to define closure: the Kuratowski closure operator
 
-[fn:: {-} [[file:../images/kuratowski/kuratowski_axioms.png]]
+[fn:axioms]
+
+[fn:axioms] {^-}
+#+ATTR_HTML: :width 400px :alt The closure axioms in Kuratowski's original article (in French)
+[[file:../images/kuratowski/kuratowski_axioms.png]]
+
 The closure axioms in Kuratowski's [[https://matwbn.icm.edu.pl/ksiazki/fm/fm3/fm3121.pdf][original article]] (in French)]
+
 
 #+attr_html: :id def-closure
 #+begin_definition
@@ -72,8 +79,8 @@ unchanged by $c$, i.e. if $c(A) = A$, and /open/ if its complement is
 closed.
 
 An immediate property of this operator is that it is monotone with
-respect to inclusion in $X$, which is consistent with our intuition
-for points that are "close" to the original set:
+respect to inclusion in $X$, which is consistent with the intuition
+behind "closeness":
 
 #+attr_html: :id prop-monotone
 #+begin_proposition
@@ -164,18 +171,19 @@ Then
 \[ \forall j \in I, \bigcap_{i\in I} F_i \subseteq F_j, \]
 
 and by [[prop-monotone]],
-\[ \forall j \in I, c\left( \bigcap_{i\in I} F_i \right) \subseteq c(F_j) \]
+\[ \forall j \in I, c\left( \bigcap_{i\in I} F_i \right) \subseteq c(F_j). \]
 
-thus
+Hence
 \[ c\left( \bigcap_{i\in I} F_i \right) \subseteq \bigcap_{i\in I} c(F_i) = \bigcap_{i\in I} F_i. \]
 
-And by /(b)/,
+By /(b)/,
 \[ \bigcap_{i\in I} F_i \subseteq c\left( \bigcap_{i\in I} F_i \right), \]
 
 so $\bigcap_{i\in I} F_i = c\left( \bigcap_{i\in I} F_i \right)$ and the intersection of all $(F_i)_{i\in I}$ is closed.
 Therefore an arbitrary intersection of closed sets is closed, and by de Morgan, an arbitrary union of open sets is open.
 
-Now we turn to /(iii)/. Let $A, B \subseteq X$ closed. By /(d)/,
+Now we turn to /(iii)/ of [[def-topology]]. Let $A, B \subseteq X$ be
+closed. By /(d)/,
 
 \begin{align*}
 c(A \cup B) &= c(A) \cup c(B) \\
@@ -185,7 +193,7 @@ c(A \cup B) &= c(A) \cup c(B) \\
 So $A \cup B$ is closed, and any finite union of closed sets is closed, which completes the proof.
 #+end_proof
 
-** Idempotence
+* Idempotence
 
 Looking at the proof of [[prop-topology]], we notice that we never used
 property /(c)/ of the Kuratowski closure, the one related to
@@ -203,15 +211,15 @@ be idempotent.
 
 On the other hand, we can take a preclosure operator ([[def-closure]]
 without /(c)/ idempotence) and define a valid topology (such a space
-with a non-idempotent closure operator is called a [[https://en.wikipedia.org/wiki/Pretopological_space][pretopological
-space]]). Of course we can now take this topology and define a new
-closure operator which will be idempotent!
+where the closure operator is not assumed idempotent is called a
+[[https://en.wikipedia.org/wiki/Pretopological_space][pretopological space]]). Of course we can now take this topology and
+define a new closure operator which will be idempotent!
 
 * Continuity
 
-Topological spaces are the natural context in which to define the
-notion of continuity. So it is natural to ask: how can the definition
-of continuity be interpreted in terms of closure operators?
+Topological spaces are the natural context in which to define
+continuity. So it is natural to ask: how does the definition translate
+in terms of closure operators?
 
 As a reminder, a function is said to be continuous if the preimage of
 any open set is open:
@@ -223,7 +231,9 @@ Let $X$ and $Y$ be topological spaces. A function $f: X \to Y$ is
 $X$.
 #+end_definition
 
-We can now express continuity in terms of closure operators:
+We can now express continuity in terms of closure operators: a
+continuous function maps points /close/ to $A$ to points close to
+$f(A)$.
 
 #+attr_html: :id prop-continuity
 #+begin_proposition
@@ -252,12 +262,14 @@ and by applying $f$ on both sides,
 
 \[ f(c(A)) \subseteq c(f(A)). \]
 
-Now we show the converse implication. Let $F \subseteq Y$ closed.
-We have
+Now we show the converse implication. Recall that $f$ is continuous if
+and only if the preimage of every closed set is closed. Let $F
+\subseteq Y$ closed. We have
 
 \[ f(c(f^{-1}(F))) \subseteq c(f(f^{-1}(F))) \subseteq c(F) = F. \]
 
-Since every element whose image by $f$ is in $F$, must be in the preimage of $F$,
+Since every element of $c(f^{-1}(F))$ has its image by $f$ in $F$, it
+belongs to $f^{-1}(F)$, so
 
 \[ c(f^{-1}(F)) \subseteq f^{-1}(F), \]
 
