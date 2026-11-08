@@ -82,7 +82,7 @@ main = hakyll $ do
         >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
         >>= relativizeUrls
 
-  match (fromList ["contact.org", "cv.org", "skills.org", "projects.org"]) $ do
+  match (fromList ["contact.org", "cv.org", "projects.org"]) $ do
     route $ setExtension "html"
     compile $
       customPandocCompiler
