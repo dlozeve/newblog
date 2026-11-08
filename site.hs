@@ -51,6 +51,10 @@ main = hakyll $ do
 
   match "bib/*.csl" $ compile cslCompiler
 
+  -- Lua filter sources are read by Pandoc outside the Hakyll store, so compile
+  -- them here to make them explicit dependencies of the documents using them.
+  match "filters/*.lua" $ compile getResourceBody
+
   tags <- buildTags postsPattern (fromCapture "tags/*.html" . slugifyTag)
 
   tagsRules tags $ \tag pattern -> do
@@ -350,15 +354,19 @@ insertToc tocOptions doc =
 
 -- | Apply a single Lua filter to a Pandoc document.
 applyLuaFilter :: FilePath -> Pandoc -> Compiler Pandoc
-applyLuaFilter path doc = unsafeCompiler $ do
-  engine <- getEngine
-  let env =
-        Environment
-          { envReaderOptions = defaultHakyllReaderOptions,
-            envWriterOptions = pandocWriterOptions
-          }
-  runIO (applyFilters engine env [LuaFilter path] ["html"] doc)
-    >>= either throwIO pure
+applyLuaFilter path doc = do
+  -- Make the filter file a dependency so that editing it invalidates the
+  -- compiled document.
+  _ <- load (fromFilePath path) :: Compiler (Item String)
+  unsafeCompiler $ do
+    engine <- getEngine
+    let env =
+          Environment
+            { envReaderOptions = defaultHakyllReaderOptions,
+              envWriterOptions = pandocWriterOptions
+            }
+    runIO (applyFilters engine env [LuaFilter path] ["html"] doc)
+      >>= either throwIO pure
 
 -- | Path to the vendored pandoc-sidenote Lua filter, relative to the project
 -- root. Downloaded from https://github.com/jez/pandoc-sidenote.
