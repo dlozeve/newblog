@@ -151,7 +151,8 @@ main = hakyll $ do
         >>= loadAndApplyTemplate "templates/default.html" indexCtx
         >>= relativizeUrls
 
-  match "templates/*" $ compile templateBodyCompiler
+  match ("templates/*" .&&. complement "templates/*~") $
+    compile templateBodyCompiler
 
   match "404.html" $ do
     route idRoute
