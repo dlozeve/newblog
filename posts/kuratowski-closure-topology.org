@@ -279,3 +279,17 @@ and by /(b)/, $f^{-1}(F) \subseteq c(f^{-1}(F))$, so
 
 and $f^{-1}(F)$ is closed. Therefore $f$ is continuous.
 #+end_proof
+
+* Conclusion
+
+What I find most interesting about this alternative formalization of a
+topology is that it is easy to see which axioms are essential and
+which are not: we have seen that idempotence is not actually needed to
+recover a topology from the closure axioms.
+
+We have also seen that axiom /(d)/ (preservation of unions) implies
+monotonicity ([[prop-monotone]]). If we replace axiom /(d)/ with
+monotonicity itself, we end up with a [[https://en.wikipedia.org/wiki/Closure_operator][closure operator]], whose
+instances include convex hulls, linear spans, and algebraic
+closures. Among all closure operators, topologies are identified by
+the preservation of unions.
