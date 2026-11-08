@@ -2,7 +2,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 import Control.Exception (throwIO)
-import Data.Char (ord)
+import Data.Char (isAlphaNum, ord)
 import Data.List (isPrefixOf)
 import qualified Data.Map as Map
 import Data.Monoid (Any (..), mappend)
@@ -367,6 +367,15 @@ numberedEnvsFilterPath = "filters/pandoc-numbered-envs.lua"
 numberedEnvsCompiler :: Pandoc -> Compiler Pandoc
 numberedEnvsCompiler = applyLuaFilter numberedEnvsFilterPath
 
+-- | Whether a URL starts with a URI scheme (e.g. "mailto:", "data:").
+hasUrlScheme :: String -> Bool
+hasUrlScheme s =
+  case span (/= ':') s of
+    (scheme, ':' : _) -> not (null scheme) && all isSchemeChar scheme
+    _ -> False
+  where
+    isSchemeChar c = isAlphaNum c || c `elem` ("+-." :: String)
+
 -- | Replace images with <picture> elements when a "-dark" variant exists on disk.
 -- e.g. images/foo.png will use images/foo-dark.png for dark mode if that file exists.
 -- Resolves relative paths (like ../images/foo.png) from the source file's directory.
@@ -376,11 +385,14 @@ darkModeImages doc = do
   let srcDir = takeDirectory srcPath
   walkM (processInline srcDir) doc
   where
-    processInline srcDir img@(Image (_, _, kvs) inlines (url, _title))
-      | not ("http" `T.isPrefixOf` url) = do
+    processInline srcDir img@(Image (ident, classes, kvs) inlines (url, title))
+      | not (isExternal (T.unpack url)) && not (hasUrlScheme (T.unpack url)) = do
           let urlStr = T.unpack url
-              -- Resolve relative to the source file's directory
-              resolved = normalise (srcDir </> urlStr)
+              -- Resolve paths relative to the source file's directory, unless
+              -- the image is already rooted at the site root.
+              resolved
+                | "/" `isPrefixOf` urlStr = normalise (drop 1 urlStr)
+                | otherwise = normalise (srcDir </> urlStr)
               dir = takeDirectory resolved
               base = takeBaseName resolved
               ext = takeExtension resolved
@@ -395,6 +407,19 @@ darkModeImages doc = do
               alt = case T.unpack (stringify inlines) of
                 "" -> maybe "" T.unpack (lookup "alt" kvs)
                 s -> s
+              titleText = case lookup "title" kvs of
+                Just t | T.null title -> t
+                _ -> title
+              attrs =
+                [("src", urlStr), ("alt", alt)]
+                  ++ [("title", T.unpack titleText) | not (T.null titleText)]
+                  ++ [("id", T.unpack ident) | not (T.null ident)]
+                  ++ [("class", T.unpack (T.intercalate " " classes)) | not (null classes)]
+                  ++ [ (T.unpack k, T.unpack v)
+                       | (k, v) <- kvs,
+                         k `notElem` ["alt", "src", "title", "id", "class"]
+                     ]
+              renderAttr (k, v) = k ++ "=\"" ++ escapeHtml v ++ "\""
           darkExists <- unsafeCompiler $ doesFileExist darkPath
           if darkExists
             then
@@ -403,8 +428,8 @@ darkModeImages doc = do
                   T.pack $
                     concat
                       [ "<picture>",
-                        "<source srcset=\"", darkUrl, "\" media=\"(prefers-color-scheme: dark)\">",
-                        "<img src=\"", urlStr, "\" alt=\"", alt, "\">",
+                        "<source srcset=\"", escapeHtml darkUrl, "\" media=\"(prefers-color-scheme: dark)\">",
+                        "<img ", unwords (map renderAttr attrs), ">",
                         "</picture>"
                       ]
             else return img
