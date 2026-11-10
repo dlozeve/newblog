@@ -1,6 +1,6 @@
 ---
 title: "Topology from the Kuratowski closure"
-date: 2026-11-30
+date: 2026-11-10
 description: "Defining topology through the Kuratowski closure operator instead of open sets, proving the two definitions equivalent, and expressing continuity in terms of closeness."
 tags: maths, topology
 ---
